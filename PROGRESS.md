@@ -57,22 +57,32 @@ moverlo a "Hecho" en el mismo PR, editando solo las líneas de ese ítem
 
 ## Pendientes (priorizados)
 
-Los ítems #59 a #67 responden a los mensajes del profesor del 2026-11-02
+Los ítems #59 a #68 y #69 a #75 (auditoría N.º 4) responden a los mensajes del profesor del 2026-11-02
 al 2026-11-13: GitHub al día para la revisión final de Walmart el
 2026-11-16, entrega del MVP al cliente esa misma semana y entrega final
 de la Fase 2 el 2026-11-20 a las 12:00 (ver "Próximos hitos" en
 `docs/curso.md`). Los cuatro siguientes responden al mensaje de la
 semana 8, y los demás hasta el #39, al del 2026-10-16.
 
-- [ ] **#59** (dueño: Francisco) Subir la versión del detector con mejor
-      precisión que tiene en su PC: compartir los pesos por Drive (no se
-      versionan), registrar sus métricas en `docs/test-plan.md` y en
-      `PROGRESS.md` (contra `yolo26s-finetune`) y abrir los PR de sus
-      ramas `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`
-      (#58), subidas el 2026-11-09 desde un PC de Duoc con la identidad
-      "AO-Alumno": antes de commitear en esos PC, `git config user.name`
-      y `user.email` con su cuenta, o no le cuentan en GitHub. Antes del
-      2026-11-16 (revisión de Walmart).
+- [x] **#59** (dueño: Francisco) Subir al repositorio el mejor modelo del
+      detector que tiene el equipo. Hecho (2026-11-14, PR #86):
+      `weights/yolo26s-finetune.pt` (20 MB; mAP50 0.854 / R 0.809 en las 12
+      fotos de Kaggle, contra 0.713 / 0.644 de `yolo26s`; ver DET-07 en
+      `docs/test-plan.md`) con excepción en `.gitignore`. Quedó por decisión de
+      Francisco, que cambia la regla de "los pesos no se versionan": parte
+      de SKU-110K (licencia académica y no comercial) y el repo es público.
+      La segunda corrida (`yolo26s-finetune2`: mAP50 0.834 / 0.823 / 0.805)
+      se descartó. En este PC no hay un modelo entrenado con ruido de
+      cámara: los PR de `feat/ruido-camara` (#55) y
+      `feat/camara-sala-simulada`, y las métricas de ese modelo, siguen en
+      #68.
+- [ ] **#68** (dueño: Francisco) Lo que #59 no cubrió: abrir los PR de
+      `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`, subidas el
+      2026-11-09 desde un PC de Duoc con la identidad "AO-Alumno" (antes de
+      commitear en esos PC, `git config user.name` y `user.email` con su
+      cuenta, o no le cuentan en GitHub), y registrar en `docs/test-plan.md`
+      y aquí las métricas del modelo con ruido contra `yolo26s-finetune`.
+      Antes del 2026-11-16 (revisión de Walmart).
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
@@ -120,6 +130,41 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
 - [ ] **#67** Hojas semanales del Excel "RESUMEN Estado de Avance Casos
       de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive
       compartido con el profesor) y su versión para la entrega final.
+
+- [ ] **#69** Evidencias que faltan (Reporte de Auditoría N.º 4,
+      2026-10-25): `Sandoval_Francisco_1.3_APT122_AutoevaluacionFase1.docx`
+      (Fase 1, individuales), `Sandoval_Francisco_2.1_APT122_DiarioReflexionFase2.docx`
+      (Fase 2, individuales; cruza con #37) y `Presentación Proyecto.pptx`
+      (Fase 1, grupal: hoy hay un `Presentación Idea de Proyecto.docx` con
+      otro nombre y formato). "Fase 1/" no se modifica: solo se agregan los
+      archivos que faltan, y el nombre de la presentación se confirma con el
+      profesor.
+- [ ] **#70** README (auditoría N.º 4: 6 de 7 elementos, falta
+      "tecnologías"): sección explícita de Tecnologías (Python, Django,
+      OpenCV, YOLO26/Ultralytics, SQLite, Docker, GitHub Actions, Pytest) y
+      un manual técnico completo (hoy solo hay una guía de instalación); el
+      auditor también detectó por el README React, Angular, Flask, FastAPI y
+      Node.js, que no se usan: aclarar que son alternativas descartadas.
+- [ ] **#71** Metodología ágil documentada (auditoría N.º 4: faltan
+      metodología declarada y justificada, Product Backlog, Sprint Backlog,
+      Definition of Done y retrospectivas, y el alcance MVP de la guía 1.5).
+      Se suma a #63 (épicas, sprints e H.U): `PROGRESS.md` hace de
+      backlog pero el auditor no lo reconoce por nombre. Definition of Done
+      desde las reglas de `CLAUDE.md`; el alcance MVP va aquí, no en `Fase 1/`.
+- [ ] **#72** Documento de requisitos no funcionales (auditoría N.º 4: no
+      existe): umbral de alerta y precisión del detector, tiempo de análisis,
+      seguridad (#50, #51, #57), licencias de datos, profundidad fija de 25
+      cm y despliegue en Docker y CITT, cada uno medible y con cómo se verifica.
+- [ ] **#73** Diagramas UML de clases, secuencia (análisis de una foto) y
+      componentes (auditoría N.º 4: solo hay casos de uso y arquitectura).
+      Fuente Mermaid junto a los demás diagramas. Cruza con #64 (actividad).
+- [ ] **#74** `docker-compose.yml` (auditoría N.º 4: Docker 3 de 4): servicio
+      `web` con el `Dockerfile`, volumen `/data`, `.env.example` y puerto
+      8000; documentar `docker compose up` en el README.
+- [ ] **#75** Documento de Innovación (auditoría N.º 4: solo se menciona
+      en la Fase 1): qué aporta frente a la auditoría manual de góndolas, el
+      enfoque híbrido OpenCV + YOLO26, la ROI automática y los niveles
+      híbridos, con las métricas medidas.
 
 - [x] **#27** (dueño: Francisco) Informe de estado de avance para el
       profesor, con los puntos que pidió su correo de la semana 7. Ya
