@@ -1,0 +1,29 @@
+flowchart LR
+    subgraph Cliente
+        NAV[Navegador web]
+    end
+
+    subgraph Docker["Contenedor Docker (docker-compose.yml)"]
+        subgraph WEB["web/ (Django 6.1 y gunicorn)"]
+            VIS[Vistas, formularios y plantillas]
+            MOD[Modelos: User, Analysis, Config, Camera]
+        end
+        subgraph PIPE["src/ (pipeline)"]
+            PRE["preprocessing/ (OpenCV)"]
+            MDL["models/ (YOLO26 Ultralytics)"]
+            POST["postprocessing/ (disponibilidad y alerta)"]
+            REP["reporting/ (vista anotada, Excel, CSV y PDF)"]
+            RUN[pipeline.py: run_image]
+        end
+        VOL[("Volumen /data: SQLite, fotos y best.pt")]
+    end
+
+    NAV -->|HTTPS| VIS
+    VIS --> MOD
+    VIS -->|run_image| RUN
+    RUN --> PRE --> MDL --> POST --> REP
+    MOD --> VOL
+    MDL -->|pesos| VOL
+    VIS -->|reportes| REP
+
+    CI[GitHub Actions: pytest y docker build] -.->|valida| Docker
