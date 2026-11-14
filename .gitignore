@@ -39,6 +39,7 @@ data/processed/*
 
 # --- Checkpoints y pesos de modelos (YOLO26 / PyTorch / ONNX) ---
 *.pt
+!weights/yolo26s-finetune.pt
 *.onnx
 *.pth
 *.weights
