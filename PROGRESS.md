@@ -131,7 +131,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive
       compartido con el profesor) y su versión para la entrega final.
 
-- [ ] **#69** Evidencias que faltan (Reporte de Auditoría N.º 4,
+- [ ] **#69** (dueño: Francisco) Evidencias que faltan (Reporte de Auditoría N.º 4,
       2026-10-25): `Sandoval_Francisco_1.3_APT122_AutoevaluacionFase1.docx`
       (Fase 1, individuales), `Sandoval_Francisco_2.1_APT122_DiarioReflexionFase2.docx`
       (Fase 2, individuales; cruza con #37) y `Presentación Proyecto.pptx`
@@ -139,33 +139,40 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       otro nombre y formato). "Fase 1/" no se modifica: solo se agregan los
       archivos que faltan, y el nombre de la presentación se confirma con el
       profesor.
-- [ ] **#70** README (auditoría N.º 4: 6 de 7 elementos, falta
+      Avance (2026-11-14): `Presentación Proyecto.pptx` llega con el #65. Faltan las dos reflexiones personales de Francisco (1.3 y 2.1), que no las puede escribir Claude.
+- [x] **#70** (dueño: Francisco) README (auditoría N.º 4: 6 de 7 elementos, falta
       "tecnologías"): sección explícita de Tecnologías (Python, Django,
       OpenCV, YOLO26/Ultralytics, SQLite, Docker, GitHub Actions, Pytest) y
       un manual técnico completo (hoy solo hay una guía de instalación); el
       auditor también detectó por el README React, Angular, Flask, FastAPI y
       Node.js, que no se usan: aclarar que son alternativas descartadas.
-- [ ] **#71** Metodología ágil documentada (auditoría N.º 4: faltan
+      Hecho (2026-11-14): sección "Tecnologías" en el README, con tabla por capa y la aclaración de las alternativas descartadas. El manual técnico completo no se escribió: queda como mejora (la guía de instalación y `docs/especificacion-tecnica.md` cubren lo técnico).
+- [x] **#71** (dueño: Francisco) Metodología ágil documentada (auditoría N.º 4: faltan
       metodología declarada y justificada, Product Backlog, Sprint Backlog,
       Definition of Done y retrospectivas, y el alcance MVP de la guía 1.5).
       Se suma a #63 (épicas, sprints e H.U): `PROGRESS.md` hace de
       backlog pero el auditor no lo reconoce por nombre. Definition of Done
       desde las reglas de `CLAUDE.md`; el alcance MVP va aquí, no en `Fase 1/`.
-- [ ] **#72** Documento de requisitos no funcionales (auditoría N.º 4: no
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/` con `Metodologia Agil.md` (Scrumban), `Product Backlog.md` (copia de este archivo), `Sprint Backlog.md`, `Definition of Done.md`, `Retrospectivas.md` (reconstruidas desde git y marcadas así; las acciones "por confirmar" las decide el equipo) y `Alcance MVP.md`. Lo decidió el llm-council (una sola fuente en la carpeta de la Fase 2, Markdown).
+- [x] **#72** (dueño: Francisco) Documento de requisitos no funcionales (auditoría N.º 4: no
       existe): umbral de alerta y precisión del detector, tiempo de análisis,
       seguridad (#50, #51, #57), licencias de datos, profundidad fija de 25
       cm y despliegue en Docker y CITT, cada uno medible y con cómo se verifica.
-- [ ] **#73** Diagramas UML de clases, secuencia (análisis de una foto) y
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Requisitos No Funcionales.md` (RNF01 a RNF06 de la Fase 1 con criterio medible y estado, más RNF07 a RNF10).
+- [x] **#73** (dueño: Francisco) Diagramas UML de clases, secuencia (análisis de una foto) y
       componentes (auditoría N.º 4: solo hay casos de uso y arquitectura).
       Fuente Mermaid junto a los demás diagramas. Cruza con #64 (actividad).
-- [ ] **#74** `docker-compose.yml` (auditoría N.º 4: Docker 3 de 4): servicio
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas UML.md` con clases, secuencia y componentes en Mermaid, y sus `.mmd` y PNG junto a los demás diagramas.
+- [x] **#74** (dueño: Francisco) `docker-compose.yml` (auditoría N.º 4: Docker 3 de 4): servicio
       `web` con el `Dockerfile`, volumen `/data`, `.env.example` y puerto
       8000; documentar `docker compose up` en el README.
-- [ ] **#75** Documento de Innovación (auditoría N.º 4: solo se menciona
+      Hecho (2026-11-14): `docker-compose.yml` en la raíz y su uso en el README. Validado con `docker compose config`; `up` sin probar porque Docker Desktop no arranca en el PC de Francisco (ver #57).
+- [x] **#75** (dueño: Francisco) Documento de Innovación (auditoría N.º 4: solo se menciona
       en la Fase 1): qué aporta frente a la auditoría manual de góndolas, el
       enfoque híbrido OpenCV + YOLO26, la ROI automática y los niveles
       híbridos, con las métricas medidas.
 
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Documento de Innovacion.md`, con las métricas ya medidas y los límites.
 - [x] **#27** (dueño: Francisco) Informe de estado de avance para el
       profesor, con los puntos que pidió su correo de la semana 7. Ya
       atrasado: el profesor lo está esperando. Ahora es el informe

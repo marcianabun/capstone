@@ -1,0 +1,84 @@
+classDiagram
+    direction TB
+
+    class CorrectedImage {
+        +ndarray image
+        +LensCalibration calibration
+        +to_original_points(points)
+    }
+    class GondolaSegmentation {
+        +PixelBBox roi
+        +ShelfLine[] shelf_lines
+        +PixelBBox[] shelves
+        +bool found
+    }
+    class RoiCrop {
+        +ndarray image
+        +PixelBBox roi
+        +to_original(bbox) BBox
+    }
+    class Detection {
+        +BBox bbox
+        +float score
+        +int class_id
+        +str class_name
+    }
+    class ProductDetector {
+        +detect(image, conf) Detection[]
+    }
+    class GondolaAvailability {
+        +ShelfAvailability[] shelves
+        +float free_fraction
+        +bool critical
+    }
+    class PipelineResult {
+        +tuple image_size
+        +BBox roi
+        +BBox[] products
+        +ShelfResult[] shelves
+        +float free_fraction
+        +bool critical
+        +bool segmentation_found
+        +StageTimes times
+        +to_dict() dict
+    }
+
+    class User {
+        +str email
+        +int failed_logins
+        +datetime locked_until
+        +role() str
+    }
+    class Analysis {
+        +datetime created_at
+        +str pasillo
+        +str gondola
+        +str photo_name
+        +float free_fraction
+        +bool critical
+        +JSON result
+        +File annotated
+        +str estado
+        +datetime estado_at
+    }
+    class Config {
+        +int umbral
+    }
+    class Camera {
+        +str nombre
+        +str pasillo
+        +str gondola
+        +JSON calibracion
+    }
+
+    CorrectedImage ..> GondolaSegmentation : segment_gondola()
+    GondolaSegmentation ..> RoiCrop : crop_roi()
+    ProductDetector ..> Detection : produce
+    RoiCrop ..> ProductDetector : imagen recortada
+    Detection ..> GondolaAvailability : compute_availability()
+    GondolaAvailability ..> PipelineResult : informa
+    PipelineResult ..> Analysis : to_dict() en result
+    User "1" --> "*" Analysis : created_by
+    User "0..1" --> "*" Analysis : taken_by
+    Config ..> PipelineResult : umbral de alerta
+    Camera ..> CorrectedImage : calibración de lente

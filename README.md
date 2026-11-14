@@ -97,6 +97,22 @@ La interfaz va después del pipeline: Walmart pidió priorizar que la lógica fu
 * **Código de Producción**: Desarrollo exclusivo en scripts modulares de Python (`.py`), descartando notebooks para la ejecución core.
 * **Aplicación web con Django** (decidido 2026-10-18, ítem #28): el diagrama de la Fase 1 proponía una API FastAPI/Flask con JWT y un frontend React. Se eligió Django con SQLite y páginas generadas en el servidor porque trae ya probados el login, los roles (grupos), el hash de contraseñas (bcrypt, como pedía el diseño), la protección CSRF, el ORM y las migraciones: el equipo no escribe a mano código de seguridad. Un frontend aparte (React) duplicaba el trabajo y sumaba Node al CI y a Docker para una interfaz que Walmart considera opcional. Se mantienen los módulos del diseño: backend Python, RBAC, base de datos relacional y vistas por perfil. En vez de JWT se usa la sesión de Django (cookie firmada, `HttpOnly`): CU06 pide invalidar al instante las sesiones de un usuario desactivado, y un JWT no se puede revocar antes de que expire. La app solo llama a `run_image()` de `src/pipeline.py`, como `scripts/run_pipeline.py`: no toca las etapas.
 
+### Tecnologías
+
+| Capa | Tecnología | Para qué |
+| --- | --- | --- |
+| Lenguaje | Python 3.13 | Todo el código es `.py` modular (sin notebooks) |
+| Pre-procesamiento | OpenCV 4 y NumPy | Dewarping, CLAHE, segmentación de góndola y recorte de ROI |
+| Detección | YOLO26 (Ultralytics 8.4) sobre PyTorch | Detector de productos, con cabeza sin NMS |
+| Reportes | openpyxl, fpdf2 y csv | Excel, PDF y CSV |
+| App web | Django 6.1, bcrypt, Pillow, WhiteNoise, gunicorn | Login, roles, análisis, alertas y reportes |
+| Base de datos | SQLite (la que trae Django) | Usuarios, análisis, alertas, cámaras y configuración |
+| Pruebas | pytest y pytest-django | `pytest tests/` sin datos, pesos ni GPU |
+| Despliegue | Docker y Docker Compose | `Dockerfile` y `docker-compose.yml` en la raíz |
+| Integración continua | GitHub Actions | Pruebas y `docker build` en cada PR |
+
+React, Angular, Flask, FastAPI y Node.js no se usan: son alternativas de la Fase 1 que se descartaron (ver la decisión de la app web con Django, arriba). Versiones exactas: `requirements.txt`.
+
 ### Flujo de una foto
 
 ```mermaid
@@ -228,14 +244,17 @@ Al 2026-10-20. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS
 │   ├── Evidencias Individuales/  # Diario de reflexión (2.1) de cada integrante
 │   ├── Evidencias Grupales/      # Guías 2.4 y 2.6, informe intermedio y formativa
 │   └── Evidencias Proyecto/
-│       ├── Evidencias de documentación/  # Diseño (C.U, diagramas, mockups), Gestion (Gantt, riesgos, RACI, actas) y manuales de usuario
+│       ├── Evidencias de documentación/  # Diseño (C.U, diagramas UML, requisitos no funcionales, innovación, mockups), Gestion (metodología ágil, backlogs, Definition of Done, retrospectivas, alcance MVP, Gantt, riesgos, RACI, actas) y manuales de usuario
 │       └── Evidencias de sistema/        # Aplicación (el código está en src/ y web/) y Base de datos (modelos y diccionario)
 ├── Dockerfile              # Imagen de la app web y del pipeline (python:3.13-slim-trixie)
+├── docker-compose.yml      # Levanta la app web con `docker compose up --build`
 ├── CLAUDE.md               # Memoria de proyecto y reglas de código para IA
 ├── PROGRESS.md             # Bitácora de tareas por sprint
 ├── README.md               # Documentación principal del repositorio
 └── requirements.txt        # Dependencias del proyecto
 ```
+
+**Documentos de gestión y diseño (auditoría)**: [Metodología ágil](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Metodologia Agil.md>), [Product Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Product Backlog.md>), [Sprint Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Sprint Backlog.md>), [Definition of Done](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Definition of Done.md>), [Retrospectivas](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Retrospectivas.md>), [Alcance MVP](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Alcance MVP.md>), [Requisitos no funcionales](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Requisitos No Funcionales.md>), [Diagramas UML](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas UML.md>) y [Documento de innovación](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Documento de Innovacion.md>).
 
 ### Configuración de un entorno nuevo
 
@@ -463,6 +482,8 @@ docker run --rm -v "$(pwd)/fotos:/app/fotos" -v "$(pwd)/data/processed/training:
 # (copiar best.pt a ./web-data/); sin ese volumen se pierden al recrear el contenedor:
 docker run -d -p 8000:8000 -v "$(pwd)/web-data:/data" -e DJANGO_SECRET_KEY=<clave-larga-al-azar> -e DJANGO_HTTPS=0   -e DJANGO_ALLOWED_HOSTS=localhost,<host-del-servidor> --name shelfvision shelfvision-ai
 docker exec -it shelfvision python manage.py createsuperuser
+# Lo mismo con Docker Compose (docker-compose.yml): DJANGO_SECRET_KEY en el entorno o en un .env
+docker compose up --build -d
 # Pruebas dentro del contenedor (tests/ no se copia a la imagen, se monta):
 docker run --rm -e DJANGO_SECRET_KEY=prueba -v "$(pwd)/tests:/app/tests" shelfvision-ai python -m pytest tests/
 ```
