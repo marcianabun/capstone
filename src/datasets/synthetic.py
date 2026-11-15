@@ -134,10 +134,10 @@ def degrade(image: np.ndarray, rng: np.random.Generator) -> tuple[np.ndarray, np
                     (int(width * rng.uniform(0.1, 0.3)), int(height * rng.uniform(0.1, 0.3))),
                     rng.uniform(0, 180), 0, 360, 1, -1)
         blend((255, 255, 255), mask, rng.uniform(0.3, 0.6))
-    if rng.random() < 0.4:  # desenfoque de foco
-        out = cv2.GaussianBlur(out, (0, 0), rng.uniform(1, 3))
-    elif rng.random() < 0.3:  # desenfoque de movimiento
-        size = int(rng.integers(5, 15))
+    if rng.random() < 0.4:  # desenfoque de foco (hasta sigma 5: DET-09)
+        out = cv2.GaussianBlur(out, (0, 0), rng.uniform(1, 5))
+    elif rng.random() < 0.3:  # desenfoque de movimiento (hasta 31 px: DET-09)
+        size = int(rng.integers(5, 32))
         kernel = np.zeros((size, size), np.float32)
         kernel[size // 2] = 1 / size
         out = cv2.filter2D(out, -1, kernel)

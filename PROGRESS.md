@@ -129,6 +129,20 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       foco con sigma 5 queda al borde (0.712). Sensor, JPEG, poca luz y baja
       resolución casi no afectan; la oclusión resta ~0.035. Siguiente paso, si
       se quiere más robustez: sumar desenfoque más fuerte al entrenamiento.
+- [x] **#79** (dueño: Francisco) Entrenar con desenfoque más fuerte (pedido de
+      Francisco, 2026-11-15): DET-09 (#78) mostró que el detector solo cae
+      bajo mAP50 0.70 con desenfoque de movimiento de 31 px (0.577) y al
+      borde con desenfoque de foco sigma 5 (0.712). `degrade()` llega a sigma
+      3 y a 14 px, así que el entrenamiento nunca vio eso: se sube a sigma 5
+      y 31 px, y se reentrena como `yolo26s-finetune-ruido-v3` con 2 copias con
+      ruido por vista. Se compara contra `yolo26s-finetune` en DET-09 y en
+      DET-08.
+      **Hecho (2026-11-15)**: `yolo26s-finetune-ruido-v3` (30 épocas) mejora
+      todas las filas de DET-09: desenfoque de foco sigma 5 de 0.712 a 0.756
+      y de movimiento de 31 px de 0.577 a 0.647 (sigue bajo 0.70); limpias
+      0.844 contra 0.836 y SKU-110K `test` 0.935 contra 0.940. Detalle en
+      DET-10. Cambiar el modelo versionado por este queda a decisión del
+      equipo (otro commit de 20 MB al repo público).
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
