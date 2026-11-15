@@ -166,6 +166,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       #96). Los diagramas UML, `docker-compose.yml` y la sección
       Tecnologías del README calzan con el código. Las reflexiones de
       Francisco no se tocaron (son personales): sus dudas quedan en el PR.
+- [ ] **#82** (dueño: Francisco) Desenfoque de movimiento fuerte (pedido de
+      Francisco, 2026-11-15, tras DET-10): con la v3 el mAP50 con movimiento
+      de 31 px es 0.647, bajo 0.70 (RNF02). `degrade()` solo lo aplicaba
+      cuando no había desenfoque de foco (18 % de las fotos); pasa a
+      aplicarse aparte en el 30 % y hasta 41 px. Reentrenar como
+      `yolo26s-finetune-ruido-v4` y medirlo en DET-09 y DET-08. Si sube de
+      0.70, decidir si reemplaza al versionado.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
