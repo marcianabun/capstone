@@ -20,17 +20,20 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 | App web | Login, usuarios y roles (PR #35); reportes (PR #54); configuración y cámaras (PR #71); dashboard (PR #72); privacidad de fotos (PR #74) | Hecho (ítems #7, #28, #43 a #45) |
 | Auditoría 2026-10-21 | Seguridad, robustez, alertas atómicas, bloqueo de cuenta y limpieza (PR #69, #70, #75, #76, #79, #80, #81) | Hecho (ítems #49 a #54; #57 en curso) |
 | Documentación | Informe intermedio, README, especificación técnica, plan de pruebas, análisis de resultados (PR #17, #34 a #39, #46, #63, #77) | Hecho |
-| Pendiente al cierre | Video de demostración (#36), ruido de cámara de sala (#55, planificado del 2026-10-29 al 2026-11-06), servidor del CITT (#39, bloqueado) | Pasa al Sprint 2 |
+| Pendiente al cierre | Video de demostración (#36), ruido de cámara de sala (#55, planificado del 2026-10-29 al 2026-11-06), servidor del CITT (#39, descartado el 2026-11-15) | Pasa al Sprint 2 |
 
 ## Sprint 2: documentación final y entrega (2026-10-29 a 2026-11-20, en curso)
 
 Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
 
-| Ítem | Descripción | Dueño | Estado (2026-11-14) |
+| Ítem | Descripción | Dueño | Estado (2026-11-15) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
 | #60 | Manuales de usuario por perfil | Mariana | Hecho (PR #83) |
 | #66 | Orden de carpetas según el profesor | Mariana | Hecho (PR #85) |
-| #68 | PR de las ramas de ruido de cámara y sus métricas | Francisco | Pendiente |
+| #55, #58, #68 | Ruido de cámara de sala: PR de las ramas y métricas | Francisco | Hecho (PR #90 y #91) |
+| #76 | Corrección del ruido: cajas tapadas fuera y validación óptico/oclusión | Francisco | Hecho (PR #92) |
+| #77 | Falsa alarma por oclusión en el pipeline | Sin asignar | Pendiente |
+| #78 | Detector por tipo y nivel de ruido | Francisco | En curso |
 | #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
 | #69 a #75 | Hallazgos de la auditoría N.º 4 (evidencias, README, metodología, RNF, UML, docker-compose, innovación) | Francisco | En curso (PR #87 y este trabajo) |

@@ -12,7 +12,7 @@ El MVP es la **solución de Nivel 2** del README ("Objetivos y Niveles de Soluci
 | Reportes | Excel, CSV y PDF por período, pasillo o góndola | CU04 |
 | Configuración | Umbral de alerta y cámaras | CU05 |
 | Usuarios y roles | Login, CRUD de usuarios y perfiles Reponedor, Jefe de Salón y Administrador, con bloqueo de cuenta tras intentos fallidos | CU00, CU06 |
-| Despliegue | Docker y Docker Compose; instalación en el servidor del CITT pendiente de instrucciones | - |
+| Despliegue | Docker y Docker Compose; instalación en el servidor del CITT descartada (2026-11-15) | - |
 
 ## Qué queda fuera del MVP
 
