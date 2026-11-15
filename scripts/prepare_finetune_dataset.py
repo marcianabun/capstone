@@ -7,7 +7,10 @@ no se modifica: solo se enlaza). Validacion: 12 fotos de Kaggle separadas
 por foto, de frente y giradas, en carpetas por angulo para medir cada una
 con `train_detector.py val --data data-<angulo>.yaml`. Las mismas 12 fotos
 degradadas con degrade() (otra semilla que el entrenamiento) quedan en
-`val-<angulo>-ruido` y `data-<angulo>-ruido.yaml` (todas juntas: `data-ruido.yaml`).
+`val-<angulo>-optico` (sin nada que tape) o `val-<angulo>-oclusion` (con una
+persona u objeto), sin las cajas tapadas mas de MAX_HIDDEN: `data-ruido.yaml`
+(todas), `data-optico.yaml`, `data-oclusion.yaml` y las de cada angulo
+(`data-<angulo>-ruido.yaml`).
 
 Uso:
     python scripts/prepare_finetune_dataset.py [--sku-images 300]
@@ -29,7 +32,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.datasets.converters import xyxy_to_yolo  # noqa: E402
-from src.datasets.synthetic import degrade, oblique_view  # noqa: E402
+from src.datasets.synthetic import degrade, hidden_fraction, oblique_view  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from prepare_yolo_dataset import IMAGES_ROOT, YOLO_OUT, place_image, read_labels  # noqa: E402
@@ -41,6 +44,7 @@ SKU_CSV = ROOT / "data" / "processed" / "annotations" / "sku110k.csv"
 OUT = YOLO_OUT / "finetune"
 
 MAX_SIDE = 2560
+MAX_HIDDEN = 0.8  # se descartan las cajas tapadas mas de esta fraccion (#76)
 # nombre de la vista -> (giro, giro hacia abajo); mismas vistas que AV-06 de docs/test-plan.md.
 ANGLES = {"f": (0, 0), "y20": (20, -15), "y35": (35, -15)}
 # Frutas y verduras sueltas: fuera del alcance (#34). La 035 repite la 004.
@@ -66,9 +70,19 @@ def views(image: np.ndarray, boxes: np.ndarray, max_side: int = MAX_SIDE) -> lis
 
 def with_noise(views: list, rng: np.random.Generator, copies: int) -> list:
     """Las vistas y, de cada una, `copies` copias con ruido de camara de sala
-    (degrade(), item #55) y las mismas cajas."""
-    return views + [(f"{name}_ruido{i}", degrade(img, rng), boxes)
-                    for name, img, boxes in views for i in range(1, copies + 1)]
+    (degrade(), item #55) con las cajas que la persona u objeto no tapa
+    mas de MAX_HIDDEN (#76)."""
+    out = list(views)
+    for name, img, boxes in views:
+        for i in range(1, copies + 1):
+            noisy, hidden = degrade(img, rng)
+            out.append((f"{name}_ruido{i}", noisy, boxes[hidden_fraction(boxes, hidden) <= MAX_HIDDEN]))
+    return out
+
+
+def noise_kind(hidden: np.ndarray) -> str:
+    """"oclusion" si algo tapa la gondola; si no, solo "optico" (luz, foco, sensor, JPEG)."""
+    return "oclusion" if hidden.any() else "optico"
 
 
 def write_view(image: np.ndarray, boxes: np.ndarray, stem: str, image_dir: Path, label_dir: Path) -> None:
@@ -99,7 +113,7 @@ def main() -> None:
 
     shutil.rmtree(OUT, ignore_errors=True)
     kaggle = read_kaggle()
-    groups = {"train": TRAIN_PHOTOS, **{f"val-{name}{noise}": TEST_PHOTOS for name in ANGLES for noise in ("", "-ruido")}}
+    groups = {"train": TRAIN_PHOTOS, **{f"val-{name}": TEST_PHOTOS for name in ANGLES}}
     for folder in groups:
         (OUT / "images" / folder).mkdir(parents=True)
         (OUT / "labels" / folder).mkdir(parents=True)
@@ -113,7 +127,11 @@ def main() -> None:
                 folder = "train" if split == "train" else f"val-{name}"
                 write_view(img, boxes, f"kaggle_{photo}_{name}", OUT / "images" / folder, OUT / "labels" / folder)
                 if split == "val":
-                    write_view(degrade(img, val_rng), boxes, f"kaggle_{photo}_{name}", OUT / "images" / f"{folder}-ruido", OUT / "labels" / f"{folder}-ruido")
+                    noisy, hidden = degrade(img, val_rng)
+                    noisy_folder = f"{folder}-{noise_kind(hidden)}"
+                    for kind in ("images", "labels"):
+                        (OUT / kind / noisy_folder).mkdir(parents=True, exist_ok=True)
+                    write_view(noisy, boxes[hidden_fraction(boxes, hidden) <= MAX_HIDDEN], f"kaggle_{photo}_{name}", OUT / "images" / noisy_folder, OUT / "labels" / noisy_folder)
 
     sku, _ = read_labels(SKU_CSV)
     chosen = random.Random(0).sample(sorted(sku["train"]), args.sku_images)
@@ -128,10 +146,14 @@ def main() -> None:
         path.write_text("\n".join(lines), encoding="utf-8")
 
     yaml([f"val-{n}" for n in ANGLES], OUT / "data.yaml")
-    yaml([f"val-{n}-ruido" for n in ANGLES], OUT / "data-ruido.yaml")
+    def noisy(angles, kinds) -> list[str]:  # solo las carpetas que quedaron con fotos
+        return [f"val-{n}-{k}" for n in angles for k in kinds if (OUT / "images" / f"val-{n}-{k}").exists()]
+
+    for stem, kinds in (("ruido", ("optico", "oclusion")), ("optico", ("optico",)), ("oclusion", ("oclusion",))):
+        yaml(noisy(ANGLES, kinds), OUT / f"data-{stem}.yaml")
     for name in ANGLES:
         yaml([f"val-{name}"], OUT / f"data-{name}.yaml")
-        yaml([f"val-{name}-ruido"], OUT / f"data-{name}-ruido.yaml")
+        yaml(noisy([name], ("optico", "oclusion")), OUT / f"data-{name}-ruido.yaml")
     print(f"dataset listo: {OUT.relative_to(ROOT).as_posix()} ({len(TRAIN_PHOTOS) * len(ANGLES) * (1 + args.ruido)} vistas Kaggle, {args.ruido} copia(s) con ruido por vista, + {len(chosen)} SKU-110K)")
 
 

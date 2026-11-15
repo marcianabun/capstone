@@ -35,13 +35,22 @@ def test_views_resize_then_rotate_with_boxes(prep):
         assert len(b) == 2 and (b[:, 2] <= img.shape[1] + 1e-6).all()
 
 
-def test_with_noise_keeps_the_views_and_adds_degraded_copies_with_the_same_boxes(prep):
+def test_with_noise_keeps_the_views_and_adds_degraded_copies_without_the_hidden_boxes(prep, monkeypatch):
     image = np.full((200, 300, 3), 128, dtype=np.uint8)
-    boxes = np.array([[10.0, 20.0, 60.0, 90.0]])
+    boxes = np.array([[10.0, 20.0, 60.0, 90.0], [200.0, 20.0, 250.0, 90.0]])
+    hidden = np.zeros((200, 300), bool)
+    hidden[:, :100] = True  # tapa la 1.a caja entera
+    monkeypatch.setattr(prep, "degrade", lambda img, rng: (img + 1, hidden))
     clean = [("f", image, boxes), ("y20", image, boxes)]
     out = prep.with_noise(clean, np.random.default_rng(0), copies=2)
     assert [name for name, _, _ in out] == ["f", "y20", "f_ruido1", "f_ruido2", "y20_ruido1", "y20_ruido2"]
     assert out[:2] == clean
-    assert all((b == boxes).all() for _, _, b in out)
+    assert all(len(b) == 2 for _, _, b in out[:2])  # las vistas limpias conservan todas las cajas
+    assert all((b == boxes[1:]).all() for _, _, b in out[2:])  # las copias con ruido pierden la tapada
     assert not np.array_equal(out[2][1], image)
     assert prep.with_noise(clean, np.random.default_rng(0), copies=0) == clean
+
+
+def test_split_val_noise_separates_images_with_and_without_occluder(prep):
+    assert prep.noise_kind(np.zeros((10, 10), bool)) == "optico"
+    assert prep.noise_kind(np.ones((10, 10), bool)) == "oclusion"

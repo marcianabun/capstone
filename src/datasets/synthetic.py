@@ -98,11 +98,12 @@ def _transform(homography: np.ndarray, points: np.ndarray) -> np.ndarray:
     return cv2.perspectiveTransform(points.reshape(-1, 1, 2).astype(np.float64), homography).reshape(-1, 2)
 
 
-def degrade(image: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+def degrade(image: np.ndarray, rng: np.random.Generator) -> tuple[np.ndarray, np.ndarray]:
     """Foto como la veria una camara fija de sala (item #55): a cada efecto
-    le toca o no, al azar. Las cajas no se mueven, asi que las anotaciones
-    siguen valiendo; lo que tapa un producto lo deja con su caja, para que
-    el detector aprenda a encontrarlo parcialmente visible.
+    le toca o no, al azar. Devuelve la foto y la mascara booleana de lo que
+    tapa la gondola (persona u objeto, casi opacos). Las cajas no se mueven:
+    quien use la foto descarta las que la mascara tapa (`hidden_fraction()`),
+    porque un producto que no se ve no se puede detectar (#76).
 
     Orden: lo que hay en la escena (algo cerca de la camara o una persona
     pasando, reflejo), luego la optica (foco o movimiento), la luz, y al
@@ -110,11 +111,13 @@ def degrade(image: np.ndarray, rng: np.random.Generator) -> np.ndarray:
     """
     height, width = image.shape[:2]
     out = image.astype(np.float32)
+    occluded = np.zeros((height, width), bool)
 
     def blend(color, mask, strength):  # mancha de `color` donde `mask` (0-1)
         nonlocal out
         alpha = (cv2.GaussianBlur(mask, (0, 0), min(height, width) * 0.02) * strength)[..., None]
         out = out * (1 - alpha) + np.array(color, np.float32) * alpha
+        return alpha[..., 0]
 
     if rng.random() < 0.5:  # persona (cabeza y cuerpo) o algo cerca de la camara (caja, carro)
         mask = np.zeros((height, width), np.float32)
@@ -124,7 +127,7 @@ def degrade(image: np.ndarray, rng: np.random.Generator) -> np.ndarray:
             cv2.rectangle(mask, (int(x), int(height * 0.32)), (int(x + w), height), 1, -1)
         else:
             cv2.rectangle(mask, (int(x), int(rng.uniform(0.3, 0.6) * height)), (int(x + 1.8 * w), height), 1, -1)
-        blend(rng.uniform(20, 110, 3), mask, rng.uniform(0.85, 1.0))
+        occluded = blend(rng.uniform(20, 110, 3), mask, rng.uniform(0.85, 1.0)) >= 0.5
     if rng.random() < 0.3:  # reflejo o brillo de una puerta de vidrio
         mask = np.zeros((height, width), np.float32)
         cv2.ellipse(mask, (int(rng.uniform(0, width)), int(rng.uniform(0, height))),
@@ -148,4 +151,14 @@ def degrade(image: np.ndarray, rng: np.random.Generator) -> np.ndarray:
     out = out + rng.normal(0, rng.uniform(2, 12), out.shape)  # ruido del sensor
     noisy = np.clip(out, 0, 255).astype(np.uint8)
     quality = int(rng.integers(20, 70))  # compresion fuerte
-    return cv2.imdecode(cv2.imencode(".jpg", noisy, [cv2.IMWRITE_JPEG_QUALITY, quality])[1], cv2.IMREAD_COLOR)
+    return cv2.imdecode(cv2.imencode(".jpg", noisy, [cv2.IMWRITE_JPEG_QUALITY, quality])[1], cv2.IMREAD_COLOR), occluded
+
+
+def hidden_fraction(boxes: np.ndarray, hidden: np.ndarray) -> np.ndarray:
+    """Fraccion del area de cada caja [x_min, y_min, x_max, y_max] que cubre `hidden` (mascara booleana)."""
+    boxes = np.asarray(boxes, dtype=float).reshape(-1, 4)
+    height, width = hidden.shape
+    ii = np.pad(hidden.astype(np.float64).cumsum(0).cumsum(1), ((1, 0), (1, 0)))  # imagen integral
+    x0, x1 = (np.clip(np.round(boxes[:, i]).astype(int), 0, width) for i in (0, 2))
+    y0, y1 = (np.clip(np.round(boxes[:, i]).astype(int), 0, height) for i in (1, 3))
+    return (ii[y1, x1] - ii[y0, x1] - ii[y1, x0] + ii[y0, x0]) / np.maximum((x1 - x0) * (y1 - y0), 1)

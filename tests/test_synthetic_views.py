@@ -60,16 +60,35 @@ def test_degrade_changes_the_image_but_not_its_shape_and_is_reproducible():
     from src.datasets.synthetic import degrade
 
     image = np.random.default_rng(1).integers(0, 255, (300, 400, 3), dtype=np.uint8)
-    first = degrade(image, np.random.default_rng(7))
+    first, _ = degrade(image, np.random.default_rng(7))
     assert first.shape == image.shape and first.dtype == np.uint8
     assert not np.array_equal(first, image)
-    np.testing.assert_array_equal(first, degrade(image, np.random.default_rng(7)))
-    assert not np.array_equal(first, degrade(image, np.random.default_rng(8)))
+    np.testing.assert_array_equal(first, degrade(image, np.random.default_rng(7))[0])
+    assert not np.array_equal(first, degrade(image, np.random.default_rng(8))[0])
 
 
 def test_degrade_varies_the_brightness_across_seeds():
     from src.datasets.synthetic import degrade
 
     image = np.full((300, 400, 3), 128, dtype=np.uint8)
-    means = [degrade(image, np.random.default_rng(seed)).mean() for seed in range(30)]
+    means = [degrade(image, np.random.default_rng(seed))[0].mean() for seed in range(30)]
     assert min(means) < 100 and max(means) > 140  # de noche y de contraluz
+
+
+def test_degrade_returns_the_mask_of_what_hides_the_shelf():
+    from src.datasets.synthetic import degrade
+
+    image = np.full((300, 400, 3), 128, dtype=np.uint8)
+    masks = [degrade(image, np.random.default_rng(seed))[1] for seed in range(30)]
+    assert all(m.shape == (300, 400) and m.dtype == bool for m in masks)
+    assert any(m.any() for m in masks) and not all(m.any() for m in masks)  # no a todas les toca
+
+
+def test_hidden_fraction_is_the_share_of_each_box_under_the_mask():
+    from src.datasets.synthetic import hidden_fraction
+
+    hidden = np.zeros((100, 200), bool)
+    hidden[:, :100] = True  # mitad izquierda tapada
+    boxes = np.array([[10.0, 10.0, 50.0, 50.0], [80.0, 10.0, 120.0, 50.0], [150.0, 10.0, 190.0, 50.0]])
+    np.testing.assert_allclose(hidden_fraction(boxes, hidden), [1.0, 0.5, 0.0])
+
