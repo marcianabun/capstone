@@ -132,8 +132,13 @@ python scripts/train_detector.py val --weights data/processed/training/yolo26s-f
 `prepare_finetune_dataset.py` suma por defecto una copia con ruido de cámara
 de sala (`degrade()`, ítem #55) de cada vista de entrenamiento
 (`--ruido 0` la quita) y deja las 12 fotos de prueba degradadas en
-`data-ruido.yaml` y `data-{f,y20,y35}-ruido.yaml`. Para el modelo con ruido,
-`--name yolo26s-finetune-ruido` en `finetune` (~25 min); resultados en DET-08.
+`data-ruido.yaml` (todas), `data-optico.yaml` (sin nada que tape),
+`data-oclusion.yaml` (con persona u objeto) y `data-{f,y20,y35}-ruido.yaml`.
+Tanto en entrenamiento como en validación se descartan las cajas que la
+persona u objeto tapa más del 80 % (`MAX_HIDDEN`, #76): un producto que no se
+ve no se puede detectar, y con su caja el modelo aprendía a marcarlo. Para el
+modelo con ruido, `--name yolo26s-finetune-ruido-v2` en `finetune` (~25 min);
+resultados en DET-08.
 
 Son 30 épocas, SGD lr0 0.002 y ~8 min en una RTX 5060. Con más fotos de
 SKU-110K (1500) y lr0 0.0005 (`--lr0`) la mejora fuera de dominio baja y el

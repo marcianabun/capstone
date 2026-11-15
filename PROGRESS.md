@@ -85,6 +85,26 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Antes del 2026-11-16 (revisión de Walmart).
       **Hecho (2026-11-15)**: PR #90 (`feat/camara-sala-simulada`) y este PR
       (`feat/ruido-camara`); métricas en DET-08 y en el ítem #55.
+- [x] **#76** (dueño: Francisco) Corregir el ruido de `degrade()` (#55): la
+      persona u objeto tapaba productos pero dejaba sus cajas, y el modelo
+      aprendía a marcar lo que no se ve (reportado por Francisco,
+      2026-11-15). **Hecho (2026-11-15)**: auditoría con las mismas
+      semillas: la mancha tapa el 9 % de la imagen en las que la tienen (46 %
+      de las de entrenamiento y 36 % de las de validación) y deja tapadas más del
+      80 % al 2.7 % de las cajas de entrenamiento y al 2.2 % de las de
+      validación; esas cajas explican 1.2 de los 5.9 puntos de recall que se
+      pierden con ruido, y el modelo con ruido (v1) acertaba 34 % de ellas
+      contra 14 % del base. Cambios: `degrade()` devuelve también la máscara
+      de lo que tapa, `hidden_fraction()` y `MAX_HIDDEN = 0.8` descartan esas
+      cajas en entrenamiento y validación, y la validación con ruido se separa
+      en óptico (sin oclusión) y oclusión. Reentrenado como
+      `yolo26s-finetune-ruido-v2`: mAP50 con ruido 0.804 (base 0.792; óptico
+      0.823 contra 0.815; oclusión 0.763 contra 0.746), limpias 0.839 y
+      SKU-110K `test` 0.939; solo acierta 11 % de las cajas tapadas. Detalle en
+      DET-08. DET-07 no cambia: usa las validaciones limpias. Se mantiene
+      `yolo26s-finetune` como modelo versionado. Queda fuera: una persona
+      tapando la góndola se mide hoy como espacio libre (falsa alerta); se
+      resolvería en el pipeline detectando la oclusión.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
@@ -506,7 +526,8 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       copia con ruido por vista (`yolo26s-finetune-ruido`, 30 épocas, ~25
       min en la RTX 5060) llega a 0.801 con ruido, 0.840 sin ruido y
       0.939 en SKU-110K `test`. La mejora es chica y sale de 12 fotos:
-      se mantiene `yolo26s-finetune` como modelo versionado. Falta, y
+      se mantiene `yolo26s-finetune` como modelo versionado (cifras corregidas
+      en #76: la validación incluía cajas tapadas). Falta, y
       queda fuera de este ítem: medir por tipo y nivel de ruido, y con una
       cámara real (#24).
 - [ ] **#57** (dueño: Francisco) Auditoría de seguridad por las vulnerabilidades
