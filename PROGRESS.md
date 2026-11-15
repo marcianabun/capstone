@@ -139,7 +139,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       otro nombre y formato). "Fase 1/" no se modifica: solo se agregan los
       archivos que faltan, y el nombre de la presentación se confirma con el
       profesor.
-      Avance (2026-11-14): `Presentación Proyecto.pptx` llega con el #65. Faltan las dos reflexiones personales de Francisco (1.3 y 2.1), que no las puede escribir Claude.
+      Avance (2026-11-14): `Presentación Proyecto.pptx` llega con el #65. Borradores de las dos reflexiones de Francisco puestos en su carpeta (`Fase 1/Evidencias Individuales/Sandoval_Francisco_1.3_...docx` y `Fase 2/Evidencias Individuales/Sandoval_Francisco_2.1_...docx`, con las plantillas oficiales del 2026-11-14). Falta que Francisco los revise y complete lo marcado entre corchetes en el 2.1 (causa de las semanas con poco avance); la presentación llega con el #65.
 - [x] **#70** (dueño: Francisco) README (auditoría N.º 4: 6 de 7 elementos, falta
       "tecnologías"): sección explícita de Tecnologías (Python, Django,
       OpenCV, YOLO26/Ultralytics, SQLite, Docker, GitHub Actions, Pytest) y
