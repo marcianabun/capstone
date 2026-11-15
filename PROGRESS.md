@@ -76,13 +76,15 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       cámara: los PR de `feat/ruido-camara` (#55) y
       `feat/camara-sala-simulada`, y las métricas de ese modelo, siguen en
       #68.
-- [ ] **#68** (dueño: Francisco) Lo que #59 no cubrió: abrir los PR de
+- [x] **#68** (dueño: Francisco) Lo que #59 no cubrió: abrir los PR de
       `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`, subidas el
       2026-11-09 desde un PC de Duoc con la identidad "AO-Alumno" (antes de
       commitear en esos PC, `git config user.name` y `user.email` con su
       cuenta, o no le cuentan en GitHub), y registrar en `docs/test-plan.md`
       y aquí las métricas del modelo con ruido contra `yolo26s-finetune`.
       Antes del 2026-11-16 (revisión de Walmart).
+      **Hecho (2026-11-15)**: PR #90 (`feat/camara-sala-simulada`) y este PR
+      (`feat/ruido-camara`); métricas en DET-08 y en el ítem #55.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
@@ -454,7 +456,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       commit con la versión en un comentario (checkout v7.0.1,
       setup-python v7.1.0, setup-buildx-action v4.4.1 y build-push-action
       v7.4.0).
-- [ ] **#55** Entrenar y medir el detector con ruido visual de cámara de sala
+- [x] **#55** (dueño: Francisco) Entrenar y medir el detector con ruido visual de cámara de sala
       (pedido de Francisco, 2026-10-21): el mismo ruido que produce una
       cámara fija apuntando a una góndola de supermercado. Hoy ni el
       entrenamiento ni las pruebas lo tienen (SKU-110K y Kaggle son fotos
@@ -475,6 +477,38 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       imágenes (licencia). Se cruza con #14 (imágenes tipo CCTV
       sintéticas), #33 y #46; los parámetros reales de la cámara de
       Walmart (#24) afinarían los niveles de ruido.
+      Ampliación (2026-11-09, pedido de Francisco): el objetivo es un
+      modelo más robusto, así que el reentrenamiento con imágenes con ruido
+      se hace siempre (no solo si cae bajo mAP50 0.70) y se mide contra el
+      modelo sin ruido. Sumar a lo simulado: personas pasando (siluetas
+      sintéticas con desenfoque de movimiento), objetos cerca de la cámara
+      (carros, cajas, manos: manchas grandes y desenfocadas que tapan parte
+      de la góndola) y variaciones de luminosidad (día, noche, luz
+      fluorescente, sombras).
+      Avance (2026-11-09): pasos (1) y la generación del (3) hechos:
+      `degrade()` en `src/datasets/synthetic.py` (ruido del sensor, poca
+      luz y contraluz, JPEG, baja resolución, desenfoque de foco y de
+      movimiento, reflejo, persona u objeto que tapa; al azar y con
+      semilla) y `prepare_finetune_dataset.py --ruido N` (default 1) suma
+      N copias con ruido de cada vista de entrenamiento, con las mismas
+      cajas; la validación queda limpia. 3 tests nuevos. Falta: medir el
+      modelo con fotos degradadas (2), entrenar (necesita GPU) y comparar (4).
+      Para retomar: `python scripts/prepare_finetune_dataset.py` (con los
+      datasets de `scripts/download_datasets.py` y
+      `scripts/prepare_datasets.py`) arma el dataset con ruido; entrenar
+      con `docs/training.md`. Para el paso (2), degradar las 12 fotos de
+      prueba con `degrade()` y medir con `train_detector.py val`.
+      **Hecho (2026-11-15)**: `prepare_finetune_dataset.py` arma además
+      las 12 fotos de prueba degradadas (`val-*-ruido`, `data-*-ruido.yaml`,
+      otra semilla que el entrenamiento). Resultado (DET-08 de
+      `docs/test-plan.md`): `yolo26s-finetune` pierde 0.05 de mAP50 con
+      ruido (0.836 -> 0.788, sigue sobre 0.70); el reentrenamiento con una
+      copia con ruido por vista (`yolo26s-finetune-ruido`, 30 épocas, ~25
+      min en la RTX 5060) llega a 0.801 con ruido, 0.840 sin ruido y
+      0.939 en SKU-110K `test`. La mejora es chica y sale de 12 fotos:
+      se mantiene `yolo26s-finetune` como modelo versionado. Falta, y
+      queda fuera de este ítem: medir por tipo y nivel de ruido, y con una
+      cámara real (#24).
 - [ ] **#57** (dueño: Francisco) Auditoría de seguridad por las vulnerabilidades
       de lenguajes y librerías publicadas la semana del 2026-10-19 (pedido
       de Francisco, 2026-10-22). Investigar cuáles afectan a lo que usa el

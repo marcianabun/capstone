@@ -5,7 +5,9 @@ Entrenamiento: 24 fotos de Kaggle supermarket-shelves (CC0) reducidas a
 oblique_view()), y N fotos de SKU-110K `train` para no olvidar (SKU-110K
 no se modifica: solo se enlaza). Validacion: 12 fotos de Kaggle separadas
 por foto, de frente y giradas, en carpetas por angulo para medir cada una
-con `train_detector.py val --data data-<angulo>.yaml`.
+con `train_detector.py val --data data-<angulo>.yaml`. Las mismas 12 fotos
+degradadas con degrade() (otra semilla que el entrenamiento) quedan en
+`val-<angulo>-ruido` y `data-<angulo>-ruido.yaml` (todas juntas: `data-ruido.yaml`).
 
 Uso:
     python scripts/prepare_finetune_dataset.py [--sku-images 300]
@@ -27,7 +29,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.datasets.converters import xyxy_to_yolo  # noqa: E402
-from src.datasets.synthetic import oblique_view  # noqa: E402
+from src.datasets.synthetic import degrade, oblique_view  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from prepare_yolo_dataset import IMAGES_ROOT, YOLO_OUT, place_image, read_labels  # noqa: E402
@@ -62,6 +64,13 @@ def views(image: np.ndarray, boxes: np.ndarray, max_side: int = MAX_SIDE) -> lis
     ]
 
 
+def with_noise(views: list, rng: np.random.Generator, copies: int) -> list:
+    """Las vistas y, de cada una, `copies` copias con ruido de camara de sala
+    (degrade(), item #55) y las mismas cajas."""
+    return views + [(f"{name}_ruido{i}", degrade(img, rng), boxes)
+                    for name, img, boxes in views for i in range(1, copies + 1)]
+
+
 def write_view(image: np.ndarray, boxes: np.ndarray, stem: str, image_dir: Path, label_dir: Path) -> None:
     height, width = image.shape[:2]
     lines = []
@@ -84,20 +93,27 @@ def read_kaggle() -> dict[str, np.ndarray]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--sku-images", type=int, default=300, help="fotos de SKU-110K train para no olvidar")
+    parser.add_argument("--ruido", type=int, default=1, help="copias con ruido de camara de sala de cada vista de entrenamiento (0: ninguna)")
     args = parser.parse_args()
+    rng, val_rng = np.random.default_rng(0), np.random.default_rng(1)
 
     shutil.rmtree(OUT, ignore_errors=True)
     kaggle = read_kaggle()
-    groups = {"train": TRAIN_PHOTOS, **{f"val-{name}": TEST_PHOTOS for name in ANGLES}}
+    groups = {"train": TRAIN_PHOTOS, **{f"val-{name}{noise}": TEST_PHOTOS for name in ANGLES for noise in ("", "-ruido")}}
     for folder in groups:
         (OUT / "images" / folder).mkdir(parents=True)
         (OUT / "labels" / folder).mkdir(parents=True)
     for split, photos in (("train", TRAIN_PHOTOS), ("val", TEST_PHOTOS)):
         for photo in photos:
             image = cv2.imread(str(KAGGLE_IMAGES / "images" / f"{photo}.jpg"))
-            for name, img, boxes in views(image, kaggle[photo]):
+            photo_views = views(image, kaggle[photo])
+            if split == "train":  # la validacion queda limpia: el ruido se mide aparte
+                photo_views = with_noise(photo_views, rng, args.ruido)
+            for name, img, boxes in photo_views:
                 folder = "train" if split == "train" else f"val-{name}"
                 write_view(img, boxes, f"kaggle_{photo}_{name}", OUT / "images" / folder, OUT / "labels" / folder)
+                if split == "val":
+                    write_view(degrade(img, val_rng), boxes, f"kaggle_{photo}_{name}", OUT / "images" / f"{folder}-ruido", OUT / "labels" / f"{folder}-ruido")
 
     sku, _ = read_labels(SKU_CSV)
     chosen = random.Random(0).sample(sorted(sku["train"]), args.sku_images)
@@ -112,9 +128,11 @@ def main() -> None:
         path.write_text("\n".join(lines), encoding="utf-8")
 
     yaml([f"val-{n}" for n in ANGLES], OUT / "data.yaml")
+    yaml([f"val-{n}-ruido" for n in ANGLES], OUT / "data-ruido.yaml")
     for name in ANGLES:
         yaml([f"val-{name}"], OUT / f"data-{name}.yaml")
-    print(f"dataset listo: {OUT.relative_to(ROOT).as_posix()} ({len(TRAIN_PHOTOS) * 3} vistas Kaggle + {len(chosen)} SKU-110K)")
+        yaml([f"val-{name}-ruido"], OUT / f"data-{name}-ruido.yaml")
+    print(f"dataset listo: {OUT.relative_to(ROOT).as_posix()} ({len(TRAIN_PHOTOS) * len(ANGLES) * (1 + args.ruido)} vistas Kaggle, {args.ruido} copia(s) con ruido por vista, + {len(chosen)} SKU-110K)")
 
 
 if __name__ == "__main__":
