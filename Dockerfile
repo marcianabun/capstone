@@ -30,7 +30,7 @@ COPY src/ ./src/
 COPY scripts/ ./scripts/
 COPY web/ ./web/
 COPY manage.py pytest.ini ./
-COPY weights/yolo26s-finetune-ruido-v3.pt ./weights/
+COPY weights/yolo26s-finetune-ruido-v3.pt weights/yolo26n.pt ./weights/
 
 # Sin privilegios: la app no necesita root. Solo /data (el volumen) es escribible;
 # -m crea un HOME donde ultralytics guarda su configuracion.

@@ -19,6 +19,7 @@ def cli(monkeypatch):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     monkeypatch.setattr(module, "make_detector", lambda weights, device: ColorDetector())
+    monkeypatch.setattr(module, "make_person_detector", lambda weights, device: None)  # sin cargar COCO
     return module
 
 
@@ -121,7 +122,21 @@ def test_mostly_hidden_gondola_is_reported_as_hidden_without_view_or_json(cli, p
     person = (80.0, 0.0, 720.0, 600.0)  # 80 % del ancho de la foto (800 x 600)
     monkeypatch.setattr(cli, "make_person_detector", lambda weights, device: Hider(person))
     out = tmp_path / "salida"
-    assert _run(cli, folder, "--weights", weights, "--oclusion", "yolo26n.pt", "--out", out) == 0
+    assert _run(cli, folder, "--weights", weights, "--out", out) == 0  # la busqueda de personas va por defecto
     assert list(out.iterdir()) == []
     assert "tapada" in capsys.readouterr().out
+
+
+def test_sin_oclusion_does_not_look_for_people(cli, photos, tmp_path, monkeypatch):
+    folder, weights, _ = photos
+    monkeypatch.setattr(cli, "make_person_detector", lambda weights, device: Hider((80.0, 0.0, 720.0, 600.0)))
+    out = tmp_path / "salida"
+    assert _run(cli, folder, "--weights", weights, "--sin-oclusion", "--out", out) == 0
+    assert (out / "b_vacia.json").exists()
+
+
+def test_default_person_weights_are_versioned_and_a_missing_file_is_reported(cli, photos, tmp_path):
+    folder, weights, _ = photos
+    assert cli.DEFAULT_PERSON_WEIGHTS == ROOT / "weights" / "yolo26n.pt" and cli.DEFAULT_PERSON_WEIGHTS.is_file()
+    assert _run(cli, folder, "--weights", weights, "--oclusion", tmp_path / "no.pt", "--out", tmp_path / "s") == 2
 

@@ -130,7 +130,7 @@ def get_detector():
 
 @functools.cache
 def get_person_detector():
-    """None sin SHELFVISION_PERSON_WEIGHTS: no se busca oclusion (#77)."""
+    """None con SHELFVISION_PERSON_WEIGHTS vacia: no se busca oclusion (#77)."""
     if settings.PERSON_WEIGHTS is None:
         return None
     from src.models.people import PersonDetector
