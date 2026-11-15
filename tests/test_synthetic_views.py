@@ -92,3 +92,30 @@ def test_hidden_fraction_is_the_share_of_each_box_under_the_mask():
     boxes = np.array([[10.0, 10.0, 50.0, 50.0], [80.0, 10.0, 120.0, 50.0], [150.0, 10.0, 190.0, 50.0]])
     np.testing.assert_allclose(hidden_fraction(boxes, hidden), [1.0, 0.5, 0.0])
 
+
+
+def test_degrade_blurs_as_hard_as_the_detector_needs_to_learn(monkeypatch):
+    """DET-09 (#78): el mAP50 baja de 0.70 con desenfoque de foco sigma 5 y de movimiento largo 31."""
+    import cv2
+
+    from src.datasets import synthetic
+
+    sigmas, sizes = [], []
+    gaussian_blur, filter2d = cv2.GaussianBlur, cv2.filter2D
+
+    def spy_blur(src, ksize, sigma, *args, **kwargs):
+        if src.ndim == 3:  # el desenfoque de foco; la mancha desenfoca una mascara 2D
+            sigmas.append(sigma)
+        return gaussian_blur(src, ksize, sigma, *args, **kwargs)
+
+    def spy_filter(src, ddepth, kernel, *args, **kwargs):
+        sizes.append(len(kernel))
+        return filter2d(src, ddepth, kernel, *args, **kwargs)
+
+    monkeypatch.setattr(synthetic.cv2, "GaussianBlur", spy_blur)
+    monkeypatch.setattr(synthetic.cv2, "filter2D", spy_filter)
+    image = np.full((60, 80, 3), 128, dtype=np.uint8)
+    for seed in range(300):
+        synthetic.degrade(image, np.random.default_rng(seed))
+    assert min(sigmas) >= 1 and max(sigmas) >= 4.5
+    assert min(sizes) >= 5 and max(sizes) >= 25
