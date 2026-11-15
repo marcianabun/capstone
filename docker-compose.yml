@@ -1,5 +1,5 @@
 # App web de ShelfVision AI: `docker compose up --build` (ver "Ejecución con Docker" del README).
-# Antes: DJANGO_SECRET_KEY en el entorno o en un .env, y weights/yolo26s-finetune-ruido-v3.pt copiado a ./web-data/best.pt.
+# Antes: DJANGO_SECRET_KEY en el entorno o en un .env (los pesos ya vienen en la imagen).
 services:
   web:
     build: .
@@ -11,4 +11,4 @@ services:
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
       DJANGO_HTTPS: ${DJANGO_HTTPS:-0}  # 1 solo detrás de TLS
     volumes:
-      - ./web-data:/data  # base, fotos y pesos; con un volumen del host, `chown 10001`
+      - ./web-data:/data  # base y fotos; con un volumen del host, `chown 10001`

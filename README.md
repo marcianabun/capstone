@@ -483,8 +483,8 @@ docker build -t shelfvision-ai .
 # run_pipeline.py con las fotos y los pesos montados (sin argumentos, muestra el uso):
 docker run --rm -v "$(pwd)/fotos:/app/fotos" -v "$(pwd)/data/processed/training:/app/data/processed/training" \
   -v "$(pwd)/salida:/app/salida" shelfvision-ai python scripts/run_pipeline.py fotos --out salida
-# Aplicación web en http://localhost:8000. /data guarda la base, las fotos y los pesos
-# (copiar weights/yolo26s-finetune-ruido-v3.pt a ./web-data/best.pt); sin ese volumen se pierden al recrear el contenedor:
+# Aplicación web en http://localhost:8000. /data guarda la base y las fotos (los pesos
+# ya vienen en la imagen); sin ese volumen se pierden al recrear el contenedor:
 docker run -d -p 8000:8000 -v "$(pwd)/web-data:/data" -e DJANGO_SECRET_KEY=<clave-larga-al-azar> -e DJANGO_HTTPS=0   -e DJANGO_ALLOWED_HOSTS=localhost,<host-del-servidor> --name shelfvision shelfvision-ai
 docker exec -it shelfvision python manage.py createsuperuser
 # Lo mismo con Docker Compose (docker-compose.yml): DJANGO_SECRET_KEY en el entorno o en un .env
