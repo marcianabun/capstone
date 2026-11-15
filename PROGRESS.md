@@ -76,13 +76,15 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       cámara: los PR de `feat/ruido-camara` (#55) y
       `feat/camara-sala-simulada`, y las métricas de ese modelo, siguen en
       #68.
-- [ ] **#68** (dueño: Francisco) Lo que #59 no cubrió: abrir los PR de
+- [x] **#68** (dueño: Francisco) Lo que #59 no cubrió: abrir los PR de
       `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`, subidas el
       2026-11-09 desde un PC de Duoc con la identidad "AO-Alumno" (antes de
       commitear en esos PC, `git config user.name` y `user.email` con su
       cuenta, o no le cuentan en GitHub), y registrar en `docs/test-plan.md`
       y aquí las métricas del modelo con ruido contra `yolo26s-finetune`.
       Antes del 2026-11-16 (revisión de Walmart).
+      **Hecho (2026-11-15)**: PR #90 (`feat/camara-sala-simulada`) y este PR
+      (`feat/ruido-camara`); métricas en DET-08 y en el ítem #55.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
