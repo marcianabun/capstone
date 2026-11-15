@@ -83,4 +83,4 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #75 | Hecho | Francisco | Documento de Innovación (auditoría N.º 4: solo se menciona en la Fase 1): qué aporta frente a la auditoría manual de góndolas, el enfoque hí… |
 | #76 | Hecho | Francisco | Corregir el ruido de `degrade()` (#55): la persona u objeto tapaba productos pero dejaba sus cajas, y el modelo aprendía a marcar lo que no … |
 | #77 | Pendiente | Sin asignar | Falsa alarma por oclusión: una persona, un carro o una caja frente a la góndola tapa productos, el detector no los marca (con razón: no se v… |
-| #78 | Pendiente | Francisco | Medir el detector por tipo y nivel de ruido (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja resolución, desenfoque, poc… |
+| #78 | Hecho | Francisco | Medir el detector por tipo y nivel de ruido (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja resolución, desenfoque, poc… |
