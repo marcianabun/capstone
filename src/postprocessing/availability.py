@@ -45,6 +45,8 @@ Quad = tuple[Point, Point, Point, Point]
 GONDOLA_DEPTH_CM = 25.0
 # Fraccion del frente libre desde la que se alerta un quiebre de stock.
 CRITICAL_FREE_FRACTION = 0.30
+# Fraccion del frente tapada (personas, carros) desde la que no se concluye (#77).
+MAX_OCCLUDED_FRACTION = 0.50
 
 
 @dataclass(frozen=True)
@@ -54,12 +56,15 @@ class AvailabilityParams:
     min_level_overlap: fraccion del alto (de la caja o del nivel, el
     menor) que una caja debe compartir con un nivel para cubrirlo.
     trim_to_products: acota la gondola a los productos (ver
-    compute_availability)."""
+    compute_availability).
+    max_occluded_fraction: con mas frente tapado que esto, la gondola no
+    se mide (inconclusive, sin alerta)."""
 
     critical_free_fraction: float = CRITICAL_FREE_FRACTION
     min_gap_products: float = 1.0
     min_level_overlap: float = 0.3
     trim_to_products: bool = True
+    max_occluded_fraction: float = MAX_OCCLUDED_FRACTION
 
     def __post_init__(self) -> None:
         if not 0.0 < self.critical_free_fraction <= 1.0:
@@ -68,6 +73,8 @@ class AvailabilityParams:
             raise ValueError("min_gap_products no puede ser negativo.")
         if not 0.0 < self.min_level_overlap <= 1.0:
             raise ValueError("min_level_overlap debe estar en (0, 1].")
+        if not 0.0 < self.max_occluded_fraction <= 1.0:
+            raise ValueError("max_occluded_fraction debe estar en (0, 1].")
 
 
 @dataclass(frozen=True)
@@ -84,6 +91,7 @@ class ShelfAvailability:
     product_count: int
     gaps: tuple[Gap, ...]
     polygon: Quad
+    occluded_width: float = 0.0  # tramo tapado por una persona u objeto (#77)
 
     @property
     def width(self) -> float:
@@ -127,6 +135,8 @@ class GondolaAvailability:
     shelves: tuple[ShelfAvailability, ...]
     free_fraction: float
     critical: bool
+    occluded_fraction: float = 0.0
+    inconclusive: bool = False  # demasiado frente tapado: no se informa alerta
 
     @property
     def occupied_fraction(self) -> float:
@@ -141,6 +151,7 @@ def compute_availability(
     products: Sequence[BBox] | np.ndarray,
     levels: Sequence[BBox] | Sequence[Quad] | np.ndarray,
     params: AvailabilityParams = AvailabilityParams(),
+    occluders: Sequence[BBox] | np.ndarray = (),
 ) -> GondolaAvailability:
     """Disponibilidad de la gondola completa, medida repisa por repisa.
 
@@ -159,10 +170,18 @@ def compute_availability(
     vacia por completo, o una franja vacia en todas las repisas en un
     extremo de la gondola, no se cuentan. Sin ningun producto no se acota
     y todo es hueco.
+
+    `occluders` son cajas de lo que tapa la gondola (personas, carros), en
+    el mismo sistema de coordenadas. Lo tapado no es espacio libre ni
+    ocupado: se mide solo el frente visible (la fraccion libre es sobre lo
+    visible), y si lo tapado pasa de `max_occluded_fraction` el resultado es
+    `inconclusive` y no alerta (#77).
     """
     bands = _as_bands(levels)
     boxes = _as_boxes(products, "products")
     boxes = boxes[(boxes[:, 2] > boxes[:, 0]) & (boxes[:, 3] > boxes[:, 1])]
+    hiders = _as_boxes(occluders, "occluders")
+    hiders = hiders[(hiders[:, 2] > hiders[:, 0]) & (hiders[:, 3] > hiders[:, 1])]
 
     covering = [_covering_boxes(boxes, band, params.min_level_overlap) for band in bands]
     stocked = [i for i, level_products in enumerate(covering) if len(level_products)]
@@ -186,7 +205,9 @@ def compute_availability(
         level_products = _covering_boxes(boxes, band, params.min_level_overlap)
         widths = level_products[:, 2] - level_products[:, 0]
         reference = float(np.median(widths)) if len(widths) else fallback_width
-        gaps = _free_gaps(band, level_products, params.min_gap_products * reference)
+        level_hiders = _covering_boxes(hiders, band, params.min_level_overlap)
+        gaps = _free_gaps(band, np.vstack([level_products, level_hiders]), params.min_gap_products * reference)
+        occluded_width = float(band[1] - band[0]) - sum(e - s for s, e in _free_gaps(band, level_hiders, 0.0))
         polygon = _polygon(band)
         shelves.append(
             ShelfAvailability(
@@ -200,15 +221,21 @@ def compute_availability(
                 product_count=len(level_products),
                 gaps=gaps,
                 polygon=polygon,
+                occluded_width=occluded_width,
             )
         )
 
     total_width = sum(shelf.width for shelf in shelves)
-    free_fraction = sum(shelf.free_width for shelf in shelves) / total_width
+    occluded_fraction = sum(shelf.occluded_width for shelf in shelves) / total_width
+    inconclusive = occluded_fraction > params.max_occluded_fraction or occluded_fraction >= 1.0
+    visible_width = total_width * (1.0 - occluded_fraction)
+    free_fraction = sum(shelf.free_width for shelf in shelves) / visible_width if visible_width > 0 else 0.0
     return GondolaAvailability(
         shelves=tuple(shelves),
         free_fraction=free_fraction,
-        critical=free_fraction >= params.critical_free_fraction,
+        critical=not inconclusive and free_fraction >= params.critical_free_fraction,
+        occluded_fraction=occluded_fraction,
+        inconclusive=inconclusive,
     )
 
 

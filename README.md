@@ -338,7 +338,7 @@ de cada uno y cuál proponer después (ver "Trabajo en equipo" en
 ```bash
 pip install -r requirements.txt
 pytest tests/
-python scripts/run_pipeline.py FOTOS_O_CARPETAS... [--device cpu] [--out data/processed/pipeline]
+python scripts/run_pipeline.py FOTOS_O_CARPETAS... [--device cpu] [--out data/processed/pipeline] [--oclusion yolo26n.pt]
 ```
 
 `run_pipeline.py` corre el pipeline completo (corrección, segmentación,
@@ -349,7 +349,10 @@ el resultado completo (`<nombre>.json`), e imprime el % libre, la alerta y
 los segundos por etapa. En el JSON, `free_fraction` y `critical` son los
 de la góndola completa; `shelves` solo trae la geometría de cada repisa
 medida (contorno, huecos y número de productos), sin % ni alerta por
-repisa: las repisas son el método para medir, no una salida. Una foto
+repisa: las repisas son el método para medir, no una salida. Con `--oclusion PESOS_COCO` (ej. `yolo26n.pt`) se buscan
+personas frente a la góndola: lo que tapan se mide como frente no visible
+(no como espacio libre, #77), el JSON suma `occluders`, `occluded_fraction`
+e `inconclusive`, y con más de 50 % tapado no se informa alerta. Una foto
 sin productos detectados (tapada, oscura o sin góndola) no tiene % libre
 ni alerta: se anota en la tabla y no se escriben su vista ni su JSON. Usa por defecto los pesos versionados de
 `weights/yolo26s-finetune-ruido-v3.pt` (ver "Pesos del detector").
@@ -467,7 +470,9 @@ python manage.py runserver          # http://localhost:8000
 
 Variables de entorno (todas opcionales en desarrollo):
 `SHELFVISION_WEIGHTS` (pesos de YOLO26; por defecto los de
-`run_pipeline.py`), `SHELFVISION_DATA_DIR` (base y fotos; por defecto
+`run_pipeline.py`), `SHELFVISION_PERSON_WEIGHTS` (pesos YOLO26 de COCO,
+ej. `yolo26n.pt`: si se define, la foto con la góndola tapada más de 50 %
+por una persona se rechaza en vez de dar una falsa alerta, #77), `SHELFVISION_DATA_DIR` (base y fotos; por defecto
 `data/processed/web/`), `DJANGO_DEBUG` (`0` por defecto; `1` solo en tu
 PC de desarrollo), `DJANGO_SECRET_KEY` (obligatoria con `DJANGO_DEBUG=0`),
 `DJANGO_ALLOWED_HOSTS` (separados por coma), `DJANGO_HTTPS` (`1` por

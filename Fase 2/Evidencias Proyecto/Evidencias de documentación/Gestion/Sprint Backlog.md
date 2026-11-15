@@ -33,7 +33,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #66 | Orden de carpetas según el profesor | Mariana | Hecho (PR #85) |
 | #55, #58, #68 | Ruido de cámara de sala: PR de las ramas y métricas | Francisco | Hecho (PR #90 y #91) |
 | #76 | Corrección del ruido: cajas tapadas fuera y validación óptico/oclusión | Francisco | Hecho (PR #92) |
-| #77 | Falsa alarma por oclusión en el pipeline | Sin asignar | Pendiente |
+| #77 | Falsa alarma por oclusión en el pipeline | Francisco | En curso: medición del frente visible y detector de personas listos (opt-in); falta validar con personas reales |
 | #78 | Detector por tipo y nivel de ruido | Francisco | Hecho (PR #95) |
 | #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96) |
 | #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho (PR #97) |
