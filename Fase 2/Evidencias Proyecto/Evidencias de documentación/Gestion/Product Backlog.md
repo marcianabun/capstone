@@ -44,7 +44,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #36 | Pendiente | Sin asignar | Video de demostración de 5 a 10 minutos (entrega 2026-10-21): solo funcionalidades implementadas y resultados que la aplicación genera hoy, con fotos… |
 | #37 | Pendiente | Mariana | Evidencias de avance de la Fase 2, a más tardar 2026-10-26: diario de reflexión 2.1, guía 2.4 (resumen del avance, plan de trabajo con estado y… |
 | #38 | Pendiente | Sin asignar | Feria de informática (semana del 2026-10-26; día y hora por informar): definir qué integrante va (al menos uno) y qué se muestra |
-| #39 | Pendiente | Sin asignar | Instalar la aplicación en el servidor del CITT. Bloqueado: las instrucciones por sección llegan en los próximos días |
+| #39 | Hecho | Sin asignar | Instalar la aplicación en el servidor del CITT. Bloqueado: las instrucciones por sección llegan en los próximos días |
 | #40 | Hecho | Francisco | Quiebre de stock por góndola completa (cambio de alcance del profesor, 2026-10-19) |
 | #41 | Hecho | Francisco | Plugin `ponytail` para el trabajo con código (pedido de Francisco, 2026-10-19): skill `/ponytail` de github.com/DietrichGebert/ponytail (MIT),… |
 | #42 | Hecho | Mariana | Rehacer las plantillas de C.U, sus diagramas de secuencia y el diagrama de arquitectura según la app web Django (#28): sin API REST, JWT ni React;… |
@@ -60,10 +60,11 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #52 | Hecho | Mariana | Foto sin productos detectados (auditoría 2026-10-21): con 0 detecciones, `compute_availability()` da 100% libre y alerta crítica (foto tapada, oscura… |
 | #53 | Hecho | Mariana | Rendimiento y robustez de la app web (auditoría 2026-10-21): las listas de análisis y de alertas cargan el JSON `result` de cada fila sin usarlo… |
 | #54 | Hecho | Mariana | Limpieza (auditoría 2026-10-21): `free_volume_cm3()` solo la usan los tests (Nivel 1 no se informa, #40) y `openpyxl` y `fpdf2` están en… |
-| #55 | Pendiente | Sin asignar | Entrenar y medir el detector con ruido visual de cámara de sala (pedido de Francisco, 2026-10-21): el mismo ruido que produce una cámara fija… |
+| #55 | Hecho | Francisco | Entrenar y medir el detector con ruido visual de cámara de sala (pedido de Francisco, 2026-10-21): el mismo ruido que produce una cámara fija… |
 | #56 | Hecho | Mariana | Que Claude Code no se agregue como coautor: los commits con `Co-Authored-By: Claude` le dan a "claude" 77 commits en el gráfico de contribuidores de… |
 | #57 | Pendiente | Francisco | Auditoría de seguridad por las vulnerabilidades de lenguajes y librerías publicadas la semana del 2026-10-19 (pedido de Francisco, 2026-10-22) |
-| #59 | Pendiente | Francisco | Subir la versión del detector con mejor precisión que tiene en su PC: compartir los pesos por Drive (no se versionan), registrar sus métricas en… |
+| #58 | Hecho | Francisco | Cámara de sala simulada para comprobar la app web con el flujo de una cámara fija (pedido de Francisco, 2026-11-09). Hecho (2026-11-09): `py… |
+| #59 | Hecho | Francisco | Subir la versión del detector con mejor precisión que tiene en su PC: compartir los pesos por Drive (no se versionan), registrar sus métricas en… |
 | #60 | Pendiente | Mariana | Manuales de usuario (uno por perfil: Administrador, Jefe de Salón y Reponedor) y manual de instalación (instructivo del plan de instalación y PDF de… |
 | #61 | Pendiente | Sin asignar | Video tutorial con audio (solo la ejecución de los módulos, sin código) y correo de entrega del MVP al cliente: módulos, funcionalidades,… |
 | #62 | Pendiente | Sin asignar | Script SQL que crea la estructura de la base y la puebla con datos de prueba, coherente con `web/models.py` (incluye `Config`, `Camera` y… |
@@ -72,3 +73,14 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #65 | Pendiente | Sin asignar | Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe Final`, guía 2.6 en `Fase 2/Evidencias Grupales/`), presentación final (ppt) y la pauta de… |
 | #66 | Hecho | Mariana | Reordenar las carpetas del GitHub según la imagen del profesor ("orden de carpetas GitHub (COMPLETO)", mensaje del 2026-11-13), sin cambiar nombres… |
 | #67 | Pendiente | Sin asignar | Hojas semanales del Excel "RESUMEN Estado de Avance Casos de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive compartido con el profesor)… |
+| #68 | Hecho | Francisco | Lo que #59 no cubrió: abrir los PR de `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`, subidas el 2026-11-09 desde un PC de Duoc con… |
+| #69 | Pendiente | Francisco | Evidencias que faltan (Reporte de Auditoría N.º 4, 2026-10-25): `Sandoval_Francisco_1.3_APT122_AutoevaluacionFase1.docx` (Fase 1, individual… |
+| #70 | Hecho | Francisco | README (auditoría N.º 4: 6 de 7 elementos, falta "tecnologías"): sección explícita de Tecnologías (Python, Django, OpenCV, YOLO26/Ultralytic… |
+| #71 | Hecho | Francisco | Metodología ágil documentada (auditoría N.º 4: faltan metodología declarada y justificada, Product Backlog, Sprint Backlog, Definition of Do… |
+| #72 | Hecho | Francisco | Documento de requisitos no funcionales (auditoría N.º 4: no existe): umbral de alerta y precisión del detector, tiempo de análisis, segurida… |
+| #73 | Hecho | Francisco | Diagramas UML de clases, secuencia (análisis de una foto) y componentes (auditoría N.º 4: solo hay casos de uso y arquitectura). Fuente Merm… |
+| #74 | Hecho | Francisco | `docker-compose.yml` (auditoría N.º 4: Docker 3 de 4): servicio `web` con el `Dockerfile`, volumen `/data`, `.env.example` y puerto 8000; do… |
+| #75 | Hecho | Francisco | Documento de Innovación (auditoría N.º 4: solo se menciona en la Fase 1): qué aporta frente a la auditoría manual de góndolas, el enfoque hí… |
+| #76 | Hecho | Francisco | Corregir el ruido de `degrade()` (#55): la persona u objeto tapaba productos pero dejaba sus cajas, y el modelo aprendía a marcar lo que no … |
+| #77 | Pendiente | Sin asignar | Falsa alarma por oclusión: una persona, un carro o una caja frente a la góndola tapa productos, el detector no los marca (con razón: no se v… |
+| #78 | Pendiente | Francisco | Medir el detector por tipo y nivel de ruido (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja resolución, desenfoque, poc… |

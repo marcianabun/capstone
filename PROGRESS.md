@@ -105,6 +105,25 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `yolo26s-finetune` como modelo versionado. Queda fuera: una persona
       tapando la góndola se mide hoy como espacio libre (falsa alerta); se
       resolvería en el pipeline detectando la oclusión.
+- [ ] **#77** Falsa alarma por oclusión: una persona, un carro o una caja
+      frente a la góndola tapa productos, el detector no los marca (con
+      razón: no se ven) y el hueco se mide como espacio libre, así que puede
+      saltar una alerta de quiebre que no existe (hallazgo de #76,
+      2026-11-15; el modelo tapado no se arregla en el modelo, ver DET-08).
+      Resolverlo en el pipeline: detectar la oclusión (por ejemplo, con
+      detecciones de persona, o zonas que cambian entre fotos seguidas de
+      la misma cámara) y no contar esas zonas como espacio libre ni
+      alertar si la oclusión es grande; informar "góndola tapada" en vez
+      de una alerta. Medir con fotos de Kaggle CC0 con personas pegadas
+      (nunca SKU-110K) y con `degrade()` (la máscara de oclusión ya sale
+      de ahí). Puede decidirse en el pipeline o en la app web (si la
+      cámara repite la foto a los pocos minutos).
+- [ ] **#78** (dueño: Francisco) Medir el detector por tipo y nivel de ruido
+      (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja
+      resolución, desenfoque, poca luz, mucha luz y oclusión) en 3 niveles
+      sobre las 12 fotos de prueba de Kaggle, con `yolo26s-finetune`, para
+      saber qué efecto y desde qué nivel baja el mAP50 de 0.70 (RNF02).
+      Resultado en DET-09 de `docs/test-plan.md`.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
@@ -287,8 +306,9 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
 - [ ] **#38** Feria de informática (semana del 2026-10-26; día y hora
       por informar): definir qué integrante va (al menos uno) y qué se
       muestra.
-- [ ] **#39** Instalar la aplicación en el servidor del CITT. Bloqueado:
-      las instrucciones por sección llegan en los próximos días. Punto
+- [x] **#39** (descartado 2026-11-15: Francisco indicó que ya no es
+      necesario) Instalar la aplicación en el servidor del CITT. Estaba
+      bloqueado: las instrucciones por sección no llegaron. Punto
       de partida: la imagen Docker que ya construye la CI (#13). Para la
       app web (#28): copiar los pesos `yolo26s` al volumen `/data`,
       configurar SMTP para los correos de CU06 y servir con HTTPS

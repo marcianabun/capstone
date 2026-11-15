@@ -210,7 +210,7 @@ Al 2026-10-20. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS
 | Reportes Excel, CSV y PDF (RF05, CU04, #7) | Operativo: página "Reportes" de la app web (`src/reporting/export.py`) |
 | Configuración de umbral y cámaras (CU05, #44) | Operativo: página "Configuración" de la app web |
 | Dashboard de disponibilidad (CU03, #43) | Operativo: página "Góndolas" de la app web |
-| Instalación en el servidor del CITT (#39) | Bloqueado: esperan las instrucciones |
+| Instalación en el servidor del CITT (#39) | Descartada el 2026-11-15: ya no se necesita |
 
 **Limitaciones conocidas** (análisis completo en [docs/analisis-resultados.md](docs/analisis-resultados.md)):
 
