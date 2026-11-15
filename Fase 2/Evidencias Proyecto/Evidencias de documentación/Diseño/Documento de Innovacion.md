@@ -19,7 +19,7 @@ Quedan fuera del documento comparaciones con la operación real de Walmart (frec
 | **Huecos medidos como cobertura a lo largo de la repisa** | Un hueco cuenta solo si cabe al menos un ancho de producto (no se puede reponer menos); el espacio vertical sobre un producto no cuenta (respuesta a "la trampa del apilamiento") | README, "Fachada visible, sin apilamiento" |
 | **Una alerta por góndola completa** | El % y la alerta que se informan son de la góndola entera; las repisas son solo el método interno de medición | README, cambio de alcance del 2026-10-19 |
 | **Fine-tuning fuera de dominio con datos que se pueden modificar** | El detector entrenado con SKU-110K se ajustó con fotos de Kaggle (CC0) y vistas giradas, cumpliendo la licencia de SKU-110K | `docs/datasets.md`, DET-07 |
-| **Reproducible y explicable** | Docker y Docker Compose, 264 pruebas sin datos, pesos ni GPU, etapas desacopladas; Walmart prefiere un modelo que el equipo pueda explicar | README, [Requisitos no funcionales](Requisitos%20No%20Funcionales.md) |
+| **Reproducible y explicable** | Docker y Docker Compose, 276 pruebas sin datos, pesos ni GPU, etapas desacopladas; Walmart prefiere un modelo que el equipo pueda explicar | README, [Requisitos no funcionales](Requisitos%20No%20Funcionales.md) |
 
 ## Resultados medidos que respaldan el aporte
 
@@ -31,5 +31,6 @@ Quedan fuera del documento comparaciones con la operación real de Walmart (frec
 ## Límites (lo que no se afirma)
 
 - El sistema no estima profundidad: usa 25 cm constantes y el análisis es 2D sobre la vista frontal.
-- Frutas a granel, vidrio y reflejos son puntos débiles conocidos; el ruido de una cámara de sala real no se ha medido todavía (ítems #46 y #55).
+- Frutas a granel, vidrio y reflejos son puntos débiles conocidos (ítem #46). El ruido de cámara de sala se midió solo simulado sobre 12 fotos (DET-08 a DET-10): cumple mAP50 >= 0,70 salvo con desenfoque de movimiento fuerte; con una cámara real no se ha medido.
+- Si una persona o un carro tapa la góndola, el hueco tapado se mide como espacio libre y puede dar una falsa alerta (ítem #77, pendiente).
 - No se ha probado con fotos ni cámaras de Walmart: no las comparte.
