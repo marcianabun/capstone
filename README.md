@@ -338,7 +338,7 @@ de cada uno y cuál proponer después (ver "Trabajo en equipo" en
 ```bash
 pip install -r requirements.txt
 pytest tests/
-python scripts/run_pipeline.py FOTOS_O_CARPETAS... [--device cpu] [--out data/processed/pipeline] [--oclusion yolo26n.pt]
+python scripts/run_pipeline.py FOTOS_O_CARPETAS... [--device cpu] [--out data/processed/pipeline] [--sin-oclusion]
 ```
 
 `run_pipeline.py` corre el pipeline completo (corrección, segmentación,
@@ -349,7 +349,8 @@ el resultado completo (`<nombre>.json`), e imprime el % libre, la alerta y
 los segundos por etapa. En el JSON, `free_fraction` y `critical` son los
 de la góndola completa; `shelves` solo trae la geometría de cada repisa
 medida (contorno, huecos y número de productos), sin % ni alerta por
-repisa: las repisas son el método para medir, no una salida. Con `--oclusion PESOS_COCO` (ej. `yolo26n.pt`) se buscan
+repisa: las repisas son el método para medir, no una salida. Por defecto se buscan (con `weights/yolo26n.pt`, YOLO26 de COCO
+versionado; `--sin-oclusion` lo apaga)
 personas frente a la góndola: lo que tapan se mide como frente no visible
 (no como espacio libre, #77), el JSON suma `occluders`, `occluded_fraction`
 e `inconclusive`, y con más de 50 % tapado no se informa alerta. Una foto
@@ -390,7 +391,7 @@ python scripts/run_pipeline.py "data/raw/supermarket-shelves/Supermarket shelves
 
 Resultado esperado con `yolo26s`: la foto 026 (botellas de vidrio en filas, de frente) da `free_fraction` ≈ 0,02 y `critical: false`, es decir ~2% libre y sin alerta. La 011 (estante con pocos productos) es el único quiebre real del set: se espera ver ahí un % libre alto, cerca del umbral (el sistema da 27% y la anotación, 39%; ver el caso en el análisis). Para medir contra la anotación hecha a mano, agregar `--annotations data/processed/annotations/kaggle_supermarket.csv` (se genera con `python scripts/prepare_datasets.py --dataset kaggle_supermarket`); escribe `metrics.csv` con P, R, IoU y la alerta de cada foto. La tabla completa del equipo está en [docs/analisis-resultados.md](docs/analisis-resultados.md).
 
-**Pesos del detector**: el mejor modelo del equipo, `yolo26s-finetune-ruido-v3` (`yolo26s` entrenado con SKU-110K y ajustado con fotos de Kaggle, vistas giradas y copias con ruido de cámara de sala), está en [weights/yolo26s-finetune-ruido-v3.pt](weights/yolo26s-finetune-ruido-v3.pt) (20 MB). Parte de SKU-110K, cuya licencia lo limita a uso académico y no comercial: no se usa en demos ante terceros ni se redistribuye con otro fin. Para usarlo: `--weights weights/yolo26s-finetune-ruido-v3.pt` o `SHELFVISION_WEIGHTS`. También se pueden entrenar con [docs/training.md](docs/training.md) (GPU NVIDIA de 8 GB; ~7,5 h para `yolo26s`). Con los pesos de COCO (`yolo26s.pt`) el programa corre, pero no detecta la clase "producto" y el resultado no sirve.
+**Pesos del detector**: el mejor modelo del equipo, `yolo26s-finetune-ruido-v3` (`yolo26s` entrenado con SKU-110K y ajustado con fotos de Kaggle, vistas giradas y copias con ruido de cámara de sala), está en [weights/yolo26s-finetune-ruido-v3.pt](weights/yolo26s-finetune-ruido-v3.pt) (20 MB). Parte de SKU-110K, cuya licencia lo limita a uso académico y no comercial: no se usa en demos ante terceros ni se redistribuye con otro fin. Para usarlo: `--weights weights/yolo26s-finetune-ruido-v3.pt` o `SHELFVISION_WEIGHTS`. También se pueden entrenar con [docs/training.md](docs/training.md) (GPU NVIDIA de 8 GB; ~7,5 h para `yolo26s`). Con los pesos de COCO (`yolo26s.pt`) el programa corre, pero no detecta la clase "producto" y el resultado no sirve. Aparte va versionado `weights/yolo26n.pt` (5 MB, YOLO26 de COCO sin entrenar, licencia de Ultralytics AGPL-3.0): solo busca personas frente a la góndola (#77), no productos.
 
 ### Aplicación web
 
@@ -470,9 +471,10 @@ python manage.py runserver          # http://localhost:8000
 
 Variables de entorno (todas opcionales en desarrollo):
 `SHELFVISION_WEIGHTS` (pesos de YOLO26; por defecto los de
-`run_pipeline.py`), `SHELFVISION_PERSON_WEIGHTS` (pesos YOLO26 de COCO,
-ej. `yolo26n.pt`: si se define, la foto con la góndola tapada más de 50 %
-por una persona se rechaza en vez de dar una falsa alerta, #77), `SHELFVISION_DATA_DIR` (base y fotos; por defecto
+`run_pipeline.py`), `SHELFVISION_PERSON_WEIGHTS` (pesos YOLO26 de COCO; por defecto
+`weights/yolo26n.pt`, versionado: la foto con la góndola tapada más de 50 %
+por una persona se rechaza en vez de dar una falsa alerta, #77; vacía,
+apaga la búsqueda), `SHELFVISION_DATA_DIR` (base y fotos; por defecto
 `data/processed/web/`), `DJANGO_DEBUG` (`0` por defecto; `1` solo en tu
 PC de desarrollo), `DJANGO_SECRET_KEY` (obligatoria con `DJANGO_DEBUG=0`),
 `DJANGO_ALLOWED_HOSTS` (separados por coma), `DJANGO_HTTPS` (`1` por

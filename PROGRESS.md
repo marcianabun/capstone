@@ -119,21 +119,21 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       de ahí). Puede decidirse en el pipeline o en la app web (si la
       cámara repite la foto a los pocos minutos).
       **Avance (2026-11-15)**: la medición y el cableado están hechos y
-      probados; falta validarlos con personas reales y decidir si se
-      activan por defecto. `compute_availability(..., occluders=)` mide solo
+      probados; falta validarlos con personas reales. Desde el 2026-11-15
+      el detector de personas va **activo por defecto** (`weights/yolo26n.pt`
+      versionado; `--sin-oclusion` y `SHELFVISION_PERSON_WEIGHTS` vacía lo
+      apagan). `compute_availability(..., occluders=)` mide solo
       el frente visible (lo tapado no es libre ni ocupado) y con más de 50 %
       tapado devuelve `inconclusive` y no alerta; `run_image(...,
       occluder_detector=)` lo alimenta; `PersonDetector`
       (`src/models/people.py`, pesos de COCO) filtra a la persona alta
       (>= 40 % del alto, ancho <= alto) porque las caras impresas en las
       cajas salen como "persona" (45 fotos de Kaggle: 4 con falsos positivos
-      sin filtro, 0 con él). Opt-in: `run_pipeline.py --oclusion yolo26n.pt`
-      y `SHELFVISION_PERSON_WEIGHTS` en la app web (la foto tapada se
+      sin filtro, 0 con él). En `run_pipeline.py` y en la app web (la foto tapada se
       rechaza como la foto sin productos, #52, sin tocar la alerta abierta);
       la vista dibuja lo que tapa en ámbar. AV-07 en `docs/test-plan.md`.
       Falta: fotos de góndola con clientes para medir cuántas personas se
-      encuentran y cuántas falsas alarmas se evitan; decidir si el modelo de
-      COCO (5 MB) se versiona y se activa por defecto; carros y cajas no son
+      encuentran y cuántas falsas alarmas se evitan; carros y cajas no son
       "persona" (COCO no tiene carro).
 - [x] **#78** (dueño: Francisco) Medir el detector por tipo y nivel de ruido
       (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja

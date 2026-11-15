@@ -47,6 +47,7 @@ def analyzer(settings, tmp_path, monkeypatch):
     """Sube fotos con el detector falso y devuelve el analisis creado."""
     settings.MEDIA_ROOT = tmp_path
     monkeypatch.setattr(views, "get_detector", ColorDetector)
+    monkeypatch.setattr(views, "get_person_detector", lambda: None)  # sin cargar COCO
 
     def upload(client, empty=EMPTIED, pasillo="3", gondola_id="14B"):
         client.post(reverse("analisis"), {"pasillo": pasillo, "gondola": gondola_id, "foto": photo(empty)})
@@ -560,3 +561,9 @@ def test_gondola_tapada_se_rechaza_y_no_toca_la_alerta_abierta(client, analyzer,
     open_alert.refresh_from_db()
     assert open_alert.estado == ACTIVA
 
+
+
+def test_los_pesos_de_personas_por_defecto_son_los_versionados():
+    from web import settings as web_settings
+
+    assert web_settings.PERSON_WEIGHTS.name == "yolo26n.pt" and web_settings.PERSON_WEIGHTS.is_file()
