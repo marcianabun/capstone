@@ -351,9 +351,8 @@ de la góndola completa; `shelves` solo trae la geometría de cada repisa
 medida (contorno, huecos y número de productos), sin % ni alerta por
 repisa: las repisas son el método para medir, no una salida. Una foto
 sin productos detectados (tapada, oscura o sin góndola) no tiene % libre
-ni alerta: se anota en la tabla y no se escriben su vista ni su JSON. Usa por defecto los pesos de
-`data/processed/training/yolo26s/weights/best.pt` (no se versionan: se
-comparten dentro del equipo, ver `docs/training.md`).
+ni alerta: se anota en la tabla y no se escriben su vista ni su JSON. Usa por defecto los pesos versionados de
+`weights/yolo26s-finetune-ruido-v3.pt` (ver "Pesos del detector").
 
 Evaluación por lotes (CU07, RF06): con
 `--annotations data/processed/annotations/<dataset>.csv` compara las
@@ -379,7 +378,7 @@ pytest tests/                                          # sin datos, pesos ni GPU
 # 1. Fotos de ejemplo: 45 fotos de góndolas, CC0 (Kaggle), se pueden mostrar
 python scripts/download_datasets.py --dataset kaggle_supermarket
 
-# 2. Pesos del detector (ver abajo) en data/processed/training/yolo26s/weights/best.pt
+# 2. Pesos del detector: ya vienen en weights/yolo26s-finetune-ruido-v3.pt (ver abajo)
 
 # 3. Una foto: guarda la vista anotada (026.jpg) y el resultado (026.json) en salida/
 python scripts/run_pipeline.py "data/raw/supermarket-shelves/Supermarket shelves/images/026.jpg" \
@@ -485,7 +484,7 @@ docker build -t shelfvision-ai .
 docker run --rm -v "$(pwd)/fotos:/app/fotos" -v "$(pwd)/data/processed/training:/app/data/processed/training" \
   -v "$(pwd)/salida:/app/salida" shelfvision-ai python scripts/run_pipeline.py fotos --out salida
 # Aplicación web en http://localhost:8000. /data guarda la base, las fotos y los pesos
-# (copiar best.pt a ./web-data/); sin ese volumen se pierden al recrear el contenedor:
+# (copiar weights/yolo26s-finetune-ruido-v3.pt a ./web-data/best.pt); sin ese volumen se pierden al recrear el contenedor:
 docker run -d -p 8000:8000 -v "$(pwd)/web-data:/data" -e DJANGO_SECRET_KEY=<clave-larga-al-azar> -e DJANGO_HTTPS=0   -e DJANGO_ALLOWED_HOSTS=localhost,<host-del-servidor> --name shelfvision shelfvision-ai
 docker exec -it shelfvision python manage.py createsuperuser
 # Lo mismo con Docker Compose (docker-compose.yml): DJANGO_SECRET_KEY en el entorno o en un .env

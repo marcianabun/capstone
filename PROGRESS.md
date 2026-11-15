@@ -150,7 +150,9 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       historial de git (el repo es público, no se reescribe). Se actualizan
       la excepción de `.gitignore`, `CLAUDE.md`, README, `docs/training.md`,
       `docs/especificacion-tecnica.md` y el valor por defecto de
-      `scripts/measure_noise.py`. Mismas condiciones que #59: parte de
+      `scripts/measure_noise.py`, y los pesos por defecto de `run_pipeline.py` y
+      de la app web ahora son los versionados (antes apuntaban a un
+      `best.pt` que solo existe en el PC que entrenó). Mismas condiciones que #59: parte de
       SKU-110K, uso académico y no comercial. Mejoras y límites en DET-10.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan

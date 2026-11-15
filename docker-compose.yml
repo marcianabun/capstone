@@ -1,5 +1,5 @@
 # App web de ShelfVision AI: `docker compose up --build` (ver "Ejecución con Docker" del README).
-# Antes: DJANGO_SECRET_KEY en el entorno o en un .env, y best.pt copiado a ./web-data/.
+# Antes: DJANGO_SECRET_KEY en el entorno o en un .env, y weights/yolo26s-finetune-ruido-v3.pt copiado a ./web-data/best.pt.
 services:
   web:
     build: .
