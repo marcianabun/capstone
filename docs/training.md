@@ -128,6 +128,12 @@ python scripts/train_detector.py val --weights data/processed/training/yolo26s-f
 python scripts/train_detector.py val --weights data/processed/training/yolo26s-finetune/weights/best.pt --split test
 ```
 
+`prepare_finetune_dataset.py` suma por defecto una copia con ruido de cámara
+de sala (`degrade()`, ítem #55) de cada vista de entrenamiento
+(`--ruido 0` la quita) y deja las 12 fotos de prueba degradadas en
+`data-ruido.yaml` y `data-{f,y20,y35}-ruido.yaml`. Para el modelo con ruido,
+`--name yolo26s-finetune-ruido` en `finetune` (~25 min); resultados en DET-08.
+
 Son 30 épocas, SGD lr0 0.002 y ~8 min en una RTX 5060. Con más fotos de
 SKU-110K (1500) y lr0 0.0005 (`--lr0`) la mejora fuera de dominio baja y el
 mAP50-95 en SKU-110K sube solo de 0.533 a 0.548: no compensa. Resultados en

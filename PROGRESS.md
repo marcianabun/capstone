@@ -333,7 +333,7 @@ hitos" en `docs/curso.md`).
       commit con la versión en un comentario (checkout v7.0.1,
       setup-python v7.1.0, setup-buildx-action v4.4.1 y build-push-action
       v7.4.0).
-- [ ] **#55** (dueño: Francisco) Entrenar y medir el detector con ruido visual de cámara de sala
+- [x] **#55** (dueño: Francisco) Entrenar y medir el detector con ruido visual de cámara de sala
       (pedido de Francisco, 2026-10-21): el mismo ruido que produce una
       cámara fija apuntando a una góndola de supermercado. Hoy ni el
       entrenamiento ni las pruebas lo tienen (SKU-110K y Kaggle son fotos
@@ -375,6 +375,17 @@ hitos" en `docs/curso.md`).
       `scripts/prepare_datasets.py`) arma el dataset con ruido; entrenar
       con `docs/training.md`. Para el paso (2), degradar las 12 fotos de
       prueba con `degrade()` y medir con `train_detector.py val`.
+      **Hecho (2026-11-15)**: `prepare_finetune_dataset.py` arma además
+      las 12 fotos de prueba degradadas (`val-*-ruido`, `data-*-ruido.yaml`,
+      otra semilla que el entrenamiento). Resultado (DET-08 de
+      `docs/test-plan.md`): `yolo26s-finetune` pierde 0.05 de mAP50 con
+      ruido (0.836 -> 0.788, sigue sobre 0.70); el reentrenamiento con una
+      copia con ruido por vista (`yolo26s-finetune-ruido`, 30 épocas, ~25
+      min en la RTX 5060) llega a 0.801 con ruido, 0.840 sin ruido y
+      0.939 en SKU-110K `test`. La mejora es chica y sale de 12 fotos:
+      se mantiene `yolo26s-finetune` como modelo versionado. Falta, y
+      queda fuera de este ítem: medir por tipo y nivel de ruido, y con una
+      cámara real (#24).
 - [ ] **#57** (dueño: Francisco) Auditoría de seguridad por las vulnerabilidades
       de lenguajes y librerías publicadas la semana del 2026-10-19 (pedido
       de Francisco, 2026-10-22). Investigar cuáles afectan a lo que usa el

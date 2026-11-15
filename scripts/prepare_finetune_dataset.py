@@ -5,7 +5,9 @@ Entrenamiento: 24 fotos de Kaggle supermarket-shelves (CC0) reducidas a
 oblique_view()), y N fotos de SKU-110K `train` para no olvidar (SKU-110K
 no se modifica: solo se enlaza). Validacion: 12 fotos de Kaggle separadas
 por foto, de frente y giradas, en carpetas por angulo para medir cada una
-con `train_detector.py val --data data-<angulo>.yaml`.
+con `train_detector.py val --data data-<angulo>.yaml`. Las mismas 12 fotos
+degradadas con degrade() (otra semilla que el entrenamiento) quedan en
+`val-<angulo>-ruido` y `data-<angulo>-ruido.yaml` (todas juntas: `data-ruido.yaml`).
 
 Uso:
     python scripts/prepare_finetune_dataset.py [--sku-images 300]
@@ -93,11 +95,11 @@ def main() -> None:
     parser.add_argument("--sku-images", type=int, default=300, help="fotos de SKU-110K train para no olvidar")
     parser.add_argument("--ruido", type=int, default=1, help="copias con ruido de camara de sala de cada vista de entrenamiento (0: ninguna)")
     args = parser.parse_args()
-    rng = np.random.default_rng(0)
+    rng, val_rng = np.random.default_rng(0), np.random.default_rng(1)
 
     shutil.rmtree(OUT, ignore_errors=True)
     kaggle = read_kaggle()
-    groups = {"train": TRAIN_PHOTOS, **{f"val-{name}": TEST_PHOTOS for name in ANGLES}}
+    groups = {"train": TRAIN_PHOTOS, **{f"val-{name}{noise}": TEST_PHOTOS for name in ANGLES for noise in ("", "-ruido")}}
     for folder in groups:
         (OUT / "images" / folder).mkdir(parents=True)
         (OUT / "labels" / folder).mkdir(parents=True)
@@ -110,6 +112,8 @@ def main() -> None:
             for name, img, boxes in photo_views:
                 folder = "train" if split == "train" else f"val-{name}"
                 write_view(img, boxes, f"kaggle_{photo}_{name}", OUT / "images" / folder, OUT / "labels" / folder)
+                if split == "val":
+                    write_view(degrade(img, val_rng), boxes, f"kaggle_{photo}_{name}", OUT / "images" / f"{folder}-ruido", OUT / "labels" / f"{folder}-ruido")
 
     sku, _ = read_labels(SKU_CSV)
     chosen = random.Random(0).sample(sorted(sku["train"]), args.sku_images)
@@ -124,8 +128,10 @@ def main() -> None:
         path.write_text("\n".join(lines), encoding="utf-8")
 
     yaml([f"val-{n}" for n in ANGLES], OUT / "data.yaml")
+    yaml([f"val-{n}-ruido" for n in ANGLES], OUT / "data-ruido.yaml")
     for name in ANGLES:
         yaml([f"val-{name}"], OUT / f"data-{name}.yaml")
+        yaml([f"val-{name}-ruido"], OUT / f"data-{name}-ruido.yaml")
     print(f"dataset listo: {OUT.relative_to(ROOT).as_posix()} ({len(TRAIN_PHOTOS) * len(ANGLES) * (1 + args.ruido)} vistas Kaggle, {args.ruido} copia(s) con ruido por vista, + {len(chosen)} SKU-110K)")
 
 
