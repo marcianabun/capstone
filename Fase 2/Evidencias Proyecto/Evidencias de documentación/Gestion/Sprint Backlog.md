@@ -29,13 +29,15 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | Ítem | Descripción | Dueño | Estado (2026-11-15) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
-| #60 | Manuales de usuario por perfil | Mariana | Hecho (PR #83) |
+| #60 | Manuales de usuario por perfil y manual de instalación | Mariana | En curso: manuales de usuario hechos (PR #83), falta el de instalación |
 | #66 | Orden de carpetas según el profesor | Mariana | Hecho (PR #85) |
 | #55, #58, #68 | Ruido de cámara de sala: PR de las ramas y métricas | Francisco | Hecho (PR #90 y #91) |
 | #76 | Corrección del ruido: cajas tapadas fuera y validación óptico/oclusión | Francisco | Hecho (PR #92) |
 | #77 | Falsa alarma por oclusión en el pipeline | Sin asignar | Pendiente |
-| #78 | Detector por tipo y nivel de ruido | Francisco | Hecho |
-| #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho |
-| #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho |
+| #78 | Detector por tipo y nivel de ruido | Francisco | Hecho (PR #95) |
+| #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96) |
+| #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho (PR #97) |
 | #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
-| #69 a #75 | Hallazgos de la auditoría N.º 4 (evidencias, README, metodología, RNF, UML, docker-compose, innovación) | Francisco | En curso (PR #87 y este trabajo) |
+| #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
+| #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |
+| #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |

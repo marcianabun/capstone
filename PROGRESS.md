@@ -154,6 +154,18 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       de la app web ahora son los versionados (antes apuntaban a un
       `best.pt` que solo existe en el PC que entrenó). Mismas condiciones que #59: parte de
       SKU-110K, uso académico y no comercial. Mejoras y límites en DET-10.
+- [x] **#81** (dueño: Mariana) Revisar los documentos de la auditoría N.º 4
+      (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión
+      de Walmart (2026-11-16), y corregir lo que no calce con el
+      repositorio. **Hecho (2026-11-15)**: el Product Backlog se regeneró
+      desde este archivo (decía 66 ítems y tenía 79, con textos viejos como
+      el #59 y el #39 "Hecho" estando descartado); el Sprint Backlog, las
+      retrospectivas, la Definition of Done, los requisitos no funcionales,
+      la innovación y el alcance del MVP pasan al 2026-11-15 (ruido de cámara
+      de sala medido en DET-08 a DET-10, oclusión #77, 276 pruebas, PR #87 a
+      #96). Los diagramas UML, `docker-compose.yml` y la sección
+      Tecnologías del README calzan con el código. Las reflexiones de
+      Francisco no se tocaron (son personales): sus dudas quedan en el PR.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
