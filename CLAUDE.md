@@ -122,7 +122,8 @@ DJANGO_DEBUG=1 python manage.py migrate && DJANGO_DEBUG=1 python manage.py runse
 - La carpeta `Fase 1/` contiene entregables académicos ya evaluados y no
   debe modificarse.
 - Los pesos de modelos (`*.pt`, `*.onnx`) y las imágenes de datos no se
-  versionan (ver `.gitignore`).
+  versionan (ver `.gitignore`), salvo `weights/yolo26s-finetune.pt`, el mejor
+  modelo (decidido 2026-11-14; uso académico, por venir de SKU-110K).
 
 ## Trabajo en equipo (flujo obligatorio)
 
@@ -164,7 +165,7 @@ ni trabajo:
 7. **Al terminar el ítem**, marcarlo `[x]` en `PROGRESS.md` dentro del
    mismo PR, editando solo las líneas de ese ítem (es el archivo que más
    conflictos genera), y **actualizar la Carta Gantt**
-   (`Anexos/Gestion/Carta Gantt Fase 2.xlsx`) en el mismo PR: en la fila
+   (`Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Carta Gantt Fase 2.xlsx`) en el mismo PR: en la fila
    del ítem (columna "Ítem"), Estado `Cumplido` y Fin con la fecha real
    de término (y el Inicio real si cambió). Si el ítem no tiene fila,
    agregarla dentro de su sección, insertando la fila entre otras de la

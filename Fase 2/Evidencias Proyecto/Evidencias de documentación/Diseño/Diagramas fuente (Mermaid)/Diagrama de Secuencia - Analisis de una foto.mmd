@@ -1,0 +1,28 @@
+sequenceDiagram
+    actor U as Reponedor o Jefe de Salón
+    participant W as App web (views.analyze)
+    participant P as pipeline.run_image
+    participant C as preprocessing
+    participant D as ProductDetector (YOLO26)
+    participant A as postprocessing
+    participant DB as Base de datos (SQLite)
+
+    U->>W: Sube la foto (JPG o PNG, hasta 20 MB), pasillo y góndola
+    W->>W: Valida la foto y lee umbral (Config) y calibración (Camera)
+    W->>P: run_image(imagen, detector, calibración, umbral)
+    P->>C: correct_image() (dewarping y CLAHE)
+    C-->>P: CorrectedImage
+    P->>C: segment_gondola() y crop_roi()
+    C-->>P: GondolaSegmentation y RoiCrop
+    P->>D: detect(recorte)
+    D-->>P: Detection[]
+    P->>P: RoiCrop.to_original() y CorrectedImage.to_original()
+    P->>A: shelf_levels() y compute_availability()
+    A-->>P: free_fraction y critical
+    P-->>W: PipelineResult
+    alt Sin productos detectados
+        W-->>U: Rechaza la foto, sin alerta
+    else Hay productos
+        W->>DB: Cierra la alerta anterior, guarda la foto anotada y crea el Analysis (una transacción)
+        W-->>U: Resultado: % libre y alerta si libre >= umbral
+    end

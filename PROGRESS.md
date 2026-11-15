@@ -1,9 +1,12 @@
 # Bitácora de Sprint 1 - ShelfVision AI
 
-El Sprint 1 cierra con la demo de la Evaluación 2 (Avance) de la Fase
-2: semana del 2026-10-28, con el 50% de los C.U de la fase resueltos,
-y debe servir como primer demo operativo ante Walmart (a más tardar
-2026-10-31). Ver `docs/curso.md`.
+El Sprint 1 cerró con la Evaluación 2 (Avance) de la Fase 2 (semana del
+2026-10-28) y el primer demo ante Walmart (2026-10-26). Lo que sigue
+cierra con la entrega final de la Fase 2: 2026-11-20 a las 12:00, con
+el 100% de los C.U resueltos, manuales de usuario (uno por perfil) y
+manual de instalación; antes, el GitHub al día para la revisión final
+de Walmart (2026-11-16) y la entrega del MVP al cliente (a más tardar
+la semana del 2026-11-16). Ver `docs/curso.md`.
 
 Cada ítem tiene un número fijo (**#N**) que no cambia al reordenar: los
 PR y otros documentos lo citan. Para tomar un ítem, agregar
@@ -54,21 +57,133 @@ moverlo a "Hecho" en el mismo PR, editando solo las líneas de ese ítem
 
 ## Pendientes (priorizados)
 
-Los cuatro primeros responden al mensaje del profesor de la semana 8, y
-los siguientes hasta el #39, al del 2026-10-16 (ver "Próximos
-hitos" en `docs/curso.md`).
+Los ítems #59 a #68 y #69 a #75 (auditoría N.º 4) responden a los mensajes del profesor del 2026-11-02
+al 2026-11-13: GitHub al día para la revisión final de Walmart el
+2026-11-16, entrega del MVP al cliente esa misma semana y entrega final
+de la Fase 2 el 2026-11-20 a las 12:00 (ver "Próximos hitos" en
+`docs/curso.md`). Los cuatro siguientes responden al mensaje de la
+semana 8, y los demás hasta el #39, al del 2026-10-16.
 
+- [x] **#59** (dueño: Francisco) Subir al repositorio el mejor modelo del
+      detector que tiene el equipo. Hecho (2026-11-14, PR #86):
+      `weights/yolo26s-finetune.pt` (20 MB; mAP50 0.854 / R 0.809 en las 12
+      fotos de Kaggle, contra 0.713 / 0.644 de `yolo26s`; ver DET-07 en
+      `docs/test-plan.md`) con excepción en `.gitignore`. Quedó por decisión de
+      Francisco, que cambia la regla de "los pesos no se versionan": parte
+      de SKU-110K (licencia académica y no comercial) y el repo es público.
+      La segunda corrida (`yolo26s-finetune2`: mAP50 0.834 / 0.823 / 0.805)
+      se descartó. En este PC no hay un modelo entrenado con ruido de
+      cámara: los PR de `feat/ruido-camara` (#55) y
+      `feat/camara-sala-simulada`, y las métricas de ese modelo, siguen en
+      #68.
+- [ ] **#68** (dueño: Francisco) Lo que #59 no cubrió: abrir los PR de
+      `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`, subidas el
+      2026-11-09 desde un PC de Duoc con la identidad "AO-Alumno" (antes de
+      commitear en esos PC, `git config user.name` y `user.email` con su
+      cuenta, o no le cuentan en GitHub), y registrar en `docs/test-plan.md`
+      y aquí las métricas del modelo con ruido contra `yolo26s-finetune`.
+      Antes del 2026-11-16 (revisión de Walmart).
+- [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
+      Salón y Reponedor) y manual de instalación (instructivo del plan
+      de instalación y PDF de implementación del ambiente de desarrollo).
+      Los pide la entrega del MVP al cliente (semana del 2026-11-16) y la
+      final; hay ejemplos en Drive (mensaje del profesor del 2026-11-06).
+      La instalación hoy está solo en el README.
+      **Hecho (2026-11-14)**: los tres manuales de usuario en
+      `Fase 2/Evidencias Proyecto/Evidencias de documentación/Manual de usuario/` (Word, con índice y capturas de la app
+      con usuarios ficticios y fotos CC0 de Kaggle, nunca SKU-110K).
+      **Falta**: el manual de instalación y el PDF del ambiente de
+      desarrollo. Con el #66, los manuales pasaron a `Fase 2/Evidencias
+      Proyecto/Evidencias de documentación/Manual de usuario/`.
+- [ ] **#61** Video tutorial con audio (solo la ejecución de los
+      módulos, sin código) y correo de entrega del MVP al cliente:
+      módulos, funcionalidades, instrucciones de acceso, video, manuales
+      y agradecimiento al cliente, con copia al profesor (o reenviarle el
+      correo si ya se envió). Ver si sirve el video de #36.
+- [ ] **#62** Script SQL que crea la estructura de la base y la puebla con
+      datos de prueba, coherente con `web/models.py` (incluye `Config`,
+      `Camera` y `User.locked_until`). Va en "Evidencias de sistema / Base
+      de datos" de la entrega final.
+- [ ] **#63** Documentación SCRUM de la entrega final: análisis del caso;
+      épicas, sprints e historias de usuario; priorización de las H.U.
+      Salen del backlog (`PROGRESS.md`), la Carta Gantt y los C.U.
+- [ ] **#64** Diagramas de actividad de los C.U (los pide la entrega
+      final; no están en el repositorio).
+- [ ] **#65** Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
+      Final`, guía 2.6 en `Fase 2/Evidencias Grupales/`), presentación final (ppt) y la pauta
+      de reflexión individual de cada integrante
+      (`Apellido_Nombre_Pauta_de_reflexión_informe_de_avance_proyecto_APT`).
+      Entrega 2026-11-20 a las 12:00.
+- [x] **#66** (dueño: Mariana) Reordenar las carpetas del GitHub según la imagen del
+      profesor ("orden de carpetas GitHub (COMPLETO)", mensaje del
+      2026-11-13), sin cambiar nombres ni ubicaciones pedidas. Antes del
+      2026-11-16. **Hecho (2026-11-14)**: `Anexos/` pasó a `Fase 2/Evidencias
+      Proyecto/` (Diseño, Gestion y manuales a `Evidencias de
+      documentación/`; la base de datos a `Evidencias de sistema/Base de
+      datos/`), las guías 2.4 y 2.6 con "(Español)", el informe intermedio,
+      la formativa 2.3 y la planilla del avance a `Fase 2/Evidencias
+      Grupales/`, y el video a `Evidencias de sistema/Aplicación/` (con un
+      README que apunta al código). Rutas al día en CLAUDE.md, README y
+      `docs/`. `Fase 1/` no se tocó (regla de CLAUDE.md), aunque sus
+      nombres difieren de la imagen: queda como pregunta en
+      `docs/curso.md`. `Presentación Proyecto.pptx` llega con el #65.
+- [ ] **#67** Hojas semanales del Excel "RESUMEN Estado de Avance Casos
+      de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive
+      compartido con el profesor) y su versión para la entrega final.
+
+- [ ] **#69** (dueño: Francisco) Evidencias que faltan (Reporte de Auditoría N.º 4,
+      2026-10-25): `Sandoval_Francisco_1.3_APT122_AutoevaluacionFase1.docx`
+      (Fase 1, individuales), `Sandoval_Francisco_2.1_APT122_DiarioReflexionFase2.docx`
+      (Fase 2, individuales; cruza con #37) y `Presentación Proyecto.pptx`
+      (Fase 1, grupal: hoy hay un `Presentación Idea de Proyecto.docx` con
+      otro nombre y formato). "Fase 1/" no se modifica: solo se agregan los
+      archivos que faltan, y el nombre de la presentación se confirma con el
+      profesor.
+      Avance (2026-11-14): `Presentación Proyecto.pptx` llega con el #65. Borradores de las dos reflexiones de Francisco puestos en su carpeta (`Fase 1/Evidencias Individuales/Sandoval_Francisco_1.3_...docx` y `Fase 2/Evidencias Individuales/Sandoval_Francisco_2.1_...docx`, con las plantillas oficiales del 2026-11-14). Falta que Francisco los revise y complete lo marcado entre corchetes en el 2.1 (causa de las semanas con poco avance); la presentación llega con el #65.
+- [x] **#70** (dueño: Francisco) README (auditoría N.º 4: 6 de 7 elementos, falta
+      "tecnologías"): sección explícita de Tecnologías (Python, Django,
+      OpenCV, YOLO26/Ultralytics, SQLite, Docker, GitHub Actions, Pytest) y
+      un manual técnico completo (hoy solo hay una guía de instalación); el
+      auditor también detectó por el README React, Angular, Flask, FastAPI y
+      Node.js, que no se usan: aclarar que son alternativas descartadas.
+      Hecho (2026-11-14): sección "Tecnologías" en el README, con tabla por capa y la aclaración de las alternativas descartadas. El manual técnico completo no se escribió: queda como mejora (la guía de instalación y `docs/especificacion-tecnica.md` cubren lo técnico).
+- [x] **#71** (dueño: Francisco) Metodología ágil documentada (auditoría N.º 4: faltan
+      metodología declarada y justificada, Product Backlog, Sprint Backlog,
+      Definition of Done y retrospectivas, y el alcance MVP de la guía 1.5).
+      Se suma a #63 (épicas, sprints e H.U): `PROGRESS.md` hace de
+      backlog pero el auditor no lo reconoce por nombre. Definition of Done
+      desde las reglas de `CLAUDE.md`; el alcance MVP va aquí, no en `Fase 1/`.
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/` con `Metodologia Agil.md` (Scrumban), `Product Backlog.md` (copia de este archivo), `Sprint Backlog.md`, `Definition of Done.md`, `Retrospectivas.md` (reconstruidas desde git y marcadas así; las acciones "por confirmar" las decide el equipo) y `Alcance MVP.md`. Lo decidió el llm-council (una sola fuente en la carpeta de la Fase 2, Markdown).
+- [x] **#72** (dueño: Francisco) Documento de requisitos no funcionales (auditoría N.º 4: no
+      existe): umbral de alerta y precisión del detector, tiempo de análisis,
+      seguridad (#50, #51, #57), licencias de datos, profundidad fija de 25
+      cm y despliegue en Docker y CITT, cada uno medible y con cómo se verifica.
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Requisitos No Funcionales.md` (RNF01 a RNF06 de la Fase 1 con criterio medible y estado, más RNF07 a RNF10).
+- [x] **#73** (dueño: Francisco) Diagramas UML de clases, secuencia (análisis de una foto) y
+      componentes (auditoría N.º 4: solo hay casos de uso y arquitectura).
+      Fuente Mermaid junto a los demás diagramas. Cruza con #64 (actividad).
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas UML.md` con clases, secuencia y componentes en Mermaid, y sus `.mmd` y PNG junto a los demás diagramas.
+- [x] **#74** (dueño: Francisco) `docker-compose.yml` (auditoría N.º 4: Docker 3 de 4): servicio
+      `web` con el `Dockerfile`, volumen `/data`, `.env.example` y puerto
+      8000; documentar `docker compose up` en el README.
+      Hecho (2026-11-14): `docker-compose.yml` en la raíz y su uso en el README. Validado con `docker compose config`; `up` sin probar porque Docker Desktop no arranca en el PC de Francisco (ver #57).
+- [x] **#75** (dueño: Francisco) Documento de Innovación (auditoría N.º 4: solo se menciona
+      en la Fase 1): qué aporta frente a la auditoría manual de góndolas, el
+      enfoque híbrido OpenCV + YOLO26, la ROI automática y los niveles
+      híbridos, con las métricas medidas.
+
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Documento de Innovacion.md`, con las métricas ya medidas y los límites.
 - [x] **#27** (dueño: Francisco) Informe de estado de avance para el
       profesor, con los puntos que pidió su correo de la semana 7. Ya
       atrasado: el profesor lo está esperando. Ahora es el informe
       intermedio que pide el cliente, entrega 2026-10-21 (puntos en
       "Requisitos vigentes" de `docs/curso.md`). Formato Word, lo arma
-      Francisco. Carta Gantt actualizada: `Anexos/Gestion/Carta Gantt
+      Francisco. Carta Gantt actualizada: `Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Carta Gantt
       Fase 2.xlsx` (copia de la Iteración 1, por semana, con estado de
       cada actividad; corte 2026-10-19). Las fechas de #7 y #37 son
       propuestas, a confirmar por sus dueñas. Puntos 2, 3 y 6 del
       informe salen de #35, #34 y #36. Avance (2026-10-20): borrador en
-      `Fase 2/Informe intermedio de avance - ShelfVision AI.docx` con el
+      `Fase 2/Evidencias Grupales/Informe intermedio de avance - ShelfVision AI.docx` con el
       formato de las pautas 2.2 y 2.3 (portada, índice, resumen y
       abstract, Calibri 11, número de página): estado por módulo y por
       C.U, Gantt, riesgos, próximos pasos, decisiones técnicas,
@@ -165,7 +280,7 @@ hitos" en `docs/curso.md`).
       sistema. Hecho (2026-10-21): plantillas CU00, CU01, CU02 y CU06
       corregidas (CU03-CU05 no nombraban JWT ni API); fuentes Mermaid de
       CU00-CU06 y nueva fuente del diagrama de arquitectura
-      (`Anexos/Diseño/Diagramas fuente (Mermaid)/`), con sus PNG
+      (`Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas fuente (Mermaid)/`), con sus PNG
       regenerados con mermaid-cli. Verificado contra `web/` (login con
       RUT o correo, bloqueo tras 5 intentos, vista por rol, alertas).
 - [x] **#43** (dueño: Mariana) Dashboard de disponibilidad (CU03, RF05): estado de cada
@@ -229,12 +344,18 @@ hitos" en `docs/curso.md`).
       no ven clientes de perfil. Falta: que Walmart confirme el plazo
       (#24) y programarlo una vez al día en el servidor del CITT (#39).
       2 tests nuevos.
-- [ ] **#48** Modelar el diagrama de la base de datos (entidad-relación) a partir de
+- [ ] **#48** (dueño: Nicko) Modelar el diagrama de la base de datos (entidad-relación) a partir de
       `web/models.py` (`User`, perfiles como grupos de Django, `Analysis`)
-      y dejarlo en `Anexos/Diseño/Diagramas fuente (Mermaid)/` (`erDiagram`).
+      y dejarlo en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas fuente (Mermaid)/` (`erDiagram`).
       Las filas de modelamiento de la Carta Gantt figuran cumplidas (#28)
       pero no hay diagrama. Incluir las tablas que traerían #43 y #44
       (cámaras, configuración) si se decide su diseño. Cruza con #42.
+      Actualización (2026-11-14): Nicko hizo el modelo lógico, el
+      relacional y el diccionario (`Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de datos/`), pero
+      no incluyen las tablas `Config` y `Camera` (#44) ni el campo
+      `User.locked_until` (#51), ni la normalización de pasillo y góndola
+      (#49). Actualizarlos para la revisión de Walmart (2026-11-16) y la
+      entrega final.
 - [x] **#47** (dueño: Francisco) Auditoría de commits de GitHub: `.mailmap`
       que unifica las identidades (hoy 6 autores para 3 personas) y
       commits y PR sin la línea `Co-Authored-By` ni el pie de Claude
@@ -1013,7 +1134,7 @@ hitos" en `docs/curso.md`).
       quedan por confirmar, #24); RF01 acepta lotes de fotos; RF04 alerta
       por góndola; RF05 con contenido mínimo; RF06 nuevo (evaluación por
       lotes); evaluación de Walmart por IoU y fotos propias (#32).
-      Casos de uso (`Anexos/Diseño/Plantilla de C.U 0X.docx`): CU01 con
+      Casos de uso (`Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Plantilla de C.U 0X.docx`): CU01 con
       el pipeline real (YOLO26, segmentación, sin bodega ni islas,
       excepciones de góndola no encontrada y cámara defectuosa) y sin
       exigir 1 cámara = 1 góndola; CU02 y CU03 con el umbral expresado
@@ -1029,9 +1150,9 @@ hitos" en `docs/curso.md`).
       regenerados (CU00 sin cambios): el general, con CU07, CU02
       `<<extend>>` de CU01 y CU07 `<<include>>` de CU01, y los de
       secuencia de CU01 a CU07, alineados con las plantillas (CU05 ya no
-      dibuja ROI). Sus fuentes quedan en `Anexos/Diseño/Diagramas fuente
+      dibuja ROI). Sus fuentes quedan en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas fuente
       (Mermaid)/` (`.drawio` del general y `.mmd` de cada C.U, con
-      `LEEME.md`); `.gitignore` deja versionar los PNG de `Anexos/`.
+      `LEEME.md`); `.gitignore` deja versionar los PNG de `Fase 2/`.
       `docs/curso.md` lista los 8 C.U. Ítems
       nuevos: #31 (bodega superior), #32 (fotos propias y set anotado)
       y #33 (verificar el detector fuera de SKU-110K). Se numeraron
@@ -1093,7 +1214,7 @@ hitos" en `docs/curso.md`).
   profundidad de góndola es constante, de 20-30 cm. Ya están actualizados
   README, CLAUDE.md, `docs/datasets.md` y `roi_filter.py`. Siguen
   desactualizados estos anexos de diseño, que no se modificaron:
-  `Anexos/Diseño/Mockups/Mockup Admin-1.jpg` (pantalla "Editor de Región
+  `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Mockups/Mockup Admin-1.jpg` (pantalla "Editor de Región
   de Interés (ROI)" con el botón "Guardar Máscara ROI"),
   y `Mockup Admin-4.jpg` (log "Actualizó máscara ROI"). Actualizarlos
   quedó postergado para más adelante (decidido 2026-09-27). Las

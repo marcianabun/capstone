@@ -82,7 +82,7 @@ El proyecto contempla una estructura de dos niveles de solución para garantizar
 
 ## 👥 Perfiles de Usuario
 
-La interfaz va después del pipeline: Walmart pidió priorizar que la lógica funcione. La aplicación web (ver "Aplicación web") ya tiene el login por perfil (CU00), la gestión de usuarios y roles (CU06), el análisis de fotos (CU01), las alertas (CU02), el dashboard de góndolas (CU03), los reportes (CU04) y la configuración de umbral y cámaras (CU05). Los casos de uso CU00-CU07 están en `Anexos/Diseño/`.
+La interfaz va después del pipeline: Walmart pidió priorizar que la lógica funcione. La aplicación web (ver "Aplicación web") ya tiene el login por perfil (CU00), la gestión de usuarios y roles (CU06), el análisis de fotos (CU01), las alertas (CU02), el dashboard de góndolas (CU03), los reportes (CU04) y la configuración de umbral y cámaras (CU05). Los casos de uso CU00-CU07 están en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/`.
 
 1. **Reponedor de Tienda**: Recibe alertas inmediatas en dispositivos móviles para acudir a los pasillos con quiebre crítico.
 2. **Jefe de Salón / Supervisor**: Visualiza dashboards de disponibilidad por pasillo y exporta reportes periódicos de desempeño.
@@ -96,6 +96,22 @@ La interfaz va después del pipeline: Walmart pidió priorizar que la lógica fu
 * **Pipeline Modular**: Separación física de los componentes de *Pre-procesamiento*, *Inferencia de Modelo* y *Post-procesamiento*.
 * **Código de Producción**: Desarrollo exclusivo en scripts modulares de Python (`.py`), descartando notebooks para la ejecución core.
 * **Aplicación web con Django** (decidido 2026-10-18, ítem #28): el diagrama de la Fase 1 proponía una API FastAPI/Flask con JWT y un frontend React. Se eligió Django con SQLite y páginas generadas en el servidor porque trae ya probados el login, los roles (grupos), el hash de contraseñas (bcrypt, como pedía el diseño), la protección CSRF, el ORM y las migraciones: el equipo no escribe a mano código de seguridad. Un frontend aparte (React) duplicaba el trabajo y sumaba Node al CI y a Docker para una interfaz que Walmart considera opcional. Se mantienen los módulos del diseño: backend Python, RBAC, base de datos relacional y vistas por perfil. En vez de JWT se usa la sesión de Django (cookie firmada, `HttpOnly`): CU06 pide invalidar al instante las sesiones de un usuario desactivado, y un JWT no se puede revocar antes de que expire. La app solo llama a `run_image()` de `src/pipeline.py`, como `scripts/run_pipeline.py`: no toca las etapas.
+
+### Tecnologías
+
+| Capa | Tecnología | Para qué |
+| --- | --- | --- |
+| Lenguaje | Python 3.13 | Todo el código es `.py` modular (sin notebooks) |
+| Pre-procesamiento | OpenCV 4 y NumPy | Dewarping, CLAHE, segmentación de góndola y recorte de ROI |
+| Detección | YOLO26 (Ultralytics 8.4) sobre PyTorch | Detector de productos, con cabeza sin NMS |
+| Reportes | openpyxl, fpdf2 y csv | Excel, PDF y CSV |
+| App web | Django 6.1, bcrypt, Pillow, WhiteNoise, gunicorn | Login, roles, análisis, alertas y reportes |
+| Base de datos | SQLite (la que trae Django) | Usuarios, análisis, alertas, cámaras y configuración |
+| Pruebas | pytest y pytest-django | `pytest tests/` sin datos, pesos ni GPU |
+| Despliegue | Docker y Docker Compose | `Dockerfile` y `docker-compose.yml` en la raíz |
+| Integración continua | GitHub Actions | Pruebas y `docker build` en cada PR |
+
+React, Angular, Flask, FastAPI y Node.js no se usan: son alternativas de la Fase 1 que se descartaron (ver la decisión de la app web con Django, arriba). Versiones exactas: `requirements.txt`.
 
 ### Flujo de una foto
 
@@ -134,7 +150,7 @@ flowchart TB
     WEB --> DB[("SQLite<br/>usuarios, análisis, alertas")]
 ```
 
-Cada etapa vive en su paquete y no importa los detalles de otra: se pasan arrays, tuplas y *dataclasses*. `src/pipeline.py` es el único que las encadena, y tanto el CLI como la app web solo llaman a `run_image()`. Los diagramas de diseño de la Fase 1 (casos de uso y arquitectura) están en `Anexos/Diseño/`, actualizados a la app Django el 2026-10-21 (ítem #42); sus fuentes Mermaid, en `Anexos/Diseño/Diagramas fuente (Mermaid)/`.
+Cada etapa vive en su paquete y no importa los detalles de otra: se pasan arrays, tuplas y *dataclasses*. `src/pipeline.py` es el único que las encadena, y tanto el CLI como la app web solo llaman a `run_image()`. Los diagramas de diseño de la Fase 1 (casos de uso y arquitectura) están en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/`, actualizados a la app Django el 2026-10-21 (ítem #42); sus fuentes Mermaid, en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas fuente (Mermaid)/`.
 
 La especificación técnica (qué recibe y entrega cada etapa, parámetros con sus valores, formato del JSON de salida, rutas y permisos de la app web y modelo de datos) está en [docs/especificacion-tecnica.md](docs/especificacion-tecnica.md).
 
@@ -224,12 +240,21 @@ Al 2026-10-20. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS
 ├── data/                   # Datasets (data/raw y data/processed, no versionados)
 ├── tests/                  # Pruebas unitarias e integración (pytest)
 ├── Fase 1/                 # Entregables académicos de la Fase 1 (no modificar)
+├── Fase 2/                 # Entregables de la Fase 2, en el orden de carpetas que pide el profesor
+│   ├── Evidencias Individuales/  # Diario de reflexión (2.1) de cada integrante
+│   ├── Evidencias Grupales/      # Guías 2.4 y 2.6, informe intermedio y formativa
+│   └── Evidencias Proyecto/
+│       ├── Evidencias de documentación/  # Diseño (C.U, diagramas UML, requisitos no funcionales, innovación, mockups), Gestion (metodología ágil, backlogs, Definition of Done, retrospectivas, alcance MVP, Gantt, riesgos, RACI, actas) y manuales de usuario
+│       └── Evidencias de sistema/        # Aplicación (el código está en src/ y web/) y Base de datos (modelos y diccionario)
 ├── Dockerfile              # Imagen de la app web y del pipeline (python:3.13-slim-trixie)
+├── docker-compose.yml      # Levanta la app web con `docker compose up --build`
 ├── CLAUDE.md               # Memoria de proyecto y reglas de código para IA
 ├── PROGRESS.md             # Bitácora de tareas por sprint
 ├── README.md               # Documentación principal del repositorio
 └── requirements.txt        # Dependencias del proyecto
 ```
+
+**Documentos de gestión y diseño (auditoría)**: [Metodología ágil](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Metodologia Agil.md>), [Product Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Product Backlog.md>), [Sprint Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Sprint Backlog.md>), [Definition of Done](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Definition of Done.md>), [Retrospectivas](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Retrospectivas.md>), [Alcance MVP](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Alcance MVP.md>), [Requisitos no funcionales](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Requisitos No Funcionales.md>), [Diagramas UML](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas UML.md>) y [Documento de innovación](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Documento de Innovacion.md>).
 
 ### Configuración de un entorno nuevo
 
@@ -363,7 +388,7 @@ python scripts/run_pipeline.py "data/raw/supermarket-shelves/Supermarket shelves
 
 Resultado esperado con `yolo26s`: la foto 026 (botellas de vidrio en filas, de frente) da `free_fraction` ≈ 0,02 y `critical: false`, es decir ~2% libre y sin alerta. La 011 (estante con pocos productos) es el único quiebre real del set: se espera ver ahí un % libre alto, cerca del umbral (el sistema da 27% y la anotación, 39%; ver el caso en el análisis). Para medir contra la anotación hecha a mano, agregar `--annotations data/processed/annotations/kaggle_supermarket.csv` (se genera con `python scripts/prepare_datasets.py --dataset kaggle_supermarket`); escribe `metrics.csv` con P, R, IoU y la alerta de cada foto. La tabla completa del equipo está en [docs/analisis-resultados.md](docs/analisis-resultados.md).
 
-**Los pesos (`best.pt`) no están en el repositorio**: salen de SKU-110K, cuya licencia prohíbe redistribuirlo, y el equipo no los publica. Hay dos caminos: pedirlos al equipo (se entregan por un canal privado, solo para uso académico y no comercial) o entrenarlos con [docs/training.md](docs/training.md) (GPU NVIDIA de 8 GB; ~7,5 h para `yolo26s`). Con los pesos de COCO (`yolo26s.pt`) el programa corre, pero no detecta la clase "producto" y el resultado no sirve.
+**Pesos del detector**: el mejor modelo del equipo, `yolo26s-finetune` (`yolo26s` entrenado con SKU-110K y ajustado con fotos de Kaggle), está en [weights/yolo26s-finetune.pt](weights/yolo26s-finetune.pt) (20 MB). Parte de SKU-110K, cuya licencia lo limita a uso académico y no comercial: no se usa en demos ante terceros ni se redistribuye con otro fin. Para usarlo: `--weights weights/yolo26s-finetune.pt` o `SHELFVISION_WEIGHTS`. También se pueden entrenar con [docs/training.md](docs/training.md) (GPU NVIDIA de 8 GB; ~7,5 h para `yolo26s`). Con los pesos de COCO (`yolo26s.pt`) el programa corre, pero no detecta la clase "producto" y el resultado no sirve.
 
 ### Aplicación web
 
@@ -457,6 +482,8 @@ docker run --rm -v "$(pwd)/fotos:/app/fotos" -v "$(pwd)/data/processed/training:
 # (copiar best.pt a ./web-data/); sin ese volumen se pierden al recrear el contenedor:
 docker run -d -p 8000:8000 -v "$(pwd)/web-data:/data" -e DJANGO_SECRET_KEY=<clave-larga-al-azar> -e DJANGO_HTTPS=0   -e DJANGO_ALLOWED_HOSTS=localhost,<host-del-servidor> --name shelfvision shelfvision-ai
 docker exec -it shelfvision python manage.py createsuperuser
+# Lo mismo con Docker Compose (docker-compose.yml): DJANGO_SECRET_KEY en el entorno o en un .env
+docker compose up --build -d
 # Pruebas dentro del contenedor (tests/ no se copia a la imagen, se monta):
 docker run --rm -e DJANGO_SECRET_KEY=prueba -v "$(pwd)/tests:/app/tests" shelfvision-ai python -m pytest tests/
 ```
@@ -468,8 +495,8 @@ docker run --rm -e DJANGO_SECRET_KEY=prueba -v "$(pwd)/tests:/app/tests" shelfvi
 Hitos, plazos y requisitos al día según los mensajes del profesor: [docs/curso.md](docs/curso.md).
 
 * **Fase 1 (Semanas 1 - 4 / 20%)**: Inscripción, reunión con cliente, levantamiento de RF y definición de arquitectura.
-* **Fase 2 (Semanas 5 - 16 / 50%)**: Desarrollo modular, integración, pruebas continuas con imágenes sintéticas tipo cámara de sala (y con el Dataset Oculto, si Walmart lo ejecuta en sus instalaciones) y Pre-examen. Informe intermedio de avance y video de demostración (5 a 10 min): 2026-10-21. Evidencias de avance de la Fase 2: a más tardar 2026-10-26. Evaluación 2 (Avance): semana del 2026-10-28, con el 50% de los C.U de la fase resueltos y la demo del Sprint 1. Primer demo operativo ante el cliente: a más tardar 2026-10-31. Entrega final de la Fase 2: semana 15 (fechas por confirmar).
-* **Fase 3 (Semanas 17 - 18 / 30%)**: Ajustes finales, manuales de usuario/instalación y Exposición ante Comisión Evaluadora. Fecha: por definir.
+* **Fase 2 (Semanas 5 - 16 / 50%)**: Desarrollo modular, integración, pruebas continuas con imágenes sintéticas tipo cámara de sala (y con el Dataset Oculto, si Walmart lo ejecuta en sus instalaciones) y Pre-examen. Informe intermedio de avance y video de demostración (5 a 10 min): 2026-10-21. Evidencias de avance de la Fase 2: a más tardar 2026-10-26. Evaluación 2 (Avance): semana del 2026-10-28, con el 50% de los C.U de la fase resueltos y la demo del Sprint 1. Primer demo operativo ante el cliente: 2026-10-26. GitHub al día para la revisión final de Walmart: 2026-11-16. Entrega del MVP al cliente: a más tardar la semana del 2026-11-16. Entrega final de la Fase 2: 2026-11-20 a las 12:00, con el 100% de los C.U, un manual de usuario por perfil y manual de instalación.
+* **Fase 3 (Semanas 17 - 18 / 30%)**: Ajustes finales, manuales de usuario/instalación y Exposición ante Comisión Evaluadora. Ensayos de la presentación: semana del 2026-11-23 al 2026-11-27. Fecha de la exposición: por definir.
 
 ---
 

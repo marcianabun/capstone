@@ -1,0 +1,36 @@
+# Sprint Backlog
+
+Los sprints se miden contra los hitos del curso y de Walmart (ver [Metodología ágil](Metodologia%20Agil.md)). Los ítems **#N** son los de [Product Backlog](Product%20Backlog.md) y `PROGRESS.md`; **PR #N** es el Pull Request de GitHub. Fechas y estados salen de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx) y del historial de git.
+
+## Sprint 0: arranque y Fase 1 (2026-09-07 a 2026-09-26)
+
+Objetivo: dejar en el repositorio los documentos de la Fase 1. No hay ítems numerados: era carga de documentos (casos de uso, diagramas, mockups, autoevaluaciones; ver la sección "Fase 1" de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx)).
+
+## Sprint 1: pipeline, detector y app web (2026-09-27 a 2026-10-28)
+
+Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) e informe intermedio (2026-10-21).
+
+| Área | Ítems y Pull Requests | Estado al cierre |
+| --- | --- | --- |
+| Equipo y CI | Flujo de ramas y PR, plugins compartidos, CI con GitHub Actions (PR #6, #8, #11) | Hecho |
+| Datasets | Descarga reproducible y evaluación en SHARD (PR #10, #13) | Hecho |
+| Visión artificial | Corrección de imagen, segmentación y ROI (PR #3, #7); detector YOLO26 (PR #15, #18, #19); repisas inclinadas (PR #22); detector fuera de SKU-110K y fine-tuning (PR #40, #41, #55) | Hecho (ítems #1 a #6, #33, #34) |
+| Pipeline | `run_pipeline.py` completo con vista anotada y métricas (PR #28, #30) | Hecho (ítem #8) |
+| Alerta | Disponibilidad y quiebre por góndola completa (PR #16, #32) | Hecho (ítems #6, #40) |
+| App web | Login, usuarios y roles (PR #35); reportes (PR #54); configuración y cámaras (PR #71); dashboard (PR #72); privacidad de fotos (PR #74) | Hecho (ítems #7, #28, #43 a #45) |
+| Auditoría 2026-10-21 | Seguridad, robustez, alertas atómicas, bloqueo de cuenta y limpieza (PR #69, #70, #75, #76, #79, #80, #81) | Hecho (ítems #49 a #54; #57 en curso) |
+| Documentación | Informe intermedio, README, especificación técnica, plan de pruebas, análisis de resultados (PR #17, #34 a #39, #46, #63, #77) | Hecho |
+| Pendiente al cierre | Video de demostración (#36), ruido de cámara de sala (#55, planificado del 2026-10-29 al 2026-11-06), servidor del CITT (#39, bloqueado) | Pasa al Sprint 2 |
+
+## Sprint 2: documentación final y entrega (2026-10-29 a 2026-11-20, en curso)
+
+Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
+
+| Ítem | Descripción | Dueño | Estado (2026-11-14) |
+| --- | --- | --- | --- |
+| #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
+| #60 | Manuales de usuario por perfil | Mariana | Hecho (PR #83) |
+| #66 | Orden de carpetas según el profesor | Mariana | Hecho (PR #85) |
+| #68 | PR de las ramas de ruido de cámara y sus métricas | Francisco | Pendiente |
+| #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
+| #69 a #75 | Hallazgos de la auditoría N.º 4 (evidencias, README, metodología, RNF, UML, docker-compose, innovación) | Francisco | En curso (PR #87 y este trabajo) |
