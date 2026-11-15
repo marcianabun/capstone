@@ -215,10 +215,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       módulos, funcionalidades, instrucciones de acceso, video, manuales
       y agradecimiento al cliente, con copia al profesor (o reenviarle el
       correo si ya se envió). Ver si sirve el video de #36.
-- [ ] **#62** Script SQL que crea la estructura de la base y la puebla con
+- [x] **#62** (dueño: Francisco) Script SQL que crea la estructura de la base y la puebla con
       datos de prueba, coherente con `web/models.py` (incluye `Config`,
       `Camera` y `User.locked_until`). Va en "Evidencias de sistema / Base
       de datos" de la entrega final.
+      **Hecho (2026-11-15)**: `Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de
+      datos/shelfvision.sql` (SQLite: estructura de `migrate` y datos ficticios);
+      `tests/test_sql_script.py` comprueba que coincida con `migrate`.
 - [ ] **#63** Documentación SCRUM de la entrega final: análisis del caso;
       épicas, sprints e historias de usuario; priorización de las H.U.
       Salen del backlog (`PROGRESS.md`), la Carta Gantt y los C.U.
