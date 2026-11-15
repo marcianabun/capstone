@@ -10,7 +10,7 @@ from src.postprocessing.shelf_levels import shelf_levels
 from src.preprocessing.gondola_segmentation import segment_gondola
 from src.preprocessing.image_correction import LensCalibration, correct_image
 from src.preprocessing.roi_filter import crop_roi
-from tests.pipeline_fixtures import HEIGHT, WIDTH, ColorDetector, distort, gondola
+from tests.pipeline_fixtures import HEIGHT, WIDTH, ColorDetector, Hider, distort, gondola
 
 # Repisas 1 y 2 vacias en su 70% central (40% libre de la gondola).
 EMPTIED = {1: (0.15, 0.85), 2: (0.15, 0.85)}
@@ -143,3 +143,27 @@ def test_measure_boxes_measures_given_boxes_without_a_detector():
     assert from_truth.free_fraction == pytest.approx(detected.free_fraction, abs=0.02)
     assert from_truth.critical == detected.critical
     assert from_truth.times.detection == 0.0
+
+
+def test_person_covering_a_gap_is_not_free_space_and_is_reported():
+    # #77: una persona frente a la mitad izquierda del hueco no puede contar como espacio libre.
+    image = gondola(EMPTIED)[0]
+    assert run_image(image, ColorDetector()).critical
+    person = (0.15 * WIDTH, 0.0, 0.5 * WIDTH, float(HEIGHT))
+    result = run_image(image, ColorDetector(), occluder_detector=Hider(person))
+    assert not result.critical and not result.inconclusive
+    assert 0.2 < result.occluded_fraction < 0.5
+    assert result.occluders == (person,)  # en coordenadas de la foto
+    json.dumps(result.to_dict())
+
+
+def test_mostly_hidden_gondola_is_inconclusive():
+    person = (0.1 * WIDTH, 0.0, 0.9 * WIDTH, float(HEIGHT))
+    result = run_image(gondola(EMPTIED)[0], ColorDetector(), occluder_detector=Hider(person))
+    assert result.inconclusive and not result.critical
+
+
+def test_without_occluder_detector_nothing_changes():
+    result = run_image(gondola(EMPTIED)[0], ColorDetector())
+    assert result.occluders == () and result.occluded_fraction == 0.0 and not result.inconclusive
+

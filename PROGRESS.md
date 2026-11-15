@@ -105,7 +105,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `yolo26s-finetune` como modelo versionado. Queda fuera: una persona
       tapando la góndola se mide hoy como espacio libre (falsa alerta); se
       resolvería en el pipeline detectando la oclusión.
-- [ ] **#77** Falsa alarma por oclusión: una persona, un carro o una caja
+- [ ] **#77** (dueño: Francisco) Falsa alarma por oclusión: una persona, un carro o una caja
       frente a la góndola tapa productos, el detector no los marca (con
       razón: no se ven) y el hueco se mide como espacio libre, así que puede
       saltar una alerta de quiebre que no existe (hallazgo de #76,
@@ -118,6 +118,23 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       (nunca SKU-110K) y con `degrade()` (la máscara de oclusión ya sale
       de ahí). Puede decidirse en el pipeline o en la app web (si la
       cámara repite la foto a los pocos minutos).
+      **Avance (2026-11-15)**: la medición y el cableado están hechos y
+      probados; falta validarlos con personas reales y decidir si se
+      activan por defecto. `compute_availability(..., occluders=)` mide solo
+      el frente visible (lo tapado no es libre ni ocupado) y con más de 50 %
+      tapado devuelve `inconclusive` y no alerta; `run_image(...,
+      occluder_detector=)` lo alimenta; `PersonDetector`
+      (`src/models/people.py`, pesos de COCO) filtra a la persona alta
+      (>= 40 % del alto, ancho <= alto) porque las caras impresas en las
+      cajas salen como "persona" (45 fotos de Kaggle: 4 con falsos positivos
+      sin filtro, 0 con él). Opt-in: `run_pipeline.py --oclusion yolo26n.pt`
+      y `SHELFVISION_PERSON_WEIGHTS` en la app web (la foto tapada se
+      rechaza como la foto sin productos, #52, sin tocar la alerta abierta);
+      la vista dibuja lo que tapa en ámbar. AV-07 en `docs/test-plan.md`.
+      Falta: fotos de góndola con clientes para medir cuántas personas se
+      encuentran y cuántas falsas alarmas se evitan; decidir si el modelo de
+      COCO (5 MB) se versiona y se activa por defecto; carros y cajas no son
+      "persona" (COCO no tiene carro).
 - [x] **#78** (dueño: Francisco) Medir el detector por tipo y nivel de ruido
       (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja
       resolución, desenfoque, poca luz, mucha luz y oclusión) en 3 niveles

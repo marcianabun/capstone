@@ -14,6 +14,9 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 WEIGHTS = Path(os.environ.get(
     "SHELFVISION_WEIGHTS", ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"))
 
+# Pesos YOLO26 de COCO para encontrar personas que tapan la gondola (#77); sin ellos no se busca oclusion.
+PERSON_WEIGHTS = Path(os.environ["SHELFVISION_PERSON_WEIGHTS"]) if os.environ.get("SHELFVISION_PERSON_WEIGHTS") else None
+
 DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or ("solo-desarrollo-no-usar-en-servidor" if DEBUG else "")
 if not SECRET_KEY:

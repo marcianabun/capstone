@@ -235,3 +235,46 @@ def test_tilted_level_validation():
         compute_availability([], [((0, 0), (100, 80), (100, 60), (0, 50))])
     with pytest.raises(ValueError):  # ni bbox ni cuadrilatero
         compute_availability([], [(0, 0, 100)])
+
+
+# Oclusion (#77): una persona o un carro que tapa la gondola no es espacio libre.
+GAP_ROW = _row([0, 100, 200, 700, 800, 900])  # hueco de x=300 a x=700: 40% libre
+
+
+def test_occluder_over_part_of_a_gap_is_measured_on_the_visible_front_only():
+    base = compute_availability(GAP_ROW, LEVELS[:1])
+    result = compute_availability(GAP_ROW, LEVELS[:1], occluders=[(300, 0, 500, 200)])
+    assert base.critical and base.free_fraction == pytest.approx(0.4)
+    assert result.shelves[0].gaps == ((500.0, 700.0),)
+    assert result.occluded_fraction == pytest.approx(0.2)
+    assert result.free_fraction == pytest.approx(200 / 800)  # 200 px libres de los 800 visibles
+    assert not result.critical and not result.inconclusive
+
+
+def test_occluder_covering_the_whole_gap_leaves_nothing_free():
+    result = compute_availability(GAP_ROW, LEVELS[:1], occluders=[(300, 0, 700, 200)])
+    assert result.free_fraction == 0.0 and result.occluded_fraction == pytest.approx(0.4)
+    assert not result.critical
+
+
+def test_mostly_occluded_gondola_is_inconclusive_and_never_alerts():
+    result = compute_availability(_row([0, 900]), LEVELS[:1], occluders=[(100, 0, 800, 200)])
+    assert result.occluded_fraction == pytest.approx(0.7) and result.inconclusive
+    assert result.free_fraction >= CRITICAL_FREE_FRACTION  # lo visible esta vacio...
+    assert not result.critical  # ...pero con 70 % tapado no se puede afirmar un quiebre
+
+
+def test_occluder_outside_the_level_is_ignored():
+    base = compute_availability(GAP_ROW, LEVELS[:1])
+    result = compute_availability(GAP_ROW, LEVELS[:1], occluders=[(300, 250, 700, 400)])
+    assert result == base and result.occluded_fraction == 0.0 and not result.inconclusive
+
+
+def test_fully_occluded_gondola_is_inconclusive():
+    result = compute_availability(GAP_ROW, LEVELS[:1], occluders=[(0, 0, 1000, 200)])
+    assert result.inconclusive and not result.critical and result.free_fraction == 0.0
+
+
+def test_max_occluded_fraction_must_be_a_fraction():
+    with pytest.raises(ValueError):
+        AvailabilityParams(max_occluded_fraction=0)

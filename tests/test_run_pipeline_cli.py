@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import pytest
 
-from tests.pipeline_fixtures import ColorDetector, gondola
+from tests.pipeline_fixtures import ColorDetector, Hider, gondola
 
 ROOT = Path(__file__).resolve().parent.parent
 EMPTIED = {1: (0.15, 0.85), 2: (0.15, 0.85)}
@@ -114,3 +114,14 @@ def test_default_weights_are_the_versioned_model_so_a_fresh_clone_runs(cli):
     assert cli.DEFAULT_WEIGHTS == ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"
     assert cli.DEFAULT_WEIGHTS.is_file()  # versionado: existe sin entrenar nada
     assert settings.WEIGHTS == cli.DEFAULT_WEIGHTS
+
+
+def test_mostly_hidden_gondola_is_reported_as_hidden_without_view_or_json(cli, photos, tmp_path, capsys, monkeypatch):
+    folder, weights, _ = photos
+    person = (80.0, 0.0, 720.0, 600.0)  # 80 % del ancho de la foto (800 x 600)
+    monkeypatch.setattr(cli, "make_person_detector", lambda weights, device: Hider(person))
+    out = tmp_path / "salida"
+    assert _run(cli, folder, "--weights", weights, "--oclusion", "yolo26n.pt", "--out", out) == 0
+    assert list(out.iterdir()) == []
+    assert "tapada" in capsys.readouterr().out
+
