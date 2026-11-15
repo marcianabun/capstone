@@ -37,6 +37,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #78 | Detector por tipo y nivel de ruido | Francisco | Hecho (PR #95) |
 | #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96) |
 | #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho (PR #97) |
+| #82 | Desenfoque de movimiento fuerte: v4 sin mejora real (límite aceptado) | Francisco | Hecho |
 | #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |

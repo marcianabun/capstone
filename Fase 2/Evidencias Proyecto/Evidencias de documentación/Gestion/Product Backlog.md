@@ -87,3 +87,4 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #80 | Hecho | Francisco | Reemplazar el modelo versionado por `yolo26s-finetune-ruido-v3` (pedido de Francisco, 2026-11-15, tras DET-10) |
 | #79 | Hecho | Francisco | Entrenar con desenfoque más fuerte (pedido de Francisco, 2026-11-15): DET-09 (#78) mostró que el detector solo cae bajo mAP50 0.70 con desen… |
 | #81 | Hecho | Mariana | Revisar los documentos de la auditoría N.º 4 (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión de Walmart (2026-11-16),… |
+| #82 | Hecho | Francisco | Desenfoque de movimiento fuerte (pedido de Francisco, 2026-11-15, tras DET-10): con la v3 el mAP50 con movimiento de 31 px es 0.647, bajo 0.70 (RNF02). `degrade()` solo lo aplicaba… |
