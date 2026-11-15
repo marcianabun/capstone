@@ -2,7 +2,7 @@
 sobre fotos de gondola.
 
     python scripts/run_pipeline.py FOTOS_O_CARPETAS...
-        [--weights data/processed/training/yolo26s/weights/best.pt]
+        [--weights weights/yolo26s-finetune-ruido-v3.pt]
         [--out data/processed/pipeline] [--device cpu] [--threads 4]
         [--conf 0.25] [--annotations ANOTACIONES.csv] [--iou 0.5]
 
@@ -52,7 +52,7 @@ from src.evaluation.detection_metrics import (  # noqa: E402
 from src.pipeline import PipelineResult, measure_boxes, run_image  # noqa: E402
 from src.reporting.annotate import draw_availability  # noqa: E402
 
-DEFAULT_WEIGHTS = ROOT / "data" / "processed" / "training" / "yolo26s" / "weights" / "best.pt"
+DEFAULT_WEIGHTS = ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"
 DEFAULT_OUT = ROOT / "data" / "processed" / "pipeline"
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp"}
 STAGES = ("correction", "segmentation", "detection", "availability", "total")

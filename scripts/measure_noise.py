@@ -6,7 +6,7 @@ de frente y giradas, de `prepare_finetune_dataset.py`) y mide el mAP50 con
 
 Uso:
     python scripts/prepare_finetune_dataset.py
-    python scripts/measure_noise.py [--weights weights/yolo26s-finetune.pt]
+    python scripts/measure_noise.py [--weights weights/yolo26s-finetune-ruido-v3.pt]
 """
 
 from __future__ import annotations
@@ -106,7 +106,7 @@ def main() -> None:
     from ultralytics import YOLO
 
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--weights", default=str(ROOT / "weights" / "yolo26s-finetune.pt"))
+    parser.add_argument("--weights", default=str(ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"))
     parser.add_argument("--device", default="0")
     args = parser.parse_args()
 

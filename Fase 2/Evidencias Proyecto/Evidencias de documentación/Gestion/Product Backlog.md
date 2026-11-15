@@ -84,5 +84,6 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #76 | Hecho | Francisco | Corregir el ruido de `degrade()` (#55): la persona u objeto tapaba productos pero dejaba sus cajas, y el modelo aprendía a marcar lo que no… |
 | #77 | Pendiente | Sin asignar | Falsa alarma por oclusión: una persona, un carro o una caja frente a la góndola tapa productos, el detector no los marca (con razón: no se v… |
 | #78 | Hecho | Francisco | Medir el detector por tipo y nivel de ruido (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja resolución, desenfoque, poc… |
+| #80 | Hecho | Francisco | Reemplazar el modelo versionado por `yolo26s-finetune-ruido-v3` (pedido de Francisco, 2026-11-15, tras DET-10) |
 | #79 | Hecho | Francisco | Entrenar con desenfoque más fuerte (pedido de Francisco, 2026-11-15): DET-09 (#78) mostró que el detector solo cae bajo mAP50 0.70 con desen… |
 | #81 | Hecho | Mariana | Revisar los documentos de la auditoría N.º 4 (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión de Walmart (2026-11-16),… |

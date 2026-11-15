@@ -35,7 +35,8 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #76 | Corrección del ruido: cajas tapadas fuera y validación óptico/oclusión | Francisco | Hecho (PR #92) |
 | #77 | Falsa alarma por oclusión en el pipeline | Sin asignar | Pendiente |
 | #78 | Detector por tipo y nivel de ruido | Francisco | Hecho (PR #95) |
-| #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96); cambiar el modelo versionado por este está en el PR #97 |
+| #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96) |
+| #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho (PR #97) |
 | #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |

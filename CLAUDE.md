@@ -122,7 +122,7 @@ DJANGO_DEBUG=1 python manage.py migrate && DJANGO_DEBUG=1 python manage.py runse
 - La carpeta `Fase 1/` contiene entregables académicos ya evaluados y no
   debe modificarse.
 - Los pesos de modelos (`*.pt`, `*.onnx`) y las imágenes de datos no se
-  versionan (ver `.gitignore`), salvo `weights/yolo26s-finetune.pt`, el mejor
+  versionan (ver `.gitignore`), salvo `weights/yolo26s-finetune-ruido-v3.pt`, el mejor
   modelo (decidido 2026-11-14; uso académico, por venir de SKU-110K).
 
 ## Trabajo en equipo (flujo obligatorio)

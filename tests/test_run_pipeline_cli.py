@@ -106,3 +106,11 @@ def test_annotations_produce_iou_and_alert_metrics(cli, photos, tmp_path):
     assert int(image["annotated"]) == len(truth)  # la caja "empty" no cuenta
     assert image["alert_matches"] == "True"
     assert float(rows["total"]["alert_accuracy"]) == 1.0
+
+
+def test_default_weights_are_the_versioned_model_so_a_fresh_clone_runs(cli):
+    from web import settings
+
+    assert cli.DEFAULT_WEIGHTS == ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"
+    assert cli.DEFAULT_WEIGHTS.is_file()  # versionado: existe sin entrenar nada
+    assert settings.WEIGHTS == cli.DEFAULT_WEIGHTS

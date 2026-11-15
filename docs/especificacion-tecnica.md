@@ -67,9 +67,9 @@ flowchart TB
 | `ProductDetector(weights, device=None)` | Pesos `.pt` de YOLO26 | Carga el modelo una vez. Rechaza pesos sin la cabeza sin NMS de YOLO26 |
 | `detect(image, conf=0.25)` | Imagen BGR (la ROI recortada) | `list[Detection(bbox, score, class_id, class_name)]` en coordenadas de esa imagen |
 
-Una sola clase: `product`. Pesos en uso: `yolo26s-finetune`, el
-fine-tuning aceptado el 2026-10-21 (#33 de `PROGRESS.md`); no se
-versionan y se comparten dentro del equipo.
+Una sola clase: `product`. Pesos en uso: `yolo26s-finetune-ruido-v3`, el
+fine-tuning con ruido de cámara de sala del 2026-11-15 (#79 de
+`PROGRESS.md`, DET-10), versionado en `weights/`.
 
 ### 3.3 Post-procesamiento (`src/postprocessing/`)
 

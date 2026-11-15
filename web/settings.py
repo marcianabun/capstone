@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = Path(os.environ.get("SHELFVISION_DATA_DIR", ROOT / "data" / "processed" / "web"))
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 WEIGHTS = Path(os.environ.get(
-    "SHELFVISION_WEIGHTS", ROOT / "data" / "processed" / "training" / "yolo26s" / "weights" / "best.pt"))
+    "SHELFVISION_WEIGHTS", ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"))
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or ("solo-desarrollo-no-usar-en-servidor" if DEBUG else "")
