@@ -20,6 +20,6 @@ El MVP es la **solución de Nivel 2** del README ("Objetivos y Niveles de Soluci
 - **Alerta o porcentaje por repisa:** las repisas son solo el método interno de medición.
 - **Cámaras en vivo:** se analizan fotos subidas por los usuarios (las cámaras de Walmart no se comparten con el equipo).
 - **Estimación de profundidad o visión estéreo.**
-- **Bodega de reserva sobre la góndola** (ítem #31) y falsas alertas en puertas de vidrio (ítem #46): conocidos y pendientes.
+- **Bodega de reserva sobre la góndola** (ítem #31), falsas alertas en puertas de vidrio (ítem #46) y cuando una persona o un carro tapa la góndola (ítem #77): conocidos y pendientes.
 
 Referencias: [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx), [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y los acuerdos con el cliente en el [README](../../../../README.md).
