@@ -87,3 +87,14 @@ def distort(image: np.ndarray, calibration) -> np.ndarray:
     undistorted = cv2.undistortPoints(pixels, k, calibration.dist_coeffs, P=k).reshape(height, width, 2)
     return cv2.remap(image, undistorted[..., 0], undistorted[..., 1], cv2.INTER_LINEAR,
                      borderMode=cv2.BORDER_REPLICATE)
+
+
+class Hider:
+    """Detector de personas falso (#77): devuelve cajas fijas, como YOLO26 con pesos de COCO."""
+
+    def __init__(self, *boxes: BBox) -> None:
+        self.boxes = boxes
+
+    def detect(self, image: np.ndarray, *args, **kwargs) -> list[FakeDetection]:
+        return [FakeDetection(box) for box in self.boxes]
+
