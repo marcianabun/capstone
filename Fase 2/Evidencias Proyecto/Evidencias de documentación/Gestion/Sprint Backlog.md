@@ -34,6 +34,6 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #55, #58, #68 | Ruido de cámara de sala: PR de las ramas y métricas | Francisco | Hecho (PR #90 y #91) |
 | #76 | Corrección del ruido: cajas tapadas fuera y validación óptico/oclusión | Francisco | Hecho (PR #92) |
 | #77 | Falsa alarma por oclusión en el pipeline | Sin asignar | Pendiente |
-| #78 | Detector por tipo y nivel de ruido | Francisco | En curso |
+| #78 | Detector por tipo y nivel de ruido | Francisco | Hecho |
 | #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
 | #69 a #75 | Hallazgos de la auditoría N.º 4 (evidencias, README, metodología, RNF, UML, docker-compose, innovación) | Francisco | En curso (PR #87 y este trabajo) |

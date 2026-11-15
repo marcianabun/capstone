@@ -118,12 +118,17 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       (nunca SKU-110K) y con `degrade()` (la máscara de oclusión ya sale
       de ahí). Puede decidirse en el pipeline o en la app web (si la
       cámara repite la foto a los pocos minutos).
-- [ ] **#78** (dueño: Francisco) Medir el detector por tipo y nivel de ruido
+- [x] **#78** (dueño: Francisco) Medir el detector por tipo y nivel de ruido
       (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja
       resolución, desenfoque, poca luz, mucha luz y oclusión) en 3 niveles
       sobre las 12 fotos de prueba de Kaggle, con `yolo26s-finetune`, para
       saber qué efecto y desde qué nivel baja el mAP50 de 0.70 (RNF02).
       Resultado en DET-09 de `docs/test-plan.md`.
+      **Hecho (2026-11-15)**: `scripts/measure_noise.py` (3 tests). Solo el
+      desenfoque de movimiento fuerte (largo 31) baja de 0.70 (0.577); el de
+      foco con sigma 5 queda al borde (0.712). Sensor, JPEG, poca luz y baja
+      resolución casi no afectan; la oclusión resta ~0.035. Siguiente paso, si
+      se quiere más robustez: sumar desenfoque más fuerte al entrenamiento.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
