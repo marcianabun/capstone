@@ -12,8 +12,9 @@ from django.db import connection
 from web.auth import valid_rut
 from web.models import ROLES
 
-pytestmark = pytest.mark.django_db
 SCRIPT = Path(__file__).parent.parent / "Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de datos/shelfvision.sql"
+# La imagen Docker no incluye "Fase 2/" (el CI monta solo tests/): ahi se salta; lo verifica el job tests.
+pytestmark = [pytest.mark.django_db, pytest.mark.skipif(not SCRIPT.exists(), reason="el script SQL no esta en la imagen")]
 
 
 @pytest.fixture
