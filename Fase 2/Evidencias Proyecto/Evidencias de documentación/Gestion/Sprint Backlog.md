@@ -36,5 +36,6 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #77 | Falsa alarma por oclusión en el pipeline | Sin asignar | Pendiente |
 | #78 | Detector por tipo y nivel de ruido | Francisco | Hecho |
 | #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho |
+| #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho |
 | #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
 | #69 a #75 | Hallazgos de la auditoría N.º 4 (evidencias, README, metodología, RNF, UML, docker-compose, innovación) | Francisco | En curso (PR #87 y este trabajo) |

@@ -143,6 +143,15 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       0.844 contra 0.836 y SKU-110K `test` 0.935 contra 0.940. Detalle en
       DET-10. Cambiar el modelo versionado por este queda a decisión del
       equipo (otro commit de 20 MB al repo público).
+- [x] **#80** (dueño: Francisco) Reemplazar el modelo versionado por
+      `yolo26s-finetune-ruido-v3` (pedido de Francisco, 2026-11-15, tras
+      DET-10). **Hecho (2026-11-15)**: `weights/yolo26s-finetune-ruido-v3.pt`
+      (20 MB) sustituye a `weights/yolo26s-finetune.pt`, que sigue en el
+      historial de git (el repo es público, no se reescribe). Se actualizan
+      la excepción de `.gitignore`, `CLAUDE.md`, README, `docs/training.md`,
+      `docs/especificacion-tecnica.md` y el valor por defecto de
+      `scripts/measure_noise.py`. Mismas condiciones que #59: parte de
+      SKU-110K, uso académico y no comercial. Mejoras y límites en DET-10.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
