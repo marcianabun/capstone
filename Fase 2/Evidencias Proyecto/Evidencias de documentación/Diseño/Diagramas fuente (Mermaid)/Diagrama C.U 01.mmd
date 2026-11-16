@@ -7,8 +7,9 @@ sequenceDiagram
     participant BD as Base de Datos de Resultados
     Cam->>Pre: Envía foto estática (.jpg / .png) con su pasillo y góndola
     Note over Cam: En la app web la sube el Administrador<br/>o el Jefe de Salón (página "Análisis")
-    opt Colores imposibles (cámara defectuosa)
-        Pre->>BD: Registra alerta de cámara y no analiza la imagen
+    opt Colores imposibles: toda verde o magenta (cámara defectuosa)
+        Pre-->>Cam: No analiza la foto: avisa «Posible cámara defectuosa»
+        Note over Pre: Advertencia en el registro del servidor<br/>para revisar la cámara. La alerta abierta no cambia
     end
     Pre->>Pre: Corrige lente (dewarping) y contraste (CLAHE)
     Pre->>Pre: Segmenta góndola y repisas y recorta la ROI

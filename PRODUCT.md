@@ -66,7 +66,8 @@ un modelo que el equipo pueda explicar a uno con más rendimiento.
   de góndolas con su historial (CU03).
 - Fuera de alcance, como mejoras futuras (#88): pasillos y góndolas como
   entidades, notificaciones push y tiempo de tolerancia del CU05.
-  Pendiente: alerta de cámara defectuosa (#87).
+  La cámara defectuosa (foto toda verde o magenta) se rechaza con un aviso
+  (#87).
 - Stack: Django 6.1 + SQLite con plantillas HTML (decidido 2026-10-18,
   ver README). Sin API REST ni frontend aparte.
 - Terminología: "góndola", "repisa" (nivel), "pasillo", "quiebre de

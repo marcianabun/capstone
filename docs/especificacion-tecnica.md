@@ -49,6 +49,7 @@ flowchart TB
 | `correct_image(image, calibration=None, clip_limit=2.0, tile_grid_size=(8, 8))` | Foto BGR y `LensCalibration` opcional | `CorrectedImage(image, calibration)`. Sin calibración solo aplica CLAHE |
 | `segment_gondola(image, params=SegmentationParams())` | Imagen **corregida** | `GondolaSegmentation(roi, shelf_lines, shelves, found)` |
 | `crop_roi(image, roi)` | Imagen corregida y la ROI | `RoiCrop(image, roi)`; `to_original(bbox)` vuelve a la imagen corregida |
+| `camera_fault(image)` | Foto BGR original | `"imagen verde"`, `"imagen magenta"` o `None`. Cámara defectuosa (CU01, excepción 1a, #87): un canal domina más de 2 veces a los otros (`MAX_COLOR_CAST`) |
 
 - **`LensCalibration(camera_matrix, dist_coeffs, fisheye=False)`**: formato de
   OpenCV. `camera_matrix` 3x3; `dist_coeffs` con 4, 5, 8, 12 o 14
@@ -206,7 +207,9 @@ El modelo lógico, el modelo relacional y el diccionario de datos de la base
   góndola. Se usan el umbral configurado y la calibración de la cámara de
   esa góndola, si existe. Una foto sin productos detectados, o con más de
   la mitad de la góndola tapada por una persona (#77), se rechaza sin
-  tocar la alerta abierta.
+  tocar la alerta abierta. Una foto toda verde o toda magenta (cámara
+  defectuosa, #87) se rechaza antes de analizarla, con una advertencia en
+  el registro del servidor.
   El pasillo y la góndola se guardan sin espacios y en mayúsculas.
 - **Alertas (CU02)**: una góndola tiene a lo más una alerta abierta. Una
   foto nueva con quiebre reemplaza a la anterior y conserva su estado; una

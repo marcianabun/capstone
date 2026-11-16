@@ -58,6 +58,7 @@ python scripts/train_detector.py val --weights <best.pt> --split test   # DET-04
 | COR-01 | CLAHE mejora el detalle en sombras sin alterar colores | `tests/test_image_correction.py` | Pasan | Pasan |
 | COR-02 | El dewarping endereza una repisa curvada (distorsión sintética) y `to_original()` vuelve a la imagen original | `tests/test_image_correction.py` | Pasan | Pasan |
 | COR-03 | Sin calibración solo se aplica CLAHE y las coordenadas no cambian | `tests/test_image_correction.py` | Pasan | Pasan |
+| COR-05 | Cámara defectuosa (CU01, excepción 1a, #87): una foto toda verde o toda magenta no se analiza; una góndola real, aun casi de un solo color, sí | `tests/test_camera_check.py` y `tests/test_web.py`; `camera_fault()` sobre 2.808 fotos reales (Kaggle, SHARD, Roboflow, UniDataPro y SKU-110K) y las 45 de Kaggle teñidas de verde y de magenta | Ninguna foto real rechazada; todas las teñidas detectadas | **Cumple** (2026-11-16): 0 de 2.808 reales rechazadas; 45 de 45 verdes y 45 de 45 magenta detectadas. En 4.800 fotos reales el tinte llega a 1,16 (verde) y 1,42 (magenta); el umbral es 2,0 |
 | COR-04 | El dewarping funciona con una cámara real | Parámetros de calibración que entregue Walmart (calibrando ellos con un tablero de ajedrez; no comparten imágenes de sus cámaras, #21) | Repisas rectas a ojo; error de reproyección < 1 px **(por acordar)** | **No probado**: no hay calibración real |
 
 ## 3. Segmentación de góndola y repisas (ítems #4, #15)

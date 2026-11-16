@@ -48,7 +48,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #83 | Error de niveles con una sola repisa | Nicko | Hecho (PR #104) |
 | #84 | CU06 sin correo: el enlace de contraseña se muestra en pantalla | Mariana | Hecho (PR #111) |
 | #85, #86 | Rendimiento de la app web y tope de píxeles de la foto | Nicko | Hecho (PR #108 y #109) |
-| #87 | Cámara defectuosa (excepción 1a de CU01) | Mariana | Pendiente |
+| #87 | Cámara defectuosa (excepción 1a de CU01) | Mariana | Hecho |
 | #88 | Alcance de CU02 (push) y CU05 (tolerancia) en las plantillas | Mariana | Hecho |
 | #89 | txt del repositorio GitHub documentado | Sin asignar | Pendiente |
 | #90 | Revisión general de documentos, backlog y diagramas contra el repositorio | Mariana | Hecho |
