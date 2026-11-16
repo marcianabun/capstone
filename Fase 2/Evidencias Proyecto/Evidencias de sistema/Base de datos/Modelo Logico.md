@@ -8,7 +8,7 @@ entrar en tipos físicos ni nombres de índices (eso es el
 
 - **Corte**: 2026-11-15, `main` después del PR #103.
 - **Fuente de verdad**: `web/models.py` y las migraciones `web/migrations/0001` a
-  `0006`. Este documento reemplaza al `Modelo Logico.pdf` anterior, que no
+  `0007`. Este documento reemplaza al `Modelo Logico.pdf` anterior, que no
   incluía `Config`, `Camera` ni `User.locked_until` (ítem #48).
 - **Qué no guarda la base**: productos, SKU, imágenes de las cámaras ni
   detecciones sueltas. El detector no identifica productos (una sola clase) y
