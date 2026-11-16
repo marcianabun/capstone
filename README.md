@@ -411,10 +411,11 @@ python manage.py runserver          # http://localhost:8000
   expira tras 2 h sin uso.
 - **CU06**: el Administrador crea y edita usuarios (RUT con dígito
   verificador validado, nombre, correo, rol y estado); no puede
-  desactivarse a sí mismo. La contraseña no se envía por correo: el usuario recibe
-  un enlace de un solo uso para definirla. En desarrollo el correo se
-  imprime en la consola de `runserver`. Si el correo no sale, la cuenta
-  queda creada con un aviso y el enlace se reenvía desde «Editar».
+  desactivarse a sí mismo. El sistema no envía correos (#84): al crear
+  el usuario, el Administrador ve en pantalla un enlace de un solo uso
+  (vence en 3 días) y se lo entrega para que defina su contraseña; si se
+  pierde o vence, genera uno nuevo desde «Editar». Nadie ve ni envía
+  contraseñas.
   Desactivar una cuenta cierra sus
   sesiones abiertas. Los usuarios no se borran, se desactivan, para no
   perder quién hizo cada análisis.
@@ -479,7 +480,7 @@ apaga la búsqueda), `SHELFVISION_DATA_DIR` (base y fotos; por defecto
 PC de desarrollo), `DJANGO_SECRET_KEY` (obligatoria con `DJANGO_DEBUG=0`),
 `DJANGO_ALLOWED_HOSTS` (separados por coma), `DJANGO_HTTPS` (`1` por
 defecto sin debug: cookies seguras y redirección a https; `0` en un
-servidor sin TLS) y `DJANGO_EMAIL_BACKEND`.
+servidor sin TLS).
 
 El CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) corre `pytest` y el `docker build` (con los tests dentro de la imagen) en cada Pull Request hacia `main` y en cada push a `main`; un PR solo se puede mergear con ambos checks en verde.
 

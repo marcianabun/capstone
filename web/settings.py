@@ -94,11 +94,7 @@ LOGOUT_REDIRECT_URL = "login"
 SESSION_COOKIE_AGE = 2 * 60 * 60
 SESSION_SAVE_EVERY_REQUEST = True
 
-# shortcut: los correos (enlace para definir la contrasena, CU06) se imprimen en
-# la consola del servidor; para enviarlos de verdad, backend SMTP y EMAIL_HOST.
-MAILERS = {"default": {"BACKEND": os.environ.get(
-    "DJANGO_EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")}}
-DEFAULT_FROM_EMAIL = "shelfvision@localhost"
+# Sin correo (#84): el enlace para definir la contrasena (CU06) lo ve el Administrador en pantalla.
 
 LANGUAGE_CODE = "es"
 TIME_ZONE = "America/Santiago"

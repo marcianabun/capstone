@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Enlace de {{ usuario.username }} · ShelfVision AI{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>{% if creado %}Usuario {{ usuario.username }} creado{% else %}Enlace nuevo para {{ usuario.username }}{% endif %}</h1>
+    <p>Entrégale este enlace a {{ usuario.get_full_name|default:usuario.username }} para que defina su contraseña. Sirve una sola vez y vence en 3 días.</p>
+  </div>
+</div>
+<div class="panel form narrow-form">
+  <div class="field">
+    <label for="enlace">Enlace para definir la contraseña</label>
+    <input type="text" id="enlace" value="{{ enlace }}" readonly>
+    <span class="help">No se envía por correo y no vuelve a mostrarse: si se pierde, genera uno nuevo desde «Editar».</span>
+  </div>
+  <div class="actions">
+    <button type="button" class="btn" id="copiar">Copiar enlace</button>
+    <a class="btn quiet" href="{% url 'usuarios' %}">Volver a usuarios</a>
+  </div>
+</div>
+<script>
+  // navigator.clipboard solo existe con HTTPS o en localhost; sin él, queda seleccionado para copiarlo a mano.
+  document.getElementById("copiar").addEventListener("click", function (event) {
+    var enlace = document.getElementById("enlace");
+    enlace.select();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(enlace.value).then(function () { event.target.textContent = "Copiado"; });
+    }
+  });
+</script>
+{% endblock %}

@@ -157,7 +157,7 @@ Ejemplo (foto 026 de Kaggle, CPU): 94 productos, 6 repisas,
 | `/` | Inicio según el perfil | → Usuarios | → Góndolas | → Alertas | CU00 |
 | `/login/`, `/logout/`, `/clave/<uid>/<token>/` | Entrar, salir y definir la contraseña | Sí | Sí | Sí | CU00, CU06 |
 | `/usuarios/`, `/usuarios/nuevo/`, `/usuarios/<pk>/` | Lista, crear y editar usuarios | Sí | No | No | CU06 |
-| `/usuarios/<pk>/enlace/` (POST) | Reenviar el enlace de la contraseña | Sí | No | No | CU06 |
+| `/usuarios/<pk>/enlace/` (POST) | Generar un enlace nuevo para definir la contraseña (se muestra en pantalla, sin correo, #84) | Sí | No | No | CU06 |
 | `/gondolas/`, `/gondolas/<pasillo>/<góndola>/` | Dashboard e historial de una góndola | Sí | Sí | Sí | CU03 |
 | `/analisis/` | Subir una foto y ver los últimos análisis | Sí | Sí | No | CU01 |
 | `/analisis/<pk>/`, `/analisis/<pk>/imagen.jpg` | Detalle y foto anotada (solo con sesión) | Sí | Sí | Sí | CU01 |

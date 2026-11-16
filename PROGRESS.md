@@ -225,7 +225,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       contrato); prueba nueva en `tests/test_shelf_levels.py`. Ojo: con tan
       pocos productos el resultado (0 % libre) no es confiable: la foto es
       de baja resolución y el detector casi no ve productos.
-- [ ] **#84** (dueño: Mariana) CU06 sin correo (decidido 2026-11-15, auditoría ponytail del
+- [x] **#84** (dueño: Mariana) CU06 sin correo (decidido 2026-11-15, auditoría ponytail del
       repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para
       definir la contraseña solo se imprime en la consola del servidor
       (`MAILERS` solo lee el *backend*, sin `OPTIONS` de host ni clave) y
@@ -252,6 +252,18 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       usuario del Administrador y el video tutorial (#61) dependen de este
       flujo. No necesita migración. Plazo: antes de grabar el video de #61
       (2026-11-18). Dueña propuesta: Mariana, que se lo asigna al tomarlo.
+      **Hecho (2026-11-16)**: al crear un usuario, o con «Generar enlace
+      nuevo» en «Editar», el Administrador ve el enlace de un solo uso en
+      una página propia (`web/templates/web/usuario_enlace.html`, con botón
+      «Copiar enlace»); `send_mail`, `MAILERS` y `DEFAULT_FROM_EMAIL` se
+      borran. Pruebas primero en `tests/test_web.py` (el enlace sale en
+      pantalla, sirve una vez, no se envía correo y solo el Administrador
+      lo genera); 303 pasan. Al día: README, especificación técnica,
+      `docs/cambios-cu.md`, auditoría (hallazgo 16), diccionario de datos,
+      plantilla y diagrama del C.U 06 (PNG regenerado), los tres manuales de
+      usuario (capturas nuevas del Administrador) y el instructivo de
+      instalación (sección 5.2 sin el registro del servidor). El video de
+      #61 debe mostrar este flujo.
 - [ ] **#87** (dueño: Mariana) Cámara defectuosa (excepción 1a de CU01,
       lo único que le falta al CU01): si la foto tiene colores imposibles
       (por ejemplo, toda verde o violeta, o casi de un solo color), no se
@@ -520,7 +532,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       bloqueado: las instrucciones por sección no llegaron. Punto
       de partida: la imagen Docker que ya construye la CI (#13). Para la
       app web (#28): copiar los pesos `yolo26s` al volumen `/data`,
-      configurar SMTP para los correos de CU06 y servir con HTTPS
+      configurar SMTP para los correos de CU06 (ya no: #84, sin correo) y servir con HTTPS
       (cookies seguras). Hallazgos 15, 16 y 18 de
       `docs/auditoria-app-web.md`.
 - [x] **#42** (dueño: Mariana) Rehacer las plantillas de C.U, sus diagramas de secuencia
@@ -696,7 +708,8 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       un aviso (sin error 500, el error queda en el log) y el
       Administrador reenvía el enlace desde «Editar» mientras el usuario
       no defina su contraseña (`usuarios/<pk>/enlace/`, solo POST y
-      solo Administrador). El `.defer("result")` **no se aplicó**: las
+      solo Administrador; desde el #84, 2026-11-16, ya no hay correo: el
+      enlace se muestra en pantalla). El `.defer("result")` **no se aplicó**: las
       dos listas sí usan `result`, porque dibujan el fleje de cada
       góndola (`Analysis.strips` en `_fleje.html`); diferirlo agregaría
       una consulta por fila. Si las listas se ponen lentas, guardar las

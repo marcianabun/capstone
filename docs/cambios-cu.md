@@ -98,7 +98,7 @@ Plantilla y `Diagrama C.U 06.mmd`.
 | --- | --- |
 | Diagrama, paso 2: `POST /api/v1/users (datos + rol)` | "Envía el formulario del usuario (datos + rol)" |
 | Participantes "Panel de Usuarios Web" y "Servicio de Usuarios" | "App web (Django)" |
-| "Servicio de Correo" envía el enlace de un solo uso | Igual. Precisar que en desarrollo el correo se imprime en la consola del servidor; falta configurar SMTP para enviarlo de verdad |
+| "Servicio de Correo" envía el enlace de un solo uso | Desde el 2026-11-16 (#84) no hay correo: el Administrador ve el enlace de un solo uso en pantalla y se lo entrega al usuario; si se pierde o vence (3 días), genera uno nuevo desde «Editar». Decisión del equipo: no se usará SMTP |
 | Nota: contraseña con hash bcrypt | Igual (Django con `BCryptSHA256PasswordHasher`) |
 | Flujo 3a: desactivar "invalida inmediatamente sus tokens de sesión activos" | "cierra inmediatamente sus sesiones activas" (Django revisa en cada petición que la cuenta siga activa) |
 | CRUD | Precisar que las cuentas no se borran, se desactivan, para no perder el historial (quién hizo cada análisis) |

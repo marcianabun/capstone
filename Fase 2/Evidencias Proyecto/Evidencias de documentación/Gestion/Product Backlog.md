@@ -1,6 +1,6 @@
 # Product Backlog
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (89 ítems: 71 hechos, 7 en curso, 9 pendientes y 2 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (89 ítems: 72 hechos, 6 en curso, 9 pendientes y 2 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -89,7 +89,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #81 | Hecho | Mariana | Revisar los documentos de la auditoría N.º 4 (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión de Walmart (2026-11-16),… |
 | #82 | Hecho | Francisco | Desenfoque de movimiento fuerte (pedido de Francisco, 2026-11-15, tras DET-10): con la v3 el mAP50 con movimiento de 31 px es 0.647, bajo 0.… |
 | #83 | Hecho | Nicko | Error «Se necesita al menos un nivel (o la ROI como unico nivel)» al analizar una foto (reportado por Nicko, 2026-11-15): foto de pasillo en… |
-| #84 | En curso | Mariana | CU06 sin correo (decidido 2026-11-15, auditoría ponytail del repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para definir la c… |
+| #84 | Hecho | Mariana | CU06 sin correo (decidido 2026-11-15, auditoría ponytail del repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para definir la c… |
 | #85 | Hecho | Nicko | Rendimiento de la app web (auditoría ponytail del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la última foto de cada góndo… |
 | #86 | Hecho | Nicko | Limpieza y tope de píxeles de la foto (auditoría ponytail del repo, 2026-11-15). (1) `occupied_fraction` (`ShelfAvailability` y `GondolaAvai… |
 | #87 | En curso | Mariana | Cámara defectuosa (excepción 1a de CU01, lo único que le falta al CU01): si la foto tiene colores imposibles (por ejemplo, toda verde o viol… |

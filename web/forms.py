@@ -58,7 +58,7 @@ class UserForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         if user._state.adding:
-            user.set_unusable_password()  # la define el usuario con el enlace del correo
+            user.set_unusable_password()  # la define el usuario con el enlace que le entrega el Administrador
         if user.is_active:
             user.failed_logins, user.locked_until = 0, None  # guardarla activa la desbloquea
         user.save()

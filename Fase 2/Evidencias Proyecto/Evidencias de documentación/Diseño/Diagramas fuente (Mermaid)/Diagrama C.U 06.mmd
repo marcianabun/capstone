@@ -3,13 +3,11 @@ sequenceDiagram
     actor Adm as Administrador del Sistema
     participant Web as App web (Django)
     participant BD as Base de Datos
-    participant Mail as Servicio de Correo
     Adm->>Web: Envía el formulario del usuario (RUT, nombre, correo + rol)
     Web->>BD: Inserta el usuario (sin contraseña) y su perfil
     BD-->>Web: ID del usuario creado
-    Web->>Mail: Envía enlace de un solo uso para definir la contraseña
-    Note over Mail: En desarrollo el correo se imprime en la consola<br/>del servidor (falta configurar SMTP)
-    Web-->>Adm: Muestra el nuevo usuario en la lista
+    Web-->>Adm: Muestra el enlace de un solo uso para definir la contraseña (sin correo)
+    Note over Adm: Le entrega el enlace<br/>al usuario
     Note over Web,BD: El usuario define su contraseña con el enlace<br/>y se guarda con hash (bcrypt)
     opt Desactivar usuario (baja de personal)
         Adm->>Web: Desmarca "Cuenta activa" y guarda

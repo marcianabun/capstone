@@ -46,7 +46,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #64, #65 | Diagramas de actividad, informe final y presentación (cada integrante su reflexión) | Francisco y Nicko | Pendiente |
 | #67 | Hojas semanales del Excel de avance de C.U | Mariana | En curso (PR #110): hojas 5 a 8 hechas |
 | #83 | Error de niveles con una sola repisa | Nicko | Hecho (PR #104) |
-| #84 | CU06 sin correo: el enlace de contraseña se muestra en pantalla | Mariana | En curso |
+| #84 | CU06 sin correo: el enlace de contraseña se muestra en pantalla | Mariana | Hecho (PR #111) |
 | #85, #86 | Rendimiento de la app web y tope de píxeles de la foto | Nicko | Hecho (PR #108 y #109) |
 | #87 | Cámara defectuosa (excepción 1a de CU01) | Mariana | Pendiente |
 | #88 | Alcance de CU02 (push) y CU05 (tolerancia) en las plantillas | Mariana | Pendiente |
