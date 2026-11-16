@@ -9,6 +9,8 @@ from web.auth import normalize_rut, valid_rut
 from web.models import ADMIN, ROLES, Camera, Config, User
 
 MAX_PHOTO_MB = 20
+# Un PNG casi vacio pesa unos KB y decodificado ocupa cientos de MB: el tope va en pixeles, no solo en bytes.
+MAX_PHOTO_MEGAPIXELS = 50
 
 
 class LoginForm(AuthenticationForm):
@@ -85,6 +87,8 @@ class PhotoForm(forms.Form):
         foto = self.cleaned_data["foto"]
         if foto.size > MAX_PHOTO_MB * 1024 * 1024:
             raise forms.ValidationError(f"La foto pesa más de {MAX_PHOTO_MB} MB.")
+        if foto.image.width * foto.image.height > MAX_PHOTO_MEGAPIXELS * 1_000_000:
+            raise forms.ValidationError(f"La foto tiene más de {MAX_PHOTO_MEGAPIXELS} megapíxeles.")
         return foto
 
 

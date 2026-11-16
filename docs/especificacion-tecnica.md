@@ -189,7 +189,7 @@ El modelo lógico, el modelo relacional y el diccionario de datos de la base
   paralelo no se pierden. El mensaje de error es el mismo para todos, sin
   delatar si el RUT existe. La sesión expira tras 2 h sin uso. Contraseñas con bcrypt
   (`BCryptSHA256PasswordHasher`).
-- **Análisis (CU01)**: foto JPG o PNG de hasta 20 MB, con pasillo y
+- **Análisis (CU01)**: foto JPG o PNG de hasta 20 MB y 50 megapíxeles, con pasillo y
   góndola. Se usan el umbral configurado y la calibración de la cámara de
   esa góndola, si existe. Una foto sin productos detectados se rechaza.
   El pasillo y la góndola se guardan sin espacios y en mayúsculas.

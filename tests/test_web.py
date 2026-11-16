@@ -3,6 +3,7 @@ analisis de fotos (CU01), ciclo de las alertas (CU02), reportes (CU04, #7),
 configuracion de umbral y camaras (CU05, #44) dashboard de gondolas (CU03, #43) y borrado de fotos antiguas (RNF05, #45) con la gondola
 sintetica y el detector falso de pipeline_fixtures (sin pesos de YOLO26)."""
 
+import io
 import json
 import os
 from datetime import timedelta
@@ -10,6 +11,7 @@ from datetime import timedelta
 import cv2
 import numpy as np
 import pytest
+from PIL import Image
 from django.contrib.auth.models import Group
 from django.core.management import CommandError, call_command
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -293,6 +295,18 @@ def test_foto_demasiado_grande_se_rechaza(client, analyzer, monkeypatch):
     monkeypatch.setattr(forms, "MAX_PHOTO_MB", 0)  # cualquier foto supera el límite
     response = client.post(reverse("analisis"), {"pasillo": "3", "gondola": "1", "foto": photo()})
     assert "pesa más de" in response.content.decode()
+    assert not Analysis.objects.exists()
+
+
+def test_foto_de_demasiados_megapixeles_se_rechaza(client, analyzer):
+    # #86: un PNG gris casi vacio pesa unos KB (pasa el limite de 20 MB), pero decodificado ocuparia cientos de MB.
+    client.force_login(make_user("1-9", JEFE))
+    png = io.BytesIO()
+    Image.new("L", (8000, 7000)).save(png, "PNG")  # 56 megapixeles
+    big = SimpleUploadedFile("enorme.png", png.getvalue(), "image/png")
+    assert big.size < forms.MAX_PHOTO_MB * 1024 * 1024
+    response = client.post(reverse("analisis"), {"pasillo": "3", "gondola": "1", "foto": big})
+    assert "megapíxeles" in response.content.decode()
     assert not Analysis.objects.exists()
 
 

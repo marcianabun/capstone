@@ -198,6 +198,19 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       modelo versionado. DET-11 en `docs/test-plan.md`. Para una cámara real,
       lo que importa es que no desenfoque tanto: pedir a Walmart la
       resolución y la velocidad de obturación (#24).
+- [x] **#86** (dueño: Nicko) Limpieza y tope de píxeles de la foto (auditoría
+      ponytail del repo, 2026-11-15). (1) `occupied_fraction`
+      (`ShelfAvailability` y `GondolaAvailability`) no lo usa nada del
+      sistema, solo un test. (2) El formulario de subida limita la foto a
+      20 MB, pero un PNG casi vacío de 12.000 x 12.000 px pesa unos KB y
+      decodificado ocuparía cientos de MB (estimado, no medido), con un solo
+      worker; suben fotos solo el Administrador y el Jefe de Salón, así que
+      el riesgo es bajo. **Hecho (2026-11-16)**: se borran las dos
+      propiedades y la línea de test que las usaba, y `PhotoForm` rechaza
+      fotos de más de 50 megapíxeles (`MAX_PHOTO_MEGAPIXELS`; una foto de
+      celular de 12 MP o las de Kaggle de 21 MP pasan). Prueba nueva en
+      `tests/test_web.py` con un PNG de 56 megapíxeles; `pytest` 301 pasan.
+      README, especificación técnica y diccionario de datos citan el tope.
 - [x] **#83** (dueño: Nicko) Error «Se necesita al menos un nivel (o la ROI
       como unico nivel)» al analizar una foto (reportado por Nicko,
       2026-11-15): foto de pasillo en ángulo de 400 x 300 px, con persona y

@@ -288,7 +288,7 @@ Ejemplo:
 | Rango del umbral | 1 a 100 % | `web/models.py` (`Config.umbral`) |
 | Vigencia de «Sin datos» en el dashboard | 24 horas | `web/views.py` (`RECENT`) |
 | Duración de la sesión | 2 horas sin uso | `web/settings.py` (`SESSION_COOKIE_AGE`) |
-| Tamaño máximo de la foto subida | 20 MB (JPG o PNG) | `web/forms.py` (`MAX_PHOTO_MB`) |
+| Tamaño máximo de la foto subida | 20 MB y 50 megapíxeles (JPG o PNG) | `web/forms.py` (`MAX_PHOTO_MB`, `MAX_PHOTO_MEGAPIXELS`) |
 | Antigüedad para borrar fotos | 30 días (propuesta, #24) | `borrar_fotos --dias` |
 
 ## 12. Datos derivados que no se guardan

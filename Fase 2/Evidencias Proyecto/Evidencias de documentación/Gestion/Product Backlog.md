@@ -88,6 +88,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #80 | Hecho | Francisco | Reemplazar el modelo versionado por `yolo26s-finetune-ruido-v3` (pedido de Francisco, 2026-11-15, tras DET-10). **Hecho (2026-11-15)**: `wei… |
 | #81 | Hecho | Mariana | Revisar los documentos de la auditoría N.º 4 (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión de Walmart (2026-11-16),… |
 | #82 | Hecho | Francisco | Desenfoque de movimiento fuerte (pedido de Francisco, 2026-11-15, tras DET-10): con la v3 el mAP50 con movimiento de 31 px es 0.647, bajo 0.… |
+| #86 | Hecho | Nicko | Limpieza y tope de píxeles de la foto (auditoría ponytail del repo, 2026-11-15). (1) `occupied_fraction` no lo usa nada del sistema, solo un test. (2) El formulario de subida limita la foto a 20 MB, pero un PNG casi vacío de… |
 | #83 | Hecho | Nicko | Error «Se necesita al menos un nivel (o la ROI como unico nivel)» al analizar una foto (reportado por Nicko, 2026-11-15): foto de pasillo en… |
 | #84 | Pendiente | Sin asignar | CU06 sin correo (decidido 2026-11-15, auditoría ponytail del repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para definir la contraseña solo se imprime en la consola… |
 | #85 | Hecho | Nicko | Rendimiento de la app web (auditoría ponytail del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la última foto de cada góndola con una subconsulta sin índice, y crecía con el cuadrado del historial… |
