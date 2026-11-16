@@ -28,19 +28,29 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 
 Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
 
-| Ítem | Descripción | Dueño | Estado (2026-11-15) |
+| Ítem | Descripción | Dueño | Estado (2026-11-16) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
 | #60 | Manuales de usuario por perfil y manual de instalación | Mariana | Hecho (PR #83 y el de #60) |
 | #66 | Orden de carpetas según el profesor | Mariana | Hecho (PR #85) |
 | #55, #58, #68 | Ruido de cámara de sala: PR de las ramas y métricas | Francisco | Hecho (PR #90 y #91) |
 | #76 | Corrección del ruido: cajas tapadas fuera y validación óptico/oclusión | Francisco | Hecho (PR #92) |
-| #77 | Falsa alarma por oclusión en el pipeline | Francisco | En curso: medición del frente visible y detector de personas listos (opt-in); falta validar con personas reales |
+| #77 | Falsa alarma por oclusión en el pipeline | Francisco | Hecho (PR #99 y #101); medir con clientes reales queda como límite |
 | #78 | Detector por tipo y nivel de ruido | Francisco | Hecho (PR #95) |
 | #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96) |
 | #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho (PR #97) |
 | #82 | Desenfoque de movimiento fuerte: v4 sin mejora real (límite aceptado) | Francisco | Hecho |
-| #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
+| #61 | Video tutorial y correo de entrega del MVP a Walmart | Nicko (video) | Pendiente; falta definir quién envía el correo |
+| #62 | Script SQL que crea y puebla la base | Francisco | Hecho (PR #102) |
+| #63 | Documentación SCRUM | Francisco | Hecho (PR #103) |
+| #64, #65 | Diagramas de actividad, informe final y presentación (cada integrante su reflexión) | Francisco y Nicko | Pendiente |
+| #67 | Hojas semanales del Excel de avance de C.U | Mariana | En curso (PR #110): hojas 5 a 8 hechas |
+| #83 | Error de niveles con una sola repisa | Nicko | Hecho (PR #104) |
+| #84 | CU06 sin correo: el enlace de contraseña se muestra en pantalla | Mariana | En curso |
+| #85, #86 | Rendimiento de la app web y tope de píxeles de la foto | Nicko | Hecho (PR #108 y #109) |
+| #87 | Cámara defectuosa (excepción 1a de CU01) | Mariana | Pendiente |
+| #88 | Alcance de CU02 (push) y CU05 (tolerancia) en las plantillas | Mariana | Pendiente |
+| #89 | txt del repositorio GitHub documentado | Sin asignar | Pendiente |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |

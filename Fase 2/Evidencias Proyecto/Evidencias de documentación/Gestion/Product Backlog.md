@@ -1,6 +1,6 @@
 # Product Backlog
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (86 ítems: 68 hechos, 5 en curso, 12 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (89 ítems: 71 hechos, 7 en curso, 9 pendientes y 2 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -34,7 +34,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #26 | Hecho | Mariana | Plan de mejoras de la Fase 1, en `docs/plan-de-mejoras.md` (2026-10-20; el plazo era 2026-10-09). La Fase 1 tuvo nota 7,0 sin observaciones… |
 | #27 | Hecho | Francisco | Informe de estado de avance para el profesor, con los puntos que pidió su correo de la semana 7. Ya atrasado: el profesor lo está esperando.… |
 | #28 | Hecho | Francisco | Aplicación web mínima en `web/` (Django 6.1 + SQLite; stack elegido el 2026-10-18 con un consejo de 5 perspectivas: Django trae login, roles… |
-| #29 | Pendiente | Sin asignar | Primer demo operativo ante Walmart, a más tardar 2026-10-31 (también se muestra en la Evaluación 2, semana del 2026-10-28): detector entrena… |
+| #29 | Hecho | Sin asignar | Primer demo operativo ante Walmart, a más tardar 2026-10-31 (también se muestra en la Evaluación 2, semana del 2026-10-28): detector entrena… |
 | #30 | Hecho | Francisco | Documentación alineada con las reuniones con Walmart (2026-09-03, 2026-09-16 y 2026-09-30). Las minutas no se versionan (son confidenciales… |
 | #31 | Pendiente | Sin asignar | Excluir de la medición la bodega de reserva que hay sobre la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16 en el README). H… |
 | #32 | Pendiente | Sin asignar | Fotos propias de góndolas en tienda (con permiso), clasificadas por ángulo (frontal, lateral, desde arriba, gran angular), y un set chico an… |
@@ -42,8 +42,8 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #34 | Hecho | Francisco | Análisis de resultados del informe intermedio (2026-10-20), en `docs/analisis-resultados.md` y la sección 3 del informe (#27). Pipeline comp… |
 | #35 | Hecho | Francisco | README completo para el informe intermedio (2026-10-21) y las evidencias de avance (2026-10-26): descripción de la solución, estrategia técn… |
 | #36 | Hecho | Nicko | Video de demostración de 5 a 10 minutos (entrega 2026-10-21): solo funcionalidades implementadas y resultados que la aplicación genera hoy,… |
-| #37 | En curso | Mariana | Evidencias de avance de la Fase 2, a más tardar 2026-10-26: diario de reflexión 2.1, guía 2.4 (resumen del avance, plan de trabajo con estad… |
-| #38 | Pendiente | Sin asignar | Feria de informática (semana del 2026-10-26; día y hora por informar): definir qué integrante va (al menos uno) y qué se muestra. |
+| #37 | Hecho | Mariana | Evidencias de avance de la Fase 2, a más tardar 2026-10-26: diario de reflexión 2.1, guía 2.4 (resumen del avance, plan de trabajo con estad… |
+| #38 | Descartado | Sin asignar | Feria de informática (semana del 2026-10-26; día y hora por informar): definir qué integrante va (al menos uno) y qué se muestra. |
 | #39 | Descartado | Sin asignar | Instalar la aplicación en el servidor del CITT. Estaba bloqueado: las instrucciones por sección no llegaron. Punto de partida: la imagen Doc… |
 | #40 | Hecho | Francisco | Quiebre de stock por góndola completa (cambio de alcance del profesor, 2026-10-19). La alerta y el % libre que se informan son solo los de l… |
 | #41 | Hecho | Francisco | Plugin `ponytail` para el trabajo con código (pedido de Francisco, 2026-10-19): skill `/ponytail` de github.com/DietrichGebert/ponytail (MIT… |
@@ -66,7 +66,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #58 | Hecho | Francisco | Cámara de sala simulada para comprobar la app web con el flujo de una cámara fija (pedido de Francisco, 2026-11-09). Hecho (2026-11-09): `py… |
 | #59 | Hecho | Francisco | Subir al repositorio el mejor modelo del detector que tiene el equipo. Hecho (2026-11-14, PR #86): `weights/yolo26s-finetune.pt` (20 MB; mAP… |
 | #60 | Hecho | Mariana | Manuales de usuario (uno por perfil: Administrador, Jefe de Salón y Reponedor) y manual de instalación (instructivo del plan de instalación… |
-| #61 | Pendiente | Sin asignar | Video tutorial con audio (solo la ejecución de los módulos, sin código) y correo de entrega del MVP al cliente: módulos, funcionalidades, in… |
+| #61 | En curso | Nicko | Video tutorial con audio (solo la ejecución de los módulos, sin código) y correo de entrega del MVP al cliente: módulos, funcionalidades, in… |
 | #62 | Hecho | Francisco | Script SQL que crea la estructura de la base y la puebla con datos de prueba, coherente con `web/models.py` (incluye `Config`, `Camera` y `U… |
 | #63 | Hecho | Francisco | Documentación SCRUM de la entrega final: análisis del caso; épicas, sprints e historias de usuario; priorización de las H.U. Salen del backl… |
 | #64 | Pendiente | Sin asignar | Diagramas de actividad de los C.U (los pide la entrega final; no están en el repositorio). |
@@ -82,13 +82,16 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #74 | Hecho | Francisco | `docker-compose.yml` (auditoría N.º 4: Docker 3 de 4): servicio `web` con el `Dockerfile`, volumen `/data`, `.env.example` y puerto 8000; do… |
 | #75 | Hecho | Francisco | Documento de Innovación (auditoría N.º 4: solo se menciona en la Fase 1): qué aporta frente a la auditoría manual de góndolas, el enfoque hí… |
 | #76 | Hecho | Francisco | Corregir el ruido de `degrade()` (#55): la persona u objeto tapaba productos pero dejaba sus cajas, y el modelo aprendía a marcar lo que no… |
-| #77 | En curso | Francisco | Falsa alarma por oclusión: una persona, un carro o una caja frente a la góndola tapa productos, el detector no los marca (con razón: no se v… |
+| #77 | Hecho | Francisco | Falsa alarma por oclusión: una persona, un carro o una caja frente a la góndola tapa productos, el detector no los marca (con razón: no se v… |
 | #78 | Hecho | Francisco | Medir el detector por tipo y nivel de ruido (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja resolución, desenfoque, poc… |
 | #79 | Hecho | Francisco | Entrenar con desenfoque más fuerte (pedido de Francisco, 2026-11-15): DET-09 (#78) mostró que el detector solo cae bajo mAP50 0.70 con desen… |
 | #80 | Hecho | Francisco | Reemplazar el modelo versionado por `yolo26s-finetune-ruido-v3` (pedido de Francisco, 2026-11-15, tras DET-10). **Hecho (2026-11-15)**: `wei… |
 | #81 | Hecho | Mariana | Revisar los documentos de la auditoría N.º 4 (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión de Walmart (2026-11-16),… |
 | #82 | Hecho | Francisco | Desenfoque de movimiento fuerte (pedido de Francisco, 2026-11-15, tras DET-10): con la v3 el mAP50 con movimiento de 31 px es 0.647, bajo 0.… |
 | #83 | Hecho | Nicko | Error «Se necesita al menos un nivel (o la ROI como unico nivel)» al analizar una foto (reportado por Nicko, 2026-11-15): foto de pasillo en… |
-| #84 | Pendiente | Sin asignar | CU06 sin correo (decidido 2026-11-15, auditoría ponytail del repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para definir la c… |
+| #84 | En curso | Mariana | CU06 sin correo (decidido 2026-11-15, auditoría ponytail del repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para definir la c… |
 | #85 | Hecho | Nicko | Rendimiento de la app web (auditoría ponytail del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la última foto de cada góndo… |
 | #86 | Hecho | Nicko | Limpieza y tope de píxeles de la foto (auditoría ponytail del repo, 2026-11-15). (1) `occupied_fraction` (`ShelfAvailability` y `GondolaAvai… |
+| #87 | En curso | Mariana | Cámara defectuosa (excepción 1a de CU01, lo único que le falta al CU01): si la foto tiene colores imposibles (por ejemplo, toda verde o viol… |
+| #88 | En curso | Mariana | Alcance de CU02 y CU05 en las plantillas, para cerrar los C.U al 100% en la entrega final (2026-11-20): la notificación push al teléfono (CU… |
+| #89 | Pendiente | Sin asignar | Archivo txt «Repositorio GitHub del proyecto documentado» en `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`, que pide la ent… |

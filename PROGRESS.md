@@ -105,7 +105,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `yolo26s-finetune` como modelo versionado. Queda fuera: una persona
       tapando la góndola se mide hoy como espacio libre (falsa alerta); se
       resolvería en el pipeline detectando la oclusión.
-- [ ] **#77** (dueño: Francisco) Falsa alarma por oclusión: una persona, un carro o una caja
+- [x] **#77** (dueño: Francisco) Falsa alarma por oclusión: una persona, un carro o una caja
       frente a la góndola tapa productos, el detector no los marca (con
       razón: no se ven) y el hueco se mide como espacio libre, así que puede
       saltar una alerta de quiebre que no existe (hallazgo de #76,
@@ -135,6 +135,9 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Falta: fotos de góndola con clientes para medir cuántas personas se
       encuentran y cuántas falsas alarmas se evitan; carros y cajas no son
       "persona" (COCO no tiene carro).
+      **Hecho (2026-11-16)**: PR #99 y #101 integrados a `main`. Medir con
+      fotos de clientes reales queda como límite conocido (sin fotos de
+      tienda, ver #32).
 - [x] **#78** (dueño: Francisco) Medir el detector por tipo y nivel de ruido
       (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja
       resolución, desenfoque, poca luz, mucha luz y oclusión) en 3 niveles
@@ -222,7 +225,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       contrato); prueba nueva en `tests/test_shelf_levels.py`. Ojo: con tan
       pocos productos el resultado (0 % libre) no es confiable: la foto es
       de baja resolución y el detector casi no ve productos.
-- [ ] **#84** CU06 sin correo (decidido 2026-11-15, auditoría ponytail del
+- [ ] **#84** (dueño: Mariana) CU06 sin correo (decidido 2026-11-15, auditoría ponytail del
       repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para
       definir la contraseña solo se imprime en la consola del servidor
       (`MAILERS` solo lee el *backend*, sin `OPTIONS` de host ni clave) y
@@ -249,6 +252,26 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       usuario del Administrador y el video tutorial (#61) dependen de este
       flujo. No necesita migración. Plazo: antes de grabar el video de #61
       (2026-11-18). Dueña propuesta: Mariana, que se lo asigna al tomarlo.
+- [ ] **#87** (dueño: Mariana) Cámara defectuosa (excepción 1a de CU01,
+      lo único que le falta al CU01): si la foto tiene colores imposibles
+      (por ejemplo, toda verde o violeta, o casi de un solo color), no se
+      analiza y se avisa «posible cámara defectuosa, revisar». Va en
+      `src/preprocessing/` con pruebas primero; medir con las fotos de
+      Kaggle que no rechace góndolas con mucho envase de un mismo color.
+      Actualizar la plantilla del C.U 01 y `docs/cambios-cu.md`.
+- [ ] **#88** (dueño: Mariana) Alcance de CU02 y CU05 en las plantillas,
+      para cerrar los C.U al 100% en la entrega final (2026-11-20): la
+      notificación push al teléfono (CU02) y el tiempo de tolerancia (CU05)
+      quedan fuera de alcance, como mejoras futuras. Motivos: la página
+      «Alertas» se recarga sola cada minuto; el push necesita HTTPS,
+      service worker y permisos en cada teléfono; las fotos las sube una
+      persona a propósito, y la falsa alarma más común (una persona que
+      tapa la góndola) ya la evita el #77. Actualizar las plantillas de
+      C.U 02 y 05, sus diagramas si lo nombran y `docs/cambios-cu.md`.
+- [ ] **#89** Archivo txt «Repositorio GitHub del proyecto documentado»
+      en `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`,
+      que pide la entrega final (2026-11-20): enlace al repositorio y
+      cómo está organizado.
 - [x] **#85** (dueño: Nicko) Rendimiento de la app web (auditoría ponytail
       del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la
       última foto de cada góndola con una subconsulta sin índice, y crecía
@@ -289,11 +312,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       contraseña) solo se escriben en el registro, partidos en
       quoted-printable, porque `web/settings.py` no lee un servidor SMTP, y
       todo `docker compose` exige el `.env` con `DJANGO_SECRET_KEY`.
-- [ ] **#61** Video tutorial con audio (solo la ejecución de los
+- [ ] **#61** (dueño: Nicko) Video tutorial con audio (solo la ejecución de los
       módulos, sin código) y correo de entrega del MVP al cliente:
       módulos, funcionalidades, instrucciones de acceso, video, manuales
       y agradecimiento al cliente, con copia al profesor (o reenviarle el
       correo si ya se envió). Ver si sirve el video de #36.
+      Nicko hace el video (2026-11-16). Falta definir quién envía el
+      correo a Walmart. El video debe mostrar el CU06 sin correo (#84).
 - [x] **#62** (dueño: Francisco) Script SQL que crea la estructura de la base y la puebla con
       datos de prueba, coherente con `web/models.py` (incluye `Config`,
       `Camera` y `User.locked_until`). Va en "Evidencias de sistema / Base
@@ -423,11 +448,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       avance (#37): pregunta abierta en `docs/curso.md`.
       Hecho (2026-10-22): entregado el 2026-10-21; queda de seguimiento
       el enlace al video (#36) y la reflexión de Nicko.
-- [ ] **#29** Primer demo operativo ante Walmart, a más
+- [x] **#29** Primer demo operativo ante Walmart, a más
       tardar 2026-10-31 (también se muestra en la Evaluación 2, semana
       del 2026-10-28): detector entrenado (#5), pipeline completo (#8)
       y reportes (#7), integrados con la aplicación web (#28). Para la
       demo, solo fotos que se pueden mostrar a terceros (no SKU-110K).
+      **Hecho**: el avance se entregó finalmente como el informe intermedio
+      (#27), según confirmó Mariana el 2026-11-16.
 - [x] **#35** (dueño: Francisco) README completo para el informe intermedio (2026-10-21) y
       las evidencias de avance (2026-10-26): descripción de la solución,
       estrategia técnica y justificación de cada decisión (OpenCV antes
@@ -455,7 +482,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Góndolas (CU03), Configuración (CU05) ni la detección de personas
       (#77), y muestra código unos segundos. Por eso no reemplaza al video
       tutorial del MVP (#61).
-- [ ] **#37** (dueño: Mariana) Evidencias de avance de la Fase 2, a más tardar
+- [x] **#37** (dueño: Mariana) Evidencias de avance de la Fase 2, a más tardar
       2026-10-26: diario de reflexión 2.1, guía 2.4 (resumen del
       avance, plan de trabajo con estado y ajustes) e informe con el
       formato de las pautas 2.2 y 2.3 (abstract en español e inglés;
@@ -477,7 +504,15 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `docs/evidencias-avance.md` completadas. Nicko subió su diario 2.1
       a la misma carpeta. Falta el de Francisco y recalcular las cifras
       antes de entregar (2026-10-26).
-- [ ] **#38** Feria de informática (semana del 2026-10-26; día y hora
+      **Hecho (revisado el 2026-11-16)**: en el repositorio están el diario
+      2.1 y la autoevaluación 2.2 de Mariana (`Fase 2/Evidencias
+      Individuales/`), la guía 2.4, la formativa 2.3 y el informe intermedio
+      (`Fase 2/Evidencias Grupales/`), completos y con datos al 21-22 de
+      octubre. Ojo para el informe final (#65): el informe intermedio no
+      tiene abstract en inglés, sus conclusiones y reflexiones están en
+      español (la pauta 2.2 las pide en inglés) y la reflexión de Nicko dice
+      «Pendiente.».
+- [x] **#38** (descartado 2026-11-16: acordado con el profesor, según Mariana) Feria de informática (semana del 2026-10-26; día y hora
       por informar): definir qué integrante va (al menos uno) y qué se
       muestra.
 - [x] **#39** (descartado 2026-11-15: Francisco indicó que ya no es
