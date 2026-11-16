@@ -1,6 +1,6 @@
-# Definition of Done
+# Criterios de Terminado
 
-Un ítem del backlog está **terminado** solo si cumple todo lo siguiente. Son las reglas de trabajo en equipo del repositorio (`CLAUDE.md`, "Trabajo en equipo") y se verifican en cada Pull Request.
+Un ítem del listado de tareas está **terminado** solo si cumple todo lo siguiente. Son las reglas de trabajo en equipo del repositorio (`CLAUDE.md`, "Trabajo en equipo") y se verifican en cada Pull Request.
 
 1. **Rama propia** por ítem (`feat/`, `fix/`, `docs/`, `build/` o `chore/`); nunca commits directos a `main`.
 2. **Pruebas:** `pytest tests/` pasa completo antes de cada commit (303 pruebas al 2026-11-16). En código nuevo, la prueba se escribe primero (TDD).

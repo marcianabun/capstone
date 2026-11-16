@@ -81,7 +81,7 @@ textual.
   (evaluación, entrega, pre-examen, exposición), escribir su fecha en
   la línea de esa fase. No cambiar los rangos de semanas salvo que el
   mensaje los cambie explícitamente.
-- `PROGRESS.md`: si cambia el cierre del Sprint (línea bajo el título),
+- `PROGRESS.md`: si cambia el cierre de la Etapa (línea bajo el título),
   actualizarla. Si un requisito implica trabajo que no está en el
   backlog, **proponer** el ítem a la persona; agregarlo solo si
   confirma (con su dueño, regla "Nada fuera del backlog").

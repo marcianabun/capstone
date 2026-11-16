@@ -248,17 +248,17 @@ Al 2026-11-16. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS
 │   ├── Evidencias Individuales/  # Diario de reflexión (2.1) de cada integrante
 │   ├── Evidencias Grupales/      # Guías 2.4 y 2.6, informe intermedio y formativa
 │   └── Evidencias Proyecto/
-│       ├── Evidencias de documentación/  # Diseño (C.U, diagramas UML, requisitos no funcionales, innovación, mockups), Gestion (metodología ágil, backlogs, Definition of Done, retrospectivas, alcance MVP, Gantt, riesgos, RACI, actas) y manuales de usuario
+│       ├── Evidencias de documentación/  # Diseño (C.U, diagramas UML, requisitos no funcionales, innovación, mockups), Gestion (metodología en cascada, listado de tareas, plan por etapas, criterios de terminado, lecciones aprendidas, alcance MVP, Gantt, riesgos, RACI, actas) y manuales de usuario
 │       └── Evidencias de sistema/        # Aplicación (el código está en src/ y web/) y Base de datos (modelos y diccionario)
 ├── Dockerfile              # Imagen de la app web y del pipeline (python:3.13-slim-trixie)
 ├── docker-compose.yml      # Levanta la app web con `docker compose up --build`
 ├── CLAUDE.md               # Memoria de proyecto y reglas de código para IA
-├── PROGRESS.md             # Bitácora de tareas por sprint
+├── PROGRESS.md             # Bitácora de tareas
 ├── README.md               # Documentación principal del repositorio
 └── requirements.txt        # Dependencias del proyecto
 ```
 
-**Documentos de gestión y diseño (auditoría)**: [Metodología ágil](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Metodologia Agil.md>), [Product Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Product Backlog.md>), [Sprint Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Sprint Backlog.md>), [Documentación SCRUM](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Documentacion SCRUM.docx>) (épicas, historias de usuario, priorización y sprints semanales), [Definition of Done](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Definition of Done.md>), [Retrospectivas](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Retrospectivas.md>), [Alcance MVP](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Alcance MVP.md>), [Requisitos no funcionales](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Requisitos No Funcionales.md>), [Diagramas UML](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas UML.md>) y [Documento de innovación](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Documento de Innovacion.md>).
+**Documentos de gestión y diseño (auditoría)**: [Metodología en cascada](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Metodologia Cascada.md>), [Listado de Tareas](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Listado de Tareas.md>), [Plan por Etapas](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Plan por Etapas.md>), [Criterios de Terminado](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Criterios de Terminado.md>), [Lecciones aprendidas](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Lecciones Aprendidas.md>), [Alcance MVP](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Alcance MVP.md>), [Requisitos no funcionales](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Requisitos No Funcionales.md>), [Diagramas UML](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas UML.md>) y [Documento de innovación](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Documento de Innovacion.md>).
 
 ### Configuración de un entorno nuevo
 
@@ -514,7 +514,7 @@ docker run --rm -e DJANGO_SECRET_KEY=prueba -v "$(pwd)/tests:/app/tests" shelfvi
 Hitos, plazos y requisitos al día según los mensajes del profesor: [docs/curso.md](docs/curso.md).
 
 * **Fase 1 (Semanas 1 - 4 / 20%)**: Inscripción, reunión con cliente, levantamiento de RF y definición de arquitectura.
-* **Fase 2 (Semanas 5 - 16 / 50%)**: Desarrollo modular, integración, pruebas continuas con imágenes sintéticas tipo cámara de sala (y con el Dataset Oculto, si Walmart lo ejecuta en sus instalaciones) y Pre-examen. Informe intermedio de avance y video de demostración (5 a 10 min): 2026-10-21. Evidencias de avance de la Fase 2: a más tardar 2026-10-26. Evaluación 2 (Avance): semana del 2026-10-28, con el 50% de los C.U de la fase resueltos y la demo del Sprint 1. Primer demo operativo ante el cliente: 2026-10-26. GitHub al día para la revisión final de Walmart: 2026-11-16. Entrega del MVP al cliente: a más tardar la semana del 2026-11-16. Entrega final de la Fase 2: 2026-11-20 a las 12:00, con el 100% de los C.U, un manual de usuario por perfil y manual de instalación.
+* **Fase 2 (Semanas 5 - 16 / 50%)**: Desarrollo modular, integración, pruebas continuas con imágenes sintéticas tipo cámara de sala (y con el Dataset Oculto, si Walmart lo ejecuta en sus instalaciones) y Pre-examen. Informe intermedio de avance y video de demostración (5 a 10 min): 2026-10-21. Evidencias de avance de la Fase 2: a más tardar 2026-10-26. Evaluación 2 (Avance): semana del 2026-10-28, con el 50% de los C.U de la fase resueltos y la demo de la Etapa 1. Primer demo operativo ante el cliente: 2026-10-26. GitHub al día para la revisión final de Walmart: 2026-11-16. Entrega del MVP al cliente: a más tardar la semana del 2026-11-16. Entrega final de la Fase 2: 2026-11-20 a las 12:00, con el 100% de los C.U, un manual de usuario por perfil y manual de instalación.
 * **Fase 3 (Semanas 17 - 18 / 30%)**: Ajustes finales, manuales de usuario/instalación y Exposición ante Comisión Evaluadora. Ensayos de la presentación: semana del 2026-11-23 al 2026-11-27. Fecha de la exposición: por definir.
 
 ---
