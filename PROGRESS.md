@@ -476,7 +476,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       no ven clientes de perfil. Falta: que Walmart confirme el plazo
       (#24) y programarlo una vez al día en el servidor del CITT (#39).
       2 tests nuevos.
-- [ ] **#48** (dueño: Nicko) Modelar el diagrama de la base de datos (entidad-relación) a partir de
+- [x] **#48** (dueño: Nicko) Modelar el diagrama de la base de datos (entidad-relación) a partir de
       `web/models.py` (`User`, perfiles como grupos de Django, `Analysis`)
       y dejarlo en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas fuente (Mermaid)/` (`erDiagram`).
       Las filas de modelamiento de la Carta Gantt figuran cumplidas (#28)
@@ -488,6 +488,14 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `User.locked_until` (#51), ni la normalización de pasillo y góndola
       (#49). Actualizarlos para la revisión de Walmart (2026-11-16) y la
       entrega final.
+      **Hecho (2026-11-15)**: `Modelo Logico.md`, `Modelo Relacional.md` y
+      `Diccionario de Datos.md` en esa carpeta, al día con `web/models.py` y las
+      migraciones 0001 a 0006 (12 tablas, con `Config`, `Camera`,
+      `locked_until`, el ciclo de la alerta y la estructura de los JSON). El
+      diccionario se comparó con el esquema real de SQLite, sin diferencias.
+      Reemplazan al `.pdf` y los dos `.docx` anteriores, que se borraron (siguen
+      en el historial de git). El diagrama `erDiagram` quedó en
+      `Diagramas fuente (Mermaid)/Diagrama Entidad-Relacion.mmd`, sin PNG.
 - [x] **#47** (dueño: Francisco) Auditoría de commits de GitHub: `.mailmap`
       que unifica las identidades (hoy 6 autores para 3 personas) y
       commits y PR sin la línea `Co-Authored-By` ni el pie de Claude
