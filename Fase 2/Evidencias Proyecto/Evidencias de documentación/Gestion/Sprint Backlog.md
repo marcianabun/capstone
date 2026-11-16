@@ -2,6 +2,8 @@
 
 Los sprints se miden contra los hitos del curso y de Walmart (ver [Metodología ágil](Metodologia%20Agil.md)). Los ítems **#N** son los de [Product Backlog](Product%20Backlog.md) y `PROGRESS.md`; **PR #N** es el Pull Request de GitHub. Fechas y estados salen de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx) y del historial de git.
 
+El detalle semana a semana (sprints 0 a 9, semanas 37 a 47) está en la [Documentación SCRUM](Documentacion%20SCRUM.docx). Equivalencia aproximada: el Sprint 1 de este documento son los sprints semanales 1 a 5, y el Sprint 2, los sprints 6 a 9; los cortes difieren unos días porque las semanas van de lunes a domingo.
+
 ## Sprint 0: arranque y Fase 1 (2026-09-07 a 2026-09-26)
 
 Objetivo: dejar en el repositorio los documentos de la Fase 1. No hay ítems numerados: era carga de documentos (casos de uso, diagramas, mockups, autoevaluaciones; ver la sección "Fase 1" de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx)).
