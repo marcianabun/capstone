@@ -304,6 +304,22 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       de captura y RNF04 con JWT. Sin fila en la Carta Gantt (quedan fuera,
       por ser mejoras sin fecha o ya cerradas): #14, #17, #18, #20, #21, #24,
       #31, #32, #41, #46, #47 y #56.
+- [x] **#91** (dueño: Mariana) Corregir `Lista de C. U..xlsx` y `Lista de
+      Requerimientos.xlsx` (hallazgos de #90; van en la entrega final,
+      2026-11-20): agregar el CU07, la regla de quiebre actual (espacio
+      libre >= 30% de la góndola completa) en CU02, RF04 y RF07, y alinear
+      con la app web lo que cambió desde la Fase 1 (RF01 como tiempo de
+      análisis, RNF04 con sesiones de Django en vez de JWT, actores y
+      descripciones de CU01, CU03 y CU05).
+      **Hecho (2026-11-16)**: `Lista de C. U..xlsx` agrega el CU07 (con el
+      formato de las demás filas) y corrige CU00 (app web, RUT o correo),
+      CU01 (actor Jefe de Salón o Administrador y etapas reales), CU02
+      (espacio libre >= umbral, página «Alertas»), CU03 (estado por la última
+      foto), CU04 (Excel, CSV o PDF) y CU05 (sin «sensibilidad del
+      algoritmo», que no existe). `Lista de Requerimientos.xlsx` corrige
+      RF01, RF03 (se mide por repisa y se informa la góndola completa, #40),
+      RF04, RF05, RF07, RF08 y RNF04; se editaron solo los textos, sin tocar
+      sus dibujos ni comentarios.
 - [x] **#85** (dueño: Nicko) Rendimiento de la app web (auditoría ponytail
       del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la
       última foto de cada góndola con una subconsulta sin índice, y crecía
