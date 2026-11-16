@@ -200,9 +200,11 @@ def shelf_levels(
         raise ValueError("La ROI debe tener ancho y alto positivos.")
     boxes = _valid_boxes(products)
     lines = shelf_lines(boxes, segmentation_lines, (x_min, x_max), params)
+    whole_roi = (
+        _quad((x_min, x_max, 0.0, y_min), (x_min, x_max, 0.0, y_max), x_min, x_max),
+    )
     if not lines:
-        flat_top, flat_bottom = (x_min, x_max, 0.0, y_min), (x_min, x_max, 0.0, y_max)
-        return (_quad(flat_top, flat_bottom, x_min, x_max),)
+        return whole_roi
 
     bounds = list(lines)
     first = lines[0]
@@ -218,7 +220,8 @@ def shelf_levels(
         visible = _visible_range(top, bottom, (x_min, y_min, x_max, y_max))
         if visible is not None:
             levels.append(_quad(top, bottom, *visible))
-    return _drop_thin_empty_levels(levels, boxes, params)
+    # Una sola repisa sin productos encima no delimita ningun nivel: ROI.
+    return _drop_thin_empty_levels(levels, boxes, params) or whole_roi
 
 
 def _visible_range(top: Line, bottom: Line, roi: BBox) -> tuple[float, float] | None:
