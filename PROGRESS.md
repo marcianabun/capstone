@@ -326,9 +326,18 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `docs/`. `Fase 1/` no se tocó (regla de CLAUDE.md), aunque sus
       nombres difieren de la imagen: queda como pregunta en
       `docs/curso.md`. `Presentación Proyecto.pptx` llega con el #65.
-- [ ] **#67** Hojas semanales del Excel "RESUMEN Estado de Avance Casos
+- [ ] **#67** (dueño: Mariana) Hojas semanales del Excel "RESUMEN Estado de Avance Casos
       de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive
       compartido con el profesor) y su versión para la entrega final.
+      Avance (2026-11-16): hojas 5 a 8 (26-10 al 20-11) agregadas al Excel
+      (no se versiona; cada integrante lo sube al Drive). Los porcentajes
+      salen de lo integrado a `main`: del 26-10 al 13-11 no entró nada (el
+      #55 y el #58 quedaron en ramas hasta el 15-11), y lo del 14 y 15-11
+      va en la hoja del 16 al 20-11: CU00 y CU04 al 100%, CU01 al 95% (falta
+      la cámara defectuosa, excepción 1a), CU07 al 85%; CU02 (push), CU03,
+      CU05 (tiempo de tolerancia) y CU06 (SMTP) sin cambios. Falta
+      actualizar la hoja del 16 al 20-11 con lo que se integre hasta la
+      entrega final y subir el Excel al Drive.
 
 - [ ] **#69** (dueño: Francisco) Evidencias que faltan (Reporte de Auditoría N.º 4,
       2026-10-25): `Sandoval_Francisco_1.3_APT122_AutoevaluacionFase1.docx`
