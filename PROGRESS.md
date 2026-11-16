@@ -198,6 +198,19 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       modelo versionado. DET-11 en `docs/test-plan.md`. Para una cámara real,
       lo que importa es que no desenfoque tanto: pedir a Walmart la
       resolución y la velocidad de obturación (#24).
+- [x] **#86** (dueño: Nicko) Limpieza y tope de píxeles de la foto (auditoría
+      ponytail del repo, 2026-11-15). (1) `occupied_fraction`
+      (`ShelfAvailability` y `GondolaAvailability`) no lo usa nada del
+      sistema, solo un test. (2) El formulario de subida limita la foto a
+      20 MB, pero un PNG casi vacío de 12.000 x 12.000 px pesa unos KB y
+      decodificado ocuparía cientos de MB (estimado, no medido), con un solo
+      worker; suben fotos solo el Administrador y el Jefe de Salón, así que
+      el riesgo es bajo. **Hecho (2026-11-16)**: se borran las dos
+      propiedades y la línea de test que las usaba, y `PhotoForm` rechaza
+      fotos de más de 50 megapíxeles (`MAX_PHOTO_MEGAPIXELS`; una foto de
+      celular de 12 MP o las de Kaggle de 21 MP pasan). Prueba nueva en
+      `tests/test_web.py` con un PNG de 56 megapíxeles; `pytest` 301 pasan.
+      README, especificación técnica y diccionario de datos citan el tope.
 - [x] **#83** (dueño: Nicko) Error «Se necesita al menos un nivel (o la ROI
       como unico nivel)» al analizar una foto (reportado por Nicko,
       2026-11-15): foto de pasillo en ángulo de 400 x 300 px, con persona y
@@ -209,6 +222,48 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       contrato); prueba nueva en `tests/test_shelf_levels.py`. Ojo: con tan
       pocos productos el resultado (0 % libre) no es confiable: la foto es
       de baja resolución y el detector casi no ve productos.
+- [ ] **#84** CU06 sin correo (decidido 2026-11-15, auditoría ponytail del
+      repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para
+      definir la contraseña solo se imprime en la consola del servidor
+      (`MAILERS` solo lee el *backend*, sin `OPTIONS` de host ni clave) y
+      la pantalla igual dice «Se envió el enlace»: el usuario nuevo queda
+      sin contraseña (hallazgo 16 de `docs/auditoria-app-web.md`, que quedó
+      sin dueño al descartarse el #39). Cambio: al crear un usuario, o con
+      «Generar enlace nuevo» (hoy «Reenviar enlace»), el Administrador ve
+      el enlace de un solo uso **en pantalla**, una sola vez, y se lo
+      entrega al usuario; se mantienen el token de Django y la ruta
+      `definir_clave`. Mostrarlo en la misma respuesta, no en un mensaje
+      (viaja en una cookie). Pasos: (1) pruebas primero, en
+      `tests/test_web.py` (hoy usan `mailoutbox`): crear usuario muestra un
+      enlace que sirve una sola vez, «Generar enlace nuevo» es solo del
+      Administrador y no se envía ningún correo; (2) código: sacar
+      `send_mail` de `web/views.py` (`send_password_link` devuelve la URL),
+      textos y botón de `web/templates/web/usuario_form.html`, borrar
+      `MAILERS` y `DEFAULT_FROM_EMAIL` de `web/settings.py`, comentario de
+      `web/forms.py`; (3) documentación: README (CU06 y variable
+      `DJANGO_EMAIL_BACKEND`), `docs/especificacion-tecnica.md`,
+      `docs/cambios-cu.md`, `docs/auditoria-app-web.md` (hallazgo 16:
+      cerrado por decisión), `PRODUCT.md`, `Diccionario de Datos.md`,
+      `Plantilla de C.U 06.docx` y `Diagrama C.U 06` (.mmd y PNG), y las
+      notas de #53 y #39 de este archivo; (4) avisar que el Manual de
+      usuario del Administrador y el video tutorial (#61) dependen de este
+      flujo. No necesita migración. Plazo: antes de grabar el video de #61
+      (2026-11-18). Dueña propuesta: Mariana, que se lo asigna al tomarlo.
+- [x] **#85** (dueño: Nicko) Rendimiento de la app web (auditoría ponytail
+      del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la
+      última foto de cada góndola con una subconsulta sin índice, y crecía
+      con el cuadrado del historial: medido en una copia de la base con 21
+      góndolas, 1.000 análisis tardaban 73 ms, 5.000 1,7 s y 15.000 **15 s**
+      (con una foto cada 10 minutos por góndola se llega en unos 5 días).
+      (2) El reporte (CU04) traía el JSON `result` de cada análisis
+      (10 a 20 KB por foto en los datos de prueba) sin usarlo, con meses de
+      historial agotaría la memoria del único worker. **Hecho (2026-11-16)**:
+      índice `analysis_gondola_fecha` en (`pasillo`, `gondola`,
+      `-created_at`) con la migración `0007` (también en `shelfvision.sql` y
+      en `Modelo Relacional.md`): 15.000 análisis bajan de 15.034 ms a **7 ms**
+      y 50.000 tardan 24 ms; y `.defer("result")` en `reportes()`. Dos
+      pruebas nuevas en `tests/test_web.py` (el reporte no pide la columna
+      `result` y existe el índice); `pytest` 302 pasan.
 - [x] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
@@ -389,10 +444,17 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       y un ejemplo reproducible con fotos Kaggle CC0 (verificado: foto 026
       da 2% libre, sin alerta). Los pesos no se publican (licencia de
       SKU-110K): se piden al equipo o se entrenan con `docs/training.md`.
-- [ ] **#36** Video de demostración de 5 a 10 minutos (entrega
+- [x] **#36** (dueño: Nicko) Video de demostración de 5 a 10 minutos (entrega
       2026-10-21): solo funcionalidades implementadas y resultados que
       la aplicación genera hoy, con fotos que se pueden mostrar (no
       SKU-110K). El pipeline (#8) y la app web (#28) ya están en `main`.
+      **Hecho (2026-10-21)**: `Video Modelo.mp4` (5 min 11 s, con audio), en
+      `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`. Muestra
+      el login, la gestión de usuarios, el análisis de una foto con quiebre,
+      las alertas y los reportes, tal como estaba la app ese día: no incluye
+      Góndolas (CU03), Configuración (CU05) ni la detección de personas
+      (#77), y muestra código unos segundos. Por eso no reemplaza al video
+      tutorial del MVP (#61).
 - [ ] **#37** (dueño: Mariana) Evidencias de avance de la Fase 2, a más tardar
       2026-10-26: diario de reflexión 2.1, guía 2.4 (resumen del
       avance, plan de trabajo con estado y ajustes) e informe con el

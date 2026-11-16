@@ -7,7 +7,7 @@ lee junto con el [Modelo Lógico](Modelo%20Logico.md) y el
 
 - **Corte**: 2026-11-15, `main` después del PR #103.
 - **Fuente de verdad**: `web/models.py`, las migraciones `web/migrations/0001` a
-  `0006` y el esquema real que crea `migrate`. Reemplaza al
+  `0007` y el esquema real que crea `migrate`. Reemplaza al
   `Diccionario de Datos.docx` anterior, que describía solo `web_user`,
   `auth_group`, `web_user_groups` y `web_analysis` y tenía datos que ya no
   valen (ítem #48): el bloqueo por 5 intentos ya no desactiva la cuenta,
@@ -288,7 +288,7 @@ Ejemplo:
 | Rango del umbral | 1 a 100 % | `web/models.py` (`Config.umbral`) |
 | Vigencia de «Sin datos» en el dashboard | 24 horas | `web/views.py` (`RECENT`) |
 | Duración de la sesión | 2 horas sin uso | `web/settings.py` (`SESSION_COOKIE_AGE`) |
-| Tamaño máximo de la foto subida | 20 MB (JPG o PNG) | `web/forms.py` (`MAX_PHOTO_MB`) |
+| Tamaño máximo de la foto subida | 20 MB y 50 megapíxeles (JPG o PNG) | `web/forms.py` (`MAX_PHOTO_MB`, `MAX_PHOTO_MEGAPIXELS`) |
 | Antigüedad para borrar fotos | 30 días (propuesta, #24) | `borrar_fotos --dias` |
 
 ## 12. Datos derivados que no se guardan

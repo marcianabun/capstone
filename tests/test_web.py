@@ -3,6 +3,7 @@ analisis de fotos (CU01), ciclo de las alertas (CU02), reportes (CU04, #7),
 configuracion de umbral y camaras (CU05, #44) dashboard de gondolas (CU03, #43) y borrado de fotos antiguas (RNF05, #45) con la gondola
 sintetica y el detector falso de pipeline_fixtures (sin pesos de YOLO26)."""
 
+import io
 import json
 import os
 from datetime import timedelta
@@ -10,9 +11,12 @@ from datetime import timedelta
 import cv2
 import numpy as np
 import pytest
+from PIL import Image
 from django.contrib.auth.models import Group
 from django.core.management import CommandError, call_command
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import connection
+from django.test.utils import CaptureQueriesContext
 from django.urls import reverse
 from django.utils import timezone
 
@@ -294,6 +298,18 @@ def test_foto_demasiado_grande_se_rechaza(client, analyzer, monkeypatch):
     assert not Analysis.objects.exists()
 
 
+def test_foto_de_demasiados_megapixeles_se_rechaza(client, analyzer):
+    # #86: un PNG gris casi vacio pesa unos KB (pasa el limite de 20 MB), pero decodificado ocuparia cientos de MB.
+    client.force_login(make_user("1-9", JEFE))
+    png = io.BytesIO()
+    Image.new("L", (8000, 7000)).save(png, "PNG")  # 56 megapixeles
+    big = SimpleUploadedFile("enorme.png", png.getvalue(), "image/png")
+    assert big.size < forms.MAX_PHOTO_MB * 1024 * 1024
+    response = client.post(reverse("analisis"), {"pasillo": "3", "gondola": "1", "foto": big})
+    assert "megapíxeles" in response.content.decode()
+    assert not Analysis.objects.exists()
+
+
 def test_archivo_que_no_es_imagen_se_rechaza(client):
     client.force_login(make_user("1-9", JEFE))
     fake = SimpleUploadedFile("foto.jpg", b"no soy una imagen", "image/jpeg")
@@ -352,6 +368,22 @@ def test_reporte_excel_y_pdf(client, analyzer, formato, tipo):
     response = report(client, formato=formato)
     assert tipo in response["Content-Type"]
     assert response["Content-Disposition"].endswith(f'.{formato}"')
+
+
+def test_reporte_no_carga_el_json_result(client, analyzer):
+    # #85: el reporte usa 7 campos; traer `result` (10 a 20 KB por foto) agotaba la memoria con meses de historial.
+    client.force_login(make_user("1-9", JEFE))
+    analyzer(client)
+    with CaptureQueriesContext(connection) as queries:
+        assert report(client).status_code == 200
+    assert not any('"web_analysis"."result"' in query["sql"] for query in queries)
+
+
+def test_dashboard_tiene_indice_por_gondola_y_fecha():
+    # #85: sin este indice, el dashboard tardaba 15 s con 15.000 analisis (la consulta crecia al cuadrado).
+    with connection.cursor() as cursor:
+        constraints = connection.introspection.get_constraints(cursor, Analysis._meta.db_table)
+    assert any(c["index"] and c["columns"] == ["pasillo", "gondola", "created_at"] for c in constraints.values())
 
 
 def test_reporte_sin_datos_avisa_y_no_genera_archivo(client):

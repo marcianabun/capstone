@@ -116,10 +116,6 @@ class ShelfAvailability:
         return self.free_width / self.width
 
     @property
-    def occupied_fraction(self) -> float:
-        return 1.0 - self.free_fraction
-
-    @property
     def free_area_px(self) -> float:
         """Area frontal libre (Nivel 1): cada hueco por el alto del nivel
         en su centro."""
@@ -137,10 +133,6 @@ class GondolaAvailability:
     critical: bool
     occluded_fraction: float = 0.0
     inconclusive: bool = False  # demasiado frente tapado: no se informa alerta
-
-    @property
-    def occupied_fraction(self) -> float:
-        return 1.0 - self.free_fraction
 
     @property
     def free_area_px(self) -> float:

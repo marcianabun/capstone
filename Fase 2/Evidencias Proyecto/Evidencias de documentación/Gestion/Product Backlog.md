@@ -1,6 +1,6 @@
 # Product Backlog
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (83 ítems: 65 hechos, 5 en curso, 12 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (86 ítems: 68 hechos, 5 en curso, 12 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -41,7 +41,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #33 | Hecho | Francisco | Verificar el detector `yolo26s` fuera de SKU-110K, en las condiciones con que evaluará Walmart (IoU contra anotación a mano; fotos frontales… |
 | #34 | Hecho | Francisco | Análisis de resultados del informe intermedio (2026-10-20), en `docs/analisis-resultados.md` y la sección 3 del informe (#27). Pipeline comp… |
 | #35 | Hecho | Francisco | README completo para el informe intermedio (2026-10-21) y las evidencias de avance (2026-10-26): descripción de la solución, estrategia técn… |
-| #36 | Pendiente | Sin asignar | Video de demostración de 5 a 10 minutos (entrega 2026-10-21): solo funcionalidades implementadas y resultados que la aplicación genera hoy,… |
+| #36 | Hecho | Nicko | Video de demostración de 5 a 10 minutos (entrega 2026-10-21): solo funcionalidades implementadas y resultados que la aplicación genera hoy,… |
 | #37 | En curso | Mariana | Evidencias de avance de la Fase 2, a más tardar 2026-10-26: diario de reflexión 2.1, guía 2.4 (resumen del avance, plan de trabajo con estad… |
 | #38 | Pendiente | Sin asignar | Feria de informática (semana del 2026-10-26; día y hora por informar): definir qué integrante va (al menos uno) y qué se muestra. |
 | #39 | Descartado | Sin asignar | Instalar la aplicación en el servidor del CITT. Estaba bloqueado: las instrucciones por sección no llegaron. Punto de partida: la imagen Doc… |
@@ -89,3 +89,6 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #81 | Hecho | Mariana | Revisar los documentos de la auditoría N.º 4 (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión de Walmart (2026-11-16),… |
 | #82 | Hecho | Francisco | Desenfoque de movimiento fuerte (pedido de Francisco, 2026-11-15, tras DET-10): con la v3 el mAP50 con movimiento de 31 px es 0.647, bajo 0.… |
 | #83 | Hecho | Nicko | Error «Se necesita al menos un nivel (o la ROI como unico nivel)» al analizar una foto (reportado por Nicko, 2026-11-15): foto de pasillo en… |
+| #84 | Pendiente | Sin asignar | CU06 sin correo (decidido 2026-11-15, auditoría ponytail del repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para definir la c… |
+| #85 | Hecho | Nicko | Rendimiento de la app web (auditoría ponytail del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la última foto de cada góndo… |
+| #86 | Hecho | Nicko | Limpieza y tope de píxeles de la foto (auditoría ponytail del repo, 2026-11-15). (1) `occupied_fraction` (`ShelfAvailability` y `GondolaAvai… |

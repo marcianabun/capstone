@@ -3,7 +3,7 @@
 -- Motor: SQLite 3 (el que usa la app web Django, ver web/settings.py).
 -- Uso:   sqlite3 shelfvision.db < shelfvision.sql
 -- La estructura es la que crea `python manage.py migrate` (web/models.py y las
--- migraciones web 0001-0006, más las tablas de auth, contenttypes y sessions de
+-- migraciones web 0001-0007, más las tablas de auth, contenttypes y sessions de
 -- Django); tests/test_sql_script.py comprueba que ambas coincidan. Como el script
 -- registra las migraciones como aplicadas, una base creada con él también
 -- funciona con la app (`migrate` no tiene nada que hacer).
@@ -119,6 +119,7 @@ CREATE TABLE "web_analysis" (
 );
 CREATE INDEX "web_analysis_created_by_id_9f0a4d4e" ON "web_analysis" ("created_by_id");
 CREATE INDEX "web_analysis_taken_by_id_f078d3b4" ON "web_analysis" ("taken_by_id");
+CREATE INDEX "analysis_gondola_fecha" ON "web_analysis" ("pasillo", "gondola", "created_at" DESC);
 
 CREATE TABLE "web_config" (
     "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -157,7 +158,8 @@ INSERT INTO django_migrations (app, name, applied) VALUES
     ('web', '0003_ubicacion_y_estado', '2026-11-15 19:48:11.028826'),
     ('web', '0004_configuracion_y_camaras', '2026-11-15 19:48:11.043813'),
     ('web', '0005_normalizar_ubicacion', '2026-11-15 19:48:11.067520'),
-    ('web', '0006_bloqueo_por_tiempo', '2026-11-15 19:48:11.091196');
+    ('web', '0006_bloqueo_por_tiempo', '2026-11-15 19:48:11.091196'),
+    ('web', '0007_indice_gondola_fecha', '2026-11-16 03:30:00.000000');
 
 INSERT INTO auth_group (id, name) VALUES
     (1, 'Reponedor'),
