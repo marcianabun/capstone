@@ -81,6 +81,17 @@ def test_shelf_levels_without_lines_is_the_roi():
     assert shelf_levels([], [], ROI) == (((0, 0), (1000, 0), (1000, 900), (0, 900)),)
 
 
+def test_shelf_levels_one_line_with_nothing_above_is_the_roi():
+    # Una sola repisa y ningun producto sobre ella (foto de pasillo con un
+    # solo producto detectado): una linea sola no delimita un nivel, asi que
+    # se mide la ROI completa en vez de quedar sin niveles.
+    one_line = (0.0, 1000.0, 0.0, 100.0)
+    below = (400.0, 300.0, 460.0, 450.0)
+    levels = shelf_levels([below], [one_line], ROI)
+    assert levels == (((0, 0), (1000, 0), (1000, 900), (0, 900)),)
+    assert compute_availability([below], levels).shelves
+
+
 def test_shelf_levels_rejects_empty_roi():
     with pytest.raises(ValueError):
         shelf_levels([], [], (10, 10, 10, 20))

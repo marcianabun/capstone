@@ -198,6 +198,17 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       modelo versionado. DET-11 en `docs/test-plan.md`. Para una cámara real,
       lo que importa es que no desenfoque tanto: pedir a Walmart la
       resolución y la velocidad de obturación (#24).
+- [x] **#83** (dueño: Nicko) Error «Se necesita al menos un nivel (o la ROI
+      como unico nivel)» al analizar una foto (reportado por Nicko,
+      2026-11-15): foto de pasillo en ángulo de 400 x 300 px, con persona y
+      carro, donde el detector halla 1 producto. La segmentación deja una
+      sola repisa y ningún producto sobre ella; `shelf_levels()` necesita dos
+      bordes para armar un nivel, devolvía `()` y `compute_availability()`
+      lanzaba `ValueError`. **Hecho (2026-11-15)**: si no queda ningún nivel,
+      `shelf_levels()` devuelve la ROI como único nivel (lo que ya decía su
+      contrato); prueba nueva en `tests/test_shelf_levels.py`. Ojo: con tan
+      pocos productos el resultado (0 % libre) no es confiable: la foto es
+      de baja resolución y el detector casi no ve productos.
 - [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
