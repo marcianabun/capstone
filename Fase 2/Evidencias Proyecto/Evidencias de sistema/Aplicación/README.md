@@ -12,6 +12,8 @@ carpeta, porque la aplicación y sus pruebas se ejecutan desde ahí:
 | `Dockerfile` | Imagen para instalar la aplicación |
 
 Las instrucciones de instalación y ejecución están en el `README.md` de la
-raíz. `Video Modelo.mp4` (unos 5 minutos, del 2026-10-21) muestra las
+raíz, en el [Instructivo del plan de instalación](<../../Evidencias de documentación/Manual de instalación/Instructivo plan de instalación - ShelfVision AI.docx>)
+(servidor, con Docker) y en `Implementación ambiente de desarrollo - ShelfVision AI.pdf`
+(computador de desarrollo), en esta carpeta. `Video Modelo.mp4` (unos 5 minutos, del 2026-10-21) muestra las
 pruebas y la app web funcionando: el análisis de una foto con quiebre y la
 gestión de usuarios.

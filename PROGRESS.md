@@ -209,7 +209,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       contrato); prueba nueva en `tests/test_shelf_levels.py`. Ojo: con tan
       pocos productos el resultado (0 % libre) no es confiable: la foto es
       de baja resolución y el detector casi no ve productos.
-- [ ] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
+- [x] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
       Los pide la entrega del MVP al cliente (semana del 2026-11-16) y la
@@ -218,9 +218,22 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       **Hecho (2026-11-14)**: los tres manuales de usuario en
       `Fase 2/Evidencias Proyecto/Evidencias de documentación/Manual de usuario/` (Word, con índice y capturas de la app
       con usuarios ficticios y fotos CC0 de Kaggle, nunca SKU-110K).
-      **Falta**: el manual de instalación y el PDF del ambiente de
-      desarrollo. Con el #66, los manuales pasaron a `Fase 2/Evidencias
+      Con el #66, los manuales pasaron a `Fase 2/Evidencias
       Proyecto/Evidencias de documentación/Manual de usuario/`.
+      **Hecho (2026-11-15)**: `Instructivo plan de instalación - ShelfVision
+      AI.docx` en `Evidencias de documentación/Manual de instalación/`
+      (plan por etapas, requisitos, Docker Compose y Python, configuración
+      inicial, HTTPS, prueba de aceptación, respaldo, borrado de fotos,
+      variables y problemas frecuentes) y `Implementación ambiente de
+      desarrollo - ShelfVision AI.pdf` en `Evidencias de sistema/Aplicación/`.
+      Probado con `docker compose up --build` en un Mac M1 (Docker con 4 GB),
+      de nuevo después del #80 (los pesos ya vienen en la imagen y no se
+      copian a mano): imagen de 2.6 GB, análisis en 2.2 a 7.5 s, reportes y
+      datos que sobreviven al reinicio. `web-data/` pasa a `.gitignore`. Hallazgos que
+      quedan anotados en el instructivo: los correos (enlace para definir la
+      contraseña) solo se escriben en el registro, partidos en
+      quoted-printable, porque `web/settings.py` no lee un servidor SMTP, y
+      todo `docker compose` exige el `.env` con `DJANGO_SECRET_KEY`.
 - [ ] **#61** Video tutorial con audio (solo la ejecución de los
       módulos, sin código) y correo de entrega del MVP al cliente:
       módulos, funcionalidades, instrucciones de acceso, video, manuales

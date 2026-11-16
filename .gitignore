@@ -21,6 +21,8 @@ ENV/
 # --- Datos del proyecto (no versionar contenido, solo estructura) ---
 data/raw/*
 data/processed/*
+# Base, fotos y pesos de la app con Docker Compose (docker-compose.yml)
+web-data/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
@@ -49,9 +51,9 @@ checkpoints/
 # --- Reportes generados (Excel, CSV, PDF) ---
 *.xlsx
 !Fase 2/**/*.xlsx
-!Fase 2/**/*.pdf
 *.csv
 *.pdf
+!Fase 2/**/*.pdf
 !docs/**/*.pdf
 
 # --- graphify: el grafo se regenera localmente (ver CLAUDE.md) ---
