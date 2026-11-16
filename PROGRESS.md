@@ -271,7 +271,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `src/preprocessing/` con pruebas primero; medir con las fotos de
       Kaggle que no rechace góndolas con mucho envase de un mismo color.
       Actualizar la plantilla del C.U 01 y `docs/cambios-cu.md`.
-- [ ] **#88** (dueño: Mariana) Alcance de CU02 y CU05 en las plantillas,
+- [x] **#88** (dueño: Mariana) Alcance de CU02 y CU05 en las plantillas,
       para cerrar los C.U al 100% en la entrega final (2026-11-20): la
       notificación push al teléfono (CU02) y el tiempo de tolerancia (CU05)
       quedan fuera de alcance, como mejoras futuras. Motivos: la página
@@ -280,6 +280,12 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       persona a propósito, y la falsa alarma más común (una persona que
       tapa la góndola) ya la evita el #77. Actualizar las plantillas de
       C.U 02 y 05, sus diagramas si lo nombran y `docs/cambios-cu.md`.
+      **Hecho (2026-11-16)**: las plantillas del C.U 02 y 05 marcan el push
+      y el tiempo de tolerancia como fuera del alcance del MVP, con el
+      motivo; los diagramas del C.U 02 y 05 (fuentes `.mmd` y PNG
+      regenerados) dicen lo mismo y el del CU05 ya no guarda «tolerancia»;
+      al día `docs/cambios-cu.md` y `PRODUCT.md`. Los manuales no los
+      mencionaban. En la hoja 8 del Excel de avance, CU02 y CU05 al 100%.
 - [ ] **#89** Archivo txt «Repositorio GitHub del proyecto documentado»
       en `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`,
       que pide la entrega final (2026-11-20): enlace al repositorio y

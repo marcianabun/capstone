@@ -19,4 +19,4 @@ sequenceDiagram
     Web-->>Rep: Alertas abiertas: primero las suyas, luego las activas de mayor a menor % libre
     Rep->>Web: Toma la alerta ("En proceso") y, al reponer, la marca "Completada"
     Web->>BD: Actualiza el estado de la alerta
-    Note over Web,Rep: Notificación push al teléfono: pendiente
+    Note over Web,Rep: Notificación push al teléfono: fuera de alcance (mejora futura)
