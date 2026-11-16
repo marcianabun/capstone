@@ -928,6 +928,38 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       avisa y no genera archivo). Una fila por análisis: fecha, pasillo,
       góndola, % libre, alerta, estado y quién subió la foto. Por qué
       estos formatos: tabla de decisiones técnicas del README.
+- [ ] **#95** Analizar fotos indicando la ruta o la URL de un dataset, en
+      vez de subirlas una por una (pedido de Francisco, 2026-11-16). Hoy
+      «Análisis» (`PhotoForm`, `analyze()`) solo recibe un archivo subido.
+      Dónde quedan las imágenes hoy: solo la foto **anotada** (con huecos
+      en rojo) se guarda, en `<SHELFVISION_DATA_DIR>/media/analisis/
+      <uuid>.jpg` (por defecto `data/processed/web/media/analisis/`; en
+      Docker, `/data/media/analisis/`), y se sirve con sesión por
+      `analisis_imagen`; la foto original no se guarda, solo su nombre en
+      `photo_name`. `borrar_fotos` las borra a los 30 días (RNF05).
+      Propuesta: un campo «Ruta o URL» alternativo a «Foto», para una foto
+      o una carpeta, que llama a `analyze()` por cada imagen (lo mismo que
+      hace `simular_camara`); mostrar la ruta de las anotadas en el
+      detalle del análisis y en el README.
+      Cuidados: una ruta escrita por el usuario permite leer archivos del
+      servidor, así que solo se aceptan rutas dentro de una carpeta
+      permitida (por ejemplo `data/raw/`, resuelta con `resolve()` para
+      impedir `..`) y solo para Administrador y Jefe de Salón; una URL
+      permite pedirle al servidor que abra direcciones internas (SSRF), así
+      que solo `http`/`https`, sin direcciones privadas, con tiempo máximo
+      y el tope de 20 MB y 50 megapíxeles de hoy; las fotos de SKU-110K no
+      se pueden mostrar a terceros (`CLAUDE.md`, licencias). Decidir con el
+      equipo si la URL es de una foto o de un dataset completo.
+- [ ] **#96** Paginación de la lista «Últimos análisis» (pedido de
+      Francisco, 2026-11-16). Hoy `analisis()` corta en 50 con
+      `[:50]` y no hay cómo ver los anteriores. Propuesta: `Paginator` de
+      Django con 25 por página y `?pagina=N`; bajo la tabla, «Anterior»,
+      «Página 2 de 7» y «Siguiente» con objetivos de 44 px (52 px en el
+      teléfono), como los botones de `DESIGN.md`. El `.select_related`
+      y el índice `analysis_gondola_fecha` ya sirven; la cuenta total es
+      una consulta más. El historial de `gondola_detalle` también corta en
+      30 (`[:30]`): usar el mismo componente. No cambia la navegación
+      Anterior/Siguiente del #94, que consulta aparte. Con TDD en `tests/`.
 - [ ] **#31** Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
