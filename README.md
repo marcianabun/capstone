@@ -485,6 +485,8 @@ El CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) corre `pytest` y el
 
 ### Ejecución con Docker
 
+Paso a paso para instalar la aplicación en un servidor, configurarla, respaldarla y resolver problemas: [Instructivo del plan de instalación](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Manual de instalación/Instructivo plan de instalación - ShelfVision AI.docx>). Para preparar un computador de desarrollo: [Implementación del ambiente de desarrollo](<Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/Implementación ambiente de desarrollo - ShelfVision AI.pdf>).
+
 ```bash
 docker build -t shelfvision-ai .
 # run_pipeline.py con las fotos y los pesos montados (sin argumentos, muestra el uso):
