@@ -1,14 +1,12 @@
-# Sprint Backlog
+# Plan por Etapas
 
-Los sprints se miden contra los hitos del curso y de Walmart (ver [Metodología ágil](Metodologia%20Agil.md)). Los ítems **#N** son los de [Product Backlog](Product%20Backlog.md) y `PROGRESS.md`; **PR #N** es el Pull Request de GitHub. Fechas y estados salen de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx) y del historial de git.
+Las etapas se miden contra los hitos del curso y de Walmart (ver [Metodología en cascada](Metodologia%20Cascada.md)). Los ítems **#N** son los de [Listado de Tareas](Listado%20de%20Tareas.md) y `PROGRESS.md`; **PR #N** es el Pull Request de GitHub. Fechas y estados salen de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx) y del historial de git.
 
-El detalle semana a semana (sprints 0 a 9, semanas 37 a 47) está en la [Documentación SCRUM](Documentacion%20SCRUM.docx). Equivalencia aproximada: el Sprint 1 de este documento son los sprints semanales 1 a 5, y el Sprint 2, los sprints 6 a 9; los cortes difieren unos días porque las semanas van de lunes a domingo.
-
-## Sprint 0: arranque y Fase 1 (2026-09-07 a 2026-09-26)
+## Etapa 0: arranque y Fase 1 (2026-09-07 a 2026-09-26)
 
 Objetivo: dejar en el repositorio los documentos de la Fase 1. No hay ítems numerados: era carga de documentos (casos de uso, diagramas, mockups, autoevaluaciones; ver la sección "Fase 1" de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx)).
 
-## Sprint 1: pipeline, detector y app web (2026-09-27 a 2026-10-28)
+## Etapa 1: pipeline, detector y app web (2026-09-27 a 2026-10-28)
 
 Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) e informe intermedio (2026-10-21).
 
@@ -22,9 +20,9 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 | App web | Login, usuarios y roles (PR #35); reportes (PR #54); configuración y cámaras (PR #71); dashboard (PR #72); privacidad de fotos (PR #74) | Hecho (ítems #7, #28, #43 a #45) |
 | Auditoría 2026-10-21 | Seguridad, robustez, alertas atómicas, bloqueo de cuenta y limpieza (PR #69, #70, #75, #76, #79, #80, #81) | Hecho (ítems #49 a #54; #57 en curso) |
 | Documentación | Informe intermedio, README, especificación técnica, plan de pruebas, análisis de resultados (PR #17, #34 a #39, #46, #63, #77) | Hecho |
-| Pendiente al cierre | Video de demostración (#36), ruido de cámara de sala (#55, planificado del 2026-10-29 al 2026-11-06), servidor del CITT (#39, descartado el 2026-11-15) | Pasa al Sprint 2 |
+| Pendiente al cierre | Video de demostración (#36), ruido de cámara de sala (#55, planificado del 2026-10-29 al 2026-11-06), servidor del CITT (#39, descartado el 2026-11-15) | Pasa a la Etapa 2 |
 
-## Sprint 2: documentación final y entrega (2026-10-29 a 2026-11-20, en curso)
+## Etapa 2: documentación final y entrega (2026-10-29 a 2026-11-20, en curso)
 
 Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
 
@@ -42,7 +40,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #82 | Desenfoque de movimiento fuerte: v4 sin mejora real (límite aceptado) | Francisco | Hecho |
 | #61 | Video tutorial y correo de entrega del MVP a Walmart | Nicko (video) | Pendiente; falta definir quién envía el correo |
 | #62 | Script SQL que crea y puebla la base | Francisco | Hecho (PR #102) |
-| #63 | Documentación SCRUM | Francisco | Hecho (PR #103) |
+| #63 | Documentación SCRUM | Francisco | Descartado (2026-11-16): no aplica, el equipo usa cascada |
 | #64, #65 | Diagramas de actividad, informe final y presentación (cada integrante su reflexión) | Francisco y Nicko | Pendiente |
 | #67 | Hojas semanales del Excel de avance de C.U | Mariana | En curso (PR #110): hojas 5 a 8 hechas |
 | #83 | Error de niveles con una sola repisa | Nicko | Hecho (PR #104) |

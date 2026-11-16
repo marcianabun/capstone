@@ -42,8 +42,8 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
   - **Evidencias proyecto / Evidencias de documentación según
     metodología**: diagramas de C.U (incluye nivel cero), planillas de
     C.U, diagramas de actividad, listado de C.U y listado de RF y RNF.
-    **Documentación SCRUM**: análisis del caso; épicas, sprints e
-    historias de usuario; priorización de H.U.
+    (La Documentación SCRUM no aplica: el equipo usa metodología en
+    cascada, #92.)
   - **ANEXOS**: instructivo del plan de instalación, manual de usuario,
     plan de pruebas y Carta Gantt.
   - **Evidencias de sistema / Aplicación**: APK del sistema, código del
@@ -294,7 +294,7 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
   avance, autoevaluación 2.2, formativa 2.3, planilla de evaluación del
   avance, video)? ¿"Evidencias de documentación" lleva por dentro las
   mismas subcarpetas que la carpeta FINAL FASE 2 de Drive (diagramas,
-  SCRUM, anexos)? La carpeta `Fase 1/` ya evaluada tiene nombres
+  anexos)? La carpeta `Fase 1/` ya evaluada tiene nombres
   distintos a la imagen (por ejemplo, `Presentación Idea de
   Proyecto.docx`): ¿hay que renombrarla o se deja como se evaluó?
 - ¿Qué cuenta como "C.U resuelto" para la Evaluación 2? Ya se sabe que

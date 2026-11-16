@@ -1,6 +1,6 @@
-# Bitácora de Sprint 1 - ShelfVision AI
+# Bitácora - ShelfVision AI
 
-El Sprint 1 cerró con la Evaluación 2 (Avance) de la Fase 2 (semana del
+La Etapa 1 cerró con la Evaluación 2 (Avance) de la Fase 2 (semana del
 2026-10-28) y el primer demo ante Walmart (2026-10-26). Lo que sigue
 cierra con la entrega final de la Fase 2: 2026-11-20 a las 12:00, con
 el 100% de los C.U resueltos, manuales de usuario (uno por perfil) y
@@ -177,10 +177,10 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
 - [x] **#81** (dueño: Mariana) Revisar los documentos de la auditoría N.º 4
       (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión
       de Walmart (2026-11-16), y corregir lo que no calce con el
-      repositorio. **Hecho (2026-11-15)**: el Product Backlog se regeneró
+      repositorio. **Hecho (2026-11-15)**: el Listado de Tareas se regeneró
       desde este archivo (decía 66 ítems y tenía 79, con textos viejos como
-      el #59 y el #39 "Hecho" estando descartado); el Sprint Backlog, las
-      retrospectivas, la Definition of Done, los requisitos no funcionales,
+      el #59 y el #39 "Hecho" estando descartado); el Plan por Etapas, las
+      las lecciones aprendidas, los criterios de terminado, los requisitos no funcionales,
       la innovación y el alcance del MVP pasan al 2026-11-15 (ruido de cámara
       de sala medido en DET-08 a DET-10, oclusión #77, 276 pruebas, PR #87 a
       #96). Los diagramas UML, `docker-compose.yml` y la sección
@@ -308,12 +308,12 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       cómo está organizado.
 - [x] **#90** (dueño: Mariana) Revisión general de documentos, backlog y
       diagramas contra el repositorio (pedido de Mariana, 2026-11-16).
-      **Hecho (2026-11-16)**: `PROGRESS.md`, el Product Backlog, el Sprint
-      Backlog y la Carta Gantt coinciden (89 ítems más este); no hay enlaces
+      **Hecho (2026-11-16)**: `PROGRESS.md`, el Listado de Tareas, el Plan por
+      Etapas y la Carta Gantt coinciden (89 ítems más este); no hay enlaces
       rotos en los `.md`. Se corrigió lo desactualizado tras #77, #80 y #84:
       requisitos no funcionales (RNF02, RNF05, RNF08 ahora **Cumple** por la
       instalación probada del #60, RNF09 con los pesos v3 y `yolo26n`),
-      innovación y Definition of Done (303 pruebas), README (estado operativo
+      innovación y Criterios de Terminado (303 pruebas), README (estado operativo
       al 2026-11-16 y limitaciones), `PRODUCT.md` y la auditoría de la app
       (CITT descartado), la especificación técnica (oclusión del #77 y campos
       del JSON) y los diagramas UML de clases, secuencia y componentes (detector
@@ -342,6 +342,17 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       RF01, RF03 (se mide por repisa y se informa la góndola completa, #40),
       RF04, RF05, RF07, RF08 y RNF04; se editaron solo los textos, sin tocar
       sus dibujos ni comentarios.
+- [ ] **#92** (dueño: Francisco) Quitar de la documentación toda
+      referencia a SCRUM: el equipo usa la metodología tradicional o en
+      cascada (indicación de Francisco, 2026-11-16). Los documentos de
+      `Gestion/` pasan a `Metodologia Cascada.md`, `Plan por Etapas.md`,
+      `Lecciones Aprendidas.md`, `Listado de Tareas.md` y `Criterios de
+      Terminado.md`; `Documentacion SCRUM.docx` se elimina (no aplica a
+      los grupos en cascada) y se quita de los entregables en
+      `docs/curso.md`. Falta, a mano en Excel, la Carta Gantt (filas de
+      #63, #81, #90 y la Evaluación 2: «Documentación SCRUM», «Backlogs,
+      retrospectivas», «backlog», «demo del Sprint 1»): openpyxl borra
+      sus validaciones de datos.
 - [x] **#85** (dueño: Nicko) Rendimiento de la app web (auditoría ponytail
       del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la
       última foto de cada góndola con una subconsulta sin índice, y crecía
@@ -396,11 +407,12 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       **Hecho (2026-11-15)**: `Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de
       datos/shelfvision.sql` (SQLite: estructura de `migrate` y datos ficticios);
       `tests/test_sql_script.py` comprueba que coincida con `migrate`.
-- [x] **#63** (dueño: Francisco) Documentación SCRUM de la entrega final: análisis del caso;
-      épicas, sprints e historias de usuario; priorización de las H.U.
-      Salen del backlog (`PROGRESS.md`), la Carta Gantt y los C.U.
-      **Hecho (2026-11-15)**: `Fase 2/Evidencias Proyecto/Evidencias de
-      documentación/Gestion/Documentacion SCRUM.docx`, con sprints semanales.
+- [x] **#63** (descartado 2026-11-16: el equipo usa metodología en
+      cascada y la Documentación SCRUM solo aplicaba a los grupos que
+      usaron esa metodología, ver #92) Documentación SCRUM de la
+      entrega final: análisis del caso; épicas, sprints e historias de
+      usuario; priorización de las H.U. Se había entregado el
+      2026-11-15 como `Documentacion SCRUM.docx`; el #92 la elimina.
 - [ ] **#64** Diagramas de actividad de los C.U (los pide la entrega
       final; no están en el repositorio).
 - [ ] **#65** Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
@@ -450,13 +462,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       auditor también detectó por el README React, Angular, Flask, FastAPI y
       Node.js, que no se usan: aclarar que son alternativas descartadas.
       Hecho (2026-11-14): sección "Tecnologías" en el README, con tabla por capa y la aclaración de las alternativas descartadas. El manual técnico completo no se escribió: queda como mejora (la guía de instalación y `docs/especificacion-tecnica.md` cubren lo técnico).
-- [x] **#71** (dueño: Francisco) Metodología ágil documentada (auditoría N.º 4: faltan
-      metodología declarada y justificada, Product Backlog, Sprint Backlog,
-      Definition of Done y retrospectivas, y el alcance MVP de la guía 1.5).
-      Se suma a #63 (épicas, sprints e H.U): `PROGRESS.md` hace de
-      backlog pero el auditor no lo reconoce por nombre. Definition of Done
+- [x] **#71** (dueño: Francisco) Metodología documentada (auditoría N.º 4: faltan
+      metodología declarada y justificada, Listado de Tareas, Plan por Etapas,
+      Criterios de Terminado y lecciones aprendidas, y el alcance MVP de la guía 1.5).
+      `PROGRESS.md` hace de
+      listado de tareas pero el auditor no lo reconoce por nombre. Criterios de Terminado
       desde las reglas de `CLAUDE.md`; el alcance MVP va aquí, no en `Fase 1/`.
-      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/` con `Metodologia Agil.md` (Scrumban), `Product Backlog.md` (copia de este archivo), `Sprint Backlog.md`, `Definition of Done.md`, `Retrospectivas.md` (reconstruidas desde git y marcadas así; las acciones "por confirmar" las decide el equipo) y `Alcance MVP.md`. Lo decidió el llm-council (una sola fuente en la carpeta de la Fase 2, Markdown).
+      Hecho (2026-11-14): `Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/` con `Metodologia Cascada.md` (declaraba Scrumban; el #92 la reescribió a cascada), `Listado de Tareas.md` (copia de este archivo), `Plan por Etapas.md`, `Criterios de Terminado.md`, `Lecciones Aprendidas.md` (reconstruidas desde git y marcadas así; las acciones "por confirmar" las decide el equipo) y `Alcance MVP.md`. Lo decidió el llm-council (una sola fuente en la carpeta de la Fase 2, Markdown).
 - [x] **#72** (dueño: Francisco) Documento de requisitos no funcionales (auditoría N.º 4: no
       existe): umbral de alerta y precisión del detector, tiempo de análisis,
       seguridad (#50, #51, #57), licencias de datos, profundidad fija de 25
@@ -1437,7 +1449,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       (`.cpu().numpy()`).
 - [x] **#23** (dueño: Francisco) Fechas de entregas y plazos en
       `README.md` y `PROGRESS.md`, en formato YYYY-MM-DD en la línea de
-      la tarea: Evaluación 2 (Avance) de la Fase 2 y cierre del Sprint 1
+      la tarea: Evaluación 2 (Avance) de la Fase 2 y cierre de la Etapa 1
       la semana del 2026-10-28, Fase 3 por definir, y decidir la versión
       de Python de la imagen a más tardar 2026-10-16.
 - [x] **#25** (dueño: Francisco) Registro de requisitos y plazos del
