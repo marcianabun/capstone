@@ -127,50 +127,47 @@ def test_cada_perfil_ve_solo_lo_suyo(client):
 
 # --- CU06 ---
 
-def test_admin_crea_usuario_que_define_su_clave_con_enlace_de_un_uso(client, mailoutbox):
+def define_clave(client, link, username):
+    """El usuario abre el enlace sin sesión, define su contraseña y entra con ella."""
+    client.logout()
+    form_url = client.get(link, follow=True).redirect_chain[-1][0]
+    new = "otra-clave-segura-9"
+    client.post(form_url, {"new_password1": new, "new_password2": new})
+    assert client.login(username=username, password=new)
+
+
+def test_admin_crea_usuario_y_ve_en_pantalla_su_enlace_de_un_uso(client, mailoutbox):
+    # #84: el CU06 no usa correo; el Administrador ve el enlace y se lo entrega al usuario.
     client.force_login(make_user("2-7", ADMIN))
-    client.post(reverse("usuario_nuevo"), {
+    response = client.post(reverse("usuario_nuevo"), {
         "username": "12.345.678-5", "first_name": "Ana", "email": "ana@tienda.cl", "is_active": "on",
         "role": REPONEDOR})
     user = User.objects.get(username="12345678-5")
     assert user.role == REPONEDOR and not user.has_usable_password()
 
-    link = mailoutbox[0].body.split()[-1]
-    client.logout()
-    form_url = client.get(link, follow=True).redirect_chain[-1][0]
-    new = "otra-clave-segura-9"
-    client.post(form_url, {"new_password1": new, "new_password2": new})
-    assert client.login(username="12345678-5", password=new)
+    link = response.context["enlace"]
+    assert link in response.content.decode()
+    assert not mailoutbox
+    define_clave(client, link, "12345678-5")
     assert not client.get(link, follow=True).context["validlink"]
 
 
-def test_si_falla_el_correo_el_usuario_queda_creado_y_se_reenvia_el_enlace(client, mailoutbox, monkeypatch):
-    # #53: antes daba error 500 y el usuario quedaba sin contraseña ni forma de recibir el enlace.
+def test_admin_genera_un_enlace_nuevo_si_el_usuario_no_definio_su_clave(client, mailoutbox):
+    user = make_user("1-9", REPONEDOR)
+    user.set_unusable_password()
+    user.save()
     client.force_login(make_user("2-7", ADMIN))
+    assert "Generar enlace nuevo" in client.get(reverse("usuario_editar", args=[user.pk])).content.decode()
 
-    def fails(*args, **kwargs):
-        raise OSError("servidor de correo caído")
-
-    monkeypatch.setattr(views, "send_mail", fails)
-    response = client.post(reverse("usuario_nuevo"), {
-        "username": "12.345.678-5", "email": "ana@tienda.cl", "is_active": "on", "role": REPONEDOR}, follow=True)
-    assert response.status_code == 200
-    assert "no se pudo enviar el correo" in response.content.decode()
-    user = User.objects.get(username="12345678-5")
-    assert not user.has_usable_password()
-    assert "Reenviar enlace" in client.get(reverse("usuario_editar", args=[user.pk])).content.decode()
-
-    monkeypatch.undo()
-    client.force_login(User.objects.get(username="2-7"))
-    client.post(reverse("usuario_enlace", args=[user.pk]))
-    assert len(mailoutbox) == 1 and mailoutbox[0].to == ["ana@tienda.cl"]
+    link = client.post(reverse("usuario_enlace", args=[user.pk])).context["enlace"]
+    assert not mailoutbox
+    define_clave(client, link, "1-9")
 
 
-def test_solo_el_admin_reenvia_el_enlace(client, mailoutbox):
+def test_solo_el_admin_genera_el_enlace(client):
     user = make_user("1-9", REPONEDOR)
     client.force_login(make_user("2-7", JEFE))
     assert client.post(reverse("usuario_enlace", args=[user.pk])).status_code == 403
-    assert not mailoutbox
 
 
 @pytest.mark.parametrize("rut, valid", [

@@ -50,7 +50,7 @@ Cuenta de usuario (`web.models.User`, que extiende `AbstractUser`). CU00 y CU06.
 | `is_staff` | bool | No | - | `0` | Acceso al admin de Django (que esta aplicación no instala). Sin uso práctico |
 | `is_active` | bool | No | - | `1` | `0` = cuenta dada de baja por el Administrador (baja lógica). **No** significa «bloqueada»: el bloqueo por intentos fallidos es `locked_until`. Una cuenta inactiva no puede entrar y sus sesiones abiertas dejan de valer (el backend de login rechaza cuentas inactivas o bloqueadas); la fila de `django_session` queda hasta que vence |
 | `date_joined` | datetime | No | - | ahora | Creación de la cuenta |
-| `email` | varchar(254) | No | **UK** | - | Correo. Único porque también sirve para entrar (CU00) y para el enlace de definir la contraseña (CU06) |
+| `email` | varchar(254) | No | **UK** | - | Correo. Único porque también sirve para entrar (CU00) |
 | `failed_logins` | smallint unsigned | No | - | `0` | Intentos fallidos seguidos, de 0 a 4 en reposo. Al llegar a 5 se pone en 0 y se fija `locked_until`. Se suma en la base (`F()`), así que intentos en paralelo no se pierden. Vuelve a 0 al ingresar bien. `CHECK (failed_logins >= 0)` |
 | `locked_until` | datetime | **Sí** | - | `NULL` | Fin del bloqueo temporal (#51): 15 minutos después del quinto intento fallido. Con `locked_until` en el futuro no se puede ingresar; pasado ese momento la cuenta se desbloquea sola. El Administrador lo borra al guardar la cuenta en «Editar». Los intentos durante el bloqueo no lo alargan |
 

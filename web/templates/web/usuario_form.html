@@ -4,7 +4,7 @@
 <div class="page-head">
   <div>
     <h1>{% if nuevo %}Nuevo usuario{% else %}Editar {{ form.instance.username }}{% endif %}</h1>
-    <p>{% if nuevo %}Recibirá un correo con un enlace de un solo uso para definir su contraseña.{% else %}Los cambios de perfil rigen desde su próxima página.{% endif %}</p>
+    <p>{% if nuevo %}Al crearlo verás un enlace de un solo uso para que defina su contraseña.{% else %}Los cambios de perfil rigen desde su próxima página.{% endif %}</p>
   </div>
 </div>
 <form method="post" class="panel form narrow-form" novalidate>
@@ -21,8 +21,8 @@
 {% if not nuevo and not form.instance.has_usable_password %}
 <form method="post" action="{% url 'usuario_enlace' form.instance.pk %}" class="panel form narrow-form form-after">
   {% csrf_token %}
-  <p>Este usuario todavía no define su contraseña. Si no recibió el correo, o el enlace venció, envíale uno nuevo a {{ form.instance.email }}.</p>
-  <div class="actions"><button type="submit" class="btn quiet">Reenviar enlace</button></div>
+  <p>Este usuario todavía no define su contraseña. Si perdió el enlace o venció, genera uno nuevo y entrégaselo.</p>
+  <div class="actions"><button type="submit" class="btn quiet">Generar enlace nuevo</button></div>
 </form>
 {% endif %}
 {% endblock %}
