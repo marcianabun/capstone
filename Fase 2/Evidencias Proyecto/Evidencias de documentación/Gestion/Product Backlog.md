@@ -1,6 +1,6 @@
 # Product Backlog
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-15** (83 ítems: 64 hechos, 5 en curso, 13 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-15** (83 ítems: 65 hechos, 4 en curso, 13 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -53,7 +53,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #45 | Hecho | Mariana | Privacidad de las fotos (RNF05): las fotos guardadas pueden mostrar clientes. Proponer a Walmart (#24) borrarlas tras N días o difuminar ros… |
 | #46 | Pendiente | Sin asignar | Falsas alertas en refrigeradores con puerta de vidrio (#34, fotos 020 y 003 de Kaggle): el reflejo y el desenfoque de la puerta en primer pl… |
 | #47 | Hecho | Francisco | Auditoría de commits de GitHub: `.mailmap` que unifica las identidades (hoy 6 autores para 3 personas) y commits y PR sin la línea `Co-Autho… |
-| #48 | En curso | Nicko | Modelar el diagrama de la base de datos (entidad-relación) a partir de `web/models.py` (`User`, perfiles como grupos de Django, `Analysis`)… |
+| #48 | Hecho | Nicko | Modelar el diagrama de la base de datos (entidad-relación) a partir de `web/models.py` (`User`, perfiles como grupos de Django, `Analysis`)… |
 | #49 | Hecho | Mariana | Alertas atómicas en la app web (auditoría 2026-10-21, `web/views.py` `analyze()` y `alerta_accion()`): hoy cerrar la alerta anterior, guarda… |
 | #50 | Hecho | Francisco | Configuración segura de la app web antes de instalarla (auditoría 2026-10-21; se cruza con #39): `DJANGO_DEBUG` vale "1" si no se define (co… |
 | #51 | Hecho | Mariana | Bloqueo de cuentas (CU00, auditoría 2026-10-21, `web/auth.py`): con solo saber el RUT se bloquea la cuenta de cualquiera, también la del úni… |

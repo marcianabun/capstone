@@ -1,0 +1,94 @@
+erDiagram
+    web_user {
+        integer id PK
+        varchar username UK "RUT normalizado 12345678-5"
+        varchar email UK "credencial alternativa al RUT"
+        varchar password "hash bcrypt"
+        varchar first_name
+        varchar last_name
+        bool is_active "baja logica, no se borra"
+        bool is_staff
+        bool is_superuser "implica perfil Administrador"
+        datetime date_joined
+        datetime last_login "NULL"
+        smallint failed_logins "intentos fallidos seguidos"
+        datetime locked_until "NULL, bloqueo de 15 min"
+    }
+    auth_group {
+        integer id PK
+        varchar name UK "Reponedor, Jefe de Salon, Administrador"
+    }
+    web_user_groups {
+        integer id PK
+        bigint user_id FK
+        integer group_id FK
+    }
+    web_analysis {
+        integer id PK
+        datetime created_at
+        bigint created_by_id FK "NULL"
+        varchar pasillo "mayusculas, sin espacios"
+        varchar gondola "mayusculas, sin espacios"
+        varchar photo_name
+        varchar annotated "ruta de la foto anotada, vacio si se borro"
+        real free_fraction "0.0 a 1.0, gondola completa"
+        bool critical "alerta de quiebre"
+        text result "JSON de PipelineResult"
+        varchar estado "vacio, activa, en_proceso, completada, reemplazada"
+        bigint taken_by_id FK "NULL"
+        datetime estado_at "NULL"
+    }
+    web_camera {
+        integer id PK
+        varchar nombre UK
+        varchar pasillo "UK junto con gondola"
+        varchar gondola "UK junto con pasillo"
+        text calibracion "NULL, JSON de OpenCV"
+    }
+    web_config {
+        integer id PK "una sola fila, id = 1"
+        smallint umbral "1 a 100, 30 por defecto"
+    }
+    web_user_user_permissions {
+        integer id PK
+        bigint user_id FK
+        integer permission_id FK
+    }
+    auth_permission {
+        integer id PK
+        integer content_type_id FK
+        varchar codename
+        varchar name
+    }
+    auth_group_permissions {
+        integer id PK
+        integer group_id FK
+        integer permission_id FK
+    }
+    django_content_type {
+        integer id PK
+        varchar app_label
+        varchar model
+    }
+    django_session {
+        varchar session_key PK
+        text session_data
+        datetime expire_date
+    }
+    django_migrations {
+        integer id PK
+        varchar app
+        varchar name
+        datetime applied
+    }
+
+    web_user ||--o{ web_user_groups : "tiene perfil"
+    auth_group ||--o{ web_user_groups : "agrupa"
+    web_user |o--o{ web_analysis : "sube (created_by)"
+    web_user |o--o{ web_analysis : "atiende (taken_by)"
+    web_camera |o..o{ web_analysis : "misma ubicacion (pasillo, gondola)"
+    web_user ||--o{ web_user_user_permissions : "permiso directo"
+    auth_permission ||--o{ web_user_user_permissions : "se asigna a"
+    auth_group ||--o{ auth_group_permissions : "concede"
+    auth_permission ||--o{ auth_group_permissions : "se concede en"
+    django_content_type ||--o{ auth_permission : "define"

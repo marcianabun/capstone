@@ -24,3 +24,8 @@ nombre.
 - `Diagrama de Arquitectura.mmd`: diagrama de arquitectura (flowchart).
   PNG en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagrama de arquitectura/Diagrama de Arquitectura.png`,
   con el mismo comando y configuración.
+- `Diagrama Entidad-Relacion.mmd`: diagrama entidad-relación (`erDiagram`) de
+  las 12 tablas de la base de datos. Está copiado dentro de
+  `Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de datos/Modelo Relacional.md`
+  (GitHub lo dibuja solo); si cambia `web/models.py`, actualizar ambos. No tiene
+  PNG: para exportarlo, el mismo comando de mermaid-cli de arriba.
