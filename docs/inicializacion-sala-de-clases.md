@@ -43,9 +43,11 @@ el Python del sistema.
 |---|---|---|
 | `uv` 0.13.8 | PyPI: https://pypi.org/project/uv/ | `python -m pip install --user uv` |
 | CPython 3.13.18 (21,3 MiB) | python-build-standalone: https://github.com/astral-sh/python-build-standalone (lo descarga uv) | `python -m uv venv --python 3.13 .venv` |
+| GitHub CLI `gh` 2.104.0 | Releases de GitHub: https://github.com/cli/cli/releases/tag/v2.104.0 | `winget install --id GitHub.cli -e --scope user` (sin admin) |
+| Dataset Kaggle supermarket-shelves (45 fotos, 138 MB, CC0) | https://www.kaggle.com/datasets/humansintheloop/supermarket-shelves-dataset | `python scripts/download_datasets.py --dataset kaggle_supermarket` |
 | 64 paquetes de `requirements.txt` (torch, ultralytics, django, etc.) | PyPI: https://pypi.org | `python -m uv pip install --python .venv\Scripts\python.exe -r requirements.txt` |
 
-No se descargaron datasets ni pesos (`pytest` no los necesita). `uv` se
+Los pesos ya vienen en `weights/` (versionados). Solo se descargó el dataset de Kaggle, para la cámara simulada; `pytest` no lo necesita. `uv` se
 instaló en el Python global del usuario (`--user`), no en el venv.
 
 ## Comandos que funcionaron
@@ -74,10 +76,29 @@ python -m uv pip install --python .venv\Scripts\python.exe -r requirements.txt
   `.venv\Scripts\python.exe` directo. Si PowerShell bloquea la activación:
   `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
 
+## Servidor y datos de prueba
+
+1. `migrate` con `DJANGO_DEBUG=1` crea `data/processed/web/db.sqlite3` (la ruta sale de `DATA_DIR` en `web/settings.py`, no de la raíz).
+2. La base recién migrada no tiene usuarios. Se cargó `Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de datos/shelfvision.sql` sobre una base nueva (la vacía quedó como `db.sqlite3.vacia`) y `migrate` no tuvo nada que aplicar. Usuarios ficticios, contraseña `prueba-1234`: `12345678-5` (Administrador), `11111111-1` (Jefe de Salón), `22222222-2` y `33333333-3` (Reponedores; el último está bloqueado).
+3. `manage.py runserver 8000` responde: `GET /` da 302 al login.
+
+## Cámara simulada
+
+```powershell
+$env:DJANGO_DEBUG="1"
+python manage.py simular_camara "data/raw/supermarket-shelves/Supermarket shelves/images" --pasillo 3 --gondola 14B --espera 60
+```
+
+Analiza una foto por minuto, degradada como una cámara fija, y recorre las 45 fotos una sola vez. Los resultados salen en Góndolas, Alertas y Análisis.
+
+## Otros hallazgos de esta etapa
+
+- **Consultar la base con `sqlite3.connect('db.sqlite3')` en la raíz crea un archivo vacío** y engaña: la base real está en `data/processed/web/`. Abrirla con `mode=ro`.
+- **`gh` instalado pero sin sesión**: `gh auth login` abre el navegador y lo tiene que hacer la persona; sin eso no se pueden abrir ni mergear PR desde la terminal.
+- **`grep -r` sobre el repo completo se abortó** por el tamaño de `.venv` y los datos; usar la herramienta de búsqueda o limitar las carpetas.
+
 ## Pendiente en esta PC
 
-- Paso 6 (levantar el servidor): `migrate`, `createsuperuser`, `runserver`.
-- `CLAUDE.local.md` con `Integrante: <nombre>`.
-- `graphify` (`uv tool install graphifyy==0.9.70`; `uv` ya está) y
-  `graphify update .`. Sin él, los hooks de `.claude/settings.json` fallan.
-- Ponytail y su `ledger` en falso; `gh auth login` para los PR.
+- `gh auth login` y `CLAUDE.local.md` con `Integrante: <nombre>`.
+- `graphify` (`uv tool install graphifyy==0.9.70`; `uv` ya está) y `graphify update .`. Sin él, los hooks de `.claude/settings.json` fallan.
+- Ponytail y su `ledger` en falso.

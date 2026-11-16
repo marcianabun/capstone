@@ -585,6 +585,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
 - [x] **#38** (descartado 2026-11-16: acordado con el profesor, según Mariana) Feria de informática (semana del 2026-10-26; día y hora
       por informar): definir qué integrante va (al menos uno) y qué se
       muestra.
+- [x] **#93** (dueño: Francisco) Documentar la inicialización del entorno en
+      una PC de la sala de clases (pedido de Francisco, 2026-11-16).
+      **Hecho (2026-11-16)**: `docs/inicializacion-sala-de-clases.md` con
+      los pasos, los problemas (Python 3.15 alfa sin wheels, resuelto con
+      uv y Python 3.13), los links de las descargas, la carga de los
+      usuarios de prueba y la cámara simulada. La Carta Gantt queda para
+      editarla a mano en Excel (openpyxl borra sus validaciones).
 - [x] **#39** (descartado 2026-11-15: Francisco indicó que ya no es
       necesario) Instalar la aplicación en el servidor del CITT. Estaba
       bloqueado: las instrucciones por sección no llegaron. Punto
