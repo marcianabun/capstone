@@ -419,7 +419,7 @@ python manage.py runserver          # http://localhost:8000
   sesiones abiertas. Los usuarios no se borran, se desactivan, para no
   perder quién hizo cada análisis.
 - **CU01**: el Administrador y el Jefe de Salón suben una foto con su
-  pasillo y góndola (hasta 20 MB; el pasillo y la góndola se guardan sin
+  pasillo y góndola (hasta 20 MB y 50 megapíxeles; el pasillo y la góndola se guardan sin
   espacios y en mayúsculas, así "a1" y "A1" son la misma). La app corre el pipeline y guarda en la
   base el % libre de la góndola completa, la alerta y la foto anotada.
   Las fotos solo se ven con sesión iniciada. Si el detector no encuentra
