@@ -39,11 +39,11 @@ Evaluación 2 y del demo con Walmart (semana del 2026-10-28, a más tardar
 | 12 | Dashboard de disponibilidad por góndola (verde, amarillo, rojo, sin datos) e historial | CU03, RF05 | P1 | Ítem #43 |
 | 13 | Exportar reportes Excel, CSV y PDF | CU04, RF06 | P1 | Ítem #7 |
 | 14 | Umbral configurable y cámaras asociadas a góndolas | CU05, RF07 | P1 | Ítem #44 |
-| 15 | Los pesos `yolo26s` no están en el servidor; sin ellos la app analiza con lo que encuentre | RF02 | P1 | Copiarlos al volumen `/data` del CITT (#39) |
+| 15 | Los pesos `yolo26s` no están en el servidor; sin ellos la app analiza con lo que encuentre | RF02 | P1 | Resuelto: los pesos versionados vienen dentro de la imagen Docker (#80); el CITT (#39) se descartó |
 | 16 | Los correos (enlace para definir la contraseña) solo se imprimen en la consola | CU06 | P1 | Cerrado por decisión (#84, 2026-11-16): no se usa correo; el Administrador ve el enlace en pantalla y se lo entrega |
 | 17 | Las fotos guardadas pueden mostrar clientes: RNF05 pide no guardar rostros ni datos personales | RNF05 | P1 | Ítem #45: `borrar_fotos` las borra tras 30 días (2026-10-22); el plazo y si además se difuminan rostros, a conversar con Walmart (#24) |
-| 18 | HTTPS en el CITT: sin él la cookie de sesión viaja en claro | RNF04 | P1 | Cookies seguras detrás de HTTPS (#39) |
-| 19 | Notificación push al reponedor y alerta de cámara defectuosa | CU02, CU01 1a | P2 | Backlog |
+| 18 | HTTPS en el CITT: sin él la cookie de sesión viaja en claro | RNF04 | P1 | Cookies seguras detrás de HTTPS: proxy con certificado de la empresa (sección 5.3 del Instructivo del plan de instalación); el CITT (#39) se descartó |
+| 19 | Notificación push al reponedor y alerta de cámara defectuosa | CU02, CU01 1a | P2 | Cámara defectuosa: #87; push fuera de alcance como mejora futura: #88 |
 | 20 | Registro de auditoría (quién hizo qué), como en el mockup Admin-4 | Mockups | P2 | Backlog |
 | 21 | Bandeja de usuarios con búsqueda y "último acceso", como en el mockup Admin-3 | Mockups | P2 | El último acceso ya existe (`last_login`); se muestra en la lista |
 

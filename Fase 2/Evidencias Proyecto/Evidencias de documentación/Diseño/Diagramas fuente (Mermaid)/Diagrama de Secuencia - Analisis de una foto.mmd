@@ -4,6 +4,7 @@ sequenceDiagram
     participant P as pipeline.run_image
     participant C as preprocessing
     participant D as ProductDetector (YOLO26)
+    participant O as PersonDetector (YOLO26 de COCO)
     participant A as postprocessing
     participant DB as Base de datos (SQLite)
 
@@ -16,12 +17,14 @@ sequenceDiagram
     C-->>P: GondolaSegmentation y RoiCrop
     P->>D: detect(recorte)
     D-->>P: Detection[]
+    P->>O: detect(imagen corregida)
+    O-->>P: personas que tapan la góndola
     P->>P: RoiCrop.to_original() y CorrectedImage.to_original()
-    P->>A: shelf_levels() y compute_availability()
-    A-->>P: free_fraction y critical
+    P->>A: shelf_levels() y compute_availability(occluders)
+    A-->>P: free_fraction, critical e inconclusive (lo tapado no cuenta)
     P-->>W: PipelineResult
-    alt Sin productos detectados
-        W-->>U: Rechaza la foto, sin alerta
+    alt Sin productos detectados o góndola tapada en más de la mitad
+        W-->>U: Rechaza la foto, sin alerta (no toca la alerta abierta)
     else Hay productos
         W->>DB: Cierra la alerta anterior, guarda la foto anotada y crea el Analysis (una transacción)
         W-->>U: Resultado: % libre y alerta si libre >= umbral

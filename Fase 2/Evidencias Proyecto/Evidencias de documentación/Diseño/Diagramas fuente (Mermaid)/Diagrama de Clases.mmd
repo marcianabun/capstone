@@ -30,6 +30,8 @@ classDiagram
         +ShelfAvailability[] shelves
         +float free_fraction
         +bool critical
+        +float occluded_fraction
+        +bool inconclusive
     }
     class PipelineResult {
         +tuple image_size
@@ -39,6 +41,8 @@ classDiagram
         +float free_fraction
         +bool critical
         +bool segmentation_found
+        +float occluded_fraction
+        +bool inconclusive
         +StageTimes times
         +to_dict() dict
     }

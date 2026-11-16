@@ -1,6 +1,6 @@
 # Product Backlog
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (89 ítems: 72 hechos, 6 en curso, 9 pendientes y 2 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (90 ítems: 73 hechos, 6 en curso, 9 pendientes y 2 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -95,3 +95,4 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #87 | En curso | Mariana | Cámara defectuosa (excepción 1a de CU01, lo único que le falta al CU01): si la foto tiene colores imposibles (por ejemplo, toda verde o viol… |
 | #88 | En curso | Mariana | Alcance de CU02 y CU05 en las plantillas, para cerrar los C.U al 100% en la entrega final (2026-11-20): la notificación push al teléfono (CU… |
 | #89 | Pendiente | Sin asignar | Archivo txt «Repositorio GitHub del proyecto documentado» en `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`, que pide la ent… |
+| #90 | Hecho | Mariana | Revisión general de documentos, backlog y diagramas contra el repositorio (pedido de Mariana, 2026-11-16). **Hecho (2026-11-16)**: `PROGRESS… |

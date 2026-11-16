@@ -24,6 +24,7 @@ nombre.
 - `Diagrama de Arquitectura.mmd`: diagrama de arquitectura (flowchart).
   PNG en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagrama de arquitectura/Diagrama de Arquitectura.png`,
   con el mismo comando y configuración.
+- `Diagrama de Clases.mmd`, `Diagrama de Componentes.mmd` y `Diagrama de Secuencia - Analisis de una foto.mmd`: diagramas UML, copiados también en `Diagramas UML.md`; si cambia uno, actualizar ambos. PNG en `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/`, con el mismo comando y configuración (regenerados el 2026-11-16 con el tema oscuro, por #77 y #80).
 - `Diagrama Entidad-Relacion.mmd`: diagrama entidad-relación (`erDiagram`) de
   las 12 tablas de la base de datos. Está copiado dentro de
   `Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de datos/Modelo Relacional.md`
