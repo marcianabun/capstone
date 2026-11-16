@@ -51,6 +51,8 @@ class Analysis(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        # La ultima foto de cada gondola (dashboard) y la alerta abierta de una gondola se buscan por aqui.
+        indexes = [models.Index(fields=["pasillo", "gondola", "-created_at"], name="analysis_gondola_fecha")]
 
     @property
     def location(self) -> str:

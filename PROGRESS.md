@@ -222,6 +222,48 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       contrato); prueba nueva en `tests/test_shelf_levels.py`. Ojo: con tan
       pocos productos el resultado (0 % libre) no es confiable: la foto es
       de baja resolución y el detector casi no ve productos.
+- [ ] **#84** CU06 sin correo (decidido 2026-11-15, auditoría ponytail del
+      repo: no se usará SMTP). Hoy, en Docker, el correo del enlace para
+      definir la contraseña solo se imprime en la consola del servidor
+      (`MAILERS` solo lee el *backend*, sin `OPTIONS` de host ni clave) y
+      la pantalla igual dice «Se envió el enlace»: el usuario nuevo queda
+      sin contraseña (hallazgo 16 de `docs/auditoria-app-web.md`, que quedó
+      sin dueño al descartarse el #39). Cambio: al crear un usuario, o con
+      «Generar enlace nuevo» (hoy «Reenviar enlace»), el Administrador ve
+      el enlace de un solo uso **en pantalla**, una sola vez, y se lo
+      entrega al usuario; se mantienen el token de Django y la ruta
+      `definir_clave`. Mostrarlo en la misma respuesta, no en un mensaje
+      (viaja en una cookie). Pasos: (1) pruebas primero, en
+      `tests/test_web.py` (hoy usan `mailoutbox`): crear usuario muestra un
+      enlace que sirve una sola vez, «Generar enlace nuevo» es solo del
+      Administrador y no se envía ningún correo; (2) código: sacar
+      `send_mail` de `web/views.py` (`send_password_link` devuelve la URL),
+      textos y botón de `web/templates/web/usuario_form.html`, borrar
+      `MAILERS` y `DEFAULT_FROM_EMAIL` de `web/settings.py`, comentario de
+      `web/forms.py`; (3) documentación: README (CU06 y variable
+      `DJANGO_EMAIL_BACKEND`), `docs/especificacion-tecnica.md`,
+      `docs/cambios-cu.md`, `docs/auditoria-app-web.md` (hallazgo 16:
+      cerrado por decisión), `PRODUCT.md`, `Diccionario de Datos.md`,
+      `Plantilla de C.U 06.docx` y `Diagrama C.U 06` (.mmd y PNG), y las
+      notas de #53 y #39 de este archivo; (4) avisar que el Manual de
+      usuario del Administrador y el video tutorial (#61) dependen de este
+      flujo. No necesita migración. Plazo: antes de grabar el video de #61
+      (2026-11-18). Dueña propuesta: Mariana, que se lo asigna al tomarlo.
+- [x] **#85** (dueño: Nicko) Rendimiento de la app web (auditoría ponytail
+      del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la
+      última foto de cada góndola con una subconsulta sin índice, y crecía
+      con el cuadrado del historial: medido en una copia de la base con 21
+      góndolas, 1.000 análisis tardaban 73 ms, 5.000 1,7 s y 15.000 **15 s**
+      (con una foto cada 10 minutos por góndola se llega en unos 5 días).
+      (2) El reporte (CU04) traía el JSON `result` de cada análisis
+      (10 a 20 KB por foto en los datos de prueba) sin usarlo, con meses de
+      historial agotaría la memoria del único worker. **Hecho (2026-11-16)**:
+      índice `analysis_gondola_fecha` en (`pasillo`, `gondola`,
+      `-created_at`) con la migración `0007` (también en `shelfvision.sql` y
+      en `Modelo Relacional.md`): 15.000 análisis bajan de 15.034 ms a **7 ms**
+      y 50.000 tardan 24 ms; y `.defer("result")` en `reportes()`. Dos
+      pruebas nuevas en `tests/test_web.py` (el reporte no pide la columna
+      `result` y existe el índice); `pytest` 302 pasan.
 - [x] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).

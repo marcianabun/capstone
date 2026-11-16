@@ -15,6 +15,8 @@ from PIL import Image
 from django.contrib.auth.models import Group
 from django.core.management import CommandError, call_command
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import connection
+from django.test.utils import CaptureQueriesContext
 from django.urls import reverse
 from django.utils import timezone
 
@@ -366,6 +368,22 @@ def test_reporte_excel_y_pdf(client, analyzer, formato, tipo):
     response = report(client, formato=formato)
     assert tipo in response["Content-Type"]
     assert response["Content-Disposition"].endswith(f'.{formato}"')
+
+
+def test_reporte_no_carga_el_json_result(client, analyzer):
+    # #85: el reporte usa 7 campos; traer `result` (10 a 20 KB por foto) agotaba la memoria con meses de historial.
+    client.force_login(make_user("1-9", JEFE))
+    analyzer(client)
+    with CaptureQueriesContext(connection) as queries:
+        assert report(client).status_code == 200
+    assert not any('"web_analysis"."result"' in query["sql"] for query in queries)
+
+
+def test_dashboard_tiene_indice_por_gondola_y_fecha():
+    # #85: sin este indice, el dashboard tardaba 15 s con 15.000 analisis (la consulta crecia al cuadrado).
+    with connection.cursor() as cursor:
+        constraints = connection.introspection.get_constraints(cursor, Analysis._meta.db_table)
+    assert any(c["index"] and c["columns"] == ["pasillo", "gondola", "created_at"] for c in constraints.values())
 
 
 def test_reporte_sin_datos_avisa_y_no_genera_archivo(client):

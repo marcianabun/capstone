@@ -255,7 +255,7 @@ def reportes(request):
     if form.is_valid():
         data = form.cleaned_data
         found = (Analysis.objects.filter(created_at__date__range=(data["desde"], data["hasta"]))
-                 .select_related("created_by").order_by("created_at"))
+                 .select_related("created_by").defer("result").order_by("created_at"))
         if data["pasillo"]:
             found = found.filter(pasillo__iexact=data["pasillo"])
         if data["gondola"]:
