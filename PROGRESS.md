@@ -665,6 +665,36 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Claude Code v2.0.62; la forma `"attribution": false` pide v2.1.281
       y en versiones anteriores invalida el archivo entero). Los commits
       ya publicados no cambian: reescribir `main` lo prohíbe la regla 5.
+- [ ] **#94** Botones de navegación sobre la foto del análisis, para
+      moverse entre análisis y alertas de góndolas sin volver a la lista
+      (pedido de Francisco, 2026-11-16). Diseño propuesto, dentro de
+      `DESIGN.md` (skills impeccable y front-design-taste no están
+      instaladas; no se usaron):
+      - Anterior y Siguiente a los lados de la foto en escritorio:
+        botones redondos de 44 px, grafito al 72% con flecha blanca (sin
+        rojo ni color solo) y anillo de foco verde azulado; un contador
+        «3 de 12» abajo al centro de la foto. En el teléfono van en una
+        barra bajo la foto, mitad y mitad de 52 px, para no tapar huecos
+        en los bordes.
+      - Un selector «Esta góndola · Alertas abiertas» sobre la foto elige
+        qué recorren los botones (análisis de la misma góndola por fecha,
+        o alertas abiertas en el orden de CU02); el modo viaja en
+        `?desde=`. Teclas ← y →.
+      - Tras «Marcar repuesta», pasa a la siguiente alerta abierta (una
+        acción por pantalla del Reponedor, `PRODUCT.md`).
+      - Viable sin modelos ni dependencias nuevas: el índice
+        `analysis_gondola_fecha` ya sirve a «anterior y siguiente» de una
+        góndola y las alertas abiertas son pocas. Falta agregar al sprite
+        de íconos `caret-left` y `caret-right` de Phosphor (servidos desde
+        la app, sin CDN) y un script corto, como el de `analisis.html`.
+      - Viables después, de menor a mayor costo: enlace «← Alertas» o
+        «← Góndola» en el encabezado (el ícono `arrow-left` ya existe),
+        enlace de la tarjeta de alerta a su góndola, filtros por
+        estado y pasillo en Análisis y Alertas, y comparar dos fotos.
+        Zoom de la foto exige vendorizar una librería. Fuera de alcance:
+        notificaciones push (#88).
+      - Con TDD en `tests/` y la regla de `PRODUCT.md`/`DESIGN.md` leída
+        antes de tocar `web/templates`.
 - [ ] **#46** Falsas alertas en refrigeradores con puerta de vidrio
       (#34, fotos 020 y 003 de Kaggle): el reflejo y el desenfoque de la
       puerta en primer plano, los marcos entre puertas y una repisa en
