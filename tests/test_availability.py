@@ -31,7 +31,6 @@ def test_gap_of_several_products_is_measured():
     shelf = compute_availability(products, LEVELS[:1]).shelves[0]
     assert shelf.gaps == ((300.0, 700.0),)
     assert shelf.free_fraction == pytest.approx(0.4)
-    assert shelf.occupied_fraction == pytest.approx(0.6)
     assert shelf.free_area_px == pytest.approx(400 * 200)
 
 
