@@ -41,7 +41,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #33 | Hecho | Francisco | Verificar el detector `yolo26s` fuera de SKU-110K, en las condiciones con que evaluará Walmart (IoU contra anotación a mano; fotos frontales… |
 | #34 | Hecho | Francisco | Análisis de resultados del informe intermedio (2026-10-20), en `docs/analisis-resultados.md` y la sección 3 del informe (#27). Pipeline comp… |
 | #35 | Hecho | Francisco | README completo para el informe intermedio (2026-10-21) y las evidencias de avance (2026-10-26): descripción de la solución, estrategia técn… |
-| #36 | Pendiente | Sin asignar | Video de demostración de 5 a 10 minutos (entrega 2026-10-21): solo funcionalidades implementadas y resultados que la aplicación genera hoy,… |
+| #36 | Hecho | Nicko | Video de demostración de 5 a 10 minutos (entrega 2026-10-21): solo funcionalidades implementadas y resultados que la aplicación genera hoy,… |
 | #37 | En curso | Mariana | Evidencias de avance de la Fase 2, a más tardar 2026-10-26: diario de reflexión 2.1, guía 2.4 (resumen del avance, plan de trabajo con estad… |
 | #38 | Pendiente | Sin asignar | Feria de informática (semana del 2026-10-26; día y hora por informar): definir qué integrante va (al menos uno) y qué se muestra. |
 | #39 | Descartado | Sin asignar | Instalar la aplicación en el servidor del CITT. Estaba bloqueado: las instrucciones por sección no llegaron. Punto de partida: la imagen Doc… |

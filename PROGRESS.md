@@ -380,10 +380,17 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       y un ejemplo reproducible con fotos Kaggle CC0 (verificado: foto 026
       da 2% libre, sin alerta). Los pesos no se publican (licencia de
       SKU-110K): se piden al equipo o se entrenan con `docs/training.md`.
-- [ ] **#36** Video de demostración de 5 a 10 minutos (entrega
+- [x] **#36** (dueño: Nicko) Video de demostración de 5 a 10 minutos (entrega
       2026-10-21): solo funcionalidades implementadas y resultados que
       la aplicación genera hoy, con fotos que se pueden mostrar (no
       SKU-110K). El pipeline (#8) y la app web (#28) ya están en `main`.
+      **Hecho (2026-10-21)**: `Video Modelo.mp4` (5 min 11 s, con audio), en
+      `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`. Muestra
+      el login, la gestión de usuarios, el análisis de una foto con quiebre,
+      las alertas y los reportes, tal como estaba la app ese día: no incluye
+      Góndolas (CU03), Configuración (CU05) ni la detección de personas
+      (#77), y muestra código unos segundos. Por eso no reemplaza al video
+      tutorial del MVP (#61).
 - [ ] **#37** (dueño: Mariana) Evidencias de avance de la Fase 2, a más tardar
       2026-10-26: diario de reflexión 2.1, guía 2.4 (resumen del
       avance, plan de trabajo con estado y ajustes) e informe con el
