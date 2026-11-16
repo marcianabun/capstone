@@ -41,7 +41,8 @@ web-data/
 
 # --- Checkpoints y pesos de modelos (YOLO26 / PyTorch / ONNX) ---
 *.pt
-!weights/yolo26s-finetune.pt
+!weights/yolo26s-finetune-ruido-v3.pt
+!weights/yolo26n.pt
 *.onnx
 *.pth
 *.weights

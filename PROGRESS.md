@@ -105,7 +105,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `yolo26s-finetune` como modelo versionado. Queda fuera: una persona
       tapando la góndola se mide hoy como espacio libre (falsa alerta); se
       resolvería en el pipeline detectando la oclusión.
-- [ ] **#77** Falsa alarma por oclusión: una persona, un carro o una caja
+- [ ] **#77** (dueño: Francisco) Falsa alarma por oclusión: una persona, un carro o una caja
       frente a la góndola tapa productos, el detector no los marca (con
       razón: no se ven) y el hueco se mide como espacio libre, así que puede
       saltar una alerta de quiebre que no existe (hallazgo de #76,
@@ -118,6 +118,23 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       (nunca SKU-110K) y con `degrade()` (la máscara de oclusión ya sale
       de ahí). Puede decidirse en el pipeline o en la app web (si la
       cámara repite la foto a los pocos minutos).
+      **Avance (2026-11-15)**: la medición y el cableado están hechos y
+      probados; falta validarlos con personas reales. Desde el 2026-11-15
+      el detector de personas va **activo por defecto** (`weights/yolo26n.pt`
+      versionado; `--sin-oclusion` y `SHELFVISION_PERSON_WEIGHTS` vacía lo
+      apagan). `compute_availability(..., occluders=)` mide solo
+      el frente visible (lo tapado no es libre ni ocupado) y con más de 50 %
+      tapado devuelve `inconclusive` y no alerta; `run_image(...,
+      occluder_detector=)` lo alimenta; `PersonDetector`
+      (`src/models/people.py`, pesos de COCO) filtra a la persona alta
+      (>= 40 % del alto, ancho <= alto) porque las caras impresas en las
+      cajas salen como "persona" (45 fotos de Kaggle: 4 con falsos positivos
+      sin filtro, 0 con él). En `run_pipeline.py` y en la app web (la foto tapada se
+      rechaza como la foto sin productos, #52, sin tocar la alerta abierta);
+      la vista dibuja lo que tapa en ámbar. AV-07 en `docs/test-plan.md`.
+      Falta: fotos de góndola con clientes para medir cuántas personas se
+      encuentran y cuántas falsas alarmas se evitan; carros y cajas no son
+      "persona" (COCO no tiene carro).
 - [x] **#78** (dueño: Francisco) Medir el detector por tipo y nivel de ruido
       (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja
       resolución, desenfoque, poca luz, mucha luz y oclusión) en 3 niveles
@@ -143,6 +160,17 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       0.844 contra 0.836 y SKU-110K `test` 0.935 contra 0.940. Detalle en
       DET-10. Cambiar el modelo versionado por este queda a decisión del
       equipo (otro commit de 20 MB al repo público).
+- [x] **#80** (dueño: Francisco) Reemplazar el modelo versionado por
+      `yolo26s-finetune-ruido-v3` (pedido de Francisco, 2026-11-15, tras
+      DET-10). **Hecho (2026-11-15)**: `weights/yolo26s-finetune-ruido-v3.pt`
+      (20 MB) sustituye a `weights/yolo26s-finetune.pt`, que sigue en el
+      historial de git (el repo es público, no se reescribe). Se actualizan
+      la excepción de `.gitignore`, `CLAUDE.md`, README, `docs/training.md`,
+      `docs/especificacion-tecnica.md` y el valor por defecto de
+      `scripts/measure_noise.py`, y los pesos por defecto de `run_pipeline.py` y
+      de la app web ahora son los versionados (antes apuntaban a un
+      `best.pt` que solo existe en el PC que entrenó). Mismas condiciones que #59: parte de
+      SKU-110K, uso académico y no comercial. Mejoras y límites en DET-10.
 - [x] **#81** (dueño: Mariana) Revisar los documentos de la auditoría N.º 4
       (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión
       de Walmart (2026-11-16), y corregir lo que no calce con el
@@ -155,6 +183,32 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       #96). Los diagramas UML, `docker-compose.yml` y la sección
       Tecnologías del README calzan con el código. Las reflexiones de
       Francisco no se tocaron (son personales): sus dudas quedan en el PR.
+- [x] **#82** (dueño: Francisco) Desenfoque de movimiento fuerte (pedido de
+      Francisco, 2026-11-15, tras DET-10): con la v3 el mAP50 con movimiento
+      de 31 px es 0.647, bajo 0.70 (RNF02). `degrade()` solo lo aplicaba
+      cuando no había desenfoque de foco (18 % de las fotos); pasa a
+      aplicarse aparte en el 30 % y hasta 41 px. Reentrenar como
+      `yolo26s-finetune-ruido-v4` y medirlo en DET-09 y DET-08. Si sube de
+      0.70, decidir si reemplaza al versionado.
+      **Hecho (2026-11-15), sin mejora real**: `yolo26s-finetune-ruido-v4`
+      da 0.652 con movimiento de 31 px (v3: 0.647; sigue bajo 0.70) y el
+      realce (unsharp mask) antes de detectar no ayuda (0.622). Un desenfoque
+      de 31 px es 1.2 % del ancho de la foto: la información no está en la
+      imagen. Se acepta como límite (RNF02 parcial) y se mantiene la v3 como
+      modelo versionado. DET-11 en `docs/test-plan.md`. Para una cámara real,
+      lo que importa es que no desenfoque tanto: pedir a Walmart la
+      resolución y la velocidad de obturación (#24).
+- [x] **#83** (dueño: Nicko) Error «Se necesita al menos un nivel (o la ROI
+      como unico nivel)» al analizar una foto (reportado por Nicko,
+      2026-11-15): foto de pasillo en ángulo de 400 x 300 px, con persona y
+      carro, donde el detector halla 1 producto. La segmentación deja una
+      sola repisa y ningún producto sobre ella; `shelf_levels()` necesita dos
+      bordes para armar un nivel, devolvía `()` y `compute_availability()`
+      lanzaba `ValueError`. **Hecho (2026-11-15)**: si no queda ningún nivel,
+      `shelf_levels()` devuelve la ROI como único nivel (lo que ya decía su
+      contrato); prueba nueva en `tests/test_shelf_levels.py`. Ojo: con tan
+      pocos productos el resultado (0 % libre) no es confiable: la foto es
+      de baja resolución y el detector casi no ve productos.
 - [x] **#60** (dueño: Mariana) Manuales de usuario (uno por perfil: Administrador, Jefe de
       Salón y Reponedor) y manual de instalación (instructivo del plan
       de instalación y PDF de implementación del ambiente de desarrollo).
@@ -172,9 +226,10 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       inicial, HTTPS, prueba de aceptación, respaldo, borrado de fotos,
       variables y problemas frecuentes) y `Implementación ambiente de
       desarrollo - ShelfVision AI.pdf` en `Evidencias de sistema/Aplicación/`.
-      Probado con `docker compose up --build` en un Mac M1 (Docker con 4 GB):
-      imagen de 2.3 GB, análisis en 1.5 a 5.4 s, reportes y datos que
-      sobreviven al reinicio. `web-data/` pasa a `.gitignore`. Hallazgos que
+      Probado con `docker compose up --build` en un Mac M1 (Docker con 4 GB),
+      de nuevo después del #80 (los pesos ya vienen en la imagen y no se
+      copian a mano): imagen de 2.6 GB, análisis en 2.2 a 7.5 s, reportes y
+      datos que sobreviven al reinicio. `web-data/` pasa a `.gitignore`. Hallazgos que
       quedan anotados en el instructivo: los correos (enlace para definir la
       contraseña) solo se escriben en el registro, partidos en
       quoted-printable, porque `web/settings.py` no lee un servidor SMTP, y
@@ -184,13 +239,18 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       módulos, funcionalidades, instrucciones de acceso, video, manuales
       y agradecimiento al cliente, con copia al profesor (o reenviarle el
       correo si ya se envió). Ver si sirve el video de #36.
-- [ ] **#62** Script SQL que crea la estructura de la base y la puebla con
+- [x] **#62** (dueño: Francisco) Script SQL que crea la estructura de la base y la puebla con
       datos de prueba, coherente con `web/models.py` (incluye `Config`,
       `Camera` y `User.locked_until`). Va en "Evidencias de sistema / Base
       de datos" de la entrega final.
-- [ ] **#63** Documentación SCRUM de la entrega final: análisis del caso;
+      **Hecho (2026-11-15)**: `Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de
+      datos/shelfvision.sql` (SQLite: estructura de `migrate` y datos ficticios);
+      `tests/test_sql_script.py` comprueba que coincida con `migrate`.
+- [x] **#63** (dueño: Francisco) Documentación SCRUM de la entrega final: análisis del caso;
       épicas, sprints e historias de usuario; priorización de las H.U.
       Salen del backlog (`PROGRESS.md`), la Carta Gantt y los C.U.
+      **Hecho (2026-11-15)**: `Fase 2/Evidencias Proyecto/Evidencias de
+      documentación/Gestion/Documentacion SCRUM.docx`, con sprints semanales.
 - [ ] **#64** Diagramas de actividad de los C.U (los pide la entrega
       final; no están en el repositorio).
 - [ ] **#65** Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe

@@ -1,6 +1,6 @@
 # Product Backlog
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-15** (80 ítems: 59 hechos, 4 en curso, 16 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-15** (83 ítems: 64 hechos, 5 en curso, 13 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -67,8 +67,8 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #59 | Hecho | Francisco | Subir al repositorio el mejor modelo del detector que tiene el equipo. Hecho (2026-11-14, PR #86): `weights/yolo26s-finetune.pt` (20 MB; mAP… |
 | #60 | Hecho | Mariana | Manuales de usuario (uno por perfil: Administrador, Jefe de Salón y Reponedor) y manual de instalación (instructivo del plan de instalación… |
 | #61 | Pendiente | Sin asignar | Video tutorial con audio (solo la ejecución de los módulos, sin código) y correo de entrega del MVP al cliente: módulos, funcionalidades, in… |
-| #62 | Pendiente | Sin asignar | Script SQL que crea la estructura de la base y la puebla con datos de prueba, coherente con `web/models.py` (incluye `Config`, `Camera` y `U… |
-| #63 | Pendiente | Sin asignar | Documentación SCRUM de la entrega final: análisis del caso; épicas, sprints e historias de usuario; priorización de las H.U. Salen del backl… |
+| #62 | Hecho | Francisco | Script SQL que crea la estructura de la base y la puebla con datos de prueba, coherente con `web/models.py` (incluye `Config`, `Camera` y `U… |
+| #63 | Hecho | Francisco | Documentación SCRUM de la entrega final: análisis del caso; épicas, sprints e historias de usuario; priorización de las H.U. Salen del backl… |
 | #64 | Pendiente | Sin asignar | Diagramas de actividad de los C.U (los pide la entrega final; no están en el repositorio). |
 | #65 | Pendiente | Sin asignar | Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe Final`, guía 2.6 en `Fase 2/Evidencias Grupales/`), presentación final (ppt) y la… |
 | #66 | Hecho | Mariana | Reordenar las carpetas del GitHub según la imagen del profesor ("orden de carpetas GitHub (COMPLETO)", mensaje del 2026-11-13), sin cambiar… |
@@ -82,7 +82,10 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #74 | Hecho | Francisco | `docker-compose.yml` (auditoría N.º 4: Docker 3 de 4): servicio `web` con el `Dockerfile`, volumen `/data`, `.env.example` y puerto 8000; do… |
 | #75 | Hecho | Francisco | Documento de Innovación (auditoría N.º 4: solo se menciona en la Fase 1): qué aporta frente a la auditoría manual de góndolas, el enfoque hí… |
 | #76 | Hecho | Francisco | Corregir el ruido de `degrade()` (#55): la persona u objeto tapaba productos pero dejaba sus cajas, y el modelo aprendía a marcar lo que no… |
-| #77 | Pendiente | Sin asignar | Falsa alarma por oclusión: una persona, un carro o una caja frente a la góndola tapa productos, el detector no los marca (con razón: no se v… |
+| #77 | En curso | Francisco | Falsa alarma por oclusión: una persona, un carro o una caja frente a la góndola tapa productos, el detector no los marca (con razón: no se v… |
 | #78 | Hecho | Francisco | Medir el detector por tipo y nivel de ruido (pendiente de #55): un efecto a la vez (ruido del sensor, JPEG, baja resolución, desenfoque, poc… |
 | #79 | Hecho | Francisco | Entrenar con desenfoque más fuerte (pedido de Francisco, 2026-11-15): DET-09 (#78) mostró que el detector solo cae bajo mAP50 0.70 con desen… |
+| #80 | Hecho | Francisco | Reemplazar el modelo versionado por `yolo26s-finetune-ruido-v3` (pedido de Francisco, 2026-11-15, tras DET-10). **Hecho (2026-11-15)**: `wei… |
 | #81 | Hecho | Mariana | Revisar los documentos de la auditoría N.º 4 (#70 a #75) y las reflexiones de Francisco (#69) antes de la revisión de Walmart (2026-11-16),… |
+| #82 | Hecho | Francisco | Desenfoque de movimiento fuerte (pedido de Francisco, 2026-11-15, tras DET-10): con la v3 el mAP50 con movimiento de 31 px es 0.647, bajo 0.… |
+| #83 | Hecho | Nicko | Error «Se necesita al menos un nivel (o la ROI como unico nivel)» al analizar una foto (reportado por Nicko, 2026-11-15): foto de pasillo en… |

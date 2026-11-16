@@ -2,6 +2,8 @@
 
 Los sprints se miden contra los hitos del curso y de Walmart (ver [Metodología ágil](Metodologia%20Agil.md)). Los ítems **#N** son los de [Product Backlog](Product%20Backlog.md) y `PROGRESS.md`; **PR #N** es el Pull Request de GitHub. Fechas y estados salen de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx) y del historial de git.
 
+El detalle semana a semana (sprints 0 a 9, semanas 37 a 47) está en la [Documentación SCRUM](Documentacion%20SCRUM.docx). Equivalencia aproximada: el Sprint 1 de este documento son los sprints semanales 1 a 5, y el Sprint 2, los sprints 6 a 9; los cortes difieren unos días porque las semanas van de lunes a domingo.
+
 ## Sprint 0: arranque y Fase 1 (2026-09-07 a 2026-09-26)
 
 Objetivo: dejar en el repositorio los documentos de la Fase 1. No hay ítems numerados: era carga de documentos (casos de uso, diagramas, mockups, autoevaluaciones; ver la sección "Fase 1" de la [Carta Gantt](Carta%20Gantt%20Fase%202.xlsx)).
@@ -33,9 +35,11 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #66 | Orden de carpetas según el profesor | Mariana | Hecho (PR #85) |
 | #55, #58, #68 | Ruido de cámara de sala: PR de las ramas y métricas | Francisco | Hecho (PR #90 y #91) |
 | #76 | Corrección del ruido: cajas tapadas fuera y validación óptico/oclusión | Francisco | Hecho (PR #92) |
-| #77 | Falsa alarma por oclusión en el pipeline | Sin asignar | Pendiente |
+| #77 | Falsa alarma por oclusión en el pipeline | Francisco | En curso: medición del frente visible y detector de personas listos (opt-in); falta validar con personas reales |
 | #78 | Detector por tipo y nivel de ruido | Francisco | Hecho (PR #95) |
-| #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96); cambiar el modelo versionado por este está en el PR #97 |
+| #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96) |
+| #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho (PR #97) |
+| #82 | Desenfoque de movimiento fuerte: v4 sin mejora real (límite aceptado) | Francisco | Hecho |
 | #61 a #65, #67 | Video tutorial, script SQL, SCRUM, diagramas de actividad, informe final y presentación, hojas semanales del Excel | Sin asignar | Pendiente |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |

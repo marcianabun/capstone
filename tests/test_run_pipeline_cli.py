@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import pytest
 
-from tests.pipeline_fixtures import ColorDetector, gondola
+from tests.pipeline_fixtures import ColorDetector, Hider, gondola
 
 ROOT = Path(__file__).resolve().parent.parent
 EMPTIED = {1: (0.15, 0.85), 2: (0.15, 0.85)}
@@ -19,6 +19,7 @@ def cli(monkeypatch):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     monkeypatch.setattr(module, "make_detector", lambda weights, device: ColorDetector())
+    monkeypatch.setattr(module, "make_person_detector", lambda weights, device: None)  # sin cargar COCO
     return module
 
 
@@ -106,3 +107,36 @@ def test_annotations_produce_iou_and_alert_metrics(cli, photos, tmp_path):
     assert int(image["annotated"]) == len(truth)  # la caja "empty" no cuenta
     assert image["alert_matches"] == "True"
     assert float(rows["total"]["alert_accuracy"]) == 1.0
+
+
+def test_default_weights_are_the_versioned_model_so_a_fresh_clone_runs(cli):
+    from web import settings
+
+    assert cli.DEFAULT_WEIGHTS == ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"
+    assert cli.DEFAULT_WEIGHTS.is_file()  # versionado: existe sin entrenar nada
+    assert settings.WEIGHTS == cli.DEFAULT_WEIGHTS
+
+
+def test_mostly_hidden_gondola_is_reported_as_hidden_without_view_or_json(cli, photos, tmp_path, capsys, monkeypatch):
+    folder, weights, _ = photos
+    person = (80.0, 0.0, 720.0, 600.0)  # 80 % del ancho de la foto (800 x 600)
+    monkeypatch.setattr(cli, "make_person_detector", lambda weights, device: Hider(person))
+    out = tmp_path / "salida"
+    assert _run(cli, folder, "--weights", weights, "--out", out) == 0  # la busqueda de personas va por defecto
+    assert list(out.iterdir()) == []
+    assert "tapada" in capsys.readouterr().out
+
+
+def test_sin_oclusion_does_not_look_for_people(cli, photos, tmp_path, monkeypatch):
+    folder, weights, _ = photos
+    monkeypatch.setattr(cli, "make_person_detector", lambda weights, device: Hider((80.0, 0.0, 720.0, 600.0)))
+    out = tmp_path / "salida"
+    assert _run(cli, folder, "--weights", weights, "--sin-oclusion", "--out", out) == 0
+    assert (out / "b_vacia.json").exists()
+
+
+def test_default_person_weights_are_versioned_and_a_missing_file_is_reported(cli, photos, tmp_path):
+    folder, weights, _ = photos
+    assert cli.DEFAULT_PERSON_WEIGHTS == ROOT / "weights" / "yolo26n.pt" and cli.DEFAULT_PERSON_WEIGHTS.is_file()
+    assert _run(cli, folder, "--weights", weights, "--oclusion", tmp_path / "no.pt", "--out", tmp_path / "s") == 2
+

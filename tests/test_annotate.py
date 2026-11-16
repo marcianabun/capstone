@@ -67,3 +67,15 @@ def test_without_banner_the_top_of_the_photo_is_untouched():
     view = draw_availability(image, run_image(image, ColorDetector()), banner=False)
     top = slice(0, image.shape[0] // 40)
     assert np.array_equal(view[top], image[top])
+
+
+def test_occluders_are_outlined_in_amber_so_a_hidden_part_is_not_read_as_empty():
+    image, _ = gondola(EMPTIED)
+    result = run_image(image, ColorDetector())
+    box = (200.0, 100.0, 400.0, 500.0)
+    view = draw_availability(image, replace(result, occluders=(box,)), banner=False)
+    plain = draw_availability(image, result, banner=False)
+    edge = view[300, 200]  # borde izquierdo de la caja
+    assert tuple(int(v) for v in edge) == (0, 191, 255) and not np.array_equal(edge, plain[300, 200])
+    assert np.array_equal(view[550, 600], plain[550, 600])  # fuera de la caja no cambia nada
+

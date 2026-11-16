@@ -96,6 +96,11 @@ class PipelineResult:
     critical: bool
     segmentation_found: bool
     times: StageTimes
+    # Lo que tapa la gondola (personas, #77): se mide solo el frente visible y,
+    # con mucho tapado, `inconclusive` y sin alerta.
+    occluders: tuple[BBox, ...] = ()
+    occluded_fraction: float = 0.0
+    inconclusive: bool = False
 
     def to_dict(self) -> dict:
         """Diccionario serializable a JSON."""
@@ -110,11 +115,14 @@ def run_image(
     calibration: LensCalibration | None = None,
     conf: float | None = None,
     critical_free_fraction: float | None = None,
+    occluder_detector: Detector | None = None,
 ) -> PipelineResult:
     """Corre el pipeline sobre una foto BGR. Sin `calibration` solo se
     aplica CLAHE. `conf` se pasa al detector (None: su valor por defecto).
     `critical_free_fraction` es el espacio libre desde el que se alerta
-    (None: 30%, el umbral por defecto; lo configura CU05)."""
+    (None: 30%, el umbral por defecto; lo configura CU05).
+    `occluder_detector` (PersonDetector) encuentra lo que tapa la gondola, en
+    la imagen corregida; None: no se busca oclusion (#77)."""
 
     def detect(corrected: np.ndarray, segmentation: GondolaSegmentation) -> list[BBox]:
         crop = crop_roi(corrected, segmentation.roi)
@@ -123,7 +131,8 @@ def run_image(
 
     params = AvailabilityParams() if critical_free_fraction is None else AvailabilityParams(
         critical_free_fraction=critical_free_fraction)
-    return _measure(image, calibration, detect, params=params)
+    hidden = (lambda corrected: [tuple(d.bbox) for d in occluder_detector.detect(corrected)]) if occluder_detector else None
+    return _measure(image, calibration, detect, params=params, get_occluders=hidden)
 
 
 def measure_boxes(image: np.ndarray, boxes: Sequence[BBox]) -> PipelineResult:
@@ -141,20 +150,24 @@ def _measure(
     get_boxes: Callable[[np.ndarray, GondolaSegmentation], list[BBox]] | None = None,
     given: list[BBox] | None = None,
     params: AvailabilityParams = AvailabilityParams(),
+    get_occluders: Callable[[np.ndarray], list[BBox]] | None = None,
 ) -> PipelineResult:
     """Con `get_boxes` detecta (y mide su tiempo); con `given`, usa esas
-    cajas y la deteccion queda en 0 segundos."""
+    cajas y la deteccion queda en 0 segundos. `get_occluders` busca lo que
+    tapa la gondola en la imagen corregida (su tiempo cuenta en la
+    deteccion)."""
     start = time.perf_counter()
     corrected = correct_image(image, calibration)
     corrected_at = time.perf_counter()
     segmentation = segment_gondola(corrected.image)
     segmented_at = time.perf_counter()
     boxes = get_boxes(corrected.image, segmentation) if get_boxes is not None else given
+    occluders = get_occluders(corrected.image) if get_occluders is not None else []
     detected_at = time.perf_counter() if get_boxes is not None else segmented_at
     lines = [astuple(line) for line in segmentation.shelf_lines]
     levels = shelf_levels(boxes, lines, segmentation.roi)
-    availability = compute_availability(boxes, levels, params)
-    result = _to_original(image, corrected, segmentation, boxes, availability)
+    availability = compute_availability(boxes, levels, params, occluders)
+    result = _to_original(image, corrected, segmentation, boxes, availability, occluders)
     finished_at = time.perf_counter()
     times = StageTimes(
         correction=corrected_at - start,
@@ -171,6 +184,7 @@ def _to_original(
     segmentation: GondolaSegmentation,
     boxes: list[BBox],
     availability: GondolaAvailability,
+    occluders: Sequence[BBox] = (),
 ) -> dict:
     height, width = image.shape[:2]
     shelves = tuple(
@@ -193,6 +207,9 @@ def _to_original(
         "free_fraction": float(availability.free_fraction),
         "critical": bool(availability.critical),
         "segmentation_found": bool(segmentation.found),
+        "occluders": tuple(_bbox(corrected.to_original(box)) for box in occluders),
+        "occluded_fraction": float(availability.occluded_fraction),
+        "inconclusive": bool(availability.inconclusive),
     }
 
 

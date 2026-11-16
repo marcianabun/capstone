@@ -254,7 +254,7 @@ Al 2026-10-20. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS
 └── requirements.txt        # Dependencias del proyecto
 ```
 
-**Documentos de gestión y diseño (auditoría)**: [Metodología ágil](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Metodologia Agil.md>), [Product Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Product Backlog.md>), [Sprint Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Sprint Backlog.md>), [Definition of Done](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Definition of Done.md>), [Retrospectivas](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Retrospectivas.md>), [Alcance MVP](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Alcance MVP.md>), [Requisitos no funcionales](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Requisitos No Funcionales.md>), [Diagramas UML](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas UML.md>) y [Documento de innovación](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Documento de Innovacion.md>).
+**Documentos de gestión y diseño (auditoría)**: [Metodología ágil](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Metodologia Agil.md>), [Product Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Product Backlog.md>), [Sprint Backlog](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Sprint Backlog.md>), [Documentación SCRUM](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Documentacion SCRUM.docx>) (épicas, historias de usuario, priorización y sprints semanales), [Definition of Done](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Definition of Done.md>), [Retrospectivas](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Retrospectivas.md>), [Alcance MVP](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/Alcance MVP.md>), [Requisitos no funcionales](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Requisitos No Funcionales.md>), [Diagramas UML](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Diagramas UML.md>) y [Documento de innovación](<Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/Documento de Innovacion.md>).
 
 ### Configuración de un entorno nuevo
 
@@ -338,7 +338,7 @@ de cada uno y cuál proponer después (ver "Trabajo en equipo" en
 ```bash
 pip install -r requirements.txt
 pytest tests/
-python scripts/run_pipeline.py FOTOS_O_CARPETAS... [--device cpu] [--out data/processed/pipeline]
+python scripts/run_pipeline.py FOTOS_O_CARPETAS... [--device cpu] [--out data/processed/pipeline] [--sin-oclusion]
 ```
 
 `run_pipeline.py` corre el pipeline completo (corrección, segmentación,
@@ -349,11 +349,14 @@ el resultado completo (`<nombre>.json`), e imprime el % libre, la alerta y
 los segundos por etapa. En el JSON, `free_fraction` y `critical` son los
 de la góndola completa; `shelves` solo trae la geometría de cada repisa
 medida (contorno, huecos y número de productos), sin % ni alerta por
-repisa: las repisas son el método para medir, no una salida. Una foto
+repisa: las repisas son el método para medir, no una salida. Por defecto se buscan (con `weights/yolo26n.pt`, YOLO26 de COCO
+versionado; `--sin-oclusion` lo apaga)
+personas frente a la góndola: lo que tapan se mide como frente no visible
+(no como espacio libre, #77), el JSON suma `occluders`, `occluded_fraction`
+e `inconclusive`, y con más de 50 % tapado no se informa alerta. Una foto
 sin productos detectados (tapada, oscura o sin góndola) no tiene % libre
-ni alerta: se anota en la tabla y no se escriben su vista ni su JSON. Usa por defecto los pesos de
-`data/processed/training/yolo26s/weights/best.pt` (no se versionan: se
-comparten dentro del equipo, ver `docs/training.md`).
+ni alerta: se anota en la tabla y no se escriben su vista ni su JSON. Usa por defecto los pesos versionados de
+`weights/yolo26s-finetune-ruido-v3.pt` (ver "Pesos del detector").
 
 Evaluación por lotes (CU07, RF06): con
 `--annotations data/processed/annotations/<dataset>.csv` compara las
@@ -379,7 +382,7 @@ pytest tests/                                          # sin datos, pesos ni GPU
 # 1. Fotos de ejemplo: 45 fotos de góndolas, CC0 (Kaggle), se pueden mostrar
 python scripts/download_datasets.py --dataset kaggle_supermarket
 
-# 2. Pesos del detector (ver abajo) en data/processed/training/yolo26s/weights/best.pt
+# 2. Pesos del detector: ya vienen en weights/yolo26s-finetune-ruido-v3.pt (ver abajo)
 
 # 3. Una foto: guarda la vista anotada (026.jpg) y el resultado (026.json) en salida/
 python scripts/run_pipeline.py "data/raw/supermarket-shelves/Supermarket shelves/images/026.jpg" \
@@ -388,7 +391,7 @@ python scripts/run_pipeline.py "data/raw/supermarket-shelves/Supermarket shelves
 
 Resultado esperado con `yolo26s`: la foto 026 (botellas de vidrio en filas, de frente) da `free_fraction` ≈ 0,02 y `critical: false`, es decir ~2% libre y sin alerta. La 011 (estante con pocos productos) es el único quiebre real del set: se espera ver ahí un % libre alto, cerca del umbral (el sistema da 27% y la anotación, 39%; ver el caso en el análisis). Para medir contra la anotación hecha a mano, agregar `--annotations data/processed/annotations/kaggle_supermarket.csv` (se genera con `python scripts/prepare_datasets.py --dataset kaggle_supermarket`); escribe `metrics.csv` con P, R, IoU y la alerta de cada foto. La tabla completa del equipo está en [docs/analisis-resultados.md](docs/analisis-resultados.md).
 
-**Pesos del detector**: el mejor modelo del equipo, `yolo26s-finetune` (`yolo26s` entrenado con SKU-110K y ajustado con fotos de Kaggle), está en [weights/yolo26s-finetune.pt](weights/yolo26s-finetune.pt) (20 MB). Parte de SKU-110K, cuya licencia lo limita a uso académico y no comercial: no se usa en demos ante terceros ni se redistribuye con otro fin. Para usarlo: `--weights weights/yolo26s-finetune.pt` o `SHELFVISION_WEIGHTS`. También se pueden entrenar con [docs/training.md](docs/training.md) (GPU NVIDIA de 8 GB; ~7,5 h para `yolo26s`). Con los pesos de COCO (`yolo26s.pt`) el programa corre, pero no detecta la clase "producto" y el resultado no sirve.
+**Pesos del detector**: el mejor modelo del equipo, `yolo26s-finetune-ruido-v3` (`yolo26s` entrenado con SKU-110K y ajustado con fotos de Kaggle, vistas giradas y copias con ruido de cámara de sala), está en [weights/yolo26s-finetune-ruido-v3.pt](weights/yolo26s-finetune-ruido-v3.pt) (20 MB). Parte de SKU-110K, cuya licencia lo limita a uso académico y no comercial: no se usa en demos ante terceros ni se redistribuye con otro fin. Para usarlo: `--weights weights/yolo26s-finetune-ruido-v3.pt` o `SHELFVISION_WEIGHTS`. También se pueden entrenar con [docs/training.md](docs/training.md) (GPU NVIDIA de 8 GB; ~7,5 h para `yolo26s`). Con los pesos de COCO (`yolo26s.pt`) el programa corre, pero no detecta la clase "producto" y el resultado no sirve. Aparte va versionado `weights/yolo26n.pt` (5 MB, YOLO26 de COCO sin entrenar, licencia de Ultralytics AGPL-3.0): solo busca personas frente a la góndola (#77), no productos.
 
 ### Aplicación web
 
@@ -468,7 +471,10 @@ python manage.py runserver          # http://localhost:8000
 
 Variables de entorno (todas opcionales en desarrollo):
 `SHELFVISION_WEIGHTS` (pesos de YOLO26; por defecto los de
-`run_pipeline.py`), `SHELFVISION_DATA_DIR` (base y fotos; por defecto
+`run_pipeline.py`), `SHELFVISION_PERSON_WEIGHTS` (pesos YOLO26 de COCO; por defecto
+`weights/yolo26n.pt`, versionado: la foto con la góndola tapada más de 50 %
+por una persona se rechaza en vez de dar una falsa alerta, #77; vacía,
+apaga la búsqueda), `SHELFVISION_DATA_DIR` (base y fotos; por defecto
 `data/processed/web/`), `DJANGO_DEBUG` (`0` por defecto; `1` solo en tu
 PC de desarrollo), `DJANGO_SECRET_KEY` (obligatoria con `DJANGO_DEBUG=0`),
 `DJANGO_ALLOWED_HOSTS` (separados por coma), `DJANGO_HTTPS` (`1` por
@@ -486,8 +492,8 @@ docker build -t shelfvision-ai .
 # run_pipeline.py con las fotos y los pesos montados (sin argumentos, muestra el uso):
 docker run --rm -v "$(pwd)/fotos:/app/fotos" -v "$(pwd)/data/processed/training:/app/data/processed/training" \
   -v "$(pwd)/salida:/app/salida" shelfvision-ai python scripts/run_pipeline.py fotos --out salida
-# Aplicación web en http://localhost:8000. /data guarda la base, las fotos y los pesos
-# (copiar best.pt a ./web-data/); sin ese volumen se pierden al recrear el contenedor:
+# Aplicación web en http://localhost:8000. /data guarda la base y las fotos (los pesos
+# ya vienen en la imagen); sin ese volumen se pierden al recrear el contenedor:
 docker run -d -p 8000:8000 -v "$(pwd)/web-data:/data" -e DJANGO_SECRET_KEY=<clave-larga-al-azar> -e DJANGO_HTTPS=0   -e DJANGO_ALLOWED_HOSTS=localhost,<host-del-servidor> --name shelfvision shelfvision-ai
 docker exec -it shelfvision python manage.py createsuperuser
 # Lo mismo con Docker Compose (docker-compose.yml): DJANGO_SECRET_KEY en el entorno o en un .env

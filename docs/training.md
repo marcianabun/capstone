@@ -108,7 +108,7 @@ espacio vacío). Solo la variante ganadora se evalúa una vez en `test`
 ## 6. Entregar
 
 - Los pesos (`best.pt`) **no se versionan** (`*.pt` está en `.gitignore`),
-  salvo el mejor modelo, `weights/yolo26s-finetune.pt` (excepción
+  salvo el mejor modelo, `weights/yolo26s-finetune-ruido-v3.pt` (excepción
   decidida el 2026-11-14). Los demás se comparten por una carpeta de
   Drive/OneDrive compartida solo con los integrantes. Por venir de SKU-110K, su uso es académico y no comercial.
 - Registrar en el ítem #5 de `PROGRESS.md` las métricas de ambas variantes

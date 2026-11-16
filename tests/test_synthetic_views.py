@@ -118,4 +118,5 @@ def test_degrade_blurs_as_hard_as_the_detector_needs_to_learn(monkeypatch):
     for seed in range(300):
         synthetic.degrade(image, np.random.default_rng(seed))
     assert min(sigmas) >= 1 and max(sigmas) >= 4.5
-    assert min(sizes) >= 5 and max(sizes) >= 25
+    assert min(sizes) >= 5 and max(sizes) >= 38
+    assert len(sizes) >= 60  # al menos 1 de cada 5 fotos con desenfoque de movimiento (DET-09: es la mayor debilidad)

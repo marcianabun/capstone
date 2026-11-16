@@ -128,6 +128,16 @@ def get_detector():
     return ProductDetector(settings.WEIGHTS, device="cpu")
 
 
+@functools.cache
+def get_person_detector():
+    """None con SHELFVISION_PERSON_WEIGHTS vacia: no se busca oclusion (#77)."""
+    if settings.PERSON_WEIGHTS is None:
+        return None
+    from src.models.people import PersonDetector
+
+    return PersonDetector(settings.PERSON_WEIGHTS, device="cpu")
+
+
 def analyze(upload, user, pasillo, gondola) -> Analysis:
     image = cv2.imdecode(np.frombuffer(upload.read(), np.uint8), cv2.IMREAD_COLOR)
     if image is None:
@@ -137,10 +147,14 @@ def analyze(upload, user, pasillo, gondola) -> Analysis:
     calibration = LensCalibration(**camera.calibracion) if camera and camera.calibracion else None
     with _model_lock:  # el modelo se comparte entre los hilos del servidor
         result = run_image(image, get_detector(), calibration=calibration,
-                           critical_free_fraction=Config.get().umbral / 100)
+                           critical_free_fraction=Config.get().umbral / 100,
+                           occluder_detector=get_person_detector())
     if not result.products:  # #52: daría 100% libre y una alerta falsa; no se toca la alerta abierta
         raise ValueError("No se detectaron productos en la foto: revisa que muestre la góndola, "
                          "con luz y sin nada que la tape.")
+    if result.inconclusive:  # #77: con tanto tapado no se puede afirmar un quiebre; no se toca la alerta abierta
+        raise ValueError(f"La góndola está tapada en {result.occluded_fraction:.0%} (persona u objeto): "
+                         "vuelve a tomar la foto cuando esté despejada.")
     _, jpg = cv2.imencode(".jpg", draw_availability(image, result, banner=False))
     analysis = Analysis(created_by=user, pasillo=pasillo, gondola=gondola, photo_name=upload.name,
                         free_fraction=result.free_fraction, critical=result.critical, result=result.to_dict())

@@ -30,21 +30,22 @@ COPY src/ ./src/
 COPY scripts/ ./scripts/
 COPY web/ ./web/
 COPY manage.py pytest.ini ./
+COPY weights/yolo26s-finetune-ruido-v3.pt weights/yolo26n.pt ./weights/
 
 # Sin privilegios: la app no necesita root. Solo /data (el volumen) es escribible;
 # -m crea un HOME donde ultralytics guarda su configuracion.
 RUN useradd -m -u 10001 app && mkdir /data && chown app /data
 USER app
 
-# App web (item #28). /data es el volumen con la base de datos, las fotos
-# analizadas y los pesos (best.pt): sin volumen se pierden al recrear el
+# App web (item #28). /data es el volumen con la base de datos y las fotos
+# analizadas (los pesos ya vienen en la imagen, en /app/weights; para otros,
+# SHELFVISION_WEIGHTS): sin volumen se pierden al recrear el
 # contenedor (con un volumen del host, `chown 10001` a esa carpeta).
 # DJANGO_SECRET_KEY y DJANGO_ALLOWED_HOSTS se pasan con -e; la app exige HTTPS
 # (DJANGO_HTTPS=0 solo para probar sin TLS).
 # El pipeline por lotes sigue disponible: docker run ... python scripts/run_pipeline.py
 ENV DJANGO_DEBUG=0 \
-    SHELFVISION_DATA_DIR=/data \
-    SHELFVISION_WEIGHTS=/data/best.pt
+    SHELFVISION_DATA_DIR=/data
 EXPOSE 8000
 # Un solo worker: cada uno cargaria su propia copia de YOLO26 en memoria.
 CMD ["sh", "-c", "python manage.py migrate --noinput && exec gunicorn web.wsgi --bind 0.0.0.0:8000 --workers 1 --threads 4 --timeout 120"]

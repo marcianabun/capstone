@@ -16,6 +16,7 @@ RED = (0, 0, 230)
 GAP = (43, 55, 200)  # mismo rojo de hueco que la app web (#c8372b)
 GREEN = (0, 150, 0)
 WHITE = (255, 255, 255)
+AMBER = (0, 191, 255)  # lo que tapa la gondola (personas, #77)
 GAP_ALPHA = 0.45
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -38,6 +39,9 @@ def draw_availability(image: np.ndarray, result, banner: bool = True) -> np.ndar
     for shelf in result.shelves:
         cv2.polylines(view, [_int_points(shelf.polygon)], True, WHITE, thickness, cv2.LINE_AA)
 
+    for x_min, y_min, x_max, y_max in getattr(result, "occluders", ()):
+        cv2.rectangle(view, (round(x_min), round(y_min)), (round(x_max), round(y_max)), AMBER, thickness * 2, cv2.LINE_AA)
+
     if not banner:
         return view
     band = max(24, height // 16)
@@ -48,6 +52,8 @@ def draw_availability(image: np.ndarray, result, banner: bool = True) -> np.ndar
         text, color = f"OK - {result.free_fraction:.0%} libre", GREEN
     if not result.segmentation_found:
         text += " (sin repisas: analisis global)"
+    if getattr(result, "occluded_fraction", 0.0) > 0:
+        text += f" ({result.occluded_fraction:.0%} tapado)"
     cv2.rectangle(view, (0, 0), (width, band), color, -1)
     (_, text_height), _ = cv2.getTextSize(text, FONT, scale, thickness)
     cv2.putText(view, text, (int(band * 0.4), (band + text_height) // 2),

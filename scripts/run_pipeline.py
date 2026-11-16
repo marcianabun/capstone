@@ -2,9 +2,10 @@
 sobre fotos de gondola.
 
     python scripts/run_pipeline.py FOTOS_O_CARPETAS...
-        [--weights data/processed/training/yolo26s/weights/best.pt]
+        [--weights weights/yolo26s-finetune-ruido-v3.pt]
         [--out data/processed/pipeline] [--device cpu] [--threads 4]
         [--conf 0.25] [--annotations ANOTACIONES.csv] [--iou 0.5]
+        [--sin-oclusion]
 
 Por foto escribe `<out>/<nombre>.jpg` (vista limpia: huecos, contorno de
 las repisas medidas y cartel con la alerta y el % libre de la gondola) y
@@ -15,6 +16,10 @@ y los segundos por etapa, con la mediana al final. Una foto sin productos
 detectados (tapada, oscura o sin gondola) no tiene % libre ni alerta: se
 anota en la tabla y no se escriben su vista ni su JSON (#52); si tiene
 anotacion, igual entra en las metricas.
+Por defecto (pesos de COCO versionados, `--oclusion` para otros) se buscan personas
+que tapan la gondola; `--sin-oclusion` lo apaga. Se
+mide solo el frente visible y, con mas de 50% tapado, la foto se anota como
+tapada, sin % libre ni alerta (#77).
 
 Evaluacion por lotes (CU07, RF06): con `--annotations` (CSV en el formato
 estandar de data/processed/annotations/, filas con class_group "product")
@@ -52,7 +57,8 @@ from src.evaluation.detection_metrics import (  # noqa: E402
 from src.pipeline import PipelineResult, measure_boxes, run_image  # noqa: E402
 from src.reporting.annotate import draw_availability  # noqa: E402
 
-DEFAULT_WEIGHTS = ROOT / "data" / "processed" / "training" / "yolo26s" / "weights" / "best.pt"
+DEFAULT_WEIGHTS = ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"
+DEFAULT_PERSON_WEIGHTS = ROOT / "weights" / "yolo26n.pt"
 DEFAULT_OUT = ROOT / "data" / "processed" / "pipeline"
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp"}
 STAGES = ("correction", "segmentation", "detection", "availability", "total")
@@ -70,6 +76,13 @@ def make_detector(weights: Path, device: str | None):
     return ProductDetector(weights, device=device)
 
 
+def make_person_detector(weights: Path, device: str | None):
+    """Detector de personas (pesos de COCO) para la oclusion (#77)."""
+    from src.models.people import PersonDetector
+
+    return PersonDetector(weights, device=device)
+
+
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Corre el pipeline completo sobre fotos de gondola.")
     parser.add_argument("inputs", nargs="+", type=Path, help="fotos y/o carpetas (no recursivo)")
@@ -77,6 +90,9 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--device", default="cpu", help='"cpu", "0" (GPU), ...')
     parser.add_argument("--threads", type=int, default=4, help="hilos de PyTorch en CPU")
+    parser.add_argument("--oclusion", type=Path, default=DEFAULT_PERSON_WEIGHTS, metavar="PESOS_COCO",
+                        help="pesos YOLO26 de COCO para encontrar personas que tapan la gondola (#77)")
+    parser.add_argument("--sin-oclusion", action="store_true", help="no buscar personas frente a la gondola")
     parser.add_argument("--conf", type=float, default=None, help="confianza minima (por defecto, la del detector)")
     parser.add_argument("--annotations", type=Path, default=None,
                         help="CSV estandar con la anotacion hecha a mano (evaluacion por lotes)")
@@ -188,6 +204,9 @@ def main(argv: list[str] | None = None) -> int:
     if not args.weights.exists():
         print(f"No existen los pesos {args.weights} (ver docs/training.md).", file=sys.stderr)
         return 2
+    if not args.sin_oclusion and not args.oclusion.exists():
+        print(f"No existen los pesos de personas {args.oclusion} (o usa --sin-oclusion).", file=sys.stderr)
+        return 2
     annotations = load_annotations(args.annotations) if args.annotations else {}
 
     started = time.perf_counter()
@@ -196,6 +215,7 @@ def main(argv: list[str] | None = None) -> int:
 
         torch.set_num_threads(args.threads)
     detector = make_detector(args.weights, args.device)
+    people = None if args.sin_oclusion else make_person_detector(args.oclusion, args.device)
     print(f"Modelo cargado en {time.perf_counter() - started:.1f} s ({args.weights.name}, {args.device}).")
 
     args.out.mkdir(parents=True, exist_ok=True)
@@ -205,10 +225,13 @@ def main(argv: list[str] | None = None) -> int:
         if image is None:
             table.append((path.name, None, "no se pudo leer"))
             continue
-        result = run_image(image, detector, conf=args.conf)
+        result = run_image(image, detector, conf=args.conf, occluder_detector=people)
         if not result.products:
             # Sin productos el calculo da 100% libre y alerta (foto tapada, oscura o sin gondola, #52).
             table.append((path.name, None, "sin productos detectados: no se informa % libre ni alerta"))
+        elif result.inconclusive:
+            table.append((path.name, None, f"gondola tapada en {result.occluded_fraction:.0%} (personas u objetos): "
+                                           "no se informa % libre ni alerta"))
         else:
             note = "" if result.segmentation_found else "sin repisas: analisis global"
             table.append((path.name, result, note))

@@ -16,7 +16,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django.utils import timezone
 
-from tests.pipeline_fixtures import ColorDetector, gondola
+from tests.pipeline_fixtures import ColorDetector, Hider, gondola
 from web import forms, views
 from web.auth import normalize_rut, valid_rut
 from web.models import (ACTIVA, ADMIN, COMPLETADA, EN_PROCESO, JEFE, REEMPLAZADA, REPONEDOR, Analysis, Camera,
@@ -47,6 +47,7 @@ def analyzer(settings, tmp_path, monkeypatch):
     """Sube fotos con el detector falso y devuelve el analisis creado."""
     settings.MEDIA_ROOT = tmp_path
     monkeypatch.setattr(views, "get_detector", ColorDetector)
+    monkeypatch.setattr(views, "get_person_detector", lambda: None)  # sin cargar COCO
 
     def upload(client, empty=EMPTIED, pasillo="3", gondola_id="14B"):
         client.post(reverse("analisis"), {"pasillo": pasillo, "gondola": gondola_id, "foto": photo(empty)})
@@ -547,3 +548,22 @@ def test_simular_camara_registra_la_camara_y_analiza_las_fotos_degradadas(analyz
 def test_simular_camara_rechaza_una_carpeta_sin_fotos(tmp_path):
     with pytest.raises(CommandError, match="No hay fotos"):
         call_command("simular_camara", str(tmp_path), pasillo="3", gondola="14B")
+
+
+def test_gondola_tapada_se_rechaza_y_no_toca_la_alerta_abierta(client, analyzer, monkeypatch):
+    # #77: una persona frente a casi toda la góndola no permite afirmar un quiebre ni confirmar una reposición.
+    client.force_login(make_user("1-9", JEFE))
+    open_alert = analyzer(client)
+    monkeypatch.setattr(views, "get_person_detector", lambda: Hider((80.0, 0.0, 720.0, 600.0)))
+    response = client.post(reverse("analisis"), {"pasillo": "3", "gondola": "14B", "foto": photo(EMPTIED)})
+    assert "tapada en" in response.content.decode()
+    assert Analysis.objects.count() == 1
+    open_alert.refresh_from_db()
+    assert open_alert.estado == ACTIVA
+
+
+
+def test_los_pesos_de_personas_por_defecto_son_los_versionados():
+    from web import settings as web_settings
+
+    assert web_settings.PERSON_WEIGHTS.name == "yolo26n.pt" and web_settings.PERSON_WEIGHTS.is_file()
