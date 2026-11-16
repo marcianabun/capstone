@@ -284,6 +284,26 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       en `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`,
       que pide la entrega final (2026-11-20): enlace al repositorio y
       cómo está organizado.
+- [x] **#90** (dueño: Mariana) Revisión general de documentos, backlog y
+      diagramas contra el repositorio (pedido de Mariana, 2026-11-16).
+      **Hecho (2026-11-16)**: `PROGRESS.md`, el Product Backlog, el Sprint
+      Backlog y la Carta Gantt coinciden (89 ítems más este); no hay enlaces
+      rotos en los `.md`. Se corrigió lo desactualizado tras #77, #80 y #84:
+      requisitos no funcionales (RNF02, RNF05, RNF08 ahora **Cumple** por la
+      instalación probada del #60, RNF09 con los pesos v3 y `yolo26n`),
+      innovación y Definition of Done (303 pruebas), README (estado operativo
+      al 2026-11-16 y limitaciones), `PRODUCT.md` y la auditoría de la app
+      (CITT descartado), la especificación técnica (oclusión del #77 y campos
+      del JSON) y los diagramas UML de clases, secuencia y componentes (detector
+      de personas y pesos dentro de la imagen; PNG regenerados con el tema
+      oscuro, más legibles). Quedan para decidir (Mariana, dueña de los C.U):
+      `Lista de C. U..xlsx` no tiene el CU07 y su CU02 dice «disponibilidad
+      bajo 30%» (la regla es espacio libre >= 30% de la góndola completa), y
+      `Lista de Requerimientos.xlsx` (copia de la Fase 1) tiene RF04 y RF07
+      con la misma regla vieja, RF01 con «2 a 5 s por imagen» como intervalo
+      de captura y RNF04 con JWT. Sin fila en la Carta Gantt (quedan fuera,
+      por ser mejoras sin fecha o ya cerradas): #14, #17, #18, #20, #21, #24,
+      #31, #32, #41, #46, #47 y #56.
 - [x] **#85** (dueño: Nicko) Rendimiento de la app web (auditoría ponytail
       del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la
       última foto de cada góndola con una subconsulta sin índice, y crecía

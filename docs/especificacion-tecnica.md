@@ -71,12 +71,18 @@ Una sola clase: `product`. Pesos en uso: `yolo26s-finetune-ruido-v3`, el
 fine-tuning con ruido de cámara de sala del 2026-11-15 (#79 de
 `PROGRESS.md`, DET-10), versionado en `weights/`.
 
+`PersonDetector(weights, device=None)` (`src/models/people.py`, #77) tiene
+la misma interfaz `detect()`: busca personas que tapan la góndola con
+`weights/yolo26n.pt` (YOLO26 de COCO, sin entrenar) y descarta las cajas
+bajas o más anchas que altas, porque las caras impresas en los envases
+salen como «persona».
+
 ### 3.3 Post-procesamiento (`src/postprocessing/`)
 
 | Función | Entrada | Salida |
 | --- | --- | --- |
 | `shelf_levels(products, segmentation_lines, roi, params=ShelfLevelParams())` | Cajas en la imagen corregida, rectas de la segmentación (`astuple(l)`) y la ROI | Niveles de arriba hacia abajo como cuadriláteros de lados verticales (sup. izq., sup. der., inf. der., inf. izq.). Sin repisas, la ROI es el único nivel |
-| `compute_availability(products, levels, params=AvailabilityParams())` | Cajas y niveles | `GondolaAvailability(shelves, free_fraction, critical)` |
+| `compute_availability(products, levels, params=AvailabilityParams(), occluders=())` | Cajas, niveles y lo que tapa la góndola | `GondolaAvailability(shelves, free_fraction, critical, occluded_fraction, inconclusive)` |
 
 - **`ShelfAvailability`** (una por nivel medido): `level_index`, `bbox`,
   `product_count`, `gaps` (tramos libres `(x_inicio, x_fin)`) y `polygon`.
@@ -86,6 +92,10 @@ fine-tuning con ruido de cámara de sala del 2026-11-15 (#79 de
   último nivel con productos y del producto más a la izquierda al más a la
   derecha. `free_fraction` es el ancho libre sobre el ancho total de todas
   las repisas, y `critical` es `free_fraction >= critical_free_fraction`.
+- **Oclusión (#77)**: lo que tapa una persona no cuenta como libre ni
+  como ocupado; se mide solo el frente visible. Si más del 50% queda
+  tapado (`max_occluded_fraction`), `inconclusive` es verdadero y no hay
+  alerta.
 - **Solo se informa la góndola completa**: el % libre y la alerta por
   repisa no son salida (#40).
 
@@ -93,7 +103,7 @@ fine-tuning con ruido de cámara de sala del 2026-11-15 (#79 de
 
 | Función | Entrada | Salida |
 | --- | --- | --- |
-| `run_image(image, detector, calibration=None, conf=None, critical_free_fraction=None)` | Foto BGR y un objeto con `detect()` | `PipelineResult` en coordenadas de la foto original |
+| `run_image(image, detector, calibration=None, conf=None, critical_free_fraction=None, occluder_detector=None)` | Foto BGR, un objeto con `detect()` y, opcional, el detector de personas | `PipelineResult` en coordenadas de la foto original |
 | `measure_boxes(image, boxes)` | Foto y cajas dadas (por ejemplo, una anotación hecha a mano) | `PipelineResult` medido con esas cajas, sin detector (referencia de CU07) |
 
 ### 3.5 Reportes (`src/reporting/`)
@@ -143,6 +153,9 @@ documentados campo por campo en su código.
 | `free_fraction` | float, 0 a 1 | Espacio libre de la góndola completa |
 | `critical` | bool | Alerta de quiebre de la góndola completa |
 | `segmentation_found` | bool | Falso si no se encontraron repisas (análisis global) |
+| `occluders` | `BBox[]` | Personas que tapan la góndola, en la foto original (#77) |
+| `occluded_fraction` | float, 0 a 1 | Parte del frente tapada |
+| `inconclusive` | bool | Verdadero si más de la mitad quedó tapada: no se informa alerta |
 | `times` | objeto | Segundos por etapa: `correction`, `segmentation`, `detection`, `availability` y `total` |
 
 Ejemplo (foto 026 de Kaggle, CPU): 94 productos, 6 repisas,
@@ -191,7 +204,9 @@ El modelo lógico, el modelo relacional y el diccionario de datos de la base
   (`BCryptSHA256PasswordHasher`).
 - **Análisis (CU01)**: foto JPG o PNG de hasta 20 MB y 50 megapíxeles, con pasillo y
   góndola. Se usan el umbral configurado y la calibración de la cámara de
-  esa góndola, si existe. Una foto sin productos detectados se rechaza.
+  esa góndola, si existe. Una foto sin productos detectados, o con más de
+  la mitad de la góndola tapada por una persona (#77), se rechaza sin
+  tocar la alerta abierta.
   El pasillo y la góndola se guardan sin espacios y en mayúsculas.
 - **Alertas (CU02)**: una góndola tiene a lo más una alerta abierta. Una
   foto nueva con quiebre reemplaza a la anterior y conserva su estado; una

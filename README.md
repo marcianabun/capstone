@@ -197,24 +197,28 @@ La especificación técnica (qué recibe y entrega cada etapa, parámetros con s
 
 ## 🚦 Estado Operativo y Pendiente
 
-Al 2026-10-20. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS.md).
+Al 2026-11-16. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS.md).
 
 | Módulo o requisito | Estado |
 | :--- | :--- |
 | Corrección de imagen (dewarping y CLAHE) | Operativo. El dewarping necesita calibración de lente: sin ella solo se aplica CLAHE |
 | Segmentación automática de góndola y repisas | Operativo. F1 de repisas 0,82 en SHARD; limitaciones conocidas en el ítem #17 |
-| Detector YOLO26 (`yolo26s`) | Operativo. mAP50-95 0,610 en el *test* de SKU-110K; 0,423 en las 45 fotos de Kaggle |
+| Detector YOLO26 (`yolo26s`) | Operativo con el modelo versionado `yolo26s-finetune-ruido-v3` (ajustado con fotos de Kaggle, vistas giradas y ruido de cámara de sala): mAP50 0,844 en las 12 fotos de prueba de Kaggle y 0,935 en el *test* de SKU-110K (DET-10). El modelo base: mAP50-95 0,610 en SKU-110K y 0,423 en las 45 fotos de Kaggle |
+| Persona que tapa la góndola (#77) | Operativo: mide solo el frente visible y rechaza la foto si más de la mitad queda tapada, sin falsa alerta |
 | Disponibilidad y alerta por góndola completa (RF02, RF03, RF04) | Operativo |
 | Ingesta y evaluación por lotes (RF01, RF06, CU07) | Operativo (`scripts/run_pipeline.py`); ~0,5 s por foto en lote, en CPU |
-| Aplicación web: login (CU00), usuarios y roles (CU06), análisis (CU01) y alertas (CU02) | Operativo |
+| Aplicación web: login (CU00), usuarios y roles (CU06), análisis (CU01) y alertas (CU02) | Operativo. CU06 sin correo: el Administrador ve el enlace para definir la contraseña y se lo entrega (#84) |
 | Reportes Excel, CSV y PDF (RF05, CU04, #7) | Operativo: página "Reportes" de la app web (`src/reporting/export.py`) |
 | Configuración de umbral y cámaras (CU05, #44) | Operativo: página "Configuración" de la app web |
 | Dashboard de disponibilidad (CU03, #43) | Operativo: página "Góndolas" de la app web |
+| Instalación con Docker Compose (#60, #74) | Operativa: probada completa el 2026-11-15 siguiendo el Instructivo del plan de instalación |
 | Instalación en el servidor del CITT (#39) | Descartada el 2026-11-15: ya no se necesita |
 
 **Limitaciones conocidas** (análisis completo en [docs/analisis-resultados.md](docs/analisis-resultados.md)):
 
-* El detector pierde productos fuera de su dominio (recall 0,644 en Kaggle contra 0,885 en SKU-110K), y cada producto perdido cuenta como hueco: produce falsas alertas (6 de 44 fotos). Siguiente paso: *fine-tuning* con fotos fuera de SKU-110K (#33, #32).
+* El detector base perdía productos fuera de su dominio (recall 0,644 en Kaggle contra 0,885 en SKU-110K), y cada producto perdido cuenta como hueco: producía falsas alertas (6 de 44 fotos). El *fine-tuning* con fotos de Kaggle lo mejoró (#33, #59, #80), pero se midió con solo 12 fotos de prueba: faltan fotos propias de tienda (#32).
+* Con desenfoque de movimiento fuerte (31 px) el detector baja a mAP50 0,647, bajo la meta de 0,70; reentrenar con más desenfoque no lo mejoró y se acepta como límite (DET-11, #82).
+* La oclusión solo se detecta cuando es una persona: un carro o una caja delante de la góndola todavía se mide como espacio libre (#77).
 * Las frutas y verduras a granel quedan fuera del alcance (no perecibles): recall 0,16.
 * Refrigeradores con puerta de vidrio: reflejos, desenfoque y marcos dan falsas alertas (#46).
 * La bodega de reserva sobre la góndola todavía se mide como parte de ella (#31).
@@ -461,14 +465,14 @@ python manage.py runserver          # http://localhost:8000
   analizadas con más de 30 días y conserva sus resultados (% libre,
   alerta, estado e historial), así que el dashboard y los reportes siguen
   igual; el detalle muestra "La foto se borró". Pensado para correr una
-  vez al día (cron o el programador del servidor del CITT). El plazo de 30
+  vez al día (cron o el Programador de tareas del servidor). El plazo de 30
   días es una propuesta a confirmar con Walmart (#24).
 - **Diseño**: el mundo visual es el "fleje de góndola": cada góndola se
   dibuja como sus repisas de frente, con los huecos rayados en su posición
   real (contexto de producto en [PRODUCT.md](PRODUCT.md) y sistema en
   [DESIGN.md](DESIGN.md)). Estilos, fuente (Archivo, OFL) e íconos
   (Phosphor, MIT) se sirven desde la app con whitenoise, sin CDN: la red
-  de la tienda o el servidor del CITT pueden no tener internet.
+  de la tienda o el servidor pueden no tener internet.
 
 Variables de entorno (todas opcionales en desarrollo):
 `SHELFVISION_WEIGHTS` (pesos de YOLO26; por defecto los de

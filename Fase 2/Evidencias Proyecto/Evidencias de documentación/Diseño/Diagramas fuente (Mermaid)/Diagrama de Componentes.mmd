@@ -10,12 +10,13 @@ flowchart LR
         end
         subgraph PIPE["src/ (pipeline)"]
             PRE["preprocessing/ (OpenCV)"]
-            MDL["models/ (YOLO26 Ultralytics)"]
+            MDL["models/ (YOLO26 Ultralytics: productos y personas)"]
             POST["postprocessing/ (disponibilidad y alerta)"]
             REP["reporting/ (vista anotada, Excel, CSV y PDF)"]
             RUN[pipeline.py: run_image]
         end
-        VOL[("Volumen /data: SQLite, fotos y best.pt")]
+        W[("weights/: yolo26s-finetune-ruido-v3.pt y yolo26n.pt (en la imagen)")]
+        VOL[("Volumen /data: SQLite y fotos")]
     end
 
     NAV -->|HTTPS| VIS
@@ -23,7 +24,7 @@ flowchart LR
     VIS -->|run_image| RUN
     RUN --> PRE --> MDL --> POST --> REP
     MOD --> VOL
-    MDL -->|pesos| VOL
+    MDL -->|pesos| W
     VIS -->|reportes| REP
 
     CI[GitHub Actions: pytest y docker build] -.->|valida| Docker

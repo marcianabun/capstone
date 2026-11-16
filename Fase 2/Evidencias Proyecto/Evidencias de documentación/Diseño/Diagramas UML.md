@@ -1,6 +1,6 @@
 # Diagramas UML
 
-Diagramas de **clases**, **secuencia** y **componentes** del sistema, hechos desde el código real (`src/`, `web/`) al 2026-11-14. Están en Mermaid: GitHub los dibuja en esta misma página. Imágenes (con su fuente en `Diagramas fuente (Mermaid)/`): [clases](Diagrama%20de%20Clases.png), [secuencia](Diagrama%20de%20Secuencia%20-%20Analisis%20de%20una%20foto.png) y [componentes](Diagrama%20de%20Componentes.png). Se generan con el comando de `Diagramas fuente (Mermaid)/LEEME.md`. Los diagramas de casos de uso están en [Diagrama General Casos de Uso.png](Diagrama%20General%20Casos%20de%20Uso.png) y en `Diagramas particulares por cada C. U._/`; la arquitectura, en [Diagrama de Arquitectura.png](Diagrama%20de%20arquitectura/Diagrama%20de%20Arquitectura.png).
+Diagramas de **clases**, **secuencia** y **componentes** del sistema, hechos desde el código real (`src/`, `web/`) al 2026-11-16. Están en Mermaid: GitHub los dibuja en esta misma página. Imágenes (con su fuente en `Diagramas fuente (Mermaid)/`): [clases](Diagrama%20de%20Clases.png), [secuencia](Diagrama%20de%20Secuencia%20-%20Analisis%20de%20una%20foto.png) y [componentes](Diagrama%20de%20Componentes.png). Se generan con el comando de `Diagramas fuente (Mermaid)/LEEME.md`. Los diagramas de casos de uso están en [Diagrama General Casos de Uso.png](Diagrama%20General%20Casos%20de%20Uso.png) y en `Diagramas particulares por cada C. U._/`; la arquitectura, en [Diagrama de Arquitectura.png](Diagrama%20de%20arquitectura/Diagrama%20de%20Arquitectura.png).
 
 ## 1. Diagrama de clases
 
@@ -39,6 +39,8 @@ classDiagram
         +ShelfAvailability[] shelves
         +float free_fraction
         +bool critical
+        +float occluded_fraction
+        +bool inconclusive
     }
     class PipelineResult {
         +tuple image_size
@@ -48,6 +50,8 @@ classDiagram
         +float free_fraction
         +bool critical
         +bool segmentation_found
+        +float occluded_fraction
+        +bool inconclusive
         +StageTimes times
         +to_dict() dict
     }
@@ -102,6 +106,7 @@ sequenceDiagram
     participant P as pipeline.run_image
     participant C as preprocessing
     participant D as ProductDetector (YOLO26)
+    participant O as PersonDetector (YOLO26 de COCO)
     participant A as postprocessing
     participant DB as Base de datos (SQLite)
 
@@ -114,12 +119,14 @@ sequenceDiagram
     C-->>P: GondolaSegmentation y RoiCrop
     P->>D: detect(recorte)
     D-->>P: Detection[]
+    P->>O: detect(imagen corregida)
+    O-->>P: personas que tapan la góndola
     P->>P: RoiCrop.to_original() y CorrectedImage.to_original()
-    P->>A: shelf_levels() y compute_availability()
-    A-->>P: free_fraction y critical
+    P->>A: shelf_levels() y compute_availability(occluders)
+    A-->>P: free_fraction, critical e inconclusive (lo tapado no cuenta)
     P-->>W: PipelineResult
-    alt Sin productos detectados
-        W-->>U: Rechaza la foto, sin alerta
+    alt Sin productos detectados o góndola tapada en más de la mitad
+        W-->>U: Rechaza la foto, sin alerta (no toca la alerta abierta)
     else Hay productos
         W->>DB: Cierra la alerta anterior, guarda la foto anotada y crea el Analysis (una transacción)
         W-->>U: Resultado: % libre y alerta si libre >= umbral
@@ -141,12 +148,13 @@ flowchart LR
         end
         subgraph PIPE["src/ (pipeline)"]
             PRE["preprocessing/ (OpenCV)"]
-            MDL["models/ (YOLO26 Ultralytics)"]
+            MDL["models/ (YOLO26 Ultralytics: productos y personas)"]
             POST["postprocessing/ (disponibilidad y alerta)"]
             REP["reporting/ (vista anotada, Excel, CSV y PDF)"]
             RUN[pipeline.py: run_image]
         end
-        VOL[("Volumen /data: SQLite, fotos y best.pt")]
+        W[("weights/: yolo26s-finetune-ruido-v3.pt y yolo26n.pt (en la imagen)")]
+        VOL[("Volumen /data: SQLite y fotos")]
     end
 
     NAV -->|HTTPS| VIS
@@ -154,7 +162,7 @@ flowchart LR
     VIS -->|run_image| RUN
     RUN --> PRE --> MDL --> POST --> REP
     MOD --> VOL
-    MDL -->|pesos| VOL
+    MDL -->|pesos| W
     VIS -->|reportes| REP
 
     CI[GitHub Actions: pytest y docker build] -.->|valida| Docker

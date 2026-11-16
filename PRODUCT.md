@@ -54,8 +54,8 @@ un modelo que el equipo pueda explicar a uno con más rendimiento.
   Completada; la siguiente captura confirma la reposición.
 - Walmart evalúa por IoU contra una anotación a mano y valora el
   criterio de la solución; no exige un resultado perfecto.
-- Se instala con Docker en un servidor de la universidad (CITT), sin
-  saber si tiene GPU.
+- Se instala con Docker Compose en un servidor de la tienda o de Walmart,
+  sin saber si tiene GPU (el servidor del CITT se descartó el 2026-11-15).
 
 ## Capabilities and Constraints
 

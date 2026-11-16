@@ -51,6 +51,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #87 | Cámara defectuosa (excepción 1a de CU01) | Mariana | Pendiente |
 | #88 | Alcance de CU02 (push) y CU05 (tolerancia) en las plantillas | Mariana | Pendiente |
 | #89 | txt del repositorio GitHub documentado | Sin asignar | Pendiente |
+| #90 | Revisión general de documentos, backlog y diagramas contra el repositorio | Mariana | Hecho |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |
