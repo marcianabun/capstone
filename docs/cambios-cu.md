@@ -53,7 +53,10 @@ Plantilla y `Diagrama C.U 01.mmd`.
   alerta sí/no, la foto anotada y quién la subió. Las fotos solo se ven
   con sesión iniciada.
 - El `opt` de cámara defectuosa (colores imposibles) sigue sin
-  implementar; mantenerlo como opcional.
+  implementar; mantenerlo como opcional. Implementado el 2026-11-16 (#87):
+  la app web no analiza una foto toda verde o toda magenta, avisa «Posible
+  cámara defectuosa» a quien la subió, deja una advertencia en el registro
+  del servidor y no toca la alerta abierta de la góndola.
 
 ## CU02 - Notificar alerta de quiebre
 

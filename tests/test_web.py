@@ -287,6 +287,21 @@ def test_foto_sin_productos_se_rechaza_y_no_toca_la_alerta_abierta(client, analy
     assert open_alert.estado == ACTIVA
 
 
+def test_foto_de_camara_defectuosa_no_se_analiza_ni_toca_la_alerta_abierta(client, analyzer):
+    # #87, CU01 excepción 1a: una foto toda verde viene de una cámara fallada.
+    client.force_login(make_user("1-9", JEFE))
+    open_alert = analyzer(client)
+    image, _ = gondola()
+    green = np.zeros_like(image)
+    green[..., 1] = image.mean(axis=2)
+    upload = SimpleUploadedFile("verde.png", cv2.imencode(".png", green)[1].tobytes(), "image/png")
+    response = client.post(reverse("analisis"), {"pasillo": "3", "gondola": "14B", "foto": upload})
+    assert "cámara defectuosa" in response.content.decode()
+    assert Analysis.objects.count() == 1
+    open_alert.refresh_from_db()
+    assert open_alert.estado == ACTIVA
+
+
 def test_foto_demasiado_grande_se_rechaza(client, analyzer, monkeypatch):
     client.force_login(make_user("1-9", JEFE))
     monkeypatch.setattr(forms, "MAX_PHOTO_MB", 0)  # cualquier foto supera el límite

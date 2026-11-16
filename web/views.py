@@ -1,4 +1,5 @@
 import functools
+import logging
 import re
 import threading
 import uuid
@@ -23,11 +24,14 @@ from django.utils.http import url_has_allowed_host_and_scheme, urlsafe_base64_en
 from django.views.decorators.http import require_POST
 
 from src.pipeline import LensCalibration, run_image
+from src.preprocessing.camera_check import camera_fault
 from src.reporting.annotate import draw_availability
 from src.reporting.export import MEDIA_TYPES, export
 from web.forms import CameraForm, ConfigForm, PhotoForm, ReportForm, UserForm
 from web.models import (ABIERTAS, ACTIVA, ADMIN, COMPLETADA, EN_PROCESO, JEFE, REEMPLAZADA, REPONEDOR,
                         Analysis, Camera, Config, User)
+
+logger = logging.getLogger(__name__)
 
 # Vista principal de cada perfil (CU00).
 HOME = {ADMIN: "usuarios", JEFE: "gondolas", REPONEDOR: "alertas"}
@@ -121,6 +125,11 @@ def analyze(upload, user, pasillo, gondola) -> Analysis:
     image = cv2.imdecode(np.frombuffer(upload.read(), np.uint8), cv2.IMREAD_COLOR)
     if image is None:
         raise ValueError("No se pudo leer la imagen.")
+    fault = camera_fault(image)
+    if fault:  # CU01 excepcion 1a (#87): no se analiza ni se toca la alerta abierta; queda en el registro
+        logger.warning("Posible camara defectuosa en pasillo %s, gondola %s: %s", pasillo, gondola, fault)
+        raise ValueError(f"Posible cámara defectuosa ({fault}): revisa la cámara de esta góndola "
+                         "y vuelve a tomar la foto.")
     # CU05: umbral configurado y, si la gondola tiene camara, su calibracion de lente.
     camera = Camera.objects.filter(pasillo__iexact=pasillo, gondola__iexact=gondola).first()
     calibration = LensCalibration(**camera.calibracion) if camera and camera.calibracion else None

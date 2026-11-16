@@ -264,13 +264,29 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       usuario (capturas nuevas del Administrador) y el instructivo de
       instalación (sección 5.2 sin el registro del servidor). El video de
       #61 debe mostrar este flujo.
-- [ ] **#87** (dueño: Mariana) Cámara defectuosa (excepción 1a de CU01,
+- [x] **#87** (dueño: Mariana) Cámara defectuosa (excepción 1a de CU01,
       lo único que le falta al CU01): si la foto tiene colores imposibles
       (por ejemplo, toda verde o violeta, o casi de un solo color), no se
       analiza y se avisa «posible cámara defectuosa, revisar». Va en
       `src/preprocessing/` con pruebas primero; medir con las fotos de
       Kaggle que no rechace góndolas con mucho envase de un mismo color.
       Actualizar la plantilla del C.U 01 y `docs/cambios-cu.md`.
+      **Hecho (2026-11-16)**: `camera_fault()` (`src/preprocessing/camera_check.py`)
+      rechaza la foto si un canal domina más de 2 veces a los otros: toda
+      verde (verde / máx(rojo, azul)) o toda magenta (mín(rojo, azul) /
+      verde). Umbral medido en 4.800 fotos reales (Kaggle, SHARD, Roboflow,
+      UniDataPro y SKU-110K): el tinte llega a 1,16 (verde) y 1,42 (magenta).
+      En la app web, la foto no se analiza, se avisa «Posible cámara
+      defectuosa», queda una advertencia en el registro y no se toca la
+      alerta abierta. Pruebas primero (`tests/test_camera_check.py` y
+      `tests/test_web.py`); 309 pasan. COR-05 en `docs/test-plan.md`: 0 de
+      2.808 fotos reales rechazadas; 45 de 45 fotos de Kaggle teñidas de verde
+      y 45 de 45 de magenta detectadas. Una foto negra o plana sigue el
+      camino de «sin productos» (#52). Al día: plantilla y diagrama del C.U 01,
+      `docs/cambios-cu.md`, especificación técnica, README, `PRODUCT.md`,
+      auditoría, los manuales del Administrador y del Jefe de Salón (además,
+      con el aviso de «góndola tapada» del #77, que faltaba) y el instructivo
+      de instalación. CU01 al 100% en la hoja 8 del Excel de avance.
 - [x] **#88** (dueño: Mariana) Alcance de CU02 y CU05 en las plantillas,
       para cerrar los C.U al 100% en la entrega final (2026-11-20): la
       notificación push al teléfono (CU02) y el tiempo de tolerancia (CU05)
