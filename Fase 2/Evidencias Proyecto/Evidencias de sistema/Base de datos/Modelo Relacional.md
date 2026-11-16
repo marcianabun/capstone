@@ -7,7 +7,7 @@ generadas por Django (`python manage.py migrate`). Se deriva del
 
 - **Corte**: 2026-11-15, `main` después del PR #103.
 - **Fuente de verdad**: `web/models.py`, las migraciones `web/migrations/0001` a
-  `0006` y el esquema real que crea `migrate` (el script `shelfvision.sql` es
+  `0007` y el esquema real que crea `migrate` (el script `shelfvision.sql` es
   idéntico; `tests/test_sql_script.py` comprueba que coincidan). Este documento
   reemplaza al `Modelo Relacional.docx` anterior, que no tenía `web_config`,
   `web_camera` ni `locked_until` (ítem #48).
@@ -218,6 +218,7 @@ la versión de Django.
 | --- | --- | --- | --- |
 | `web_analysis` | `web_analysis_created_by_id_9f0a4d4e` | `created_by_id` | Simple |
 | `web_analysis` | `web_analysis_taken_by_id_f078d3b4` | `taken_by_id` | Simple |
+| `web_analysis` | `analysis_gondola_fecha` | `pasillo`, `gondola`, `created_at` (descendente) | Compuesto (#85) |
 | `web_user_groups` | `web_user_groups_user_id_ddeacfa4` | `user_id` | Simple |
 | `web_user_groups` | `web_user_groups_group_id_b03a95c5` | `group_id` | Simple |
 | `web_user_groups` | `web_user_groups_user_id_group_id_ad6e87b6_uniq` | `user_id`, `group_id` | Único |
@@ -234,10 +235,13 @@ Además, cada `UNIQUE` y cada `PRIMARY KEY` crea su propio índice implícito
 (`web_user.username`, `web_user.email`, `web_camera.nombre`,
 `web_camera(pasillo, gondola)`, `auth_group.name`).
 
-**Observación**: ninguna consulta de la aplicación tiene un índice propio por
-(`pasillo`, `gondola`, `estado`) en `web_analysis`. Con el volumen esperado
-(una tienda, una foto por análisis) SQLite lo resuelve sin problema; si el
-historial crece, es el primer índice a evaluar. No se agregó.
+**Índice `analysis_gondola_fecha`** (#85, migración `0007`): lo usan el dashboard
+de góndolas (CU03), que busca la última foto de cada góndola, y la búsqueda de
+la alerta abierta de una góndola. Sin él, el dashboard crecía con el cuadrado
+del historial: medido en una copia de la base con 21 góndolas, 15.000 análisis
+tardaban 15 s; con el índice, 7 ms (y 24 ms con 50.000). El único índice que
+queda por evaluar es por `estado`, si la lista de alertas abiertas llegara a
+pesar; hoy no hace falta.
 
 ## 5. Normalización
 
@@ -249,7 +253,7 @@ historial crece, es el primer índice a evaluar. No se agregó.
 
 ## 6. Historial de migraciones
 
-La aplicación `web` suma seis migraciones sobre las tablas de `auth`,
+La aplicación `web` suma siete migraciones sobre las tablas de `auth`,
 `contenttypes` y `sessions` de Django.
 
 | Migración | Qué hace | Ítem |
@@ -260,6 +264,7 @@ La aplicación `web` suma seis migraciones sobre las tablas de `auth`,
 | `0004_configuracion_y_camaras` | Crea `web_config` y `web_camera` | #44 |
 | `0005_normalizar_ubicacion` | Migración de datos: pasa `pasillo` y `gondola` a mayúsculas y sin espacios | #49 |
 | `0006_bloqueo_por_tiempo` | Agrega `web_user.locked_until` | #51 |
+| `0007_indice_gondola_fecha` | Crea el índice `analysis_gondola_fecha` en `web_analysis` | #85 |
 
 ## 7. Datos que trae la base recién creada
 
