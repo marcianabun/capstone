@@ -29,7 +29,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | Ítem | Descripción | Dueño | Estado (2026-11-15) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
-| #60 | Manuales de usuario por perfil y manual de instalación | Mariana | En curso: manuales de usuario hechos (PR #83), falta el de instalación |
+| #60 | Manuales de usuario por perfil y manual de instalación | Mariana | Hecho (PR #83 y el de #60) |
 | #66 | Orden de carpetas según el profesor | Mariana | Hecho (PR #85) |
 | #55, #58, #68 | Ruido de cámara de sala: PR de las ramas y métricas | Francisco | Hecho (PR #90 y #91) |
 | #76 | Corrección del ruido: cajas tapadas fuera y validación óptico/oclusión | Francisco | Hecho (PR #92) |

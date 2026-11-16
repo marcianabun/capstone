@@ -1,6 +1,6 @@
 # Product Backlog
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-15** (80 ítems: 58 hechos, 5 en curso, 16 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-15** (80 ítems: 59 hechos, 4 en curso, 16 pendientes y 1 descartado) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Definition of Done](Definition%20of%20Done.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -65,7 +65,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #57 | En curso | Francisco | Auditoría de seguridad por las vulnerabilidades de lenguajes y librerías publicadas la semana del 2026-10-19 (pedido de Francisco, 2026-10-2… |
 | #58 | Hecho | Francisco | Cámara de sala simulada para comprobar la app web con el flujo de una cámara fija (pedido de Francisco, 2026-11-09). Hecho (2026-11-09): `py… |
 | #59 | Hecho | Francisco | Subir al repositorio el mejor modelo del detector que tiene el equipo. Hecho (2026-11-14, PR #86): `weights/yolo26s-finetune.pt` (20 MB; mAP… |
-| #60 | En curso | Mariana | Manuales de usuario (uno por perfil: Administrador, Jefe de Salón y Reponedor) y manual de instalación (instructivo del plan de instalación… |
+| #60 | Hecho | Mariana | Manuales de usuario (uno por perfil: Administrador, Jefe de Salón y Reponedor) y manual de instalación (instructivo del plan de instalación… |
 | #61 | Pendiente | Sin asignar | Video tutorial con audio (solo la ejecución de los módulos, sin código) y correo de entrega del MVP al cliente: módulos, funcionalidades, in… |
 | #62 | Pendiente | Sin asignar | Script SQL que crea la estructura de la base y la puebla con datos de prueba, coherente con `web/models.py` (incluye `Config`, `Camera` y `U… |
 | #63 | Pendiente | Sin asignar | Documentación SCRUM de la entrega final: análisis del caso; épicas, sprints e historias de usuario; priorización de las H.U. Salen del backl… |
