@@ -233,9 +233,11 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       **Hecho (2026-11-15)**: `Fase 2/Evidencias Proyecto/Evidencias de sistema/Base de
       datos/shelfvision.sql` (SQLite: estructura de `migrate` y datos ficticios);
       `tests/test_sql_script.py` comprueba que coincida con `migrate`.
-- [ ] **#63** Documentación SCRUM de la entrega final: análisis del caso;
+- [x] **#63** (dueño: Francisco) Documentación SCRUM de la entrega final: análisis del caso;
       épicas, sprints e historias de usuario; priorización de las H.U.
       Salen del backlog (`PROGRESS.md`), la Carta Gantt y los C.U.
+      **Hecho (2026-11-15)**: `Fase 2/Evidencias Proyecto/Evidencias de
+      documentación/Gestion/Documentacion SCRUM.docx`, con sprints semanales.
 - [ ] **#64** Diagramas de actividad de los C.U (los pide la entrega
       final; no están en el repositorio).
 - [ ] **#65** Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
