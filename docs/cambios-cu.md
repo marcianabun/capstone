@@ -65,7 +65,7 @@ Plantilla y `Diagrama C.U 02.mmd`.
   góndola tiene a lo más una alerta abierta; una foto nueva con quiebre
   reemplaza a la anterior (en vez de consolidar por 15 minutos) y una
   foto sin quiebre confirma la reposición y la cierra.
-- No hay notificación push: la plantilla debe marcarla como pendiente.
+- No hay notificación push: la plantilla debe marcarla como pendiente. Desde el 2026-11-16 (#88) queda **fuera del alcance del MVP**, como mejora futura: la página «Alertas» se recarga sola cada minuto, y el push necesita HTTPS, un service worker y el permiso de cada teléfono.
 
 ## CU03 - Dashboard de disponibilidad
 
@@ -89,6 +89,12 @@ archivo (Excel, CSV o PDF) se descarga como respuesta de esa página.
 "Guarda el formulario", "El formulario muestra 'Umbral inválido'" y
 "Muestra 'Parámetros actualizados'". Unir "Panel de Configuración Web" y
 "API Backend" en "App web (Django)".
+
+Desde el 2026-11-16 (#88), el **tiempo de tolerancia** queda fuera del
+alcance del MVP, como mejora futura: cada foto la sube una persona a
+propósito, y la falsa alarma más común (una persona que tapa la góndola)
+ya se descarta en el análisis (#77). Se quita de la descripción, el flujo
+y el diagrama.
 
 ## CU06 - Gestionar cuentas y roles
 
