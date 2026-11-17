@@ -1,0 +1,85 @@
+ShelfVision AI - Walmart Chile
+Repositorio GitHub del proyecto documentado
+Proyecto de Título APT122 (Duoc UC), Fase 2
+Integrantes: Nicko Cortés, Francisco Sandoval y Mariana Ramírez
+
+Repositorio
+-----------
+https://github.com/marianapeachy/capstone
+Rama principal: main (todo cambio entra por Pull Request con las pruebas
+automáticas y la construcción de la imagen Docker en verde).
+
+Qué es
+------
+Sistema que detecta quiebres de stock en góndolas de alimentos no
+perecibles a partir de una foto: corrige la imagen con OpenCV, segmenta
+la góndola y sus repisas, detecta los productos con YOLO26 y alerta
+cuando el espacio libre de la góndola completa es igual o mayor al 30%.
+Incluye una aplicación web Django con tres perfiles (Administrador, Jefe
+de Salón y Reponedor).
+
+Dónde está la documentación
+---------------------------
+README.md                  Problema, alcance, acuerdos con Walmart,
+                           arquitectura, datasets, estado y cómo
+                           instalar y ejecutar (sección "Configuración
+                           de un entorno nuevo").
+PROGRESS.md                Lista de tareas del proyecto (ítems #N con
+                           dueño y estado).
+docs/                      Especificación técnica, plan de pruebas
+                           (test-plan.md), datasets, entrenamiento,
+                           análisis de resultados, auditorías y plan de
+                           mejoras.
+
+Cómo está organizado
+--------------------
+src/preprocessing/         Corrección de imagen (dewarping y CLAHE),
+                           segmentación de góndola y repisas, recorte de
+                           la región de interés y revisión de cámara
+                           defectuosa.
+src/models/                Detector YOLO26 de productos y de personas.
+src/postprocessing/        Niveles de repisa, disponibilidad y alerta.
+src/reporting/             Vista anotada y reportes en Excel, CSV y PDF.
+src/evaluation/            Métricas de evaluación (IoU).
+src/pipeline.py            Encadena las etapas para una foto.
+web/                       Aplicación web Django.
+scripts/                   Línea de comandos: pipeline, descarga de
+                           datasets, entrenamiento y evaluación.
+tests/                     Pruebas automáticas (pytest tests/).
+weights/                   Pesos del detector (uso académico).
+Dockerfile,
+docker-compose.yml         Instalación con Docker.
+
+Fase 1/                    Entregables de la Fase 1 (ya evaluados).
+Fase 2/
+  Evidencias Individuales/ Diarios de reflexión y autoevaluaciones.
+  Evidencias Grupales/     Informe intermedio, informe final y guías.
+  Evidencias Proyecto/
+    Evidencias de documentación/
+      Diseño/              Casos de uso, diagramas (C.U, UML,
+                           arquitectura), mockups, listas de C.U y de
+                           requerimientos, requisitos no funcionales e
+                           innovación.
+      Gestion/             Carta Gantt, metodología en cascada, listado
+                           de tareas, plan por etapas, criterios de
+                           terminado, lecciones aprendidas, matriz RACI,
+                           matriz de riesgo y actas de reunión.
+      Manual de usuario/   Un manual por perfil.
+      Manual de instalación/ Instructivo del plan de instalación.
+    Evidencias de sistema/
+      Aplicación/          Este archivo, PDF de implementación del
+                           ambiente de desarrollo y video de la app.
+      Base de datos/       Script SQL, diccionario de datos y modelos
+                           lógico y relacional.
+
+Cómo ejecutarlo (resumen; el detalle está en el README)
+--------------------------------------------------------
+1. git clone https://github.com/marianapeachy/capstone.git
+2. Crear un entorno virtual con Python 3.12 o superior e instalar
+   requirements.txt.
+3. Pruebas: pytest tests/
+4. Aplicación web en desarrollo, con la variable DJANGO_DEBUG=1:
+   python manage.py migrate y luego python manage.py runserver
+   (http://localhost:8000). En un servidor, con Docker:
+   docker compose up --build, con un archivo .env (ver el instructivo
+   del plan de instalación).

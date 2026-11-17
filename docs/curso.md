@@ -14,7 +14,7 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 | Fecha | Hito | Qué se entrega / criterio | Fuente |
 | --- | --- | --- | --- |
 | 2026-11-16 (lunes) | GitHub al día para la revisión final de Walmart | El repositorio con la última versión del desarrollo y los entregables; el cliente lo revisa para cerrar las notas de la Fase 2 (inicio y final) | Semana 13 (2026-11-13, correo) |
-| A más tardar la semana del 2026-11-16 | Entrega del MVP al cliente (Walmart) | Correo al cliente con copia al profesor (o reenviarle el correo si ya se envió): video tutorial, manual de uso y manual de instalación; agradecer al cliente su participación. El profesor la valida antes de publicar los resultados finales | Semana 13 (2026-11-10) |
+| A más tardar la semana del 2026-11-16 | Entrega del MVP al cliente (Walmart) | Mensaje de AVA al profesor, que la hace llegar a Walmart (el equipo no le escribe al cliente): video tutorial, manual de uso y manual de instalación; agradecer al cliente su participación. El profesor la valida antes de publicar los resultados finales | Semana 13 (2026-11-10); vía AVA, indicación comunicada el 2026-11-17 |
 | 2026-11-20, 12:00 | Entrega final Fase 2 | Carpeta "FINAL FASE 2" en Drive (estructura en "Requisitos vigentes") y GitHub ordenado; 100% de los C.U resueltos, un manual de usuario por perfil y manual de instalación | Semanas 12 (2026-11-02 y 2026-11-06) |
 | Semana del 2026-11-23 al 2026-11-27 | Ensayos de la presentación ante la comisión | Preparación de la presentación final | Semana 12 (2026-11-02) |
 | Por definir | Instalación en el servidor del CITT | La aplicación queda instalada en el servidor del CITT; instrucciones por sección por llegar | Semana 9 |
@@ -57,12 +57,14 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
     desarrollados, sin mostrar código.
   - **Manual instructivo de uso** de la aplicación.
 - **Entrega del MVP al cliente** (a más tardar la semana del
-  2026-11-16): por correo, con video tutorial, manual de uso y, si
-  corresponde, manual de instalación. Con copia al profesor, o
-  reenviarle el correo si ya se envió: él valida la entrega antes de
-  publicar los resultados finales. El correo agradece al cliente su
-  participación en el Capstone (tiempo, disposición y apoyo para
-  resolver dudas).
+  2026-11-16): con video tutorial, manual de uso y, si corresponde,
+  manual de instalación. **El equipo no le escribe al cliente**: se
+  le manda al profesor por mensaje de AVA y él la hace llegar a
+  Walmart (indicación comunicada por Mariana el 2026-11-17; reemplaza
+  el correo con copia al profesor de la semana 13). El profesor la
+  valida antes de publicar los resultados finales. El mensaje
+  agradece al cliente su participación en el Capstone (tiempo,
+  disposición y apoyo para resolver dudas).
 - **GitHub de la Fase 2** (auditoría semanal): estructura de carpetas y
   nombres de archivo exactamente como en las instrucciones de
   auditoría; documentos con información real y al día (no carpetas ni
@@ -339,6 +341,13 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 ## Registro de mensajes
 
 Del más reciente al más antiguo.
+
+### Semana 14 (2026-11-17): entrega del MVP por AVA
+
+- Indicación del profesor, comunicada por Mariana: el equipo no le
+  envía la entrega del MVP al cliente. Se le manda al profesor por
+  mensaje de AVA y él la hace llegar a Walmart. Cambia la forma de
+  entrega de la semana 13 (correo al cliente con copia al profesor).
 
 ### Semana 13 (2026-11-13): GitHub para la revisión final de Walmart
 

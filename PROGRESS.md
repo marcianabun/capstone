@@ -302,10 +302,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       regenerados) dicen lo mismo y el del CU05 ya no guarda «tolerancia»;
       al día `docs/cambios-cu.md` y `PRODUCT.md`. Los manuales no los
       mencionaban. En la hoja 8 del Excel de avance, CU02 y CU05 al 100%.
-- [ ] **#89** Archivo txt «Repositorio GitHub del proyecto documentado»
+- [x] **#89** (dueño: Mariana) Archivo txt «Repositorio GitHub del proyecto documentado»
       en `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`,
       que pide la entrega final (2026-11-20): enlace al repositorio y
-      cómo está organizado.
+      cómo está organizado. **Hecho (2026-11-17)**: `Repositorio GitHub
+      del proyecto documentado.txt` con el enlace, dónde está la
+      documentación, la estructura de carpetas (código y evidencias) y
+      cómo ejecutarlo; el `README.md` de esa carpeta lo menciona.
 - [x] **#90** (dueño: Mariana) Revisión general de documentos, backlog y
       diagramas contra el repositorio (pedido de Mariana, 2026-11-16).
       **Hecho (2026-11-16)**: `PROGRESS.md`, el Listado de Tareas, el Plan por
@@ -407,12 +410,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       quoted-printable, porque `web/settings.py` no lee un servidor SMTP, y
       todo `docker compose` exige el `.env` con `DJANGO_SECRET_KEY`.
 - [ ] **#61** (dueño: Nicko) Video tutorial con audio (solo la ejecución de los
-      módulos, sin código) y correo de entrega del MVP al cliente:
-      módulos, funcionalidades, instrucciones de acceso, video, manuales
-      y agradecimiento al cliente, con copia al profesor (o reenviarle el
-      correo si ya se envió). Ver si sirve el video de #36.
-      Nicko hace el video (2026-11-16). Falta definir quién envía el
-      correo a Walmart. El video debe mostrar el CU06 sin correo (#84).
+      módulos, sin código) y entrega del MVP al cliente: módulos,
+      funcionalidades, instrucciones de acceso, video, manuales y
+      agradecimiento al cliente. **El equipo no le escribe al cliente**
+      (indicación del profesor, comunicada por Mariana el 2026-11-17):
+      se le manda al profesor por mensaje de AVA y él la hace llegar a
+      Walmart. Ver si sirve el video de #36. Nicko hace el video
+      (2026-11-16). El video debe mostrar el CU06 sin correo (#84).
 - [x] **#62** (dueño: Francisco) Script SQL que crea la estructura de la base y la puebla con
       datos de prueba, coherente con `web/models.py` (incluye `Config`,
       `Camera` y `User.locked_until`). Va en "Evidencias de sistema / Base

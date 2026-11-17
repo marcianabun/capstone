@@ -38,7 +38,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96) |
 | #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho (PR #97) |
 | #82 | Desenfoque de movimiento fuerte: v4 sin mejora real (límite aceptado) | Francisco | Hecho |
-| #61 | Video tutorial y correo de entrega del MVP a Walmart | Nicko (video) | Pendiente; falta definir quién envía el correo |
+| #61 | Video tutorial y entrega del MVP a Walmart (por mensaje de AVA al profesor, que se la hace llegar) | Nicko | En curso |
 | #62 | Script SQL que crea y puebla la base | Francisco | Hecho (PR #102) |
 | #63 | Documentación SCRUM | Francisco | Descartado (2026-11-16): no aplica, el equipo usa cascada |
 | #64, #65 | Diagramas de actividad, informe final y presentación (cada integrante su reflexión) | Francisco y Nicko | En curso: informe final subido (PR #122) |
@@ -48,7 +48,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #85, #86 | Rendimiento de la app web y tope de píxeles de la foto | Nicko | Hecho (PR #108 y #109) |
 | #87 | Cámara defectuosa (excepción 1a de CU01) | Mariana | Hecho |
 | #88 | Alcance de CU02 (push) y CU05 (tolerancia) en las plantillas | Mariana | Hecho |
-| #89 | txt del repositorio GitHub documentado | Sin asignar | Pendiente |
+| #89 | txt del repositorio GitHub documentado | Mariana | Hecho |
 | #90 | Revisión general de documentos, backlog y diagramas contra el repositorio | Mariana | Hecho |
 | #91 | Lista de C.U (agrega CU07) y lista de requerimientos al día | Mariana | Hecho |
 | #92 | Quitar SCRUM de la documentación: metodología en cascada | Mariana (lo empezó Francisco) | Hecho (PR #117 y el de la Carta Gantt) |
