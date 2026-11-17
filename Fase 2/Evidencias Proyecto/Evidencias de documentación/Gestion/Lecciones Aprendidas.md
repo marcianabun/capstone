@@ -9,7 +9,7 @@ Las acciones marcadas **(por confirmar)** son propuestas que el equipo debe acep
 - **Qué pasó:** 21 commits (Nicko 14, que figura como "Mateo" en git; Mariana 4; Francisco 3), todos subidas de documentos de la Fase 1 por la web de GitHub, sin ramas ni Pull Requests.
 - **Qué funcionó:** los documentos de la Fase 1 quedaron en el repositorio.
 - **Qué no funcionó:** el historial muestra archivos de prueba creados y borrados (`a.txt`, `jj.txt`) y carpetas borradas y vueltas a subir entre el 2026-09-10 y el 2026-09-12.
-- **Acción tomada:** el 2026-09-27 se definió el flujo de trabajo en equipo (ramas por ítem, Pull Request, CI), base de la [Criterios de Terminado](Criterios%20de%20Terminado.md).
+- **Acción tomada:** el 2026-09-27 se definió el flujo de trabajo en equipo (ramas por ítem, Pull Request, CI), base de los [Criterios de Terminado](Criterios%20de%20Terminado.md).
 
 ## Etapa 1 (2026-09-27 a 2026-10-28)
 

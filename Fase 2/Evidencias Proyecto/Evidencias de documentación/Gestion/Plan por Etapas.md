@@ -26,7 +26,7 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 
 Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
 
-| Ítem | Descripción | Dueño | Estado (2026-11-16) |
+| Ítem | Descripción | Dueño | Estado (2026-11-17) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
 | #60 | Manuales de usuario por perfil y manual de instalación | Mariana | Hecho (PR #83 y el de #60) |
@@ -41,7 +41,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #61 | Video tutorial y correo de entrega del MVP a Walmart | Nicko (video) | Pendiente; falta definir quién envía el correo |
 | #62 | Script SQL que crea y puebla la base | Francisco | Hecho (PR #102) |
 | #63 | Documentación SCRUM | Francisco | Descartado (2026-11-16): no aplica, el equipo usa cascada |
-| #64, #65 | Diagramas de actividad, informe final y presentación (cada integrante su reflexión) | Francisco y Nicko | Pendiente |
+| #64, #65 | Diagramas de actividad, informe final y presentación (cada integrante su reflexión) | Francisco y Nicko | En curso: informe final subido (PR #122) |
 | #67 | Hojas semanales del Excel de avance de C.U | Mariana | En curso (PR #110): hojas 5 a 8 hechas |
 | #83 | Error de niveles con una sola repisa | Nicko | Hecho (PR #104) |
 | #84 | CU06 sin correo: el enlace de contraseña se muestra en pantalla | Mariana | Hecho (PR #111) |
@@ -51,6 +51,11 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #89 | txt del repositorio GitHub documentado | Sin asignar | Pendiente |
 | #90 | Revisión general de documentos, backlog y diagramas contra el repositorio | Mariana | Hecho |
 | #91 | Lista de C.U (agrega CU07) y lista de requerimientos al día | Mariana | Hecho |
+| #92 | Quitar SCRUM de la documentación: metodología en cascada | Mariana (lo empezó Francisco) | Hecho (PR #117 y el de la Carta Gantt) |
+| #93 | Inicialización del entorno en una PC de la sala de clases | Francisco | Hecho (PR #116) |
+| #94, #96 | Anterior/Siguiente en la foto del análisis y paginación de «Últimos análisis» | Nicko | Hecho (PR #120) |
+| #95 | Analizar fotos por ruta o URL de un dataset | Sin asignar | Pendiente |
+| #97 | Ajustes de la app web para el teléfono | Nicko | Hecho (PR #121) |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |
