@@ -36,6 +36,7 @@
   {% for message in messages %}<div class="flash{% if message.level_tag == 'error' %} error{% endif %}" role="{% if message.level_tag == 'error' %}alert{% else %}status{% endif %}">{{ message }}</div>{% endfor %}
   {% block content %}{% endblock %}
 </main>
+<script>var a = document.querySelector(".nav [aria-current]"), n = a && a.parentNode; if (a) n.scrollLeft += a.getBoundingClientRect().left - n.getBoundingClientRect().left - (n.clientWidth - a.offsetWidth) / 2;</script>
 {% endblock %}
 </body>
 </html>

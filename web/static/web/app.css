@@ -12,6 +12,7 @@
   --ink: #1f2a30;          /* grafito: barra superior, texto, producto en el fleje */
   --ink-2: #56656c;        /* texto secundario (5.9:1 sobre blanco) */
   --line: #d6dde0;
+  --control: #7d8d95;      /* borde de campos y botones: 3.4:1 sobre blanco */
   --ground: #eef1f2;       /* gris fleje */
   --surface: #ffffff;
   --gap: #c8372b;          /* hueco / quiebre */
@@ -60,11 +61,11 @@ p { margin: 0; }
   height: 56px; padding: 0 20px;
   background: var(--ink); color: #fff;
 }
-.brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; font-stretch: var(--narrow); font-size: 19px; letter-spacing: -.01em; }
+.brand { flex: none; white-space: nowrap; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 800; font-stretch: var(--narrow); font-size: 19px; letter-spacing: -.01em; }
 .brand-mark { width: 22px; height: 22px; }
 .brand b { color: var(--act-on-ink); font-weight: 800; }
 /* Con muchas secciones (Administrador en el teléfono) el menú se desliza en vez de empujar la página. */
-.nav { display: flex; gap: 4px; height: 100%; margin-right: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.nav { position: relative; display: flex; gap: 4px; height: 100%; margin-right: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .nav a {
   display: flex; flex-shrink: 0; align-items: center; gap: 8px; padding: 0 12px; white-space: nowrap;
   color: rgb(255 255 255 / .78); text-decoration: none; font-weight: 600;
@@ -74,7 +75,7 @@ p { margin: 0; }
 .nav a[aria-current="page"] { color: #fff; border-bottom-color: var(--act-on-ink); }
 .count { min-width: 22px; padding: 1px 7px; border-radius: 999px; background: var(--gap); color: #fff; font-size: 13px; font-weight: 700; text-align: center; }
 .who { display: flex; align-items: center; gap: 14px; font-size: 14px; }
-.who span { color: rgb(255 255 255 / .9); text-align: right; line-height: 1.2; }
+.who span { white-space: nowrap; color: rgb(255 255 255 / .9); text-align: right; line-height: 1.2; }
 .who small { display: block; color: rgb(255 255 255 / .62); }
 .icon-btn { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--radius-control); background: transparent; color: #fff; cursor: pointer; }
 .icon-btn:hover { background: rgb(255 255 255 / .1); }
@@ -103,7 +104,7 @@ p { margin: 0; }
 .btn.big { width: 100%; min-height: 52px; font-size: 17px; }
 .btn.ok { background: var(--surface); color: var(--ok); border-color: var(--ok); }
 .btn.ok:hover { background: var(--ok-tint); color: #155f3d; }
-.btn.quiet { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.quiet { background: transparent; color: var(--ink); border-color: var(--control); }
 .btn.quiet:hover { background: var(--ground); }
 
 /* --- Formularios --- */
@@ -119,7 +120,7 @@ p { margin: 0; }
 .form-errors { padding: 10px 14px; border-radius: var(--radius-control); background: var(--gap-tint); }
 input[type=text], input[type=email], input[type=password], input[type=date], input[type=number], select, input[type=file] {
   width: 100%; min-height: 44px; padding: 9px 12px;
-  border: 1.5px solid #aebbc1; border-radius: 8px; background: #fff; color: var(--ink);
+  border: 1.5px solid var(--control); border-radius: 8px; background: #fff; color: var(--ink);
   font: 400 16px "Archivo", system-ui, sans-serif;
 }
 input[type=file] { padding: 6px 8px; color: var(--ink-2); }
@@ -184,10 +185,12 @@ td a.strong:hover { color: var(--act-dark); text-decoration: underline; }
 
 /* --- Alertas (teléfono primero) --- */
 .alerts { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); align-items: start; }
-.alert { display: grid; gap: 12px; }
+.alert { position: relative; display: grid; gap: 12px; }
+.alert form { position: relative; z-index: 1; }
 .alert-top { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 4px 12px; }
 .alert-loc { font-size: 22px; font-weight: 800; font-stretch: 78%; letter-spacing: -.01em; }
 .alert-loc a { color: inherit; text-decoration: none; }
+.alert-loc a::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }  /* toda la tarjeta es el enlace */
 .alert-pct { font-size: 32px; font-weight: 800; font-stretch: 78%; color: var(--gap); white-space: nowrap; }
 .alert-pct small { font-size: 15px; font-weight: 700; }
 .alert-meta { color: var(--ink-2); font-size: 14px; }
@@ -229,11 +232,21 @@ td a.strong:hover { color: var(--act-dark); text-decoration: underline; }
 .solo .lead { color: var(--ink-2); margin-bottom: 22px; }
 .solo h1 { font-size: 26px; margin-bottom: 8px; }
 
+/* --- Tablet: el formulario de reportes pasa a 3 columnas --- */
+@media (max-width: 1100px) {
+  .form.inline.report { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 /* --- Teléfono --- */
 @media (max-width: 760px) {
   .topbar { gap: 8px; padding: 0 8px 0 14px; }
   .topbar .brand span { display: none; }
-  .nav a { padding: 0 8px; font-size: 15px; }
+  /* El menú pasa a una segunda fila para que quepan todas las secciones; el borde derecho difuminado avisa que se desliza. */
+  .topbar { flex-wrap: wrap; height: auto; gap: 0 8px; }
+  .brand { height: 48px; }
+  .who { margin-left: auto; height: 48px; }
+  .nav { order: 3; flex: 0 0 100%; height: 44px; padding-right: 24px; padding-left: 6px; margin-left: -14px; margin-right: -8px; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+  .nav a { padding: 0 10px; font-size: 15px; }
   .nav a .icon { display: none; }
   .who span { display: none; }
   .page { padding: 18px 12px 48px; }

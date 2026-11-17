@@ -981,6 +981,18 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       **Hecho (2026-11-16)** solo para «Últimos análisis» (25 por página,
       `?pagina=N`, parcial `_paginacion.html`); el historial de
       `gondola_detalle` sigue cortando en 30 (`[:30]`).
+- [x] **#97** (dueño: Nicko) Ajustes de la app web para el teléfono, de la
+      auditoría de 2026-11-16: el menú pasa a una segunda fila (con
+      Administrador y Jefe ya no se escondían Reportes ni Alertas con su
+      contador), se desliza con el borde difuminado y abre centrado en la
+      sección actual; el formulario de Reportes usa 3 columnas bajo 1100 px
+      (antes se superponían los campos); bordes de campos y botones
+      «quiet» con contraste 3:1 (`--control`); en Góndolas y Alertas toda
+      la tarjeta es el enlace (objetivo táctil de 44 px). Corrige además un
+      `sr-only` del contador que ensanchaba la página. **Hecho (2026-11-16).**
+      Sin tocar (se decidió dejarlo): el aviso de «Copiar enlace» sin
+      HTTPS (hallazgo 3) y el resto de la auditoría (errores de campo,
+      nombres repetidos, «Volver», refresco de Alertas cada 60 s).
 - [ ] **#31** Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
