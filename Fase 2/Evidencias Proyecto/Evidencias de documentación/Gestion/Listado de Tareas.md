@@ -1,6 +1,6 @@
 # Listado de Tareas
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-16** (92 ítems: 75 hechos, 5 en curso, 9 pendientes y 3 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-17** (97 ítems: 80 hechos, 6 en curso, 8 pendientes y 3 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -68,15 +68,15 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #60 | Hecho | Mariana | Manuales de usuario (uno por perfil: Administrador, Jefe de Salón y Reponedor) y manual de instalación (instructivo del plan de instalación… |
 | #61 | En curso | Nicko | Video tutorial con audio (solo la ejecución de los módulos, sin código) y correo de entrega del MVP al cliente: módulos, funcionalidades, in… |
 | #62 | Hecho | Francisco | Script SQL que crea la estructura de la base y la puebla con datos de prueba, coherente con `web/models.py` (incluye `Config`, `Camera` y `U… |
-| #63 | Descartado | Francisco | Documentación SCRUM de la entrega final. No aplica: el equipo usa metodología en cascada y esa documentación era solo para quienes usaron SCRUM (#92). Se eliminó `Documentacion SCRUM.docx`. |
-| #64 | Pendiente | Sin asignar | Diagramas de actividad de los C.U (los pide la entrega final; no están en el repositorio). |
-| #65 | Pendiente | Sin asignar | Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe Final`, guía 2.6 en `Fase 2/Evidencias Grupales/`), presentación final (ppt) y la… |
+| #63 | Descartado | Sin asignar | Documentación SCRUM de la entrega final: análisis del caso; épicas, sprints e historias de usuario; priorización de las H.U. Se había entreg… |
+| #64 | En curso | Francisco y Nicko | Diagramas de actividad de los C.U (los pide la entrega final; no están en el repositorio). |
+| #65 | En curso | Francisco y Nicko | Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe Final`, guía 2.6 en `Fase 2/Evidencias Grupales/`), presentación final (ppt) y la… |
 | #66 | Hecho | Mariana | Reordenar las carpetas del GitHub según la imagen del profesor ("orden de carpetas GitHub (COMPLETO)", mensaje del 2026-11-13), sin cambiar… |
 | #67 | En curso | Mariana | Hojas semanales del Excel "RESUMEN Estado de Avance Casos de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive compartido con el… |
 | #68 | Hecho | Francisco | Lo que #59 no cubrió: abrir los PR de `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`, subidas el 2026-11-09 desde un PC de Duoc con… |
 | #69 | En curso | Francisco | Evidencias que faltan (Reporte de Auditoría N.º 4, 2026-10-25): `Sandoval_Francisco_1.3_APT122_AutoevaluacionFase1.docx` (Fase 1, individual… |
 | #70 | Hecho | Francisco | README (auditoría N.º 4: 6 de 7 elementos, falta "tecnologías"): sección explícita de Tecnologías (Python, Django, OpenCV, YOLO26/Ultralytic… |
-| #71 | Hecho | Francisco | Metodología documentada (auditoría N.º 4: faltan metodología declarada y justificada, listado de tareas, plan por etapas, criterios de terminado y lecciones aprendidas, y el alcance MVP de la guía 1.5). Reescrita a cascada por el #92. |
+| #71 | Hecho | Francisco | Metodología documentada (auditoría N.º 4: faltan metodología declarada y justificada, Listado de Tareas, Plan por Etapas, Criterios de Termi… |
 | #72 | Hecho | Francisco | Documento de requisitos no funcionales (auditoría N.º 4: no existe): umbral de alerta y precisión del detector, tiempo de análisis, segurida… |
 | #73 | Hecho | Francisco | Diagramas UML de clases, secuencia (análisis de una foto) y componentes (auditoría N.º 4: solo hay casos de uso y arquitectura). Fuente Merm… |
 | #74 | Hecho | Francisco | `docker-compose.yml` (auditoría N.º 4: Docker 3 de 4): servicio `web` con el `Dockerfile`, volumen `/data`, `.env.example` y puerto 8000; do… |
@@ -97,4 +97,9 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #89 | Pendiente | Sin asignar | Archivo txt «Repositorio GitHub del proyecto documentado» en `Fase 2/Evidencias Proyecto/Evidencias de sistema/Aplicación/`, que pide la ent… |
 | #90 | Hecho | Mariana | Revisión general de documentos, backlog y diagramas contra el repositorio (pedido de Mariana, 2026-11-16). **Hecho (2026-11-16)**: `PROGRESS… |
 | #91 | Hecho | Mariana | Corregir `Lista de C. U..xlsx` y `Lista de Requerimientos.xlsx` (hallazgos de #90; van en la entrega final, 2026-11-20): agregar el CU07, la… |
-| #92 | En curso | Francisco | Quitar de la documentación toda referencia a SCRUM: el equipo usa metodología en cascada. Falta la Carta Gantt, a mano en Excel. |
+| #92 | Hecho | Mariana | Quitar de la documentación toda referencia a SCRUM: el equipo usa la metodología tradicional o en cascada (indicación de Francisco, 2026-11-… |
+| #93 | Hecho | Francisco | Documentar la inicialización del entorno en una PC de la sala de clases (pedido de Francisco, 2026-11-16). **Hecho (2026-11-16)**: `docs/ini… |
+| #94 | Hecho | Nicko | Botones de navegación sobre la foto del análisis, para moverse entre análisis y alertas de góndolas sin volver a la lista (pedido de Francis… |
+| #95 | Pendiente | Sin asignar | Analizar fotos indicando la ruta o la URL de un dataset, en vez de subirlas una por una (pedido de Francisco, 2026-11-16). Hoy «Análisis» (`… |
+| #96 | Hecho | Nicko | Paginación de la lista «Últimos análisis» (pedido de Francisco, 2026-11-16). Hoy `analisis()` corta en 50 con `[:50]` y no hay cómo ver los… |
+| #97 | Hecho | Nicko | Ajustes de la app web para el teléfono, de la auditoría de 2026-11-16: el menú pasa a una segunda fila (con Administrador y Jefe ya no se es… |

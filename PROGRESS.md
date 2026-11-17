@@ -342,17 +342,30 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       RF01, RF03 (se mide por repisa y se informa la góndola completa, #40),
       RF04, RF05, RF07, RF08 y RNF04; se editaron solo los textos, sin tocar
       sus dibujos ni comentarios.
-- [ ] **#92** (dueño: Francisco) Quitar de la documentación toda
+- [x] **#92** (dueño: Mariana) Quitar de la documentación toda
       referencia a SCRUM: el equipo usa la metodología tradicional o en
       cascada (indicación de Francisco, 2026-11-16). Los documentos de
       `Gestion/` pasan a `Metodologia Cascada.md`, `Plan por Etapas.md`,
       `Lecciones Aprendidas.md`, `Listado de Tareas.md` y `Criterios de
       Terminado.md`; `Documentacion SCRUM.docx` se elimina (no aplica a
       los grupos en cascada) y se quita de los entregables en
-      `docs/curso.md`. Falta, a mano en Excel, la Carta Gantt (filas de
-      #63, #81, #90 y la Evaluación 2: «Documentación SCRUM», «Backlogs,
-      retrospectivas», «backlog», «demo del Sprint 1»): openpyxl borra
-      sus validaciones de datos.
+      `docs/curso.md` (Francisco, PR #117; se lo pasó a Mariana el
+      2026-11-17). **Hecho (2026-11-17)**: Carta
+      Gantt editada en su XML (sin openpyxl): fila del #63 descartada y
+      sin «SCRUM», filas del #81 y el #90 sin «backlog», la Evaluación 2
+      sin «Sprint 1»; hitos ya pasados en Cumplido (informe intermedio,
+      Evaluación 2, revisión de Walmart), filas nuevas del #92, #93 y #95,
+      dueños del #64 y #65 y corte al 2026-11-17. Listado de Tareas
+      regenerado, Plan por Etapas con #92 a #97, Criterios de Terminado
+      con 314 pruebas. También en la Gantt: #57 y #69-#75
+      pasan a Atrasado (su fin ya pasó y siguen abiertos) y #61, #64 y
+      #65 a En curso (tienen dueño). El Informe Final (#65) quedó
+      congruente con el repositorio: metodología en cascada (sin
+      Scrumban, sprints ni documentación SCRUM), los 8 C.U implementados
+      (CU02 sin push y CU06 sin correo, #84, #87, #88), 314 pruebas, los
+      conteos de la Gantt y de commits al 2026-11-17, responsables del
+      #64, #65 y #67 y el anexo A hasta el PR #122; índice actualizado
+      en Word.
 - [x] **#85** (dueño: Nicko) Rendimiento de la app web (auditoría ponytail
       del repo, 2026-11-15). (1) El dashboard «Góndolas» (CU03) buscaba la
       última foto de cada góndola con una subconsulta sin índice, y crecía
@@ -413,9 +426,9 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       entrega final: análisis del caso; épicas, sprints e historias de
       usuario; priorización de las H.U. Se había entregado el
       2026-11-15 como `Documentacion SCRUM.docx`; el #92 la elimina.
-- [ ] **#64** Diagramas de actividad de los C.U (los pide la entrega
+- [ ] **#64** (dueño: Francisco y Nicko) Diagramas de actividad de los C.U (los pide la entrega
       final; no están en el repositorio).
-- [ ] **#65** Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
+- [ ] **#65** (dueño: Francisco y Nicko) Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
       Final`, guía 2.6 en `Fase 2/Evidencias Grupales/`), presentación final (ppt) y la pauta
       de reflexión individual de cada integrante
       (`Apellido_Nombre_Pauta_de_reflexión_informe_de_avance_proyecto_APT`).
