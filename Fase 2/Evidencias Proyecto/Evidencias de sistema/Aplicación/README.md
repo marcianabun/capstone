@@ -17,3 +17,6 @@ raíz, en el [Instructivo del plan de instalación](<../../Evidencias de documen
 (computador de desarrollo), en esta carpeta. `Video Modelo.mp4` (unos 5 minutos, del 2026-10-21) muestra las
 pruebas y la app web funcionando: el análisis de una foto con quiebre y la
 gestión de usuarios.
+
+`Repositorio GitHub del proyecto documentado.txt` tiene el enlace al
+repositorio y cómo está organizado.
