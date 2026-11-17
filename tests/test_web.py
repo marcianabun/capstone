@@ -7,6 +7,7 @@ import io
 import json
 import os
 from datetime import timedelta
+from pathlib import Path
 
 import cv2
 import numpy as np
@@ -611,3 +612,54 @@ def test_los_pesos_de_personas_por_defecto_son_los_versionados():
     from web import settings as web_settings
 
     assert web_settings.PERSON_WEIGHTS.name == "yolo26n.pt" and web_settings.PERSON_WEIGHTS.is_file()
+
+
+# --- #96: paginación de «Últimos análisis» y #94: botones Anterior/Siguiente ---
+
+def make_analysis(pasillo="3", gondola="14B", estado="", free=0.5):
+    return Analysis.objects.create(pasillo=pasillo, gondola=gondola, photo_name="f.jpg", free_fraction=free,
+                                   critical=bool(estado), result={"shelves": []}, estado=estado)
+
+
+def test_ultimos_analisis_se_paginan_de_a_25(client):
+    client.force_login(make_user("2-7", JEFE))
+    for _ in range(30):
+        make_analysis()
+    first = client.get(reverse("analisis"))
+    assert len(first.context["analisis"]) == 25 and "Página 1 de 2" in first.content.decode()
+    second = client.get(reverse("analisis"), {"pagina": 2})
+    assert len(second.context["analisis"]) == 5 and "Página 2 de 2" in second.content.decode()
+    assert len(client.get(reverse("analisis"), {"pagina": "x"}).context["analisis"]) == 25  # página inválida: la primera
+
+
+def test_botones_anterior_y_siguiente_recorren_la_misma_gondola_por_fecha(client):
+    client.force_login(make_user("1-9", REPONEDOR))
+    old, middle, new = make_analysis(), make_analysis(), make_analysis()
+    make_analysis(gondola="15")  # otra góndola: no se recorre
+    page = client.get(reverse("analisis_detalle", args=[middle.pk]))
+    nav = page.context["nav"]
+    assert (nav["anterior"], nav["siguiente"], nav["posicion"], nav["total"]) == (old, new, 2, 3)
+    assert 'id="nav-prev"' in page.content.decode() and 'id="nav-next"' in page.content.decode()
+    assert client.get(reverse("analisis_detalle", args=[old.pk])).context["nav"]["anterior"] is None
+
+
+def test_botones_recorren_las_alertas_abiertas_con_desde_alertas(client):
+    client.force_login(make_user("1-9", REPONEDOR))
+    mild = make_analysis(gondola="1", estado=ACTIVA, free=0.4)
+    severe = make_analysis(gondola="2", estado=ACTIVA, free=0.9)
+    make_analysis(gondola="3", estado=COMPLETADA)  # cerrada: no es una alerta abierta
+    nav = client.get(reverse("analisis_detalle", args=[severe.pk]), {"desde": "alertas"}).context["nav"]
+    assert (nav["anterior"], nav["siguiente"], nav["total"]) == (None, mild, 2)  # orden de CU02: la más libre primero
+
+
+def test_las_alertas_abren_la_foto_en_modo_alertas_y_el_modo_no_se_pierde(client):
+    client.force_login(make_user("1-9", REPONEDOR))
+    alert = make_analysis(estado=ACTIVA)
+    assert f'{reverse("analisis_detalle", args=[alert.pk])}?desde=alertas' in client.get(reverse("alertas")).content.decode()
+    page = client.get(reverse("analisis_detalle", args=[alert.pk]), {"desde": "alertas"}).content.decode()
+    assert f'name="next" value="{reverse("analisis_detalle", args=[alert.pk])}?desde=alertas"' in page  # tras Tomar, vuelve en el mismo modo
+
+
+def test_el_css_tiene_las_llaves_balanceadas():
+    css = (Path(views.__file__).parent / "static/web/app.css").read_text(encoding="utf-8")
+    assert css.count("{") == css.count("}")  # una } suelta invalidaba la regla siguiente

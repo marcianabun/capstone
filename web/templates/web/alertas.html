@@ -13,7 +13,7 @@
   {% for a in alertas %}
   <article class="panel alert{% if a.estado == 'en_proceso' and a.taken_by_id == user.pk %} mine{% endif %}">
     <div class="alert-top">
-      <h2 class="alert-loc"><a href="{% url 'analisis_detalle' a.pk %}">{% include "web/_loc.html" %}</a></h2>
+      <h2 class="alert-loc"><a href="{% url 'analisis_detalle' a.pk %}?desde=alertas">{% include "web/_loc.html" %}</a></h2>
       <span class="alert-pct">{% widthratio a.free_fraction 1 100 %}<small>% libre</small></span>
     </div>
     {% include "web/_fleje.html" %}
@@ -24,8 +24,8 @@
     </p>
     <form method="post" action="{% url 'alerta_accion' a.pk 'tomar' %}">
       {% csrf_token %}<input type="hidden" name="next" value="{% url 'alertas' %}">
-      {% if a.estado == "activa" %}<button class="btn big"><svg class="icon" aria-hidden="true"><use href="#i-hand-grabbing"/></svg>Tomar alerta</button>
-      {% else %}<button class="btn big ok" formaction="{% url 'alerta_accion' a.pk 'completar' %}"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg>Marcar repuesta</button>{% endif %}
+      {% if a.estado == "activa" %}<button class="btn big" aria-label="Tomar alerta de {{ a.location }}"><svg class="icon" aria-hidden="true"><use href="#i-hand-grabbing"/></svg>Tomar alerta</button>
+      {% else %}<button class="btn big ok" aria-label="Marcar repuesta {{ a.location }}" formaction="{% url 'alerta_accion' a.pk 'completar' %}"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg>Marcar repuesta</button>{% endif %}
     </form>
   </article>
   {% endfor %}

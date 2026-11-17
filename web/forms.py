@@ -14,7 +14,8 @@ MAX_PHOTO_MEGAPIXELS = 50
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label="RUT o correo", max_length=254)
+    username = forms.CharField(label="RUT o correo", max_length=254,
+                               widget=forms.TextInput(attrs={"autocomplete": "username"}))
     error_messages = {
         **AuthenticationForm.error_messages,
         # Igual para todos: no delata si el RUT existe ni si la cuenta esta bloqueada (#51).

@@ -8,15 +8,28 @@
   </div>
   {% if a.estado == "activa" or a.estado == "en_proceso" %}
   <form method="post" action="{% url 'alerta_accion' a.pk 'tomar' %}" class="actions">
-    {% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}">
+    {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
     {% if a.estado == "activa" %}<button class="btn"><svg class="icon" aria-hidden="true"><use href="#i-hand-grabbing"/></svg>Tomar alerta</button>
     {% else %}<button class="btn ok" formaction="{% url 'alerta_accion' a.pk 'completar' %}"><svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg>Marcar repuesta</button>{% endif %}
   </form>
   {% endif %}
 </div>
 <div class="detail">
+  {% with q=nav.desde|yesno:"?desde=alertas," %}
+  <div class="photo-nav">
+    <div class="photo-bar">
+      {% if nav.anterior %}<a class="btn quiet" id="nav-prev" href="{% url 'analisis_detalle' nav.anterior.pk %}{{ q }}" rel="prev"><svg class="icon" aria-hidden="true"><use href="#i-caret-left"/></svg>Anterior</a>
+      {% else %}<span class="btn quiet" aria-disabled="true"><svg class="icon" aria-hidden="true"><use href="#i-caret-left"/></svg>Anterior</span>{% endif %}
+      <span class="photo-count">{% if nav.posicion %}<span class="sr-only">Análisis </span>{{ nav.posicion }} de {{ nav.total }}{% endif %}</span>
+      {% if nav.siguiente %}<a class="btn quiet" id="nav-next" href="{% url 'analisis_detalle' nav.siguiente.pk %}{{ q }}" rel="next">Siguiente<svg class="icon" aria-hidden="true"><use href="#i-caret-right"/></svg></a>
+      {% else %}<span class="btn quiet" aria-disabled="true">Siguiente<svg class="icon" aria-hidden="true"><use href="#i-caret-right"/></svg></span>{% endif %}
+    </div>
+    <div class="photo-frame" id="photo-frame">
   {% if a.annotated %}<img class="photo" src="{% url 'analisis_imagen' a.pk %}" alt="Foto analizada de {{ a.location }}: huecos en rojo y espacio libre por repisa" width="{{ a.result.image_size.0 }}" height="{{ a.result.image_size.1 }}">
   {% else %}<div class="panel empty"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg><h2>La foto se borró</h2><p>Por privacidad, las fotos se borran tras un tiempo: pueden mostrar clientes. El resultado del análisis se conserva.</p></div>{% endif %}
+    </div>
+  </div>
+  {% endwith %}
   <div>
     <section class="panel">
       <div class="alert-top">
@@ -37,4 +50,20 @@
     </section>
   </div>
 </div>
+<script>
+  // ← y → y deslizar la foto con el dedo hacen lo mismo que los botones Anterior y Siguiente.
+  function irA(id) { var link = document.getElementById(id); if (link) location.href = link.href; }
+  document.addEventListener("keydown", function (event) {
+    if (event.altKey || event.ctrlKey || event.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
+    if (event.key === "ArrowLeft") irA("nav-prev"); else if (event.key === "ArrowRight") irA("nav-next");
+  });
+  var inicio = null, marco = document.getElementById("photo-frame");
+  marco.addEventListener("touchstart", function (event) { inicio = event.touches[0]; }, {passive: true});
+  marco.addEventListener("touchend", function (event) {
+    if (!inicio) return;
+    var dx = event.changedTouches[0].clientX - inicio.clientX, dy = event.changedTouches[0].clientY - inicio.clientY;
+    inicio = null;
+    if (Math.abs(dx) > 60 && Math.abs(dy) < 40) irA(dx > 0 ? "nav-prev" : "nav-next");
+  });
+</script>
 {% endblock %}

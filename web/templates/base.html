@@ -6,12 +6,13 @@
   <meta name="theme-color" content="#1f2a30">
   <title>{% block title %}ShelfVision AI{% endblock %}</title>
   <link rel="preload" href="{% static 'web/fonts/archivo-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="{% static 'web/app.css' %}">
+  <link rel="stylesheet" href="{% static 'web/app.css' %}?v={{ css_version }}">
   {% block head %}{% endblock %}
 </head>
 <body>
 {% include "web/icons.html" %}
 {% block body %}
+<a class="skip sr-only" href="#contenido">Saltar al contenido</a>
 <header class="topbar">
   <a class="brand" href="{% url 'inicio' %}" aria-label="ShelfVision AI, inicio">{% include "web/_mark.html" %}<span>ShelfVision <b>AI</b></span></a>
   {% if user.is_authenticated %}
@@ -22,7 +23,7 @@
     <a href="{% url 'gondolas' %}"{% if page == "gondolas" or page == "gondola_detalle" %} aria-current="page"{% endif %}><svg class="icon" aria-hidden="true"><use href="#i-storefront"/></svg>Góndolas</a>
     {% if role == "Administrador" or role == "Jefe de Salón" %}<a href="{% url 'analisis' %}"{% if page == "analisis" or page == "analisis_detalle" %} aria-current="page"{% endif %}><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>Análisis</a>
     <a href="{% url 'reportes' %}"{% if page == "reportes" %} aria-current="page"{% endif %}><svg class="icon" aria-hidden="true"><use href="#i-download-simple"/></svg>Reportes</a>{% endif %}
-    <a href="{% url 'alertas' %}"{% if page == "alertas" %} aria-current="page"{% endif %}><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>Alertas{% if open_alerts %} <span class="count" aria-label="{{ open_alerts }} abiertas">{{ open_alerts }}</span>{% endif %}</a>
+    <a href="{% url 'alertas' %}"{% if page == "alertas" %} aria-current="page"{% endif %}><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>Alertas{% if open_alerts %} <span class="count">{{ open_alerts }}<span class="sr-only"> abiertas</span></span>{% endif %}</a>
   </nav>
   <div class="who">
     <span>{{ user.get_full_name|default:user.username }}<small>{{ role|default:"Sin perfil" }}</small></span>
@@ -31,8 +32,8 @@
   {% endwith %}
   {% endif %}
 </header>
-<main class="page">
-  {% for message in messages %}<div class="flash{% if message.level_tag == 'error' %} error{% endif %}" role="status">{{ message }}</div>{% endfor %}
+<main class="page" id="contenido" tabindex="-1">
+  {% for message in messages %}<div class="flash{% if message.level_tag == 'error' %} error{% endif %}" role="{% if message.level_tag == 'error' %}alert{% else %}status{% endif %}">{{ message }}</div>{% endfor %}
   {% block content %}{% endblock %}
 </main>
 {% endblock %}

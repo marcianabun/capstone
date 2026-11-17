@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import PermissionDenied
 from django.core.files.base import ContentFile
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import OuterRef, Subquery
 from django.http import FileResponse, Http404, HttpResponse
@@ -180,21 +181,23 @@ def analisis(request):
             return redirect("analisis_detalle", analyze(data["foto"], request.user, data["pasillo"], data["gondola"]).pk)
         except (FileNotFoundError, ValueError) as error:
             form.add_error(None, str(error))
-    recent = Analysis.objects.select_related("taken_by")[:50]
-    return render(request, "web/analisis.html", {"form": form, "analisis": recent})
+    page = Paginator(Analysis.objects.select_related("taken_by").order_by("-created_at", "-pk"), 25).get_page(request.GET.get("pagina"))
+    return render(request, "web/analisis.html", {"form": form, "analisis": page})
+
+
+def alertas_abiertas(user):
+    """CU02: primero las que atiende el usuario, despues las activas de la mas
+    libre a la menos, al final las que atienden otros."""
+    def order(a):
+        group = 0 if a.estado == EN_PROCESO and a.taken_by_id == user.pk else 1 if a.estado == ACTIVA else 2
+        return group, -a.free_fraction
+
+    return sorted(Analysis.objects.filter(estado__in=ABIERTAS).select_related("taken_by"), key=order)
 
 
 @roles(*TODOS)
 def alertas(request):
-    """CU02: alertas abiertas. Primero las que atiende el usuario, despues las
-    activas de la mas libre a la menos, al final las que atienden otros."""
-    open_alerts = Analysis.objects.filter(estado__in=ABIERTAS).select_related("taken_by")
-
-    def order(a):
-        group = 0 if a.estado == EN_PROCESO and a.taken_by_id == request.user.pk else 1 if a.estado == ACTIVA else 2
-        return group, -a.free_fraction
-
-    return render(request, "web/alertas.html", {"alertas": sorted(open_alerts, key=order), "umbral": Config.get().umbral})
+    return render(request, "web/alertas.html", {"alertas": alertas_abiertas(request.user), "umbral": Config.get().umbral})
 
 
 @require_POST
@@ -221,7 +224,22 @@ def alerta_accion(request, pk, accion):
 @roles(*TODOS)
 def analisis_detalle(request, pk):
     analysis = get_object_or_404(Analysis.objects.select_related("taken_by", "created_by"), pk=pk)
-    return render(request, "web/analisis_detalle.html", {"a": analysis})
+    return render(request, "web/analisis_detalle.html", {"a": analysis, "nav": navegacion(analysis, request)})
+
+
+def navegacion(a, request):
+    """Anterior y siguiente de la foto (#94): los analisis de la misma gondola por
+    fecha o, con ?desde=alertas, las alertas abiertas en el orden de CU02."""
+    if request.GET.get("desde") == "alertas":
+        lista = alertas_abiertas(request.user)
+        i = lista.index(a) if a in lista else -1
+        anterior = lista[i - 1] if i > 0 else None
+        siguiente = lista[i + 1] if i + 1 < len(lista) else None
+        return {"desde": "alertas", "anterior": anterior, "siguiente": siguiente, "posicion": i + 1 or None, "total": len(lista)}
+    mismos = Analysis.objects.filter(pasillo=a.pasillo, gondola=a.gondola)
+    return {"desde": "", "anterior": mismos.filter(created_at__lt=a.created_at).first(),
+            "siguiente": mismos.filter(created_at__gt=a.created_at).order_by("created_at").first(),
+            "posicion": mismos.filter(created_at__lte=a.created_at).count(), "total": mismos.count()}
 
 
 @roles(*TODOS)

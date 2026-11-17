@@ -665,7 +665,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Claude Code v2.0.62; la forma `"attribution": false` pide v2.1.281
       y en versiones anteriores invalida el archivo entero). Los commits
       ya publicados no cambian: reescribir `main` lo prohíbe la regla 5.
-- [ ] **#94** Botones de navegación sobre la foto del análisis, para
+- [x] **#94** (dueño: Nicko) Botones de navegación sobre la foto del análisis, para
       moverse entre análisis y alertas de góndolas sin volver a la lista
       (pedido de Francisco, 2026-11-16). Diseño propuesto, dentro de
       `DESIGN.md` (skills impeccable y front-design-taste no están
@@ -695,6 +695,24 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
         notificaciones push (#88).
       - Con TDD en `tests/` y la regla de `PRODUCT.md`/`DESIGN.md` leída
         antes de tocar `web/templates`.
+      - **Hecho (2026-11-16):** barra «‹ Anterior · 3 de 12 · Siguiente ›»
+        con botones de texto sobre la foto (52 px en el teléfono), deslizar
+        la foto con el dedo, teclas ← y →, y el modo «Alertas abiertas»
+        (`?desde=alertas`, orden de CU02): la lista de Alertas abre la
+        foto en ese modo y «Tomar alerta» vuelve en el mismo modo; desde
+        Análisis recorre las fotos de la misma góndola. Íconos `caret-left` y `caret-right` en el sprite. Falta,
+        para otra vez: pasar a la siguiente alerta tras «Marcar repuesta»
+        y los enlaces «← Alertas» / «← Góndola».
+      - **Auditoría de accesibilidad (2026-11-16), corregido:** enlace
+        «Saltar al contenido»; contador de alertas legible para lector de
+        pantalla (antes `aria-label` en un `span`); botón de cerrar sesión
+        de 44 px; errores de formulario con `role="alert"`; botones «Tomar
+        alerta» y «Marcar repuesta» con la góndola en su nombre; `h1` y
+        `autocomplete` en el login; una `}` suelta en `app.css` que anulaba
+        la regla `.facts` (ahora un test cuenta las llaves). Sin corregir:
+        la recarga automática cada 60 s de Alertas (WCAG 2.2.1; exige
+        reemplazarla por una consulta con JavaScript) y los errores de campo
+        sin `aria-describedby`.
 - [ ] **#46** Falsas alertas en refrigeradores con puerta de vidrio
       (#34, fotos 020 y 003 de Kaggle): el reflejo y el desenfoque de la
       puerta en primer plano, los marcos entre puertas y una repisa en
@@ -950,7 +968,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       y el tope de 20 MB y 50 megapíxeles de hoy; las fotos de SKU-110K no
       se pueden mostrar a terceros (`CLAUDE.md`, licencias). Decidir con el
       equipo si la URL es de una foto o de un dataset completo.
-- [ ] **#96** Paginación de la lista «Últimos análisis» (pedido de
+- [x] **#96** (dueño: Nicko) Paginación de la lista «Últimos análisis» (pedido de
       Francisco, 2026-11-16). Hoy `analisis()` corta en 50 con
       `[:50]` y no hay cómo ver los anteriores. Propuesta: `Paginator` de
       Django con 25 por página y `?pagina=N`; bajo la tabla, «Anterior»,
@@ -960,6 +978,9 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       una consulta más. El historial de `gondola_detalle` también corta en
       30 (`[:30]`): usar el mismo componente. No cambia la navegación
       Anterior/Siguiente del #94, que consulta aparte. Con TDD en `tests/`.
+      **Hecho (2026-11-16)** solo para «Últimos análisis» (25 por página,
+      `?pagina=N`, parcial `_paginacion.html`); el historial de
+      `gondola_detalle` sigue cortando en 30 (`[:30]`).
 - [ ] **#31** Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
