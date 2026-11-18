@@ -1,6 +1,6 @@
 # Listado de Tareas
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-18** (98 ítems: 82 hechos, 6 en curso, 7 pendientes y 3 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-18** (99 ítems: 83 hechos, 6 en curso, 7 pendientes y 3 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -104,3 +104,4 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #96 | Hecho | Nicko | Paginación de la lista «Últimos análisis» (pedido de Francisco, 2026-11-16). Hoy `analisis()` corta en 50 con `[:50]` y no hay cómo ver los… |
 | #97 | Hecho | Nicko | Ajustes de la app web para el teléfono, de la auditoría de 2026-11-16: el menú pasa a una segunda fila (con Administrador y Jefe ya no se es… |
 | #98 | Hecho | Mariana | Detalles de documentación para la entrega final (revisión del 2026-11-18): `Documento de Innovacion.md` y `Requisitos No Funcionales.md` (RN… |
+| #99 | Hecho | Mariana | Plan de pruebas en Word para ANEXOS de la entrega final (carpeta FINAL FASE 2 del Drive, «c. Plan de pruebas»). `docs/test-plan.md` no tenía… |
