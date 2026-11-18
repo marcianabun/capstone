@@ -26,7 +26,7 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 
 Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
 
-| Ítem | Descripción | Dueño | Estado (2026-11-17) |
+| Ítem | Descripción | Dueño | Estado (2026-11-18) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
 | #60 | Manuales de usuario por perfil y manual de instalación | Mariana | Hecho (PR #83 y el de #60) |
@@ -56,6 +56,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #94, #96 | Anterior/Siguiente en la foto del análisis y paginación de «Últimos análisis» | Nicko | Hecho (PR #120) |
 | #95 | Analizar fotos por ruta o URL de un dataset | Sin asignar | Pendiente |
 | #97 | Ajustes de la app web para el teléfono | Nicko | Hecho (PR #121) |
+| #98 | Detalles de documentación para la entrega final (pruebas, README, APK y NoSQL) | Mariana | Hecho |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |

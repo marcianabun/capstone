@@ -1010,6 +1010,18 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Sin tocar (se decidió dejarlo): el aviso de «Copiar enlace» sin
       HTTPS (hallazgo 3) y el resto de la auditoría (errores de campo,
       nombres repetidos, «Volver», refresco de Alertas cada 60 s).
+- [x] **#98** (dueño: Mariana) Detalles de documentación para la entrega
+      final (revisión del 2026-11-18): `Documento de Innovacion.md` y
+      `Requisitos No Funcionales.md` (RNF08) decían 303 pruebas (hoy
+      314); el estado del README, al 2026-11-16, no tenía la cámara
+      defectuosa (#87) ni la navegación, paginación y ajustes para el
+      teléfono (#94, #96, #97); y las carpetas «APK sistema» y «NO SQL»
+      de la entrega no aplican (app web con SQLite; respuestas
+      comunicadas por Mariana el 2026-11-18). **Hecho (2026-11-18)**:
+      números y README al día, `docs/curso.md` con las respuestas y
+      dos txt para el Drive: `Evidencias de sistema/Aplicación/APK
+      sistema - no aplica.txt` y `Evidencias de sistema/Base de
+      datos/NoSQL - no aplica.txt`.
 - [ ] **#31** Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
