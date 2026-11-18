@@ -1022,6 +1022,16 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       dos txt para el Drive: `Evidencias de sistema/Aplicación/APK
       sistema - no aplica.txt` y `Evidencias de sistema/Base de
       datos/NoSQL - no aplica.txt`.
+- [x] **#99** (dueño: Mariana) Plan de pruebas en Word para ANEXOS de la
+      entrega final (carpeta FINAL FASE 2 del Drive, «c. Plan de
+      pruebas»). `docs/test-plan.md` no tenía la app web ni los C.U, decía
+      RF05 pendiente y su último registro era del 2026-10-20. **Hecho
+      (2026-11-18)**: sección 8 nueva (WEB-01 a WEB-09, un caso de uso por
+      fila con sus pruebas de `tests/test_web.py`), DET-05 y AV-04 al
+      día, trazabilidad de RF04 a RF06 y registro del 2026-11-18 (314
+      pruebas). El Word, generado desde ese archivo en A4 horizontal,
+      queda en `Fase 2/Evidencias Proyecto/Evidencias de
+      documentación/Plan de pruebas/Plan de pruebas - ShelfVision AI.docx`.
 - [ ] **#31** Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
