@@ -1,0 +1,8 @@
+ShelfVision AI - Base de datos NoSQL: no aplica
+
+El sistema usa una sola base de datos relacional (SQLite, a través del
+ORM de Django) y ninguna base no relacional, así que no hay colecciones
+NoSQL que describir. La base relacional está documentada en esta misma
+carpeta: Modelo Logico.md, Modelo Relacional.md, Diccionario de
+Datos.md y shelfvision.sql (crea las tablas y las puebla con datos de
+prueba).

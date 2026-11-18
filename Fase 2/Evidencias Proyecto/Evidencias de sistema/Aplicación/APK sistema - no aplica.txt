@@ -1,0 +1,13 @@
+ShelfVision AI - APK del sistema: no aplica
+
+ShelfVision AI no tiene aplicación Android, así que no hay APK. El sistema
+es una aplicación web (Django) que se usa desde el navegador del
+computador o del teléfono, más la línea de comandos del pipeline de
+visión. Por indicación del profesor, en este caso basta el repositorio
+al día en GitHub:
+
+https://github.com/marianapeachy/capstone
+
+El código del sistema, cómo instalarlo y cómo ejecutarlo están en el
+README del repositorio, en "Repositorio GitHub del proyecto
+documentado.txt" y en el Instructivo del plan de instalación.

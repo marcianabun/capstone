@@ -197,7 +197,7 @@ La especificación técnica (qué recibe y entrega cada etapa, parámetros con s
 
 ## 🚦 Estado Operativo y Pendiente
 
-Al 2026-11-16. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS.md).
+Al 2026-11-18. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS.md).
 
 | Módulo o requisito | Estado |
 | :--- | :--- |
@@ -207,7 +207,8 @@ Al 2026-11-16. El detalle por ítem y su dueño están en [PROGRESS.md](PROGRESS
 | Persona que tapa la góndola (#77) | Operativo: mide solo el frente visible y rechaza la foto si más de la mitad queda tapada, sin falsa alerta |
 | Disponibilidad y alerta por góndola completa (RF02, RF03, RF04) | Operativo |
 | Ingesta y evaluación por lotes (RF01, RF06, CU07) | Operativo (`scripts/run_pipeline.py`); ~0,5 s por foto en lote, en CPU |
-| Aplicación web: login (CU00), usuarios y roles (CU06), análisis (CU01) y alertas (CU02) | Operativo. CU06 sin correo: el Administrador ve el enlace para definir la contraseña y se lo entrega (#84) |
+| Aplicación web: login (CU00), usuarios y roles (CU06), análisis (CU01) y alertas (CU02) | Operativo. CU06 sin correo: el Administrador ve el enlace para definir la contraseña y se lo entrega (#84). CU01 rechaza la foto de una cámara defectuosa, toda verde o magenta, sin tocar la alerta abierta (#87). En el detalle de un análisis, Anterior y Siguiente recorren los análisis de la góndola o las alertas abiertas (#94), y «Últimos análisis» va paginado (#96) |
+| Uso en el teléfono (#97) | Operativo: menú en una segunda fila que se desliza, formularios sin superponerse y tarjetas de Góndolas y Alertas que se tocan completas (44 px) |
 | Reportes Excel, CSV y PDF (RF05, CU04, #7) | Operativo: página "Reportes" de la app web (`src/reporting/export.py`) |
 | Configuración de umbral y cámaras (CU05, #44) | Operativo: página "Configuración" de la app web |
 | Dashboard de disponibilidad (CU03, #43) | Operativo: página "Góndolas" de la app web |

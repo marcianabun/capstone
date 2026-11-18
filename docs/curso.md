@@ -48,10 +48,14 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
     plan de pruebas y Carta Gantt.
   - **Evidencias de sistema / Aplicación**: APK del sistema, código del
     sistema, PDF de implementación del ambiente de desarrollo y un txt
-    con el repositorio GitHub del proyecto documentado.
+    con el repositorio GitHub del proyecto documentado. El APK no
+    aplica a este grupo (app web): basta el repositorio al día en
+    GitHub (respuesta comunicada por Mariana el 2026-11-18).
   - **Evidencias de sistema / Base de datos**: script del sistema
     (poblar tablas), diccionario de datos, modelo lógico, modelo
-    relacional y, si hay NoSQL, descripción de las colecciones.
+    relacional y, si hay NoSQL, descripción de las colecciones. Lo de
+    NoSQL es solo para grupos con bases no relacionales: este usa
+    SQLite (respuesta comunicada por Mariana el 2026-11-18).
   - **RESUMEN Estado de Avance CU.xlsx**.
   - **Video tutorial con audio**: solo la ejecución de los módulos
     desarrollados, sin mostrar código.
@@ -279,18 +283,17 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 
 ## Preguntas abiertas para el profesor
 
-- La entrega final pide un "APK sistema": ShelfVision AI es una app
-  web (Django) más la línea de comandos, sin app Android. ¿Basta con el
-  código, la imagen Docker y la URL del servidor del CITT?
-- Base de datos: el proyecto usa SQLite (relacional), sin NoSQL. ¿La
-  carpeta de colecciones NoSQL queda vacía o con una nota "no aplica"?
 - "100% de los C.U resueltos": CU07 (evaluar con un lote) corre por la
   línea de comandos y CU02 no tiene notificación push al teléfono. ¿Cuentan
   como resueltos?
 - Los nombres de la entrega final usan el código "PTY4478" y los de
   Avance, "APT122". ¿Los documentos nuevos llevan "PTY4478"? ¿Dónde están
   las plantillas de la "Pauta de reflexión del informe de avance" y de
-  la "Evaluación formativa final"?
+  la "Evaluación formativa final"? (Mariana cree tenerlas y las busca,
+  2026-11-18.)
+- ¿El informe final debe llevar abstract en inglés y español, y
+  conclusiones y reflexiones en inglés, como pedía la pauta del
+  avance? Hoy está todo en español (Mariana lo pregunta, 2026-11-18).
 - Orden de carpetas del GitHub (imagen del 2026-11-13): ¿dónde van los
   archivos de la Fase 2 que la imagen no nombra (informe intermedio de
   avance, autoevaluación 2.2, formativa 2.3, planilla de evaluación del
@@ -341,6 +344,13 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 ## Registro de mensajes
 
 Del más reciente al más antiguo.
+
+### Semana 14 (2026-11-18): APK y NoSQL no aplican
+
+- Comunicado por Mariana: el grupo no entrega APK (la aplicación es
+  web); basta el repositorio al día en GitHub. La carpeta NoSQL es solo
+  para grupos que usaron bases no relacionales; este usa SQLite. En
+  `Evidencias de sistema/` quedan dos txt que lo explican (#98).
 
 ### Semana 14 (2026-11-17): entrega del MVP por AVA
 
