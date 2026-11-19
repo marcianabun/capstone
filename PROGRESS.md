@@ -433,10 +433,9 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
 - [ ] **#64** (dueño: Francisco y Nicko) Diagramas de actividad de los C.U (los pide la entrega
       final; no están en el repositorio).
 - [ ] **#65** (dueño: Francisco y Nicko) Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
-      Final`), presentación final (ppt) y la pauta
-      de reflexión individual de cada integrante
-      (`Apellido_Nombre_Pauta_de_reflexión_informe_de_avance_proyecto_APT`).
-      Entrega 2026-11-20 a las 12:00. Basta el Informe Final (la guía
+      Final`) y presentación final (ppt). Las pautas de reflexión
+      individuales pasan a un ítem por integrante: #101 (Mariana), #102
+      (Francisco) y #103 (Nicko). Entrega 2026-11-20 a las 12:00. Basta el Informe Final (la guía
       2.6 no se llena aparte) y va en español: el profesor no le exige
       inglés a este grupo (respuesta del 2026-11-18).
 - [x] **#66** (dueño: Mariana) Reordenar las carpetas del GitHub según la imagen del
@@ -465,7 +464,9 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       actualizar la hoja del 16 al 20-11 con lo que se integre hasta la
       entrega final y subir el Excel al Drive.
 
-- [ ] **#69** (dueño: Francisco) Evidencias que faltan (Reporte de Auditoría N.º 4,
+- [x] **#69** (descartado 2026-11-19: Mariana indica que es la misma
+      evidencia que la pauta de reflexión de Francisco, que sigue en el
+      #102) (dueño: Francisco) Evidencias que faltan (Reporte de Auditoría N.º 4,
       2026-10-25): `Sandoval_Francisco_1.3_APT122_AutoevaluacionFase1.docx`
       (Fase 1, individuales), `Sandoval_Francisco_2.1_APT122_DiarioReflexionFase2.docx`
       (Fase 2, individuales; cruza con #37) y `Presentación Proyecto.pptx`
@@ -1045,7 +1046,9 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       evidencias) para «Código sistema»; `Documentación SCRUM - no
       aplica.txt` en `Gestion/` para la carpeta «Documentación SCRUM»
       (el equipo usa cascada, #92). «PTY4478 APT2.0 FASE 2.docx» no se
-      sabe qué es: queda fuera por ahora (Mariana, 2026-11-18).
+      sabe qué es: queda fuera por ahora (Mariana, 2026-11-18). El
+      Excel de avance de C.U se copió además a la raíz de CAPSTONE (el
+      Drive del equipo compartido con el profesor, #67) el 2026-11-19.
       **2026-11-19**: carpeta ordenada con Google Drive para escritorio,
       con la estructura del PDF (`FASE 2/` con las evidencias
       individuales y grupales; `Evidencias proyecto/` con Presentación,
@@ -1055,10 +1058,24 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Innovación), los `.md` pasaron a PDF y el resto de Diseño quedó en
       «Otros diagramas y diseño». Faltan en el Drive: las 3 pautas de
       reflexión, la Evaluación formativa final, los diagramas de
-      actividad (#64) y el video tutorial (#61). Faltan de
-      otros ítems: presentación (#65), diagramas de actividad (#64),
-      pautas de reflexión y video tutorial (#61).
-- [ ] **#31** Excluir de la medición la bodega de reserva que hay sobre
+      actividad (#64), el video tutorial (#61) y la presentación final
+      si cambia (#65). Las pautas son los ítems #101 a #103.
+- [ ] **#101** (dueño: Mariana) Pauta de reflexión individual de Mariana
+      para la entrega final (2026-11-20, 12:00):
+      `Ramirez_Mariana_Pauta_de_reflexión_informe_de_avance_proyecto_APT`, en la
+      carpeta FINAL FASE 2 / FASE 2 / Evidencias individuales del Drive.
+      La plantilla la busca Mariana (2026-11-18).
+- [ ] **#102** (dueño: Francisco) Pauta de reflexión individual de Francisco
+      para la entrega final (2026-11-20, 12:00):
+      `Sandoval_Francisco_Pauta_de_reflexión_informe_de_avance_proyecto_APT`, en la
+      carpeta FINAL FASE 2 / FASE 2 / Evidencias individuales del Drive.
+      La plantilla la busca Mariana (2026-11-18). Reemplaza al #69.
+- [ ] **#103** (dueño: Nicko) Pauta de reflexión individual de Nicko
+      para la entrega final (2026-11-20, 12:00):
+      `Cortes_Nicko_Pauta_de_reflexión_informe_de_avance_proyecto_APT`, en la
+      carpeta FINAL FASE 2 / FASE 2 / Evidencias individuales del Drive.
+      La plantilla la busca Mariana (2026-11-18).
+- [x] **#31** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
       primer al último nivel con productos", y las cajas de la bodega
@@ -1066,7 +1083,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Opciones: descartar el nivel sobre la última repisa de venta, o
       cortar por altura en la imagen. Las islas del pasillo tampoco se
       miden (ya quedó en el README).
-- [ ] **#32** Fotos propias de góndolas en tienda (con permiso),
+- [x] **#32** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Fotos propias de góndolas en tienda (con permiso),
       clasificadas por ángulo (frontal, lateral, desde arriba, gran
       angular), y un set chico anotado a mano en el formato estándar.
       Las pide el acta de la primera reunión con Walmart y sirven para:
@@ -1080,7 +1097,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       salida y estructuras), parámetros con sus valores, formato del JSON
       de salida, rutas y permisos de la app web, modelo de datos, reglas
       de negocio por caso de uso y comandos. Enlazado desde el README.
-- [ ] **#14** Datasets con imágenes tipo cámara de seguridad (vista alta,
+- [x] **#14** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Datasets con imágenes tipo cámara de seguridad (vista alta,
       oblicua, gran angular/fisheye, pasillo completo) para validar
       dewarping y segmentación en condiciones parecidas a Walmart.
       Candidatos en `docs/datasets.md` ("Candidatos tipo cámara de
@@ -1094,7 +1111,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       sus anotaciones. Walmart no comparte fotogramas reales de sus
       cámaras (#21), así que el paso (3) es ahora el principal sustituto
       de la cámara de sala y sube de prioridad.
-- [ ] **#17** Limitaciones de la segmentación que siguen tras #15 (F1
+- [x] **#17** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Limitaciones de la segmentación que siguen tras #15 (F1
       de repisas 0.82 en SHARD):
       - Líneas sobre filas de productos iguales (bandas de color o
         bordes superiores alineados de bolsas y cajas apiladas): los
@@ -1114,7 +1131,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
         cámaras de sala: siguen en #14. Para lo que SHARD no cubre
         (repisas inclinadas, contorno de la góndola), set chico
         etiquetado a mano (polilíneas, ej. en CVAT o Label Studio).
-- [ ] **#24** Preguntas para la próxima reunión con
+- [x] **#24** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Preguntas para la próxima reunión con
       Walmart (fecha: por definir). Hasta ahora no han dicho nada de sus
       cámaras, y del Dataset Oculto probablemente no puedan decir nada
       (#21):

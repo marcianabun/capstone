@@ -516,7 +516,7 @@ Hitos, plazos y requisitos al día según los mensajes del profesor: [docs/curso
 
 * **Fase 1 (Semanas 1 - 4 / 20%)**: Inscripción, reunión con cliente, levantamiento de RF y definición de arquitectura.
 * **Fase 2 (Semanas 5 - 16 / 50%)**: Desarrollo modular, integración, pruebas continuas con imágenes sintéticas tipo cámara de sala (y con el Dataset Oculto, si Walmart lo ejecuta en sus instalaciones) y Pre-examen. Informe intermedio de avance y video de demostración (5 a 10 min): 2026-10-21. Evidencias de avance de la Fase 2: a más tardar 2026-10-26. Evaluación 2 (Avance): semana del 2026-10-28, con el 50% de los C.U de la fase resueltos y la demo de la Etapa 1. Primer demo operativo ante el cliente: 2026-10-26. GitHub al día para la revisión final de Walmart: 2026-11-16. Entrega del MVP al cliente: a más tardar la semana del 2026-11-16. Entrega final de la Fase 2: 2026-11-20 a las 12:00, con el 100% de los C.U, un manual de usuario por perfil y manual de instalación.
-* **Fase 3 (Semanas 17 - 18 / 30%)**: Ajustes finales, manuales de usuario/instalación y Exposición ante Comisión Evaluadora. Ensayos de la presentación: semana del 2026-11-23 al 2026-11-27. Fecha de la exposición: por definir.
+* **Fase 3 (Semanas 17 - 18 / 30%)**: Ajustes finales, manuales de usuario/instalación y Exposición ante Comisión Evaluadora. Ensayos de la presentación: semana del 2026-11-23 al 2026-11-27. Fecha de la exposición: 2026-12-03 o 2026-12-04 (día exacto por confirmar).
 
 ---
 

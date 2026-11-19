@@ -41,7 +41,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #61 | Video tutorial y entrega del MVP a Walmart (por mensaje de AVA al profesor, que se la hace llegar) | Nicko | En curso |
 | #62 | Script SQL que crea y puebla la base | Francisco | Hecho (PR #102) |
 | #63 | Documentación SCRUM | Francisco | Descartado (2026-11-16): no aplica, el equipo usa cascada |
-| #64, #65 | Diagramas de actividad, informe final y presentación (cada integrante su reflexión) | Francisco y Nicko | En curso: informe final subido (PR #122) |
+| #64, #65 | Diagramas de actividad, informe final y presentación | Francisco y Nicko | En curso: informe final subido (PR #122) |
 | #67 | Hojas semanales del Excel de avance de C.U | Mariana | En curso (PR #110): hojas 5 a 8 hechas |
 | #83 | Error de niveles con una sola repisa | Nicko | Hecho (PR #104) |
 | #84 | CU06 sin correo: el enlace de contraseña se muestra en pantalla | Mariana | Hecho (PR #111) |
@@ -59,6 +59,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #98 | Detalles de documentación para la entrega final (pruebas, README, APK y NoSQL) | Mariana | Hecho (PR #125) |
 | #99 | Plan de pruebas en Word para ANEXOS, con la app web y los C.U | Mariana | Hecho (PR #126) |
 | #100 | Carpeta FINAL FASE 2 del Drive ordenada según el profesor | Mariana | En curso: estructura lista; faltan pautas, evaluación formativa, diagramas de actividad y video |
+| #101, #102, #103 | Pauta de reflexión individual de cada integrante | Mariana, Francisco y Nicko | En curso |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
-| #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |
+| #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | Descartado (2026-11-19): es la pauta de reflexión de Francisco, sigue en el #102 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |
