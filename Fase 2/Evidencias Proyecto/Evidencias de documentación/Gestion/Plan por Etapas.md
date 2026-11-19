@@ -26,7 +26,7 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 
 Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
 
-| Ítem | Descripción | Dueño | Estado (2026-11-18) |
+| Ítem | Descripción | Dueño | Estado (2026-11-19) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
 | #60 | Manuales de usuario por perfil y manual de instalación | Mariana | Hecho (PR #83 y el de #60) |
@@ -57,7 +57,8 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #95 | Analizar fotos por ruta o URL de un dataset | Sin asignar | Pendiente |
 | #97 | Ajustes de la app web para el teléfono | Nicko | Hecho (PR #121) |
 | #98 | Detalles de documentación para la entrega final (pruebas, README, APK y NoSQL) | Mariana | Hecho (PR #125) |
-| #99 | Plan de pruebas en Word para ANEXOS, con la app web y los C.U | Mariana | Hecho |
+| #99 | Plan de pruebas en Word para ANEXOS, con la app web y los C.U | Mariana | Hecho (PR #126) |
+| #100 | Carpeta FINAL FASE 2 del Drive ordenada según el profesor | Mariana | En curso: estructura lista; faltan pautas, evaluación formativa, diagramas de actividad y video |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | En curso: borradores en el PR #89; la presentación llega con #65 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |

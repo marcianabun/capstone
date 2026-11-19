@@ -36,7 +36,9 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
     `Apellido_Nombre_Pauta_de_reflexión_informe_de_avance_proyecto_APT`.
   - **FASE 2 / Evidencias grupales**: `PTY4478 APT2.0 FASE 2.docx`,
     `PTY4478 Evaluación formativa final`, `PTY4478 APT2.0 FASE 2 Informe
-    Final` y `PLANILLA DE EVALUACIÓN FASE 2.xlsx` (uso docente).
+    Final` y `PLANILLA DE EVALUACIÓN FASE 2.xlsx` (uso docente). Basta
+    el Informe Final: la guía 2.6 no se llena aparte, y para este grupo
+    no se exige inglés (respuesta del profesor a Mariana, 2026-11-18).
   - **Evidencias proyecto / Presentación Proyecto**: ppt de la
     presentación final.
   - **Evidencias proyecto / Evidencias de documentación según
@@ -248,7 +250,8 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
   - **Formato del informe de avance** (según 2.2 y 2.3): informe
     técnico con portada, índice, abstract (inglés y español),
     desarrollo de ingeniería, conclusiones y reflexiones individuales
-    (estas dos, solo en inglés); Arial, Verdana o Calibri 11 o 12;
+    (estas dos, solo en inglés; para este grupo no se exige inglés,
+    respuesta del profesor del 2026-11-18); Arial, Verdana o Calibri 11 o 12;
     interlineado 1,0 o 1,5; número de página; bibliografía y anexo de
     evidencias si corresponde.
   - **2.4 Guía de desarrollo del proyecto**: (1) resumen del avance
@@ -291,9 +294,6 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
   las plantillas de la "Pauta de reflexión del informe de avance" y de
   la "Evaluación formativa final"? (Mariana cree tenerlas y las busca,
   2026-11-18.)
-- ¿El informe final debe llevar abstract en inglés y español, y
-  conclusiones y reflexiones en inglés, como pedía la pauta del
-  avance? Hoy está todo en español (Mariana lo pregunta, 2026-11-18).
 - Orden de carpetas del GitHub (imagen del 2026-11-13): ¿dónde van los
   archivos de la Fase 2 que la imagen no nombra (informe intermedio de
   avance, autoevaluación 2.2, formativa 2.3, planilla de evaluación del
@@ -320,12 +320,6 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
   el formato del informe de avance (ver "Requisitos vigentes"): ¿el
   informe intermedio sigue ese formato o es otro documento? ¿Por qué
   medio se entrega (repositorio, PDF, Drive) y dónde se sube el video?
-- Idioma del informe intermedio: ningún mensaje del profesor ni del
-  cliente pide inglés, y el informe se entregó en español (decidido
-  2026-10-21). Las pautas 2.2 y 2.3 (rúbrica de la Fase 2) sí piden
-  abstract en inglés y español, y conclusiones y reflexiones solo en
-  inglés: ¿esa exigencia aplica al informe intermedio o solo a las
-  evidencias de avance (2026-10-26)?
 - El mensaje numera los puntos del informe del 1 al 5 y luego el 7:
   ¿falta un punto 6?
 - ¿Qué componentes debe tener la instalación en el servidor del CITT
@@ -344,6 +338,14 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 ## Registro de mensajes
 
 Del más reciente al más antiguo.
+
+### Semana 14 (2026-11-18): informe final sin guía 2.6 ni inglés
+
+- Respuesta del profesor a Mariana: basta con el Informe Final; la
+  guía 2.6 no se llena aparte.
+- Para este grupo no se exige que el informe vaya en inglés (ni
+  abstract ni conclusiones ni reflexiones). Resuelve también la
+  pregunta abierta sobre el idioma del informe intermedio.
 
 ### Semana 14 (2026-11-18): APK y NoSQL no aplican
 
