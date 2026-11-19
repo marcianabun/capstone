@@ -1,0 +1,24 @@
+ShelfVision AI - Documentación SCRUM: no aplica
+
+El equipo no usó SCRUM: el proyecto se desarrolló con una metodología
+tradicional o en cascada, por fases (análisis y diseño en la Fase 1;
+construcción y luego pruebas, documentación final y entrega en la
+Fase 2), planificada con la Carta Gantt. Por eso no hay épicas, sprints,
+historias de usuario ni priorización de H.U.: esa documentación aplica
+solo a los grupos que usaron SCRUM.
+
+La documentación de la metodología que sí se usó está en el repositorio
+(https://github.com/marianapeachy/capstone), en
+Fase 2/Evidencias Proyecto/Evidencias de documentación/Gestion/:
+
+- Metodologia Cascada.md: metodología declarada, fases y por qué es
+  pertinente.
+- Plan por Etapas.md: qué se hizo en cada etapa y con qué entregables.
+- Listado de Tareas.md: todo el trabajo del proyecto, con dueño y
+  estado.
+- Criterios de Terminado.md: cuándo un trabajo se da por terminado.
+- Lecciones Aprendidas.md: qué funcionó y qué no en cada etapa.
+- Alcance MVP.md: alcance del MVP acordado con Walmart. El análisis del
+  caso (problema, objetivos, requisitos y acuerdos con el cliente) está
+  en el README.md del repositorio.
+- Carta Gantt Fase 2.xlsx (también en ANEXOS).

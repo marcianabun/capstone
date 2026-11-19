@@ -433,10 +433,12 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
 - [ ] **#64** (dueño: Francisco y Nicko) Diagramas de actividad de los C.U (los pide la entrega
       final; no están en el repositorio).
 - [ ] **#65** (dueño: Francisco y Nicko) Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
-      Final`, guía 2.6 en `Fase 2/Evidencias Grupales/`), presentación final (ppt) y la pauta
+      Final`), presentación final (ppt) y la pauta
       de reflexión individual de cada integrante
       (`Apellido_Nombre_Pauta_de_reflexión_informe_de_avance_proyecto_APT`).
-      Entrega 2026-11-20 a las 12:00.
+      Entrega 2026-11-20 a las 12:00. Basta el Informe Final (la guía
+      2.6 no se llena aparte) y va en español: el profesor no le exige
+      inglés a este grupo (respuesta del 2026-11-18).
 - [x] **#66** (dueño: Mariana) Reordenar las carpetas del GitHub según la imagen del
       profesor ("orden de carpetas GitHub (COMPLETO)", mensaje del
       2026-11-13), sin cambiar nombres ni ubicaciones pedidas. Antes del
@@ -1032,6 +1034,30 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       pruebas). El Word, generado desde ese archivo en A4 horizontal,
       queda en `Fase 2/Evidencias Proyecto/Evidencias de
       documentación/Plan de pruebas/Plan de pruebas - ShelfVision AI.docx`.
+- [ ] **#100** (dueño: Mariana) Armar la carpeta FINAL FASE 2 del Drive
+      compartido con el profesor (estructura del PDF del 2026-11-06, ver
+      `docs/curso.md`), con los archivos del repositorio en su carpeta y
+      sin enlaces en archivos versionados. Los documentos `.md` de base de
+      datos van en PDF (con sus diagramas como imagen). Plazo: entrega
+      final, 2026-11-20 a las 12:00. **En curso (2026-11-18)**: PDF del
+      Modelo Lógico, Modelo Relacional y Diccionario de Datos generados
+      fuera del repositorio; ZIP del código (sin las carpetas de
+      evidencias) para «Código sistema»; `Documentación SCRUM - no
+      aplica.txt` en `Gestion/` para la carpeta «Documentación SCRUM»
+      (el equipo usa cascada, #92). «PTY4478 APT2.0 FASE 2.docx» no se
+      sabe qué es: queda fuera por ahora (Mariana, 2026-11-18).
+      **2026-11-19**: carpeta ordenada con Google Drive para escritorio,
+      con la estructura del PDF (`FASE 2/` con las evidencias
+      individuales y grupales; `Evidencias proyecto/` con Presentación,
+      Evidencias de documentación en sus 5 carpetas, ANEXOS a-d y
+      Evidencias de sistema). Se reemplazaron las copias del 2026-11-17
+      que habían quedado viejas (Informe Final, Carta Gantt, RNF e
+      Innovación), los `.md` pasaron a PDF y el resto de Diseño quedó en
+      «Otros diagramas y diseño». Faltan en el Drive: las 3 pautas de
+      reflexión, la Evaluación formativa final, los diagramas de
+      actividad (#64) y el video tutorial (#61). Faltan de
+      otros ítems: presentación (#65), diagramas de actividad (#64),
+      pautas de reflexión y video tutorial (#61).
 - [ ] **#31** Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del

@@ -1,6 +1,6 @@
 # Listado de Tareas
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-18** (99 ítems: 83 hechos, 6 en curso, 7 pendientes y 3 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-19** (100 ítems: 83 hechos, 7 en curso, 7 pendientes y 3 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -70,7 +70,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #62 | Hecho | Francisco | Script SQL que crea la estructura de la base y la puebla con datos de prueba, coherente con `web/models.py` (incluye `Config`, `Camera` y `U… |
 | #63 | Descartado | Sin asignar | Documentación SCRUM de la entrega final: análisis del caso; épicas, sprints e historias de usuario; priorización de las H.U. Se había entreg… |
 | #64 | En curso | Francisco y Nicko | Diagramas de actividad de los C.U (los pide la entrega final; no están en el repositorio). |
-| #65 | En curso | Francisco y Nicko | Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe Final`, guía 2.6 en `Fase 2/Evidencias Grupales/`), presentación final (ppt) y la… |
+| #65 | En curso | Francisco y Nicko | Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe Final`), presentación final (ppt) y la pauta de reflexión individual de cada inte… |
 | #66 | Hecho | Mariana | Reordenar las carpetas del GitHub según la imagen del profesor ("orden de carpetas GitHub (COMPLETO)", mensaje del 2026-11-13), sin cambiar… |
 | #67 | En curso | Mariana | Hojas semanales del Excel "RESUMEN Estado de Avance Casos de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive compartido con el… |
 | #68 | Hecho | Francisco | Lo que #59 no cubrió: abrir los PR de `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`, subidas el 2026-11-09 desde un PC de Duoc con… |
@@ -105,3 +105,4 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #97 | Hecho | Nicko | Ajustes de la app web para el teléfono, de la auditoría de 2026-11-16: el menú pasa a una segunda fila (con Administrador y Jefe ya no se es… |
 | #98 | Hecho | Mariana | Detalles de documentación para la entrega final (revisión del 2026-11-18): `Documento de Innovacion.md` y `Requisitos No Funcionales.md` (RN… |
 | #99 | Hecho | Mariana | Plan de pruebas en Word para ANEXOS de la entrega final (carpeta FINAL FASE 2 del Drive, «c. Plan de pruebas»). `docs/test-plan.md` no tenía… |
+| #100 | En curso | Mariana | Armar la carpeta FINAL FASE 2 del Drive compartido con el profesor (estructura del PDF del 2026-11-06, ver `docs/curso.md`), con los archivo… |
