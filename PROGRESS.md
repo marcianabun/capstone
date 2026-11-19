@@ -1075,7 +1075,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `Cortes_Nicko_Pauta_de_reflexión_informe_de_avance_proyecto_APT`, en la
       carpeta FINAL FASE 2 / FASE 2 / Evidencias individuales del Drive.
       La plantilla la busca Mariana (2026-11-18).
-- [ ] **#31** Excluir de la medición la bodega de reserva que hay sobre
+- [x] **#31** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
       primer al último nivel con productos", y las cajas de la bodega
@@ -1083,7 +1083,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Opciones: descartar el nivel sobre la última repisa de venta, o
       cortar por altura en la imagen. Las islas del pasillo tampoco se
       miden (ya quedó en el README).
-- [ ] **#32** Fotos propias de góndolas en tienda (con permiso),
+- [x] **#32** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Fotos propias de góndolas en tienda (con permiso),
       clasificadas por ángulo (frontal, lateral, desde arriba, gran
       angular), y un set chico anotado a mano en el formato estándar.
       Las pide el acta de la primera reunión con Walmart y sirven para:
@@ -1097,7 +1097,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       salida y estructuras), parámetros con sus valores, formato del JSON
       de salida, rutas y permisos de la app web, modelo de datos, reglas
       de negocio por caso de uso y comandos. Enlazado desde el README.
-- [ ] **#14** Datasets con imágenes tipo cámara de seguridad (vista alta,
+- [x] **#14** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Datasets con imágenes tipo cámara de seguridad (vista alta,
       oblicua, gran angular/fisheye, pasillo completo) para validar
       dewarping y segmentación en condiciones parecidas a Walmart.
       Candidatos en `docs/datasets.md` ("Candidatos tipo cámara de
@@ -1111,7 +1111,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       sus anotaciones. Walmart no comparte fotogramas reales de sus
       cámaras (#21), así que el paso (3) es ahora el principal sustituto
       de la cámara de sala y sube de prioridad.
-- [ ] **#17** Limitaciones de la segmentación que siguen tras #15 (F1
+- [x] **#17** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Limitaciones de la segmentación que siguen tras #15 (F1
       de repisas 0.82 en SHARD):
       - Líneas sobre filas de productos iguales (bandas de color o
         bordes superiores alineados de bolsas y cajas apiladas): los
@@ -1131,7 +1131,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
         cámaras de sala: siguen en #14. Para lo que SHARD no cubre
         (repisas inclinadas, contorno de la góndola), set chico
         etiquetado a mano (polilíneas, ej. en CVAT o Label Studio).
-- [ ] **#24** Preguntas para la próxima reunión con
+- [x] **#24** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Preguntas para la próxima reunión con
       Walmart (fecha: por definir). Hasta ahora no han dicho nada de sus
       cámaras, y del Dataset Oculto probablemente no puedan decir nada
       (#21):

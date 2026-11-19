@@ -1,6 +1,6 @@
 # Listado de Tareas
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-19** (103 ítems: 83 hechos, 9 en curso, 7 pendientes y 4 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-19** (103 ítems: 83 hechos, 9 en curso, 2 pendientes y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -19,25 +19,25 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #11 | Hecho | Francisco | Escribir conversores de anotaciones a nuestro estándar `[x_min, y_min, x_max, y_max]`: lógica pura en `src/datasets/converters.py` (probada… |
 | #12 | Hecho | Francisco | Script de descarga reproducible: `scripts/download_datasets.py` (`--list`, `--check`, `--dataset`, `--force`, `--keep-archives`) con el catá… |
 | #13 | Hecho | Mariana | CI en GitHub Actions: correr `pytest tests/` y `docker build` en cada PR, y proteger `main` (merge solo por PR con una revisión y CI en verd… |
-| #14 | Pendiente | Sin asignar | Datasets con imágenes tipo cámara de seguridad (vista alta, oblicua, gran angular/fisheye, pasillo completo) para validar dewarping y segmen… |
+| #14 | Descartado | Sin asignar | Datasets con imágenes tipo cámara de seguridad (vista alta, oblicua, gran angular/fisheye, pasillo completo) para validar dewarping y segmen… |
 | #15 | Hecho | Francisco | Limitaciones de la segmentación (ítem #4), medidas contra las repisas anotadas de SHARD. Hecho: SHARD en el catálogo (`shard`: figshare, CC… |
 | #16 | Hecho | Mariana | Corregir datos desactualizados de `docs/datasets.md` (licencias, tamaño de grocery-shelves y estado de descarga). Licencias: supermarket-she… |
-| #17 | Pendiente | Sin asignar | Limitaciones de la segmentación que siguen tras #15 (F1 de repisas 0.82 en SHARD): - Líneas sobre filas de productos iguales (bandas de colo… |
+| #17 | Descartado | Sin asignar | Limitaciones de la segmentación que siguen tras #15 (F1 de repisas 0.82 en SHARD): - Líneas sobre filas de productos iguales (bandas de colo… |
 | #18 | Hecho | Francisco | Notas de instalación en un entorno nuevo (Windows): README explica cómo detectar una copia vieja de `graphify` que tapa la 0.9.70 en el `PAT… |
 | #19 | Hecho | Francisco | Plan de pruebas en `docs/test-plan.md`: para cada etapa ya hecha, qué requisito cumple, cómo se prueba, criterio de aceptación y resultado a… |
 | #20 | Hecho | Francisco | Dejar el repositorio listo para clonar e inicializar en un PC nuevo (Nicko, 2026-10-01). README: versión de Python, graphify con `uv tool` f… |
 | #21 | Hecho | Francisco | Ajustar la documentación a que Walmart Chile no puede compartir imágenes reales de sus cámaras de seguridad, por privacidad (informado 2026-… |
 | #22 | Hecho | Francisco | Repisas inclinadas (fotos en ángulo o cámara de sala). Problema: con perspectiva, `segment_gondola()` pierde repisas (acepta 8° de inclinaci… |
 | #23 | Hecho | Francisco | Fechas de entregas y plazos en `README.md` y `PROGRESS.md`, en formato YYYY-MM-DD en la línea de la tarea: Evaluación 2 (Avance) de la Fase… |
-| #24 | Pendiente | Sin asignar | Preguntas para la próxima reunión con Walmart (fecha: por definir). Hasta ahora no han dicho nada de sus cámaras, y del Dataset Oculto proba… |
+| #24 | Descartado | Sin asignar | Preguntas para la próxima reunión con Walmart (fecha: por definir). Hasta ahora no han dicho nada de sus cámaras, y del Dataset Oculto proba… |
 | #25 | Hecho | Francisco | Registro de requisitos y plazos del curso en `docs/curso.md` (próximos hitos, requisitos vigentes, anuncios pendientes, preguntas abiertas y… |
 | #26 | Hecho | Mariana | Plan de mejoras de la Fase 1, en `docs/plan-de-mejoras.md` (2026-10-20; el plazo era 2026-10-09). La Fase 1 tuvo nota 7,0 sin observaciones… |
 | #27 | Hecho | Francisco | Informe de estado de avance para el profesor, con los puntos que pidió su correo de la semana 7. Ya atrasado: el profesor lo está esperando.… |
 | #28 | Hecho | Francisco | Aplicación web mínima en `web/` (Django 6.1 + SQLite; stack elegido el 2026-10-18 con un consejo de 5 perspectivas: Django trae login, roles… |
 | #29 | Hecho | Sin asignar | Primer demo operativo ante Walmart, a más tardar 2026-10-31 (también se muestra en la Evaluación 2, semana del 2026-10-28): detector entrena… |
 | #30 | Hecho | Francisco | Documentación alineada con las reuniones con Walmart (2026-09-03, 2026-09-16 y 2026-09-30). Las minutas no se versionan (son confidenciales… |
-| #31 | Pendiente | Sin asignar | Excluir de la medición la bodega de reserva que hay sobre la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16 en el README). H… |
-| #32 | Pendiente | Sin asignar | Fotos propias de góndolas en tienda (con permiso), clasificadas por ángulo (frontal, lateral, desde arriba, gran angular), y un set chico an… |
+| #31 | Descartado | Sin asignar | Excluir de la medición la bodega de reserva que hay sobre la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16 en el README). H… |
+| #32 | Descartado | Sin asignar | Fotos propias de góndolas en tienda (con permiso), clasificadas por ángulo (frontal, lateral, desde arriba, gran angular), y un set chico an… |
 | #33 | Hecho | Francisco | Verificar el detector `yolo26s` fuera de SKU-110K, en las condiciones con que evaluará Walmart (IoU contra anotación a mano; fotos frontales… |
 | #34 | Hecho | Francisco | Análisis de resultados del informe intermedio (2026-10-20), en `docs/analisis-resultados.md` y la sección 3 del informe (#27). Pipeline comp… |
 | #35 | Hecho | Francisco | README completo para el informe intermedio (2026-10-21) y las evidencias de avance (2026-10-26): descripción de la solución, estrategia técn… |
