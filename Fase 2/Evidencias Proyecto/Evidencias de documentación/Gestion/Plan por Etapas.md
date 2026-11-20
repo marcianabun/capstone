@@ -26,7 +26,7 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 
 Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
 
-| Ítem | Descripción | Dueño | Estado (2026-11-19) |
+| Ítem | Descripción | Dueño | Estado (2026-11-20) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
 | #60 | Manuales de usuario por perfil y manual de instalación | Mariana | Hecho (PR #83 y el de #60) |
@@ -38,11 +38,11 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #79 | Reentrenamiento con desenfoque más fuerte | Francisco | Hecho (PR #96) |
 | #80 | Modelo versionado: `yolo26s-finetune-ruido-v3` | Francisco | Hecho (PR #97) |
 | #82 | Desenfoque de movimiento fuerte: v4 sin mejora real (límite aceptado) | Francisco | Hecho |
-| #61 | Video tutorial y entrega del MVP a Walmart (por mensaje de AVA al profesor, que se la hace llegar) | Nicko | En curso |
+| #61 | Video tutorial del MVP (el profesor no pide mensaje aparte) | Nicko | Hecho (PR #130) |
 | #62 | Script SQL que crea y puebla la base | Francisco | Hecho (PR #102) |
 | #63 | Documentación SCRUM | Francisco | Descartado (2026-11-16): no aplica, el equipo usa cascada |
-| #64, #65 | Diagramas de actividad, informe final y presentación | Francisco y Nicko | En curso: informe final subido (PR #122) |
-| #67 | Hojas semanales del Excel de avance de C.U | Mariana | En curso (PR #110): hojas 5 a 8 hechas |
+| #64, #65 | Diagramas de actividad, informe final y presentación | Francisco y Nicko | Hecho (PR #122, #131 y #132) |
+| #67 | Hojas semanales del Excel de avance de C.U | Mariana | Hecho: hojas 5 a 8 y Excel en el Drive |
 | #83 | Error de niveles con una sola repisa | Nicko | Hecho (PR #104) |
 | #84 | CU06 sin correo: el enlace de contraseña se muestra en pantalla | Mariana | Hecho (PR #111) |
 | #85, #86 | Rendimiento de la app web y tope de píxeles de la foto | Nicko | Hecho (PR #108 y #109) |
@@ -58,8 +58,8 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #97 | Ajustes de la app web para el teléfono | Nicko | Hecho (PR #121) |
 | #98 | Detalles de documentación para la entrega final (pruebas, README, APK y NoSQL) | Mariana | Hecho (PR #125) |
 | #99 | Plan de pruebas en Word para ANEXOS, con la app web y los C.U | Mariana | Hecho (PR #126) |
-| #100 | Carpeta FINAL FASE 2 del Drive ordenada según el profesor | Mariana | En curso: estructura lista; faltan pautas, evaluación formativa, diagramas de actividad y video |
-| #101, #102, #103 | Pauta de reflexión individual de cada integrante | Mariana, Francisco y Nicko | En curso |
+| #100 | Carpeta FINAL FASE 2 del Drive ordenada según el profesor | Mariana | En curso: solo falta la autoevaluación 2.2 de Francisco |
+| #101, #102, #103 | Pauta de reflexión (diario 2.1) y autoevaluación (2.2) de cada integrante | Mariana, Francisco y Nicko | Hechos #101 y #103; al #102 le falta la autoevaluación 2.2 de Francisco |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | Descartado (2026-11-19): es la pauta de reflexión de Francisco, sigue en el #102 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |

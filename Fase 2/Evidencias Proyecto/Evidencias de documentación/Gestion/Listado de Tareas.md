@@ -1,6 +1,6 @@
 # Listado de Tareas
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-19** (103 ítems: 83 hechos, 9 en curso, 2 pendientes y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-20** (103 ítems: 89 hechos, 3 en curso, 2 pendientes y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -66,13 +66,13 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #58 | Hecho | Francisco | Cámara de sala simulada para comprobar la app web con el flujo de una cámara fija (pedido de Francisco, 2026-11-09). Hecho (2026-11-09): `py… |
 | #59 | Hecho | Francisco | Subir al repositorio el mejor modelo del detector que tiene el equipo. Hecho (2026-11-14, PR #86): `weights/yolo26s-finetune.pt` (20 MB; mAP… |
 | #60 | Hecho | Mariana | Manuales de usuario (uno por perfil: Administrador, Jefe de Salón y Reponedor) y manual de instalación (instructivo del plan de instalación… |
-| #61 | En curso | Nicko | Video tutorial con audio (solo la ejecución de los módulos, sin código) y entrega del MVP al cliente: módulos, funcionalidades, instruccione… |
+| #61 | Hecho | Nicko | Video tutorial con audio (solo la ejecución de los módulos, sin código) y entrega del MVP al cliente: módulos, funcionalidades, instruccione… |
 | #62 | Hecho | Francisco | Script SQL que crea la estructura de la base y la puebla con datos de prueba, coherente con `web/models.py` (incluye `Config`, `Camera` y `U… |
 | #63 | Descartado | Sin asignar | Documentación SCRUM de la entrega final: análisis del caso; épicas, sprints e historias de usuario; priorización de las H.U. Se había entreg… |
-| #64 | En curso | Francisco y Nicko | Diagramas de actividad de los C.U (los pide la entrega final; no están en el repositorio). |
-| #65 | En curso | Francisco y Nicko | Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe Final`) y presentación final (ppt). Las pautas de reflexión individuales pasan a… |
+| #64 | Hecho | Francisco y Nicko | Diagramas de actividad de los C.U (los pide la entrega final; no están en el repositorio). **Hecho (2026-11-19)**: Nicko subió `Diagrama de… |
+| #65 | Hecho | Francisco y Nicko | Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe Final`) y presentación final (ppt). Las pautas de reflexión individuales pasan a… |
 | #66 | Hecho | Mariana | Reordenar las carpetas del GitHub según la imagen del profesor ("orden de carpetas GitHub (COMPLETO)", mensaje del 2026-11-13), sin cambiar… |
-| #67 | En curso | Mariana | Hojas semanales del Excel "RESUMEN Estado de Avance Casos de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive compartido con el… |
+| #67 | Hecho | Mariana | Hojas semanales del Excel "RESUMEN Estado de Avance Casos de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive compartido con el… |
 | #68 | Hecho | Francisco | Lo que #59 no cubrió: abrir los PR de `feat/ruido-camara` (#55) y `feat/camara-sala-simulada`, subidas el 2026-11-09 desde un PC de Duoc con… |
 | #69 | Descartado | Sin asignar | (dueño: Francisco) Evidencias que faltan (Reporte de Auditoría N.º 4, 2026-10-25): `Sandoval_Francisco_1.3_APT122_AutoevaluacionFase1.docx`… |
 | #70 | Hecho | Francisco | README (auditoría N.º 4: 6 de 7 elementos, falta "tecnologías"): sección explícita de Tecnologías (Python, Django, OpenCV, YOLO26/Ultralytic… |
@@ -106,6 +106,6 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #98 | Hecho | Mariana | Detalles de documentación para la entrega final (revisión del 2026-11-18): `Documento de Innovacion.md` y `Requisitos No Funcionales.md` (RN… |
 | #99 | Hecho | Mariana | Plan de pruebas en Word para ANEXOS de la entrega final (carpeta FINAL FASE 2 del Drive, «c. Plan de pruebas»). `docs/test-plan.md` no tenía… |
 | #100 | En curso | Mariana | Armar la carpeta FINAL FASE 2 del Drive compartido con el profesor (estructura del PDF del 2026-11-06, ver `docs/curso.md`), con los archivo… |
-| #101 | En curso | Mariana | Pauta de reflexión individual de Mariana para la entrega final (2026-11-20, 12:00): `Ramirez_Mariana_Pauta_de_reflexión_informe_de_avance_pr… |
-| #102 | En curso | Francisco | Pauta de reflexión individual de Francisco para la entrega final (2026-11-20, 12:00): `Sandoval_Francisco_Pauta_de_reflexión_informe_de_avan… |
-| #103 | En curso | Nicko | Pauta de reflexión individual de Nicko para la entrega final (2026-11-20, 12:00): `Cortes_Nicko_Pauta_de_reflexión_informe_de_avance_proyect… |
+| #101 | Hecho | Mariana | Pauta de reflexión y autoevaluación individuales de Mariana para la entrega final (2026-11-20, 12:00; «pautas» son las dos, según Mariana, 2… |
+| #102 | En curso | Francisco | Pauta de reflexión y autoevaluación individuales de Francisco para la entrega final (2026-11-20, 12:00; «pautas» son las dos, según Mariana,… |
+| #103 | Hecho | Nicko | Pauta de reflexión y autoevaluación individuales de Nicko para la entrega final (2026-11-20, 12:00; «pautas» son las dos, según Mariana, 202… |

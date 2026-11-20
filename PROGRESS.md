@@ -409,7 +409,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       contraseña) solo se escriben en el registro, partidos en
       quoted-printable, porque `web/settings.py` no lee un servidor SMTP, y
       todo `docker compose` exige el `.env` con `DJANGO_SECRET_KEY`.
-- [ ] **#61** (dueño: Nicko) Video tutorial con audio (solo la ejecución de los
+- [x] **#61** (dueño: Nicko) Video tutorial con audio (solo la ejecución de los
       módulos, sin código) y entrega del MVP al cliente: módulos,
       funcionalidades, instrucciones de acceso, video, manuales y
       agradecimiento al cliente. **El equipo no le escribe al cliente**
@@ -417,6 +417,12 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       se le manda al profesor por mensaje de AVA y él la hace llegar a
       Walmart. Ver si sirve el video de #36. Nicko hace el video
       (2026-11-16). El video debe mostrar el CU06 sin correo (#84).
+      **Hecho (2026-11-19)**: Nicko subió el video (PR #130): reemplaza a
+      `Aplicación/Video Modelo.mp4` (4:32 min, 1080p, con audio, solo la
+      app y sin código; fotos de Kaggle y de internet, ninguna de
+      SKU-110K) y está en «Video de tutorial» del Drive. El profesor
+      indicó que no hace falta mandar un mensaje con el video
+      (comunicado por Mariana el 2026-11-20).
 - [x] **#62** (dueño: Francisco) Script SQL que crea la estructura de la base y la puebla con
       datos de prueba, coherente con `web/models.py` (incluye `Config`,
       `Camera` y `User.locked_until`). Va en "Evidencias de sistema / Base
@@ -430,12 +436,22 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       entrega final: análisis del caso; épicas, sprints e historias de
       usuario; priorización de las H.U. Se había entregado el
       2026-11-15 como `Documentacion SCRUM.docx`; el #92 la elimina.
-- [ ] **#64** (dueño: Francisco y Nicko) Diagramas de actividad de los C.U (los pide la entrega
-      final; no están en el repositorio).
-- [ ] **#65** (dueño: Francisco y Nicko) Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
+- [x] **#64** (dueño: Francisco y Nicko) Diagramas de actividad de los C.U (los pide la entrega
+      final; no están en el repositorio). **Hecho (2026-11-19)**: Nicko
+      subió `Diagrama de Actividad CU00.png` a `CU07.png` en `Diseño/`
+      (PR #132) y en «Diagramas de actividad» del Drive; coinciden con
+      la app actual (CU06 sin correo, CU02 sin push).
+- [x] **#65** (dueño: Francisco y Nicko) Informe final de la Fase 2 (`PTY4478 APT2.0 FASE 2 Informe
       Final`) y presentación final (ppt). Las pautas de reflexión
       individuales pasan a un ítem por integrante: #101 (Mariana), #102
-      (Francisco) y #103 (Nicko). Entrega 2026-11-20 a las 12:00. Basta el Informe Final (la guía
+      (Francisco) y #103 (Nicko). Entrega 2026-11-20 a las 12:00.
+      **Hecho (2026-11-20)**: presentación subida por Nicko (PR #131);
+      se corrigieron la lámina 10 (cifras del modelo final: mAP50 0,935
+      en SKU-110K y 0,844 fuera de dominio) y la 15 (8 casos de uso, no
+      7) y se renombró a `Fase 2/Evidencias Proyecto/Presentación
+      Proyecto.pptx`, como pide el orden de carpetas. El Informe Final
+      dice qué quedó entregado al 2026-11-20 (video, diagramas,
+      presentación y Excel) y que solo faltan las pautas. Basta el Informe Final (la guía
       2.6 no se llena aparte) y va en español: el profesor no le exige
       inglés a este grupo (respuesta del 2026-11-18).
 - [x] **#66** (dueño: Mariana) Reordenar las carpetas del GitHub según la imagen del
@@ -451,7 +467,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       `docs/`. `Fase 1/` no se tocó (regla de CLAUDE.md), aunque sus
       nombres difieren de la imagen: queda como pregunta en
       `docs/curso.md`. `Presentación Proyecto.pptx` llega con el #65.
-- [ ] **#67** (dueño: Mariana) Hojas semanales del Excel "RESUMEN Estado de Avance Casos
+- [x] **#67** (dueño: Mariana) Hojas semanales del Excel "RESUMEN Estado de Avance Casos
       de Uso" desde la semana del 2026-10-26 (va en la raíz del Drive
       compartido con el profesor) y su versión para la entrega final.
       Avance (2026-11-16): hojas 5 a 8 (26-10 al 20-11) agregadas al Excel
@@ -462,7 +478,10 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       la cámara defectuosa, excepción 1a), CU07 al 85%; CU02 (push), CU03,
       CU05 (tiempo de tolerancia) y CU06 (SMTP) sin cambios. Falta
       actualizar la hoja del 16 al 20-11 con lo que se integre hasta la
-      entrega final y subir el Excel al Drive.
+      entrega final y subir el Excel al Drive. **Hecho (2026-11-19)**:
+      hoja 8 al día con lo integrado al 2026-11-17 (8 C.U al 100%; lo
+      que se integró después son documentos, sin cambios en la app) y
+      el Excel en el Drive, en la raíz de CAPSTONE y en FINAL FASE 2.
 
 - [x] **#69** (descartado 2026-11-19: Mariana indica que es la misma
       evidencia que la pauta de reflexión de Francisco, que sigue en el
@@ -1060,21 +1079,31 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       reflexión, la Evaluación formativa final, los diagramas de
       actividad (#64), el video tutorial (#61) y la presentación final
       si cambia (#65). Las pautas son los ítems #101 a #103.
-- [ ] **#101** (dueño: Mariana) Pauta de reflexión individual de Mariana
-      para la entrega final (2026-11-20, 12:00):
-      `Ramirez_Mariana_Pauta_de_reflexión_informe_de_avance_proyecto_APT`, en la
-      carpeta FINAL FASE 2 / FASE 2 / Evidencias individuales del Drive.
-      La plantilla la busca Mariana (2026-11-18).
-- [ ] **#102** (dueño: Francisco) Pauta de reflexión individual de Francisco
-      para la entrega final (2026-11-20, 12:00):
-      `Sandoval_Francisco_Pauta_de_reflexión_informe_de_avance_proyecto_APT`, en la
-      carpeta FINAL FASE 2 / FASE 2 / Evidencias individuales del Drive.
-      La plantilla la busca Mariana (2026-11-18). Reemplaza al #69.
-- [ ] **#103** (dueño: Nicko) Pauta de reflexión individual de Nicko
-      para la entrega final (2026-11-20, 12:00):
-      `Cortes_Nicko_Pauta_de_reflexión_informe_de_avance_proyecto_APT`, en la
-      carpeta FINAL FASE 2 / FASE 2 / Evidencias individuales del Drive.
-      La plantilla la busca Mariana (2026-11-18).
+      **2026-11-20**: ya están en el Drive los diagramas de actividad,
+      el video, la presentación corregida, las planillas de evaluación,
+      la formativa 2.3 y la guía 2.4 (Nicko las subió el 19-11) y las
+      autoevaluaciones 2.2 de Nicko y Mariana; el Informe Final, la
+      Carta Gantt y la presentación se reemplazaron por las versiones al
+      2026-11-20. Solo falta la autoevaluación 2.2 de Francisco (#102).
+- [x] **#101** (dueño: Mariana) Pauta de reflexión y autoevaluación individuales de Mariana
+      para la entrega final (2026-11-20, 12:00; «pautas» son las dos,
+      según Mariana, 2026-11-20: el diario de reflexión 2.1 y la
+      autoevaluación 2.2). **Hecho (2026-11-20)**: las dos completas, en
+      el repositorio y en el Drive. Van en FINAL FASE 2 / FASE 2 /
+      Evidencias individuales del Drive.
+- [ ] **#102** (dueño: Francisco) Pauta de reflexión y autoevaluación individuales de Francisco
+      para la entrega final (2026-11-20, 12:00; «pautas» son las dos,
+      según Mariana, 2026-11-20: el diario de reflexión 2.1 y la
+      autoevaluación 2.2). Su diario 2.1 ya está completo (repositorio y
+      Drive): **falta la autoevaluación 2.2**
+      (`Sandoval_Francisco_2.2_APT122_AutoevaluacionAvanceFase2.docx`). Van en FINAL FASE 2 / FASE 2 /
+      Evidencias individuales del Drive. Reemplaza al #69.
+- [x] **#103** (dueño: Nicko) Pauta de reflexión y autoevaluación individuales de Nicko
+      para la entrega final (2026-11-20, 12:00; «pautas» son las dos,
+      según Mariana, 2026-11-20: el diario de reflexión 2.1 y la
+      autoevaluación 2.2). **Hecho (2026-11-20)**: las dos completas, en
+      el repositorio y en el Drive. Van en FINAL FASE 2 / FASE 2 /
+      Evidencias individuales del Drive.
 - [x] **#31** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
