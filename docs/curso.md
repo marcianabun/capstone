@@ -13,7 +13,6 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 
 | Fecha | Hito | Qué se entrega / criterio | Fuente |
 | --- | --- | --- | --- |
-| A más tardar la semana del 2026-11-16 | Entrega del MVP al cliente (Walmart) | Mensaje de AVA al profesor, que la hace llegar a Walmart (el equipo no le escribe al cliente): video tutorial, manual de uso y manual de instalación; agradecer al cliente su participación. El profesor la valida antes de publicar los resultados finales | Semana 13 (2026-11-10); vía AVA, indicación comunicada el 2026-11-17 |
 | 2026-11-20, 12:00 | Entrega final Fase 2 | Carpeta "FINAL FASE 2" en Drive (estructura en "Requisitos vigentes") y GitHub ordenado; 100% de los C.U resueltos, un manual de usuario por perfil y manual de instalación | Semanas 12 (2026-11-02 y 2026-11-06) |
 | Semana del 2026-11-23 al 2026-11-27 | Ensayos de la presentación ante la comisión | Preparación de la presentación final | Semana 12 (2026-11-02) |
 | 2026-12-03 o 2026-12-04 (día exacto por confirmar) | Presentación formal del proyecto (exposición ante la Comisión, Fase 3) | - | Comunicado por Mariana, 2026-11-19 |
@@ -68,7 +67,10 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
   el correo con copia al profesor de la semana 13). El profesor la
   valida antes de publicar los resultados finales. El mensaje
   agradece al cliente su participación en el Capstone (tiempo,
-  disposición y apoyo para resolver dudas).
+  disposición y apoyo para resolver dudas). **Ya no hace falta mandar
+  ese mensaje con el video** (indicación del profesor, comunicada por
+  Mariana el 2026-11-20): el video tutorial y los manuales van en la
+  carpeta FINAL FASE 2 del Drive.
 - **GitHub de la Fase 2** (auditoría semanal): estructura de carpetas y
   nombres de archivo exactamente como en las instrucciones de
   auditoría; documentos con información real y al día (no carpetas ni
@@ -338,6 +340,15 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 ## Registro de mensajes
 
 Del más reciente al más antiguo.
+
+### Semana 14 (2026-11-20): sin mensaje con el video
+
+- Indicación del profesor, comunicada por Mariana: no es necesario
+  enviarle un mensaje con el video tutorial (entrega del MVP). Se quita
+  el hito de "Próximos hitos"; el video y los manuales quedan en la
+  carpeta FINAL FASE 2 del Drive (#61).
+- Para la entrega final, las "pautas" individuales son la pauta de
+  reflexión y la autoevaluación de cada integrante (#101 a #103).
 
 ### Semana 14 (2026-11-19): presentación formal
 
