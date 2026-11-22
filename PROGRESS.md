@@ -961,7 +961,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       en #76: la validación incluía cajas tapadas). Falta, y
       queda fuera de este ítem: medir por tipo y nivel de ruido, y con una
       cámara real (#24).
-- [ ] **#57** (dueño: Francisco) Auditoría de seguridad por las vulnerabilidades
+- [x] **#57** (dueño: Francisco) Auditoría de seguridad por las vulnerabilidades
       de lenguajes y librerías publicadas la semana del 2026-10-19 (pedido
       de Francisco, 2026-10-22). Investigar cuáles afectan a lo que usa el
       sitio (Python, Django, Pillow, OpenCV, ultralytics y PyTorch, fpdf2,
@@ -981,6 +981,21 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       arranca en este PC, error de WSL; lo corre Francisco desde su notebook;
       mientras tanto lo cubre el job `docker` del CI), escáner de imagen y `pip-audit` en el CI, y revisar
       torch/torchvision, que `pip-audit` no cubre.
+      Avance (2026-11-22): `pip-audit` encontró filelock 3.32.3 (13 avisos),
+      brotli 1.2.0 y setuptools 78.1.0 (solo el `.venv`): pisos
+      `filelock>=4.2.1` y `brotli>=1.2.1` en `requirements.txt`, setuptools
+      84.2.1, `pip-audit` sin hallazgos y 322 tests en verde. torch,
+      torchvision, OpenCV y ultralytics revisados a mano en los avisos de
+      GitHub: ninguno vigente. Nuevo `.github/workflows/auditoria.yml`
+      (pip-audit y Trivy sobre la imagen, cada lunes y en los PR que tocan
+      `requirements.txt` o el `Dockerfile`; no es check obligatorio). Falta:
+      ver el primer resultado de Trivy en el CI (Docker no corre en este PC).
+      Primer resultado: zlib1g de Debian y setuptools, wheel y
+      jaraco.context de la imagen base de Python; arreglados con
+      `apt-get upgrade` y `pip install --upgrade pip setuptools wheel` en
+      el `Dockerfile`; un setuptools 70.3.0 sin archivo (de la capa de la base)
+      va en `.trivyignore` con su motivo. **Hecho (2026-11-22)**: con eso, los
+      jobs `pip-audit` e `imagen` de la auditoría pasan en el CI.
 - [x] **#58** (dueño: Francisco) Cámara de sala simulada para comprobar la
       app web con el flujo de una cámara fija (pedido de Francisco,
       2026-11-09). Hecho (2026-11-09): `python manage.py simular_camara

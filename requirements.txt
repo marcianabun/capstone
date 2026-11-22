@@ -14,3 +14,5 @@ pytest-django>=4.9  # tests de la app web (pytest.ini)
 whitenoise>=6.7  # sirve estilos, fuente e iconos de la app web sin CDN
 pillow>=13.0  # Django valida la foto subida con Pillow (ImageField); 13.0 (2026-10-16) corrige ~35 CVE de decodificadores (docs/auditoria-seguridad.md)
 certifi>=2026.10.19  # quita la CA emSign (incidente de eMudhra); lo trae requests
+filelock>=4.2.1  # lo traen torch y ultralytics; 3.32.3 tiene 13 avisos de pip-audit (docs/auditoria-seguridad.md)
+brotli>=1.2.1  # lo trae py7zr; 1.2.0 tiene PYSEC-2026-4322
