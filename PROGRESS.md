@@ -990,6 +990,10 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       (pip-audit y Trivy sobre la imagen, cada lunes y en los PR que tocan
       `requirements.txt` o el `Dockerfile`; no es check obligatorio). Falta:
       ver el primer resultado de Trivy en el CI (Docker no corre en este PC).
+      Primer resultado: zlib1g de Debian y setuptools, wheel y
+      jaraco.context de la imagen base de Python; arreglados con
+      `apt-get upgrade` y `pip install --upgrade pip setuptools wheel` en
+      el `Dockerfile`.
 - [x] **#58** (dueño: Francisco) Cámara de sala simulada para comprobar la
       app web con el flujo de una cámara fija (pedido de Francisco,
       2026-11-09). Hecho (2026-11-09): `python manage.py simular_camara

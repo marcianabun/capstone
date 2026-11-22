@@ -33,10 +33,11 @@ jobs:
       # Se audita el entorno ya instalado (no `-r requirements.txt`, que resolveria de
       # nuevo y bajaria GB de CUDA). torch y torchvision vienen del indice de PyTorch
       # (+cpu): pip-audit no los encuentra en PyPI y los lista como "no auditados"
-      # (se revisan a mano en docs/auditoria-seguridad.md).
+      # (se revisan a mano en docs/auditoria-seguridad.md). Se sube setuptools porque
+      # el Python del runner trae uno con avisos (78.1.0) que no es de la app.
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools
           pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
           pip install -r requirements.txt pip-audit==2.10.1
 

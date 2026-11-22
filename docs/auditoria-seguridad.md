@@ -142,11 +142,27 @@ No es un check que exija `main`: un aviso nuevo no debe bloquear un PR que no
 lo causó. Si falla, se ve en la pestaña Actions y GitHub avisa por correo a
 quien la creó o la editó por última vez.
 
+### Primer resultado de Trivy y pip-audit en el CI (2026-11-22)
+
+Sobre la imagen construida con las dependencias ya subidas, Trivy marcó 5
+avisos HIGH con arreglo publicado, y `pip-audit` en el runner, el mismo
+setuptools:
+
+- **zlib1g** (Debian, CVE-2026-85091: desbordamiento de memoria en
+  `gz_vacate()`): la base `python:3.13-slim-trixie` aún no trae el parche
+  (`1.3.1-1+deb13u1`). La app no descomprime gzip de usuarios, pero la
+  librería la cargan Python y OpenCV. **Arreglo**: `apt-get upgrade` en el
+  `Dockerfile`, que aplica los parches de seguridad pendientes de la base.
+- **setuptools 78.1.0, wheel 0.45.1 y jaraco.context 5.3.0** (CVE-2025-47273,
+  CVE-2026-24049, CVE-2026-23949): vienen con la imagen base de Python; el
+  último es una copia que setuptools lleva adentro. No los usa la app, pero
+  están en la imagen. **Arreglo**: `pip install --upgrade pip setuptools
+  wheel` en el `Dockerfile` (y `setuptools` en el job `pip-audit`).
+
 ## Pendiente
 
-1. Mirar el primer resultado de la auditoría en el CI y arreglar lo que
-   marque Trivy sobre la imagen (no se pudo correr en este PC: Docker
-   Desktop no arranca).
+1. Confirmar en el CI que Trivy y `pip-audit` salen limpios con estos
+   arreglos.
 2. La configuración de la app (DEBUG apagado por defecto, cookies seguras,
    usuario sin privilegios en el contenedor) es el ítem #50.
 3. Si se instala en otro servidor, repetir `pip-audit` y la revisión de
