@@ -1032,7 +1032,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       dentro de `SHELFVISION_PHOTOS_DIR` (`data/raw/` por defecto), resueltas
       con `resolve()`; solo Administrador y Jefe de Salón (ya lo eran); mismos
       topes de 20 MB y 50 megapíxeles por foto; una foto mala se informa por
-      nombre y no frena a las demás. 7 tests nuevos (321 en total) y WEB-10 en
+      nombre y no frena a las demás. 8 tests nuevos (322 en total) y WEB-10 en
       `docs/test-plan.md`. No se muestra la ruta de la foto anotada en el
       detalle (revelaría la estructura del servidor): queda en el README.
 - [x] **#96** (dueño: Nicko) Paginación de la lista «Últimos análisis» (pedido de

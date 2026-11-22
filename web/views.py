@@ -24,7 +24,7 @@ from django.utils import timezone
 from django.utils.encoding import force_bytes
 from django.utils.http import url_has_allowed_host_and_scheme, urlsafe_base64_encode
 from django.views.decorators.http import require_POST
-from PIL import Image, UnidentifiedImageError
+from PIL import Image
 
 from src.pipeline import LensCalibration, run_image
 from src.preprocessing.camera_check import camera_fault
@@ -182,13 +182,16 @@ def analyze_paths(paths, user, pasillo, gondola):
         try:
             with Image.open(path) as image:
                 error = photo_limit(path.stat().st_size, image.width * image.height)
+        except FileNotFoundError:  # la foto desapareció: no sirve seguir
+            raise
+        # ImportError: con un archivo que no es imagen, Pillow nuevo intenta cargar un plugin (pi_heif).
+        except (OSError, ImportError, Image.DecompressionBombError):
+            errors.append(f"{path.name}: no se pudo leer la imagen.")
+            continue
+        try:
             if error:
                 raise ValueError(error)
             done.append(analyze(SimpleUploadedFile(path.name, path.read_bytes()), user, pasillo, gondola))
-        except FileNotFoundError:  # sin pesos del modelo (o la foto desapareció): no sirve seguir
-            raise
-        except (UnidentifiedImageError, Image.DecompressionBombError):
-            errors.append(f"{path.name}: no se pudo leer la imagen.")
         except ValueError as error:
             errors.append(f"{path.name}: {error}")
     return done, errors

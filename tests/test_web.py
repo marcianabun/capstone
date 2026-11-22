@@ -413,6 +413,22 @@ def test_una_foto_mala_de_la_carpeta_no_frena_las_demas(client, analyzer, carpet
     assert list(Analysis.objects.values_list("photo_name", flat=True)) == ["buena.png"]
 
 
+def test_foto_ilegible_no_da_error_aunque_pillow_intente_instalar_un_plugin(client, analyzer, carpeta, monkeypatch):
+    # En la imagen Docker (Pillow mas nuevo) Image.open() de un archivo que no es imagen intenta cargar el
+    # plugin pi_heif y levanta ModuleNotFoundError en vez de UnidentifiedImageError: el CI lo vio como un 500.
+    client.force_login(make_user("1-9", JEFE))
+    save_photo(carpeta, "a.png")
+
+    def open_without_plugin(*args, **kwargs):
+        raise ModuleNotFoundError("No module named 'pi_heif'")
+
+    monkeypatch.setattr(views.Image, "open", open_without_plugin)
+    response = post_ruta(client, carpeta)
+    assert response.status_code == 200
+    assert "a.png: no se pudo leer la imagen" in response.content.decode()
+    assert not Analysis.objects.exists()
+
+
 def test_estados_vacios(client):
     client.force_login(make_user("1-9", JEFE))
     assert "Sin quiebres abiertos" in client.get(reverse("alertas")).content.decode()
