@@ -61,6 +61,9 @@ jobs:
           tags: shelfvision-ai:audit
           cache-from: type=gha
 
+      - name: Donde esta setuptools (diagnostico temporal)
+        run: docker run --rm shelfvision-ai:audit find / -iname "setuptools*" -maxdepth 8 -not -path "/proc/*" -not -path "*/setuptools/*"
+
       # Solo avisos HIGH y CRITICAL con arreglo publicado: sin arreglo no hay nada que
       # hacer salvo esperar (ignore-unfixed). Version de trivy fijada, como la accion.
       - name: Trivy
