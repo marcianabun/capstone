@@ -331,6 +331,104 @@ def test_archivo_que_no_es_imagen_se_rechaza(client):
     assert not Analysis.objects.exists()
 
 
+# --- #95: analizar una foto o una carpeta indicando su ruta ---
+
+@pytest.fixture
+def carpeta(settings, tmp_path):
+    """La carpeta permitida para las rutas (SHELFVISION_PHOTOS_DIR)."""
+    settings.PHOTOS_DIR = tmp_path / "raw"
+    settings.PHOTOS_DIR.mkdir()
+    return settings.PHOTOS_DIR
+
+
+def save_photo(folder, name, empty=None):
+    cv2.imwrite(str(folder / name), gondola(empty)[0])
+
+
+def post_ruta(client, ruta):
+    return client.post(reverse("analisis"), {"pasillo": "3", "gondola": "14B", "ruta": str(ruta)})
+
+
+def test_ruta_de_una_foto_se_analiza_y_lleva_al_detalle(client, analyzer, carpeta):
+    user = make_user("1-9", JEFE)
+    client.force_login(user)
+    save_photo(carpeta, "a.png", EMPTIED)
+    response = post_ruta(client, "a.png")  # relativa a la carpeta permitida
+    analysis = Analysis.objects.get()
+    assert response.url == reverse("analisis_detalle", args=[analysis.pk])
+    assert (analysis.photo_name, analysis.created_by, analysis.critical) == ("a.png", user, True)
+
+
+def test_ruta_de_una_carpeta_analiza_solo_sus_imagenes(client, analyzer, carpeta):
+    client.force_login(make_user("1-9", JEFE))
+    for name in ("1.png", "2.png", "3.png"):
+        save_photo(carpeta, name)
+    (carpeta / "notas.txt").write_text("no es una foto")
+    response = post_ruta(client, carpeta)  # absoluta, dentro de la carpeta permitida
+    assert response.url == reverse("analisis")
+    assert sorted(Analysis.objects.values_list("photo_name", flat=True)) == ["1.png", "2.png", "3.png"]
+
+
+def test_ruta_fuera_de_la_carpeta_permitida_se_rechaza(client, analyzer, carpeta):
+    client.force_login(make_user("1-9", JEFE))
+    save_photo(carpeta.parent, "fuera.png")
+    for ruta in ("../fuera.png", carpeta.parent):  # con «..» y absoluta
+        assert "fuera de la carpeta permitida" in post_ruta(client, ruta).content.decode()
+    assert not Analysis.objects.exists()
+
+
+def test_ruta_que_no_existe_se_rechaza(client, analyzer, carpeta):
+    client.force_login(make_user("1-9", JEFE))
+    assert "No existe" in post_ruta(client, "nada.png").content.decode()
+    assert not Analysis.objects.exists()
+
+
+def test_hay_que_elegir_una_foto_o_una_ruta_pero_no_las_dos(client, analyzer, carpeta):
+    client.force_login(make_user("1-9", JEFE))
+    save_photo(carpeta, "a.png")
+    neither = client.post(reverse("analisis"), {"pasillo": "3", "gondola": "14B"})
+    both = client.post(reverse("analisis"), {"pasillo": "3", "gondola": "14B", "foto": photo(), "ruta": "a.png"})
+    assert "foto o una ruta" in neither.content.decode()
+    assert "foto o una ruta" in both.content.decode()
+    assert not Analysis.objects.exists()
+
+
+def test_carpeta_con_demasiadas_fotos_se_rechaza(client, analyzer, carpeta, monkeypatch):
+    # Una carpeta de miles de fotos (SKU-110K) tendría la página girando horas.
+    client.force_login(make_user("1-9", JEFE))
+    monkeypatch.setattr(forms, "MAX_FOLDER_PHOTOS", 1)
+    save_photo(carpeta, "1.png")
+    save_photo(carpeta, "2.png")
+    assert "más de 1 fotos" in post_ruta(client, carpeta).content.decode()
+    assert not Analysis.objects.exists()
+
+
+def test_una_foto_mala_de_la_carpeta_no_frena_las_demas(client, analyzer, carpeta):
+    client.force_login(make_user("1-9", JEFE))
+    save_photo(carpeta, "buena.png")
+    (carpeta / "mala.png").write_bytes(b"no soy una imagen")
+    response = post_ruta(client, carpeta)
+    assert response.status_code == 200
+    assert "1 de 2 fotos analizadas" in response.content.decode() and "mala.png" in response.content.decode()
+    assert list(Analysis.objects.values_list("photo_name", flat=True)) == ["buena.png"]
+
+
+def test_foto_ilegible_no_da_error_aunque_pillow_intente_instalar_un_plugin(client, analyzer, carpeta, monkeypatch):
+    # En la imagen Docker (Pillow mas nuevo) Image.open() de un archivo que no es imagen intenta cargar el
+    # plugin pi_heif y levanta ModuleNotFoundError en vez de UnidentifiedImageError: el CI lo vio como un 500.
+    client.force_login(make_user("1-9", JEFE))
+    save_photo(carpeta, "a.png")
+
+    def open_without_plugin(*args, **kwargs):
+        raise ModuleNotFoundError("No module named 'pi_heif'")
+
+    monkeypatch.setattr(views.Image, "open", open_without_plugin)
+    response = post_ruta(client, carpeta)
+    assert response.status_code == 200
+    assert "a.png: no se pudo leer la imagen" in response.content.decode()
+    assert not Analysis.objects.exists()
+
+
 def test_estados_vacios(client):
     client.force_login(make_user("1-9", JEFE))
     assert "Sin quiebres abiertos" in client.get(reverse("alertas")).content.decode()

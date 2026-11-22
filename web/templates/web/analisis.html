@@ -4,7 +4,7 @@
 <div class="page-head">
   <div>
     <h1>Análisis de góndolas</h1>
-    <p>Sube una foto: el sistema mide el espacio libre de cada repisa y abre una alerta si hay quiebre.</p>
+    <p>Sube una foto, o indica la ruta de una foto o carpeta del servidor: el sistema mide el espacio libre de la góndola y abre una alerta si hay quiebre.</p>
   </div>
 </div>
 <section class="panel" aria-labelledby="subir">
@@ -19,6 +19,7 @@
       <span class="help" id="{{ form.foto.auto_id }}_helptext">{{ form.foto.help_text }}</span>
       {% for error in form.foto.errors %}<span class="err">{{ error }}</span>{% endfor %}
     </div>
+    {% include "web/_field.html" with field=form.ruta %}
     <button type="submit" class="btn"><svg class="icon" aria-hidden="true"><use href="#i-upload-simple"/></svg><span>Analizar</span></button>
   </form>
   <script>

@@ -461,6 +461,19 @@ python manage.py runserver          # http://localhost:8000
   poca luz, ruido, JPEG fuerte), una cada 10 s. Los resultados aparecen en
   Góndolas, Alertas y Análisis. Usar fotos que se puedan mostrar (Kaggle
   CC0, no SKU-110K).
+- **Analizar por ruta (#95)**: en Análisis, el campo «Ruta de una foto o
+  carpeta» (Administrador y Jefe de Salón) reemplaza a subir la foto: una
+  foto o las `.jpg`/`.png` de una carpeta (hasta 20, sin subcarpetas), con
+  el pasillo y la góndola del formulario para todas, como
+  `simular_camara`. Solo se leen rutas dentro de `SHELFVISION_PHOTOS_DIR`
+  (por defecto `data/raw/`; `..` y enlaces que salgan de ella se
+  rechazan) y cada foto pasa los mismos topes de 20 MB y 50 megapíxeles; una
+  foto mala se informa por nombre y no frena a las demás. No se aceptan URL
+  (se descartó por el riesgo de SSRF). De cada foto solo se guarda la
+  anotada, en `<SHELFVISION_DATA_DIR>/media/analisis/<uuid>.jpg` (en
+  Docker, `/data/media/analisis/`); la original no se copia. En Docker, la
+  carpeta permitida es un volumen que el servidor monta. No usar fotos de
+  SKU-110K ante terceros.
 - **Privacidad de las fotos (RNF05)**: las fotos de tienda pueden mostrar
   clientes. `python manage.py borrar_fotos --dias 30` borra las fotos
   analizadas con más de 30 días y conserva sus resultados (% libre,
@@ -481,7 +494,8 @@ Variables de entorno (todas opcionales en desarrollo):
 `weights/yolo26n.pt`, versionado: la foto con la góndola tapada más de 50 %
 por una persona se rechaza en vez de dar una falsa alerta, #77; vacía,
 apaga la búsqueda), `SHELFVISION_DATA_DIR` (base y fotos; por defecto
-`data/processed/web/`), `DJANGO_DEBUG` (`0` por defecto; `1` solo en tu
+`data/processed/web/`), `SHELFVISION_PHOTOS_DIR` (carpeta desde la que
+Análisis lee fotos por ruta, #95; por defecto `data/raw/`), `DJANGO_DEBUG` (`0` por defecto; `1` solo en tu
 PC de desarrollo), `DJANGO_SECRET_KEY` (obligatoria con `DJANGO_DEBUG=0`),
 `DJANGO_ALLOWED_HOSTS` (separados por coma), `DJANGO_HTTPS` (`1` por
 defecto sin debug: cookies seguras y redirección a https; `0` en un
