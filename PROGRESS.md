@@ -752,13 +752,30 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
         la recarga automática cada 60 s de Alertas (WCAG 2.2.1; exige
         reemplazarla por una consulta con JavaScript) y los errores de campo
         sin `aria-describedby`.
-- [ ] **#46** Falsas alertas en refrigeradores con puerta de vidrio
+- [ ] **#46** (dueño: Francisco) Falsas alertas en refrigeradores con puerta de vidrio
       (#34, fotos 020 y 003 de Kaggle): el reflejo y el desenfoque de la
       puerta en primer plano, los marcos entre puertas y una repisa en
       sombra cuentan como huecos. Propuesta: excluir zonas desenfocadas
       (nitidez local) y acotar la góndola a la parte enfocada; tratar los
       marcos de puerta. Es la condición más parecida a una cámara de sala
       que falla dentro del alcance.
+      Avance (2026-11-22): con `yolo26s-finetune-ruido-v3` las dos fotos ya
+      no alertan (003: 41% -> 18%; 020: 34% -> 29%, a 1 punto del umbral; la
+      anotación a mano da 11%). **No sirve como prueba de que esté resuelto**:
+      003 y 020 están en `TRAIN_PHOTOS` del fine-tuning
+      (`prepare_finetune_dataset.py`), así que el modelo las vio. En 020 lo
+      que sigue contando como hueco es la puerta borrosa del primer plano
+      (~40% del ancho), los marcos entre puertas y los carteles de precio.
+      Prototipo de nitidez local (razón entre la varianza del Laplaciano y la
+      del contraste, por celdas de 48 px, en `Supermarket shelves`): con
+      umbral 0.01 marca 13% de 020, pero también 29% de 039 y 31% de 045, y
+      un umbral más alto marca 5 a 30% de fotos nítidas; separa mal y no hay
+      forma de afinarlo con una sola foto mala. Una repisa vacía también es
+      lisa, así que un filtro de nitidez podría tapar quiebres reales. Sin
+      código. Falta: fotos de refrigeradores con vidrio que el modelo no haya
+      visto (Roboflow, SHARD o propias) para medir antes y después; con ellas,
+      decidir si se filtra por nitidez (reusando `occluders`) o se cierra el
+      ítem por el fine-tuning.
 - [x] **#45** (dueño: Mariana) Privacidad de las fotos (RNF05): las fotos guardadas
       pueden mostrar clientes. Proponer a Walmart (#24) borrarlas tras N
       días o difuminar rostros antes de guardarlas. Hallazgo 17.
