@@ -1,0 +1,6 @@
+# Avisos de Trivy que no aplican a la imagen (auditoria.yml, #57). Cada linea lleva su motivo.
+
+# setuptools 70.3.0: es el registro de la capa de la imagen base de Python, sin archivo
+# (FilePath vacio en `trivy --format json --list-all-pkgs`). El setuptools instalado es el
+# 84.2.1 (`pip install --upgrade setuptools` del Dockerfile), que ya trae el arreglo (>= 78.1.1).
+CVE-2025-47273

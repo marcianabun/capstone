@@ -993,7 +993,8 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Primer resultado: zlib1g de Debian y setuptools, wheel y
       jaraco.context de la imagen base de Python; arreglados con
       `apt-get upgrade` y `pip install --upgrade pip setuptools wheel` en
-      el `Dockerfile`.
+      el `Dockerfile`; un setuptools 70.3.0 sin archivo (de la capa de la base)
+      va en `.trivyignore` con su motivo.
 - [x] **#58** (dueño: Francisco) Cámara de sala simulada para comprobar la
       app web con el flujo de una cámara fija (pedido de Francisco,
       2026-11-09). Hecho (2026-11-09): `python manage.py simular_camara

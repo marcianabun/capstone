@@ -159,10 +159,19 @@ setuptools:
   están en la imagen. **Arreglo**: `pip install --upgrade pip setuptools
   wheel` en el `Dockerfile` (y `setuptools` en el job `pip-audit`).
 
+- **Un setuptools 70.3.0 fantasma** (CVE-2025-47273): tras los arreglos,
+  Trivy siguió marcando esa versión. No es un archivo de la imagen final:
+  `trivy --format json --list-all-pkgs` la da sin ruta y de la capa de la
+  imagen base, mientras que el setuptools instalado es el 84.2.1, ya
+  corregido (la misma CVE tiene arreglo desde 78.1.1). Se anota en
+  `.trivyignore`, con su motivo, para que la auditoría no falle por un
+  registro que no existe. Si cambia la imagen base, revisar si la línea sigue
+  haciendo falta.
+
 ## Pendiente
 
-1. Confirmar en el CI que Trivy y `pip-audit` salen limpios con estos
-   arreglos.
+1. Cada lunes, mirar el resultado de la auditoría en la pestaña Actions
+   (GitHub avisa por correo si falla).
 2. La configuración de la app (DEBUG apagado por defecto, cookies seguras,
    usuario sin privilegios en el contenedor) es el ítem #50.
 3. Si se instala en otro servidor, repetir `pip-audit` y la revisión de

@@ -71,9 +71,4 @@ jobs:
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: "1"
-
-      - name: Trivy JSON (diagnostico temporal)
-        if: always()
-        run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:/out" ghcr.io/aquasecurity/trivy:0.76.1 image --format json --output /out/trivy.json --list-all-pkgs shelfvision-ai:audit || true
-          python3 -c "import json;[print('PKG', p.get('Name'), p.get('Version'), p.get('FilePath'), p.get('Layer',{}).get('DiffID','')[:19]) for r in json.load(open('trivy.json'))['Results'] for p in r.get('Packages') or [] if p.get('Name')=='setuptools']"
+          trivyignores: .trivyignore
