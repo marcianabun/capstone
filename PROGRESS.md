@@ -961,7 +961,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       en #76: la validación incluía cajas tapadas). Falta, y
       queda fuera de este ítem: medir por tipo y nivel de ruido, y con una
       cámara real (#24).
-- [ ] **#57** (dueño: Francisco) Auditoría de seguridad por las vulnerabilidades
+- [x] **#57** (dueño: Francisco) Auditoría de seguridad por las vulnerabilidades
       de lenguajes y librerías publicadas la semana del 2026-10-19 (pedido
       de Francisco, 2026-10-22). Investigar cuáles afectan a lo que usa el
       sitio (Python, Django, Pillow, OpenCV, ultralytics y PyTorch, fpdf2,
@@ -994,7 +994,8 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       jaraco.context de la imagen base de Python; arreglados con
       `apt-get upgrade` y `pip install --upgrade pip setuptools wheel` en
       el `Dockerfile`; un setuptools 70.3.0 sin archivo (de la capa de la base)
-      va en `.trivyignore` con su motivo.
+      va en `.trivyignore` con su motivo. **Hecho (2026-11-22)**: con eso, los
+      jobs `pip-audit` e `imagen` de la auditoría pasan en el CI.
 - [x] **#58** (dueño: Francisco) Cámara de sala simulada para comprobar la
       app web con el flujo de una cámara fija (pedido de Francisco,
       2026-11-09). Hecho (2026-11-09): `python manage.py simular_camara
