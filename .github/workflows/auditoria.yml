@@ -75,5 +75,5 @@ jobs:
       - name: Trivy JSON (diagnostico temporal)
         if: always()
         run: |
-          docker run --rm -v "$PWD:/out" ghcr.io/aquasecurity/trivy:0.76.1 image --format json --output /out/trivy.json --severity HIGH,CRITICAL --ignore-unfixed shelfvision-ai:audit 2>/dev/null || true
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:/out" ghcr.io/aquasecurity/trivy:0.76.1 image --format json --output /out/trivy.json --severity HIGH,CRITICAL --ignore-unfixed shelfvision-ai:audit || true
           python3 -c "import json;[print(r['Target'], v['PkgName'], v['PkgPath'] if 'PkgPath' in v else '-', v['InstalledVersion'], v['VulnerabilityID']) for r in json.load(open('trivy.json'))['Results'] for v in r.get('Vulnerabilities') or []]"
