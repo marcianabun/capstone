@@ -16,10 +16,23 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 | 2026-11-20, 12:00 | Entrega final Fase 2 | Carpeta "FINAL FASE 2" en Drive (estructura en "Requisitos vigentes") y GitHub ordenado; 100% de los C.U resueltos, un manual de usuario por perfil y manual de instalación | Semanas 12 (2026-11-02 y 2026-11-06) |
 | Semana del 2026-11-23 al 2026-11-27 | Ensayos de la presentación ante la comisión | Preparación de la presentación final | Semana 12 (2026-11-02) |
 | 2026-12-03 o 2026-12-04 (día exacto por confirmar) | Presentación formal del proyecto (exposición ante la Comisión, Fase 3) | - | Comunicado por Mariana, 2026-11-19 |
+| Por definir | Enlace del repositorio de código para Walmart | Crear un repositorio nuevo en GitHub solo con código, README y documentación técnica (sin documentos académicos de las Fases 1, 2 y 3) y enviarle el enlace al profesor | Semana 14 (2026-11-22) |
 | Por definir | Pre-examen (Fase 2) | - | README |
 
 ## Requisitos vigentes
 
+- **Repositorio de código para Walmart** (2026-11-22): todos los equipos
+  del proyecto Walmart crean un repositorio nuevo en GitHub, solo para que
+  el cliente revise y evalúe los algoritmos contra el quiebre de stock. El
+  profesor incorpora el enlace al último documento consolidado que se le
+  entrega al cliente. Contenido exclusivo:
+  - **Código fuente**, ordenado y documentado.
+  - **`README.md`** con descripción del proyecto, estructura, algoritmos
+    implementados e instrucciones de instalación y ejecución.
+  - **Documentación técnica** que explique la lógica de la solución.
+  - Quedan **excluidos** los documentos académicos y administrativos de
+    las Fases 1, 2 y 3 de Capstone. Es un repositorio aparte del
+    GitHub de la Fase 2 (auditoría).
 - **GitHub para la revisión final de Walmart** (2026-11-16, lunes): el
   repositorio debe tener la última versión del desarrollo y los
   entregables. El cliente lo revisa para cerrar las calificaciones de la
@@ -286,6 +299,11 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 
 ## Preguntas abiertas para el profesor
 
+- Repositorio de código para Walmart (2026-11-22): ¿cuál es la fecha
+  límite para enviar el enlace? ¿El repositorio puede ser público, o debe
+  ser privado con acceso para el cliente? ¿Lleva los pesos del detector
+  (entrenados con SKU-110K, de licencia académica) y los datasets, o solo
+  el código y la documentación?
 - ¿La presentación formal (exposición ante la Comisión) es el
   2026-12-03 o el 2026-12-04, y a qué hora?
 - "100% de los C.U resueltos": CU07 (evaluar con un lote) corre por la
@@ -340,6 +358,20 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 ## Registro de mensajes
 
 Del más reciente al más antiguo.
+
+### Semana 14 (2026-11-22): repositorio de código para Walmart
+
+Mensaje del profesor a todos los equipos del proyecto Walmart.
+
+- Pide crear un repositorio nuevo en GitHub, solo para que el cliente
+  revise, analice y evalúe los algoritmos del quiebre de stock.
+- Contenido: código fuente ordenado y documentado, `README.md` (proyecto,
+  estructura, algoritmos, instalación y ejecución) y documentación técnica
+  de la lógica de la solución. Sin documentos académicos ni
+  administrativos de las Fases 1, 2 y 3.
+- Hay que enviarle el enlace al profesor, que lo incorpora al último
+  documento consolidado que recibe Walmart para su revisión final. No
+  dio fecha límite (pregunta abierta).
 
 ### Semana 14 (2026-11-20): sin mensaje con el video
 
