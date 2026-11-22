@@ -1104,6 +1104,22 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       autoevaluación 2.2). **Hecho (2026-11-20)**: las dos completas, en
       el repositorio y en el Drive. Van en FINAL FASE 2 / FASE 2 /
       Evidencias individuales del Drive.
+- [ ] **#104** (dueño: Francisco) Repositorio de código para que Walmart
+      revise los algoritmos (mensaje del profesor, 2026-11-22): repositorio
+      nuevo en GitHub solo con el código fuente (`src/`, `web/`,
+      `scripts/`, `tests/`, `Dockerfile`), un `README.md` (descripción,
+      estructura, algoritmos, instalación y ejecución) y la documentación
+      técnica de la lógica de la solución. Sin documentos académicos ni
+      administrativos de las Fases 1, 2 y 3 (`Fase 1/`, `Fase 2/`), ni
+      minutas, bitácora, Carta Gantt ni archivos de Claude Code
+      (`CLAUDE.md`, `.claude/`). Al terminar, enviarle el enlace al
+      profesor. **Cuándo**: no se empieza hasta que el MVP esté terminado
+      al 100% y pulido (indicación de Francisco, 2026-11-22), para que el
+      repositorio muestre la versión final. **Autoría**: Claude no figura
+      como coautor del repositorio (ni `Co-Authored-By` ni pie en PR).
+      Fecha límite: por definir (pregunta abierta en `docs/curso.md`:
+      también si es público o privado y si lleva los pesos del detector,
+      de SKU-110K, de licencia académica).
 - [x] **#31** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
