@@ -1119,13 +1119,17 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       autoevaluación 2.2). **Hecho (2026-11-20)**: las dos completas, en
       el repositorio y en el Drive. Van en FINAL FASE 2 / FASE 2 /
       Evidencias individuales del Drive.
-- [ ] **#102** (dueño: Francisco) Pauta de reflexión y autoevaluación individuales de Francisco
+- [x] **#102** (dueño: Francisco) Pauta de reflexión y autoevaluación individuales de Francisco
       para la entrega final (2026-11-20, 12:00; «pautas» son las dos,
       según Mariana, 2026-11-20: el diario de reflexión 2.1 y la
-      autoevaluación 2.2). Su diario 2.1 ya está completo (repositorio y
-      Drive): **falta la autoevaluación 2.2**
-      (`Sandoval_Francisco_2.2_APT122_AutoevaluacionAvanceFase2.docx`). Van en FINAL FASE 2 / FASE 2 /
-      Evidencias individuales del Drive. Reemplaza al #69.
+      autoevaluación 2.2). Su diario 2.1 ya estaba completo (repositorio y
+      Drive). **Hecho (2026-11-22)**: la autoevaluación 2.2
+      (`Sandoval_Francisco_2.2_APT122_AutoevaluacionAvanceFase2.docx`), con
+      la misma plantilla y marcas «(X)» que las de Nicko y Mariana. Marcó:
+      1, 2, 3 y 4 «Completamente logrado»; 5, 6 y 7 «Logrado»; 8 (inglés)
+      «No logrado», porque el profesor no lo exige a este grupo (2026-11-18),
+      igual que sus compañeros. Total 82% (formativa, sin nota). Va en FINAL
+      FASE 2 / FASE 2 / Evidencias individuales del Drive. Reemplaza al #69.
 - [x] **#103** (dueño: Nicko) Pauta de reflexión y autoevaluación individuales de Nicko
       para la entrega final (2026-11-20, 12:00; «pautas» son las dos,
       según Mariana, 2026-11-20: el diario de reflexión 2.1 y la
