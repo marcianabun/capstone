@@ -1002,7 +1002,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       avisa y no genera archivo). Una fila por análisis: fecha, pasillo,
       góndola, % libre, alerta, estado y quién subió la foto. Por qué
       estos formatos: tabla de decisiones técnicas del README.
-- [ ] **#95** Analizar fotos indicando la ruta o la URL de un dataset, en
+- [x] **#95** (dueño: Francisco) Analizar fotos indicando la ruta o la URL de un dataset, en
       vez de subirlas una por una (pedido de Francisco, 2026-11-16). Hoy
       «Análisis» (`PhotoForm`, `analyze()`) solo recibe un archivo subido.
       Dónde quedan las imágenes hoy: solo la foto **anotada** (con huecos
@@ -1024,6 +1024,17 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       y el tope de 20 MB y 50 megapíxeles de hoy; las fotos de SKU-110K no
       se pueden mostrar a terceros (`CLAUDE.md`, licencias). Decidir con el
       equipo si la URL es de una foto o de un dataset completo.
+      **Hecho (2026-11-22)**, alcance decidido por Francisco: solo ruta, sin
+      URL (que quedaría como ítem aparte si hace falta). En Análisis, el
+      campo «Ruta de una foto o carpeta» reemplaza a subir la foto: una foto
+      o las `.jpg`/`.png` de una carpeta (hasta 20, sin subcarpetas), con el
+      pasillo y la góndola del formulario para todas. Solo se leen rutas
+      dentro de `SHELFVISION_PHOTOS_DIR` (`data/raw/` por defecto), resueltas
+      con `resolve()`; solo Administrador y Jefe de Salón (ya lo eran); mismos
+      topes de 20 MB y 50 megapíxeles por foto; una foto mala se informa por
+      nombre y no frena a las demás. 7 tests nuevos (321 en total) y WEB-10 en
+      `docs/test-plan.md`. No se muestra la ruta de la foto anotada en el
+      detalle (revelaría la estructura del servidor): queda en el README.
 - [x] **#96** (dueño: Nicko) Paginación de la lista «Últimos análisis» (pedido de
       Francisco, 2026-11-16). Hoy `analisis()` corta en 50 con
       `[:50]` y no hay cómo ver los anteriores. Propuesta: `Paginator` de

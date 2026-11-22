@@ -1,6 +1,8 @@
 import json
+from pathlib import Path
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
 
@@ -11,6 +13,9 @@ from web.models import ADMIN, ROLES, Camera, Config, User
 MAX_PHOTO_MB = 20
 # Un PNG casi vacio pesa unos KB y decodificado ocupa cientos de MB: el tope va en pixeles, no solo en bytes.
 MAX_PHOTO_MEGAPIXELS = 50
+# Fotos por carpeta al analizar por ruta (#95): cada una tarda segundos en CPU y la pagina espera todas.
+MAX_FOLDER_PHOTOS = 20
+PHOTO_SUFFIXES = {".jpg", ".jpeg", ".png"}
 
 
 class LoginForm(AuthenticationForm):
@@ -82,15 +87,53 @@ class PhotoForm(forms.Form):
     def clean_gondola(self):
         return location(self.cleaned_data["gondola"])
     foto = forms.ImageField(label="Foto de la góndola", help_text=f"JPG o PNG, hasta {MAX_PHOTO_MB} MB.",
-                            widget=forms.FileInput(attrs={"accept": "image/jpeg,image/png"}))
+                            required=False, widget=forms.FileInput(attrs={"accept": "image/jpeg,image/png"}))
+    ruta = forms.CharField(label="Ruta de una foto o carpeta", max_length=500, required=False,
+                           help_text=f"Dentro de la carpeta del servidor; hasta {MAX_FOLDER_PHOTOS} fotos.")
 
     def clean_foto(self):
         foto = self.cleaned_data["foto"]
-        if foto.size > MAX_PHOTO_MB * 1024 * 1024:
-            raise forms.ValidationError(f"La foto pesa más de {MAX_PHOTO_MB} MB.")
-        if foto.image.width * foto.image.height > MAX_PHOTO_MEGAPIXELS * 1_000_000:
-            raise forms.ValidationError(f"La foto tiene más de {MAX_PHOTO_MEGAPIXELS} megapíxeles.")
+        if foto:
+            error = photo_limit(foto.size, foto.image.width * foto.image.height)
+            if error:
+                raise forms.ValidationError(error)
         return foto
+
+    def clean(self):
+        """Una foto subida o una ruta, no las dos ni ninguna; la ruta queda resuelta en `fotos`."""
+        data = super().clean()
+        if bool(data.get("foto")) == bool(data.get("ruta", "").strip()) and not self.errors:
+            raise forms.ValidationError("Elige una foto o una ruta, no las dos ni ninguna.")
+        if data.get("ruta", "").strip():
+            data["fotos"] = self.photos_in(data["ruta"].strip())
+        return data
+
+    def photos_in(self, ruta):
+        """Fotos de la ruta (una foto o las de una carpeta, sin subcarpetas), siempre dentro de
+        PHOTOS_DIR: se resuelve con `resolve()` para que «..» y los enlaces simbólicos no salgan de ella."""
+        root = Path(settings.PHOTOS_DIR).resolve()
+        target = (root / ruta).resolve()  # una ruta absoluta reemplaza a `root`: igual se comprueba abajo
+        if not target.is_relative_to(root):
+            raise forms.ValidationError("La ruta está fuera de la carpeta permitida.")
+        if not target.exists():
+            raise forms.ValidationError("No existe esa ruta.")
+        found = [target] if target.is_file() else sorted(p for p in target.iterdir() if p.is_file() and p.suffix.lower() in PHOTO_SUFFIXES)
+        found = [p.resolve() for p in found]
+        if not all(p.is_relative_to(root) for p in found):
+            raise forms.ValidationError("La ruta está fuera de la carpeta permitida.")
+        if not found:
+            raise forms.ValidationError("No hay fotos .jpg o .png en esa ruta.")
+        if len(found) > MAX_FOLDER_PHOTOS:
+            raise forms.ValidationError(f"La carpeta tiene más de {MAX_FOLDER_PHOTOS} fotos: analiza una más chica.")
+        return found
+
+
+def photo_limit(size_bytes, pixels):
+    """Mensaje de error si la foto pasa el tope de peso o de pixeles; None si cabe."""
+    if size_bytes > MAX_PHOTO_MB * 1024 * 1024:
+        return f"La foto pesa más de {MAX_PHOTO_MB} MB."
+    if pixels > MAX_PHOTO_MEGAPIXELS * 1_000_000:
+        return f"La foto tiene más de {MAX_PHOTO_MEGAPIXELS} megapíxeles."
 
 
 class ReportForm(forms.Form):

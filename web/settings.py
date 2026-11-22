@@ -11,6 +11,8 @@ ROOT = Path(__file__).resolve().parent.parent
 # Base de datos y fotos analizadas (no versionadas; en Docker, un volumen).
 DATA_DIR = Path(os.environ.get("SHELFVISION_DATA_DIR", ROOT / "data" / "processed" / "web"))
 DATA_DIR.mkdir(parents=True, exist_ok=True)
+# Unica carpeta desde la que «Analisis» lee fotos por ruta (#95); en Docker, montar un volumen.
+PHOTOS_DIR = Path(os.environ.get("SHELFVISION_PHOTOS_DIR", ROOT / "data" / "raw"))
 WEIGHTS = Path(os.environ.get(
     "SHELFVISION_WEIGHTS", ROOT / "weights" / "yolo26s-finetune-ruido-v3.pt"))
 

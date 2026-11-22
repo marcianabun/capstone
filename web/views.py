@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import PermissionDenied
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import OuterRef, Subquery
@@ -23,12 +24,13 @@ from django.utils import timezone
 from django.utils.encoding import force_bytes
 from django.utils.http import url_has_allowed_host_and_scheme, urlsafe_base64_encode
 from django.views.decorators.http import require_POST
+from PIL import Image, UnidentifiedImageError
 
 from src.pipeline import LensCalibration, run_image
 from src.preprocessing.camera_check import camera_fault
 from src.reporting.annotate import draw_availability
 from src.reporting.export import MEDIA_TYPES, export
-from web.forms import CameraForm, ConfigForm, PhotoForm, ReportForm, UserForm
+from web.forms import CameraForm, ConfigForm, PhotoForm, ReportForm, UserForm, photo_limit
 from web.models import (ABIERTAS, ACTIVA, ADMIN, COMPLETADA, EN_PROCESO, JEFE, REEMPLAZADA, REPONEDOR,
                         Analysis, Camera, Config, User)
 
@@ -172,15 +174,44 @@ def analyze(upload, user, pasillo, gondola) -> Analysis:
     return analysis
 
 
+def analyze_paths(paths, user, pasillo, gondola):
+    """#95: analiza las fotos de una ruta; una mala no frena a las demás. Devuelve
+    (analisis, errores). Los mensajes llevan solo el nombre del archivo, no su ruta."""
+    done, errors = [], []
+    for path in paths:
+        try:
+            with Image.open(path) as image:
+                error = photo_limit(path.stat().st_size, image.width * image.height)
+            if error:
+                raise ValueError(error)
+            done.append(analyze(SimpleUploadedFile(path.name, path.read_bytes()), user, pasillo, gondola))
+        except FileNotFoundError:  # sin pesos del modelo (o la foto desapareció): no sirve seguir
+            raise
+        except (UnidentifiedImageError, Image.DecompressionBombError):
+            errors.append(f"{path.name}: no se pudo leer la imagen.")
+        except ValueError as error:
+            errors.append(f"{path.name}: {error}")
+    return done, errors
+
+
 @roles(ADMIN, JEFE)
 def analisis(request):
     form = PhotoForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         data = form.cleaned_data
         try:
-            return redirect("analisis_detalle", analyze(data["foto"], request.user, data["pasillo"], data["gondola"]).pk)
+            if data["foto"]:
+                return redirect("analisis_detalle", analyze(data["foto"], request.user, data["pasillo"], data["gondola"]).pk)
+            done, errors = analyze_paths(data["fotos"], request.user, data["pasillo"], data["gondola"])
         except (FileNotFoundError, ValueError) as error:
             form.add_error(None, str(error))
+        else:
+            if not errors and len(done) == 1:
+                return redirect("analisis_detalle", done[0].pk)
+            if not errors:
+                messages.success(request, f"{len(done)} fotos analizadas en {data['pasillo']}/{data['gondola']}.")
+                return redirect("analisis")
+            form.add_error(None, f"{len(done)} de {len(done) + len(errors)} fotos analizadas. " + " · ".join(errors))
     page = Paginator(Analysis.objects.select_related("taken_by").order_by("-created_at", "-pk"), 25).get_page(request.GET.get("pagina"))
     return render(request, "web/analisis.html", {"form": form, "analisis": page})
 
