@@ -85,21 +85,69 @@ Tomcat y GitLab: no están en la pila (Django, OpenCV, PyTorch, ultralytics,
 gunicorn). Node corre solo en el runner de GitHub Actions, que mantiene
 GitHub. El incidente de LiteLLM en PyPI tampoco: no lo usamos.
 
-## No se pudo auditar
+## Revisión del 2026-11-22
 
-- **torch y torchvision**: vienen del índice de PyTorch (`+cu130` / CPU),
-  que `pip-audit` no cubre. No encontré avisos de PyTorch, OpenCV ni
-  ultralytics para la semana, pero la búsqueda fue mínima. Revisar los
-  avisos de GitHub de cada proyecto antes de la instalación en el CITT (#39).
-- **Imagen base Debian**: faltaría un escáner de imagen (Trivy o
-  `docker scout`) sobre `shelfvision-ai`. Propuesto abajo.
+Segunda pasada (ítem #57), con `pip-audit` sobre el entorno y los avisos
+de GitHub de cada proyecto.
+
+### filelock 3.32.3 y brotli 1.2.0: corregidos
+
+- **filelock**: 13 avisos de `pip-audit` (CVE-2026-112907 a -112940), con
+  arreglo en 4.0.9 y 4.2.1. Lo traen `torch` y `ultralytics`, que guardan
+  cachés con bloqueos de archivo. **Exposición**: la app no bloquea rutas que
+  escriba un usuario; solo las usa PyTorch para sus cachés locales. Riesgo
+  bajo, pero el arreglo cuesta una línea.
+- **brotli**: PYSEC-2026-4322, arreglo en 1.2.1. Lo trae `py7zr`, que solo
+  descomprime SHARD en `scripts/download_datasets.py` desde una fuente fija:
+  no recibe archivos de usuarios.
+- **Arreglo**: `filelock>=4.2.1` y `brotli>=1.2.1` en `requirements.txt`, como
+  se hizo con Pillow y certifi. Una instalación nueva ya recibía las
+  corregidas (4.3.0 y 1.2.1); el piso protege a los entornos viejos. Tras
+  subirlas, `pip check` no marca conflictos, `pip-audit` no encuentra
+  vulnerabilidades y los 322 tests pasan.
+- **setuptools 78.1.0** (solo el `.venv` local, ver más arriba): subido a
+  84.2.1.
+
+### torch, torchvision, OpenCV y ultralytics: revisados
+
+`pip-audit` no los cubre (vienen del índice de PyTorch, con versión local
+`+cpu` o `+cu130`; los lista como «no auditados»). Se revisaron a mano los
+avisos de GitHub (`/advisories?ecosystem=pip&affects=<paquete>`):
+
+- **torch**: 14 avisos y ninguno vigente para las versiones que usamos
+  (2.13 o superior). Los de ejecución remota al cargar un checkpoint
+  (GHSA-63cw-57p8-fm3p, arreglo en 2.10.0; GHSA-53q9-r3pm-6pq6, en 2.6.0)
+  quedan fuera, y además los pesos que carga la app son los del proyecto
+  (`weights/`) o los que indica quien administra el servidor con
+  `SHELFVISION_WEIGHTS`, nunca un archivo de un usuario. Quedan sin arreglo
+  solo avisos de torch 2.6.0 o anteriores (memoria en `pad_packed_sequence`,
+  argumentos nulos), que no nos tocan.
+- **torchvision** y **ultralytics**: sin avisos publicados.
+- **opencv-python**: solo avisos antiguos (libwebp, escrituras fuera de
+  rango de 2021), todos con arreglo anterior a 4.8, que es nuestro mínimo.
+- Este análisis es una foto del 2026-11-22. Como `pip-audit` no los ve,
+  hay que repetirlo a mano al instalar en otro servidor.
+
+### CI: auditoría semanal
+
+`.github/workflows/auditoria.yml` corre cada lunes, a mano y en los PR que
+tocan `requirements.txt`, el `Dockerfile` o el propio archivo:
+
+- **pip-audit** (2.10.1) sobre el entorno instalado, como en `tests`.
+- **Trivy** (acción y versión fijadas) sobre la imagen `shelfvision-ai`:
+  avisos HIGH y CRITICAL con arreglo publicado, del sistema (Debian) y de las
+  librerías. Cubre lo que faltaba de la imagen base.
+
+No es un check que exija `main`: un aviso nuevo no debe bloquear un PR que no
+lo causó. Si falla, se ve en la pestaña Actions y GitHub avisa por correo a
+quien la creó o la editó por última vez.
 
 ## Pendiente
 
-1. Un escáner de la imagen en el CI (`trivy` o `docker scout`) y
-   `pip-audit` sobre `requirements.txt`. Se cruza con #54 (acciones del
-   CI fijadas por commit: hecho el 2026-10-23).
+1. Mirar el primer resultado de la auditoría en el CI y arreglar lo que
+   marque Trivy sobre la imagen (no se pudo correr en este PC: Docker
+   Desktop no arranca).
 2. La configuración de la app (DEBUG apagado por defecto, cookies seguras,
    usuario sin privilegios en el contenedor) es el ítem #50.
-3. Si se instala en el CITT (#39), repetir `pip-audit` ese día: la lista
-   cambia cada semana.
+3. Si se instala en otro servidor, repetir `pip-audit` y la revisión de
+   torch ese día: la lista cambia cada semana.

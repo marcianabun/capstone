@@ -1,0 +1,72 @@
+# Auditoria de seguridad de las dependencias y de la imagen Docker (item #57).
+# Corre cada lunes (la lista de vulnerabilidades cambia a la semana), a mano y en
+# los PR que tocan requirements.txt, el Dockerfile o este archivo. No es un check
+# que exija la proteccion de main: un aviso nuevo no debe bloquear un PR que no
+# lo causo; se ve en la pestana Actions y llega por correo al fallar.
+# Las acciones van fijadas por commit (#54), igual que en ci.yml.
+name: Auditoria
+
+on:
+  pull_request:
+    branches: [main]
+    paths: [requirements.txt, Dockerfile, .github/workflows/auditoria.yml]
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pip-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # Se audita el entorno ya instalado (no `-r requirements.txt`, que resolveria de
+      # nuevo y bajaria GB de CUDA). torch y torchvision vienen del indice de PyTorch
+      # (+cpu): pip-audit no los encuentra en PyPI y los lista como "no auditados"
+      # (se revisan a mano en docs/auditoria-seguridad.md).
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt pip-audit==2.10.1
+
+      - name: pip-audit
+        run: pip-audit
+
+  imagen:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069  # v4.4.1
+
+      - name: Build image
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
+        with:
+          context: .
+          push: false
+          load: true
+          tags: shelfvision-ai:audit
+          cache-from: type=gha
+
+      # Solo avisos HIGH y CRITICAL con arreglo publicado: sin arreglo no hay nada que
+      # hacer salvo esperar (ignore-unfixed). Version de trivy fijada, como la accion.
+      - name: Trivy
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25  # v0.36.0
+        with:
+          image-ref: shelfvision-ai:audit
+          version: v0.76.1
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
