@@ -62,7 +62,7 @@ jobs:
           cache-from: type=gha
 
       - name: Donde esta setuptools (diagnostico temporal)
-        run: docker run --rm shelfvision-ai:audit find / -iname "*setuptools*70*" -not -path "/proc/*" 2>/dev/null || true
+        run: docker run --rm shelfvision-ai:audit sh -c "grep -rlE '^Name: setuptools$' /usr /opt /app --include=METADATA --include=PKG-INFO 2>/dev/null; grep -rl 'Version: 70.3.0' /usr/local/lib/python3.13 --include=METADATA --include=PKG-INFO 2>/dev/null; true"
 
       # Solo avisos HIGH y CRITICAL con arreglo publicado: sin arreglo no hay nada que
       # hacer salvo esperar (ignore-unfixed). Version de trivy fijada, como la accion.
