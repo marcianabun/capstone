@@ -18,7 +18,7 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 | Pipeline | `run_pipeline.py` completo con vista anotada y métricas (PR #28, #30) | Hecho (ítem #8) |
 | Alerta | Disponibilidad y quiebre por góndola completa (PR #16, #32) | Hecho (ítems #6, #40) |
 | App web | Login, usuarios y roles (PR #35); reportes (PR #54); configuración y cámaras (PR #71); dashboard (PR #72); privacidad de fotos (PR #74) | Hecho (ítems #7, #28, #43 a #45) |
-| Auditoría 2026-10-21 | Seguridad, robustez, alertas atómicas, bloqueo de cuenta y limpieza (PR #69, #70, #75, #76, #79, #80, #81) | Hecho (ítems #49 a #54; #57 en curso) |
+| Auditoría 2026-10-21 | Seguridad, robustez, alertas atómicas, bloqueo de cuenta y limpieza (PR #69, #70, #75, #76, #79, #80, #81) | Hecho (ítems #49 a #54; #57 en PR #140) |
 | Documentación | Informe intermedio, README, especificación técnica, plan de pruebas, análisis de resultados (PR #17, #34 a #39, #46, #63, #77) | Hecho |
 | Pendiente al cierre | Video de demostración (#36), ruido de cámara de sala (#55, planificado del 2026-10-29 al 2026-11-06), servidor del CITT (#39, descartado el 2026-11-15) | Pasa a la Etapa 2 |
 
@@ -26,7 +26,7 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 
 Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del MVP y entrega final de la Fase 2 (2026-11-20, 12:00).
 
-| Ítem | Descripción | Dueño | Estado (2026-11-20) |
+| Ítem | Descripción | Dueño | Estado (2026-11-22) |
 | --- | --- | --- | --- |
 | #59 | Mejor modelo del detector en el repositorio | Francisco | Hecho (PR #86) |
 | #60 | Manuales de usuario por perfil y manual de instalación | Mariana | Hecho (PR #83 y el de #60) |
@@ -54,12 +54,14 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #92 | Quitar SCRUM de la documentación: metodología en cascada | Mariana (lo empezó Francisco) | Hecho (PR #117 y el de la Carta Gantt) |
 | #93 | Inicialización del entorno en una PC de la sala de clases | Francisco | Hecho (PR #116) |
 | #94, #96 | Anterior/Siguiente en la foto del análisis y paginación de «Últimos análisis» | Nicko | Hecho (PR #120) |
-| #95 | Analizar fotos por ruta o URL de un dataset | Sin asignar | Pendiente |
+| #95 | Analizar fotos por ruta o URL de un dataset | Francisco | Hecho (PR #138) |
 | #97 | Ajustes de la app web para el teléfono | Nicko | Hecho (PR #121) |
 | #98 | Detalles de documentación para la entrega final (pruebas, README, APK y NoSQL) | Mariana | Hecho (PR #125) |
 | #99 | Plan de pruebas en Word para ANEXOS, con la app web y los C.U | Mariana | Hecho (PR #126) |
-| #100 | Carpeta FINAL FASE 2 del Drive ordenada según el profesor | Mariana | En curso: solo falta la autoevaluación 2.2 de Francisco |
-| #101, #102, #103 | Pauta de reflexión (diario 2.1) y autoevaluación (2.2) de cada integrante | Mariana, Francisco y Nicko | Hechos #101 y #103; al #102 le falta la autoevaluación 2.2 de Francisco |
+| #100 | Carpeta FINAL FASE 2 del Drive ordenada según el profesor | Mariana | Hecho (2026-11-22): subida la autoevaluación 2.2 de Francisco |
+| #101, #102, #103 | Pauta de reflexión (diario 2.1) y autoevaluación (2.2) de cada integrante | Mariana, Francisco y Nicko | Hechos (el #102 en PR #139) |
 | #70 a #75 | Hallazgos de la auditoría N.º 4 (README, metodología, RNF, UML, docker-compose, innovación) | Francisco | Hecho (PR #88) |
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | Descartado (2026-11-19): es la pauta de reflexión de Francisco, sigue en el #102 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |
+| #46 | Falsas alertas en refrigeradores con puerta de vidrio | Francisco | En curso: faltan fotos que el modelo no haya visto para medir antes y después |
+| #104 | Repositorio de código para que Walmart revise los algoritmos (mensaje del profesor, 2026-11-22) | Francisco | En curso: empieza cuando el MVP esté terminado y pulido |

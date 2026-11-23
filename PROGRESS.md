@@ -1097,7 +1097,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       pruebas). El Word, generado desde ese archivo en A4 horizontal,
       queda en `Fase 2/Evidencias Proyecto/Evidencias de
       documentación/Plan de pruebas/Plan de pruebas - ShelfVision AI.docx`.
-- [ ] **#100** (dueño: Mariana) Armar la carpeta FINAL FASE 2 del Drive
+- [x] **#100** (dueño: Mariana) Armar la carpeta FINAL FASE 2 del Drive
       compartido con el profesor (estructura del PDF del 2026-11-06, ver
       `docs/curso.md`), con los archivos del repositorio en su carpeta y
       sin enlaces en archivos versionados. Los documentos `.md` de base de
@@ -1128,6 +1128,11 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       autoevaluaciones 2.2 de Nicko y Mariana; el Informe Final, la
       Carta Gantt y la presentación se reemplazaron por las versiones al
       2026-11-20. Solo falta la autoevaluación 2.2 de Francisco (#102).
+      **Hecho (2026-11-22)**: subida la autoevaluación 2.2 de Francisco
+      (`Sandoval_Francisco_2.2_APT122_AutoevaluacionAvanceFase2.docx`, la
+      misma del repositorio) a FINAL FASE 2 / FASE 2 / Evidencias
+      individuales. La carpeta queda con las pautas 2.1 y 2.2 de los tres
+      integrantes.
 - [x] **#101** (dueño: Mariana) Pauta de reflexión y autoevaluación individuales de Mariana
       para la entrega final (2026-11-20, 12:00; «pautas» son las dos,
       según Mariana, 2026-11-20: el diario de reflexión 2.1 y la
