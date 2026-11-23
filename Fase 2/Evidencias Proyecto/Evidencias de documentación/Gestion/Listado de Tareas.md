@@ -1,6 +1,6 @@
 # Listado de Tareas
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-20** (103 ítems: 89 hechos, 3 en curso, 2 pendientes y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-22** (104 ítems: 93 hechos, 2 en curso y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -51,7 +51,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #43 | Hecho | Mariana | Dashboard de disponibilidad (CU03, RF05): estado de cada góndola según su última foto (verde con menos de la mitad del umbral, amarillo hast… |
 | #44 | Hecho | Mariana | Configuración del umbral y de las cámaras (CU05, RF07): umbral de espacio libre entre 1% y 100% (hoy fijo en 30%, `AvailabilityParams.critic… |
 | #45 | Hecho | Mariana | Privacidad de las fotos (RNF05): las fotos guardadas pueden mostrar clientes. Proponer a Walmart (#24) borrarlas tras N días o difuminar ros… |
-| #46 | Pendiente | Sin asignar | Falsas alertas en refrigeradores con puerta de vidrio (#34, fotos 020 y 003 de Kaggle): el reflejo y el desenfoque de la puerta en primer pl… |
+| #46 | En curso | Francisco | Falsas alertas en refrigeradores con puerta de vidrio (#34, fotos 020 y 003 de Kaggle): el reflejo y el desenfoque de la puerta en primer pl… |
 | #47 | Hecho | Francisco | Auditoría de commits de GitHub: `.mailmap` que unifica las identidades (hoy 6 autores para 3 personas) y commits y PR sin la línea `Co-Autho… |
 | #48 | Hecho | Nicko | Modelar el diagrama de la base de datos (entidad-relación) a partir de `web/models.py` (`User`, perfiles como grupos de Django, `Analysis`)… |
 | #49 | Hecho | Mariana | Alertas atómicas en la app web (auditoría 2026-10-21, `web/views.py` `analyze()` y `alerta_accion()`): hoy cerrar la alerta anterior, guarda… |
@@ -62,7 +62,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #54 | Hecho | Mariana | Limpieza (auditoría 2026-10-21): `free_volume_cm3()` solo la usan los tests (Nivel 1 no se informa, #40) y `openpyxl` y `fpdf2` están en `re… |
 | #55 | Hecho | Francisco | Entrenar y medir el detector con ruido visual de cámara de sala (pedido de Francisco, 2026-10-21): el mismo ruido que produce una cámara fij… |
 | #56 | Hecho | Mariana | Que Claude Code no se agregue como coautor: los commits con `Co-Authored-By: Claude` le dan a "claude" 77 commits en el gráfico de contribui… |
-| #57 | En curso | Francisco | Auditoría de seguridad por las vulnerabilidades de lenguajes y librerías publicadas la semana del 2026-10-19 (pedido de Francisco, 2026-10-2… |
+| #57 | Hecho | Francisco | Auditoría de seguridad por las vulnerabilidades de lenguajes y librerías publicadas la semana del 2026-10-19 (pedido de Francisco, 2026-10-2… |
 | #58 | Hecho | Francisco | Cámara de sala simulada para comprobar la app web con el flujo de una cámara fija (pedido de Francisco, 2026-11-09). Hecho (2026-11-09): `py… |
 | #59 | Hecho | Francisco | Subir al repositorio el mejor modelo del detector que tiene el equipo. Hecho (2026-11-14, PR #86): `weights/yolo26s-finetune.pt` (20 MB; mAP… |
 | #60 | Hecho | Mariana | Manuales de usuario (uno por perfil: Administrador, Jefe de Salón y Reponedor) y manual de instalación (instructivo del plan de instalación… |
@@ -100,12 +100,13 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #92 | Hecho | Mariana | Quitar de la documentación toda referencia a SCRUM: el equipo usa la metodología tradicional o en cascada (indicación de Francisco, 2026-11-… |
 | #93 | Hecho | Francisco | Documentar la inicialización del entorno en una PC de la sala de clases (pedido de Francisco, 2026-11-16). **Hecho (2026-11-16)**: `docs/ini… |
 | #94 | Hecho | Nicko | Botones de navegación sobre la foto del análisis, para moverse entre análisis y alertas de góndolas sin volver a la lista (pedido de Francis… |
-| #95 | Pendiente | Sin asignar | Analizar fotos indicando la ruta o la URL de un dataset, en vez de subirlas una por una (pedido de Francisco, 2026-11-16). Hoy «Análisis» (`… |
+| #95 | Hecho | Francisco | Analizar fotos indicando la ruta o la URL de un dataset, en vez de subirlas una por una (pedido de Francisco, 2026-11-16). Hoy «Análisis» (`… |
 | #96 | Hecho | Nicko | Paginación de la lista «Últimos análisis» (pedido de Francisco, 2026-11-16). Hoy `analisis()` corta en 50 con `[:50]` y no hay cómo ver los… |
 | #97 | Hecho | Nicko | Ajustes de la app web para el teléfono, de la auditoría de 2026-11-16: el menú pasa a una segunda fila (con Administrador y Jefe ya no se es… |
 | #98 | Hecho | Mariana | Detalles de documentación para la entrega final (revisión del 2026-11-18): `Documento de Innovacion.md` y `Requisitos No Funcionales.md` (RN… |
 | #99 | Hecho | Mariana | Plan de pruebas en Word para ANEXOS de la entrega final (carpeta FINAL FASE 2 del Drive, «c. Plan de pruebas»). `docs/test-plan.md` no tenía… |
-| #100 | En curso | Mariana | Armar la carpeta FINAL FASE 2 del Drive compartido con el profesor (estructura del PDF del 2026-11-06, ver `docs/curso.md`), con los archivo… |
+| #100 | Hecho | Mariana | Armar la carpeta FINAL FASE 2 del Drive compartido con el profesor (estructura del PDF del 2026-11-06, ver `docs/curso.md`), con los archivo… |
 | #101 | Hecho | Mariana | Pauta de reflexión y autoevaluación individuales de Mariana para la entrega final (2026-11-20, 12:00; «pautas» son las dos, según Mariana, 2… |
-| #102 | En curso | Francisco | Pauta de reflexión y autoevaluación individuales de Francisco para la entrega final (2026-11-20, 12:00; «pautas» son las dos, según Mariana,… |
+| #102 | Hecho | Francisco | Pauta de reflexión y autoevaluación individuales de Francisco para la entrega final (2026-11-20, 12:00; «pautas» son las dos, según Mariana,… |
 | #103 | Hecho | Nicko | Pauta de reflexión y autoevaluación individuales de Nicko para la entrega final (2026-11-20, 12:00; «pautas» son las dos, según Mariana, 202… |
+| #104 | En curso | Francisco | Repositorio de código para que Walmart revise los algoritmos (mensaje del profesor, 2026-11-22): repositorio nuevo en GitHub solo con el cód… |
