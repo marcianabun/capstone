@@ -65,3 +65,9 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |
 | #46 | Falsas alertas en refrigeradores con puerta de vidrio | Francisco | En curso: faltan fotos que el modelo no haya visto para medir antes y después |
 | #104 | Repositorio de código para que Walmart revise los algoritmos (mensaje del profesor, 2026-11-22) | Francisco | En curso: empieza cuando el MVP esté terminado y pulido |
+| #105 | Comparar YOLO26 con otros detectores en las mismas condiciones | Francisco | Pendiente |
+| #106 | Justificación de las decisiones para la comisión (2026-12-02) | Francisco | Pendiente |
+| #107 | Ajustes de la presentación tras el ensayo: negritas, alcance en dos mitades y datasets | Sin asignar | Pendiente |
+| #108 | Dibujo de la arquitectura y diagrama de flujo para la presentación | Sin asignar | Pendiente |
+| #109 | Logos en la lámina del stack tecnológico | Sin asignar | Pendiente |
+| #110 | Algoritmo y configuración de entrenamiento del detector documentados | Sin asignar | Pendiente |

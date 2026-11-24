@@ -15,7 +15,7 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 | --- | --- | --- | --- |
 | 2026-11-20, 12:00 | Entrega final Fase 2 | Carpeta "FINAL FASE 2" en Drive (estructura en "Requisitos vigentes") y GitHub ordenado; 100% de los C.U resueltos, un manual de usuario por perfil y manual de instalación | Semanas 12 (2026-11-02 y 2026-11-06) |
 | Semana del 2026-11-23 al 2026-11-27 | Ensayos de la presentación ante la comisión | Preparación de la presentación final | Semana 12 (2026-11-02) |
-| 2026-12-03 o 2026-12-04 (día exacto por confirmar) | Presentación formal del proyecto (exposición ante la Comisión, Fase 3) | - | Comunicado por Mariana, 2026-11-19 |
+| 2026-12-02, 09:00 | Presentación formal del proyecto (exposición ante la Comisión, Fase 3) | - | Comunicado por Mariana, 2026-11-23 |
 | Por definir | Enlace del repositorio de código para Walmart | Crear un repositorio nuevo en GitHub solo con código, README y documentación técnica (sin documentos académicos de las Fases 1, 2 y 3) y enviarle el enlace al profesor | Semana 14 (2026-11-22) |
 | Por definir | Pre-examen (Fase 2) | - | README |
 
@@ -304,8 +304,6 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
   ser privado con acceso para el cliente? ¿Lleva los pesos del detector
   (entrenados con SKU-110K, de licencia académica) y los datasets, o solo
   el código y la documentación?
-- ¿La presentación formal (exposición ante la Comisión) es el
-  2026-12-03 o el 2026-12-04, y a qué hora?
 - "100% de los C.U resueltos": CU07 (evaluar con un lote) corre por la
   línea de comandos y CU02 no tiene notificación push al teléfono. ¿Cuentan
   como resueltos?
@@ -358,6 +356,18 @@ semana) del mensaje que trae el enlace, para buscarlo ahí.
 ## Registro de mensajes
 
 Del más reciente al más antiguo.
+
+### Semana 15 (2026-11-23): ensayo y fecha de la comisión
+
+- Comunicado por Mariana: la presentación ante la comisión es el
+  2026-12-02 a las 09:00 (cambia la presentación formal: antes
+  2026-12-03 o 2026-12-04).
+- En el ensayo de la presentación del 2026-11-23 pidieron: negritas en
+  las palabras clave, la lámina de alcance en dos mitades (lo que cubre y
+  lo que no), un dibujo de la arquitectura, un diagrama de flujo, logos en
+  el stack y cuántos datasets e imágenes se usaron (#107 a #109). El
+  diseño, las decisiones, los resultados y la retrospectiva se mantienen.
+- Hay que saber explicar con qué algoritmo se entrenó el detector (#110).
 
 ### Semana 14 (2026-11-22): repositorio de código para Walmart
 
