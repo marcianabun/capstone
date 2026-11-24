@@ -1,6 +1,6 @@
 # Listado de Tareas
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-23** (110 ítems: 93 hechos, 4 en curso, 4 pendientes y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-24** (110 ítems: 95 hechos, 4 en curso, 2 pendientes y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -112,7 +112,7 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #104 | En curso | Francisco | Repositorio de código para que Walmart revise los algoritmos (mensaje del profesor, 2026-11-22): repositorio nuevo en GitHub solo con el cód… |
 | #105 | En curso | Francisco | Comparar el detector YOLO26 con otros modelos de detección. Hoy solo hay evidencia de `yolo26s` contra `yolo26s-p2` (DET-03) y del efecto de… |
 | #106 | En curso | Francisco | Justificar todas las decisiones de arquitectura, stack, modelos y diseño para la presentación ante la comisión (2026-12-02, según el equipo)… |
-| #107 | Pendiente | Sin asignar | Ajustes de contenido de la presentación tras el ensayo del 2026-11-23 (comentarios recibidos en el ensayo, anotados por Mariana), para la pr… |
+| #107 | Hecho | Mariana | Ajustes de contenido de la presentación tras el ensayo del 2026-11-23 (comentarios recibidos en el ensayo, anotados por Mariana), para la pr… |
 | #108 | Pendiente | Sin asignar | Diagramas para la presentación (ensayo del 2026-11-23): un **dibujo de la arquitectura** del sistema (sus componentes: cámaras o fotos, pipe… |
-| #109 | Pendiente | Sin asignar | Logos en la lámina 8 (Stack tecnológico), para que todos identifiquen cada tecnología: Python, OpenCV, NumPy, YOLO26 (Ultralytics), PyTorch,… |
+| #109 | Hecho | Mariana | Logos en la lámina 8 (Stack tecnológico), para que todos identifiquen cada tecnología: Python, OpenCV, NumPy, YOLO26 (Ultralytics), PyTorch,… |
 | #110 | Pendiente | Sin asignar | Documentar qué algoritmo y qué configuración se usaron para entrenar el detector, para responder a la comisión (pedido del 2026-11-23). Lo q… |
