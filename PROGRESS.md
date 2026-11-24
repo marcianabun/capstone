@@ -1222,6 +1222,48 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       coinciden con sus notas (mAP50 de SKU-110K 0,935 contra 0,950, y 0,844
       contra 0,854 en fotos que el modelo no vio) y la lámina 7, que dice que
       se corrige la lente aunque hoy solo corre CLAHE.
+- [ ] **#107** Ajustes de contenido de la presentación tras el ensayo del
+      2026-11-23 (comentarios recibidos en el ensayo, anotados por Mariana),
+      para la presentación ante la comisión (2026-12-02, 09:00):
+      - Marcar con **negritas** las palabras clave de cada lámina.
+      - Lámina 4 (Alcances): dividirla en dos mitades, a la izquierda lo
+        que el sistema cubre y a la derecha lo que queda fuera del alcance.
+      - Agregar cuántos datasets se usaron y cuántas imágenes tiene cada
+        uno (datos en `docs/datasets.md`).
+      **No se modifica** (el ensayo los dio por buenos): el diseño, que se
+      ve sobrio; la lámina 9 (Decisiones que mejoraron el resultado); la 10
+      (Resultados), salvo lo que corrija el #106; y la 15 (Retrospectiva).
+      La presentación es un `.pptx` binario: quien la edite parte de la
+      versión de `main` y los PR del #107 al #109 se mergean de a uno.
+- [ ] **#108** Diagramas para la presentación (ensayo del 2026-11-23): un
+      **dibujo de la arquitectura** del sistema (sus componentes: cámaras o
+      fotos, pipeline de visión, app web, base de datos y usuarios) y un
+      **diagrama de flujo** de lo que pasa con una foto (el flujo escrito
+      solo con texto no sirve, prefieren el diagrama). Se agregan a la
+      presentación con el mismo diseño sobrio. Punto de partida: los
+      diagramas de componentes, de secuencia y de arquitectura de
+      `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/`.
+- [ ] **#109** Logos en la lámina 8 (Stack tecnológico), para que todos
+      identifiquen cada tecnología: Python, OpenCV, NumPy, YOLO26
+      (Ultralytics), PyTorch, Django, SQLite, openpyxl, fpdf2, pytest,
+      Docker y GitHub Actions (ensayo del 2026-11-23). Usar los logos
+      oficiales de cada proyecto, respetando sus reglas de uso.
+- [ ] **#110** Documentar qué algoritmo y qué configuración se usaron para
+      entrenar el detector, para responder a la comisión (pedido del
+      2026-11-23). Lo que ya se sabe (de `scripts/train_detector.py`,
+      `docs/training.md` y los parámetros guardados en
+      `weights/yolo26s-finetune-ruido-v3.pt`): aprendizaje supervisado con
+      transferencia de aprendizaje desde `yolo26s.pt` (preentrenado en
+      COCO), reentrenado en SKU-110K con una sola clase («producto»), hasta
+      50 épocas, `imgsz` 1280 y parada temprana tras 15 épocas sin mejora;
+      el ajuste fino usa SGD (lr0 0,002, momentum 0,937, weight decay
+      0,0005, 3 épocas de calentamiento), 30 épocas, batch 2, aumentación
+      mosaic, volteo horizontal y brillo, y copias con ruido de cámara.
+      **Falta**: el optimizador del entrenamiento base sobre SKU-110K
+      (Ultralytics usa `optimizer=auto` y elige uno según el largo del
+      entrenamiento): sacarlo del `args.yaml` o del registro de esa
+      corrida, que quedó en el PC de entrenamiento de Francisco. Va en
+      `docs/training.md` y en el #106.
 - [x] **#31** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
