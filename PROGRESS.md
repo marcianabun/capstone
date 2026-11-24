@@ -1222,7 +1222,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       coinciden con sus notas (mAP50 de SKU-110K 0,935 contra 0,950, y 0,844
       contra 0,854 en fotos que el modelo no vio) y la lámina 7, que dice que
       se corrige la lente aunque hoy solo corre CLAHE.
-- [ ] **#107** Ajustes de contenido de la presentación tras el ensayo del
+- [x] **#107** (dueño: Mariana) Ajustes de contenido de la presentación tras el ensayo del
       2026-11-23 (comentarios recibidos en el ensayo, anotados por Mariana),
       para la presentación ante la comisión (2026-12-02, 09:00):
       - Marcar con **negritas** las palabras clave de cada lámina.
@@ -1235,6 +1235,16 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       (Resultados), salvo lo que corrija el #106; y la 15 (Retrospectiva).
       La presentación es un `.pptx` binario: quien la edite parte de la
       versión de `main` y los PR del #107 al #109 se mergean de a uno.
+      **Hecho (2026-11-24)**: negritas en las palabras clave (láminas 2,
+      3, 6, 7, 8 y 12 a 15); la lámina 4 en dos mitades, «Qué cubre» (✓) y
+      «Fuera del alcance» (✕), con frases de una línea y el detalle en las
+      notas del orador; y una lámina nueva, la 9, «Datasets: 6 fuentes y
+      37.887 fotos», con las fotos y el uso de cada dataset (cifras del
+      README). La línea de hitos de la lámina 6 agrega la comisión del 2
+      dic. La presentación pasa de 16 a 17 láminas: desde la 9 los números
+      corren en uno (Francisco 7 a 12, Mariana 4 a 6 y 13 a 15, Nicko 1 a 3,
+      16 y 17). Revisada exportándola a PDF desde PowerPoint; la copia del
+      Drive (FINAL FASE 2) quedó igual a la del repositorio.
 - [ ] **#108** Diagramas para la presentación (ensayo del 2026-11-23): un
       **dibujo de la arquitectura** del sistema (sus componentes: cámaras o
       fotos, pipeline de visión, app web, base de datos y usuarios) y un
@@ -1243,11 +1253,15 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       presentación con el mismo diseño sobrio. Punto de partida: los
       diagramas de componentes, de secuencia y de arquitectura de
       `Fase 2/Evidencias Proyecto/Evidencias de documentación/Diseño/`.
-- [ ] **#109** Logos en la lámina 8 (Stack tecnológico), para que todos
+- [x] **#109** (dueño: Mariana) Logos en la lámina 8 (Stack tecnológico), para que todos
       identifiquen cada tecnología: Python, OpenCV, NumPy, YOLO26
       (Ultralytics), PyTorch, Django, SQLite, openpyxl, fpdf2, pytest,
       Docker y GitHub Actions (ensayo del 2026-11-23). Usar los logos
       oficiales de cada proyecto, respetando sus reglas de uso.
+      **Hecho (2026-11-24)**: logos oficiales sobre cada tarjeta (Simple
+      Icons y el logo de Ultralytics); openpyxl y fpdf2 no tienen logo, así
+      que llevan íconos de archivo Excel, PDF y CSV (Phosphor). Va en el
+      mismo PR del #107 porque los dos cambian el mismo `.pptx`.
 - [ ] **#110** Documentar qué algoritmo y qué configuración se usaron para
       entrenar el detector, para responder a la comisión (pedido del
       2026-11-23). Lo que ya se sabe (de `scripts/train_detector.py`,
