@@ -1172,6 +1172,56 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Fecha límite: por definir (pregunta abierta en `docs/curso.md`:
       también si es público o privado y si lleva los pesos del detector,
       de SKU-110K, de licencia académica).
+- [ ] **#105** (dueño: Francisco) Comparar el detector YOLO26 con otros
+      modelos de detección. Hoy solo hay evidencia de `yolo26s` contra
+      `yolo26s-p2` (DET-03) y del efecto de la cabeza sin NMS; no hay una
+      comparación contra otras familias de modelos, y la comisión puede
+      preguntar por qué YOLO26 y no otro. Comparar, en las mismas
+      condiciones (mismos datos de entrenamiento de SKU-110K, `max_det`
+      1000, `imgsz` 1280, y el NMS que corresponda a cada modelo): `yolo26n`,
+      `yolo26s` y `yolo26m`; una generación anterior de YOLO del mismo
+      tamaño; un detector basado en transformers (ej. RT-DETR); y, si hay
+      tiempo, uno de dos etapas (ej. Faster R-CNN). Medir en el *test* de
+      SKU-110K y en las 12 fotos de prueba de Kaggle: mAP50, mAP50-95,
+      recall, segundos por foto en CPU y tamaño de los pesos; anotar también
+      la licencia de cada uno. El entrenamiento va en el PC con GPU NVIDIA
+      (el laptop no tiene; `yolo26s` tarda ~7,5 h): reservarlo y empezar
+      ya, porque son varias corridas. Entregable: filas nuevas `DET-xx` en
+      `docs/test-plan.md`, la decisión en `docs/decisiones-de-diseno.md` y la
+      tabla de decisiones del README. Debe estar listo antes de la
+      presentación ante la comisión (2026-12-02, según el equipo; `docs/curso.md`
+      aún dice 2026-12-03 o 2026-12-04, por confirmar). Si una comparación no
+      alcanza a entrenarse, declararla como limitación en vez de omitirla.
+- [ ] **#106** (dueño: Francisco) Justificar todas las decisiones de
+      arquitectura, stack, modelos y diseño para la presentación ante la
+      comisión (2026-12-02, según el equipo). Cada decisión debe tener su
+      alternativa descartada, el criterio y la evidencia (medida o una
+      fuente); la que no tenga evidencia se mide, o se declara como
+      limitación. Entregable: `docs/justificacion-decisiones.md`, con una
+      tabla decisión / alternativas / criterio / evidencia / límite, y
+      preguntas probables de la comisión con su respuesta. Decisiones a
+      cubrir: (1) **arquitectura**: pipeline modular de cuatro etapas,
+      enfoque híbrido OpenCV antes de YOLO26, orden dewarping, CLAHE,
+      segmentación y recorte, ROI automática, niveles de repisa híbridos,
+      góndola acotada a lo detectado, alerta por góndola completa, análisis
+      2D con profundidad de 25 cm, una sola clase de producto, hueco de al
+      menos un ancho de producto, oclusión por personas y cámara defectuosa;
+      (2) **modelos**: YOLO26 (ver #105), tamaño `yolo26s`, cabeza sin NMS,
+      `imgsz` 1280, `max_det` 1000, `conf` 0,25, fine-tuning y sus datos,
+      `yolo26n` para personas, segmentación clásica y no aprendida, CLAHE
+      (`clip_limit` 2,0 y bloques de 8x8) y el dewarping, que sin
+      calibración de lente real solo aplica CLAHE; (3) **stack**: Python
+      3.13, Django contra FastAPI y React, SQLite contra PostgreSQL,
+      sesiones contra JWT, bcrypt, openpyxl y fpdf2, Docker, gunicorn con un
+      worker, pytest, GitHub Actions, pip-audit y Trivy; (4) **negocio y
+      datos**: umbral de 30% (sentido invertido, simulación con recall 0,9,
+      87% de quiebres detectados), formato de los reportes, perfiles y
+      roles, SKU-110K, Kaggle, SHARD y Roboflow con sus licencias, y los
+      límites de la evaluación (12 fotos de prueba y un solo quiebre real).
+      También resolver las cifras de la lámina 10 de la presentación que no
+      coinciden con sus notas (mAP50 de SKU-110K 0,935 contra 0,950, y 0,844
+      contra 0,854 en fotos que el modelo no vio) y la lámina 7, que dice que
+      se corrige la lente aunque hoy solo corre CLAHE.
 - [x] **#31** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
