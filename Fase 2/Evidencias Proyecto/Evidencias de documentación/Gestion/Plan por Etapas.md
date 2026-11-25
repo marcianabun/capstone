@@ -18,7 +18,7 @@ Objetivo: primer demo operativo con el 50% de los C.U resueltos (Evaluación 2) 
 | Pipeline | `run_pipeline.py` completo con vista anotada y métricas (PR #28, #30) | Hecho (ítem #8) |
 | Alerta | Disponibilidad y quiebre por góndola completa (PR #16, #32) | Hecho (ítems #6, #40) |
 | App web | Login, usuarios y roles (PR #35); reportes (PR #54); configuración y cámaras (PR #71); dashboard (PR #72); privacidad de fotos (PR #74) | Hecho (ítems #7, #28, #43 a #45) |
-| Auditoría 2026-10-21 | Seguridad, robustez, alertas atómicas, bloqueo de cuenta y limpieza (PR #69, #70, #75, #76, #79, #80, #81) | Hecho (ítems #49 a #54; #57 en PR #140) |
+| Auditoría 2026-10-21 | Seguridad, robustez, alertas atómicas, bloqueo de cuenta y limpieza (PR #69, #70, #75, #76, #79, #80, #81) | Hecho (ítems #49 a #54 y #57) |
 | Documentación | Informe intermedio, README, especificación técnica, plan de pruebas, análisis de resultados (PR #17, #34 a #39, #46, #63, #77) | Hecho |
 | Pendiente al cierre | Video de demostración (#36), ruido de cámara de sala (#55, planificado del 2026-10-29 al 2026-11-06), servidor del CITT (#39, descartado el 2026-11-15) | Pasa a la Etapa 2 |
 
@@ -64,7 +64,7 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #69 | Evidencias individuales que faltan (autoevaluación 1.3 y diario 2.1 de Francisco) y presentación | Francisco | Descartado (2026-11-19): es la pauta de reflexión de Francisco, sigue en el #102 |
 | #81 | Revisión de los documentos de la auditoría N.º 4 contra el repositorio | Mariana | Hecho |
 | #46 | Falsas alertas en refrigeradores con puerta de vidrio | Francisco | En curso: faltan fotos que el modelo no haya visto para medir antes y después |
-| #104 | Repositorio de código para que Walmart revise los algoritmos (mensaje del profesor, 2026-11-22) | Francisco | En curso: empieza cuando el MVP esté terminado y pulido |
+| #104 | Repositorio de código para que Walmart revise los algoritmos (mensaje del profesor, 2026-11-22) | Francisco | Hecho (2026-11-22): falta enviar el enlace al profesor |
 | #105 | Comparar YOLO26 con otros detectores en las mismas condiciones | Francisco | Pendiente |
 | #106 | Justificación de las decisiones para la comisión (2026-12-02) | Francisco | Pendiente |
 | #107 | Ajustes de la presentación tras el ensayo: negritas, alcance en dos mitades y datasets | Mariana | Hecho |
