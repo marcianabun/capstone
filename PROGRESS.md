@@ -1156,7 +1156,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       autoevaluación 2.2). **Hecho (2026-11-20)**: las dos completas, en
       el repositorio y en el Drive. Van en FINAL FASE 2 / FASE 2 /
       Evidencias individuales del Drive.
-- [ ] **#104** (dueño: Francisco) Repositorio de código para que Walmart
+- [x] **#104** (dueño: Francisco) Repositorio de código para que Walmart
       revise los algoritmos (mensaje del profesor, 2026-11-22): repositorio
       nuevo en GitHub solo con el código fuente (`src/`, `web/`,
       `scripts/`, `tests/`, `Dockerfile`), un `README.md` (descripción,
@@ -1172,6 +1172,18 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Fecha límite: por definir (pregunta abierta en `docs/curso.md`:
       también si es público o privado y si lleva los pesos del detector,
       de SKU-110K, de licencia académica).
+      **Hecho (2026-11-22)**: repositorio público
+      https://github.com/fsandovalva-dev/capstone-shelfvision-walmart, con
+      commits solo a nombre de Francisco (sin Claude como coautor; el 2026-11-23
+      se sumaron el inicio rápido con Docker y `.env.example`) y 158
+      archivos: `src/`, `web/`, `scripts/`, `tests/`, `Dockerfile`, un
+      README reescrito y la documentación técnica de `docs/` (más
+      `docs/decisiones-de-diseno.md`, con las reglas de código de
+      `CLAUDE.md`). Incluye los dos pesos, como indicó Francisco. Se
+      excluyó todo lo de las Fases 1 y 2, `PROGRESS.md`, `CLAUDE.md`,
+      `.claude/` y las minutas; 318 pruebas pasan (se quitó
+      `tests/test_sql_script.py`, que leía el SQL de `Fase 2/`). Falta
+      enviarle el enlace al profesor.
 - [ ] **#105** (dueño: Francisco) Comparar el detector YOLO26 con otros
       modelos de detección. Hoy solo hay evidencia de `yolo26s` contra
       `yolo26s-p2` (DET-03) y del efecto de la cabeza sin NMS; no hay una
