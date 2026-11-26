@@ -70,4 +70,4 @@ Objetivo: GitHub al día para la revisión de Walmart (2026-11-16), entrega del 
 | #107 | Ajustes de la presentación tras el ensayo: negritas, alcance en dos mitades y datasets | Mariana | Hecho |
 | #108 | Dibujo de la arquitectura y diagrama de flujo para la presentación | Sin asignar | Pendiente |
 | #109 | Logos en la lámina del stack tecnológico | Mariana | Hecho |
-| #110 | Algoritmo y configuración de entrenamiento del detector documentados | Sin asignar | Pendiente |
+| #110 | Algoritmo y configuración de entrenamiento del detector documentados | Francisco | Hecho (2026-11-25) |

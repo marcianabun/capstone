@@ -1274,7 +1274,7 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       Icons y el logo de Ultralytics); openpyxl y fpdf2 no tienen logo, así
       que llevan íconos de archivo Excel, PDF y CSV (Phosphor). Va en el
       mismo PR del #107 porque los dos cambian el mismo `.pptx`.
-- [ ] **#110** Documentar qué algoritmo y qué configuración se usaron para
+- [x] **#110** (dueño: Francisco) Documentar qué algoritmo y qué configuración se usaron para
       entrenar el detector, para responder a la comisión (pedido del
       2026-11-23). Lo que ya se sabe (de `scripts/train_detector.py`,
       `docs/training.md` y los parámetros guardados en
@@ -1290,6 +1290,13 @@ semana 8, y los demás hasta el #39, al del 2026-10-16.
       entrenamiento): sacarlo del `args.yaml` o del registro de esa
       corrida, que quedó en el PC de entrenamiento de Francisco. Va en
       `docs/training.md` y en el #106.
+      **Hecho (2026-11-25)**: sección 8 de `docs/training.md`, sacada de
+      los registros y `args.yaml` de las corridas. El entrenamiento base usó
+      **AdamW** (lr 0,002, momentum 0,9), no MuSGD, porque fueron 6.450
+      iteraciones (menos de 10.000). Para el #106: las 12 fotos de Kaggle
+      eligieron `best.pt` y la variante final, así que su mAP50 0,844 no es
+      una prueba independiente; y el entrenamiento base tomó ~9,7 h según
+      `results.csv`, no las ~7,5 h anotadas.
 - [x] **#31** (descartado 2026-11-19: el equipo ya no lo considera; el proyecto se presenta formalmente el 2026-12-03 o 2026-12-04, indicación de Mariana) Excluir de la medición la bodega de reserva que hay sobre
       la góndola de venta (Walmart no la evalúa; acuerdo del 2026-09-16
       en el README). Hoy `compute_availability()` acota la góndola "del
