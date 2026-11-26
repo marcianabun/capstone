@@ -1,6 +1,6 @@
 # Listado de Tareas
 
-Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-25** (110 ítems: 96 hechos, 3 en curso, 2 pendientes y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
+Lista priorizada de todo el trabajo del proyecto ShelfVision AI. La fuente viva es [PROGRESS.md](../../../../PROGRESS.md) (sección "Pendientes (priorizados)", ítems con número fijo **#N**, dueño y estado); esta tabla es una copia de su estado al **2026-11-25** (110 ítems: 97 hechos, 3 en curso, 1 pendiente y 9 descartados) para que se pueda leer sin abrir el archivo. Cada ítem se toma agregando `(dueño: nombre)`, se trabaja en una rama (`feat/`, `fix/`, `docs/`...) y se cierra con un Pull Request (ver [Criterios de Terminado](Criterios%20de%20Terminado.md)).
 
 Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un hito del profesor o de Walmart). Los requisitos de origen están en [Lista de Requerimientos.xlsx](../Diseño/Lista%20de%20Requerimientos.xlsx) y [Lista de C. U..xlsx](../Diseño/Lista%20de%20C.%20U..xlsx).
 
@@ -115,4 +115,4 @@ Prioridad: el orden de "Pendientes" en `PROGRESS.md` (primero lo que bloquea un 
 | #107 | Hecho | Mariana | Ajustes de contenido de la presentación tras el ensayo del 2026-11-23 (comentarios recibidos en el ensayo, anotados por Mariana), para la pr… |
 | #108 | Pendiente | Sin asignar | Diagramas para la presentación (ensayo del 2026-11-23): un **dibujo de la arquitectura** del sistema (sus componentes: cámaras o fotos, pipe… |
 | #109 | Hecho | Mariana | Logos en la lámina 8 (Stack tecnológico), para que todos identifiquen cada tecnología: Python, OpenCV, NumPy, YOLO26 (Ultralytics), PyTorch,… |
-| #110 | Pendiente | Sin asignar | Documentar qué algoritmo y qué configuración se usaron para entrenar el detector, para responder a la comisión (pedido del 2026-11-23). Lo q… |
+| #110 | Hecho | Francisco | Documentar qué algoritmo y qué configuración se usaron para entrenar el detector, para responder a la comisión (pedido del 2026-11-23). Lo q… |

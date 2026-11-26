@@ -144,3 +144,89 @@ Son 30 épocas, SGD lr0 0.002 y ~8 min en una RTX 5060. Con más fotos de
 SKU-110K (1500) y lr0 0.0005 (`--lr0`) la mejora fuera de dominio baja y el
 mAP50-95 en SKU-110K sube solo de 0.533 a 0.548: no compensa. Resultados en
 DET-07 de `docs/test-plan.md`.
+
+## 8. Algoritmo y configuración del entrenamiento (#110)
+
+Lo que se usó de verdad, sacado de los registros y del `args.yaml` de cada
+corrida y del código de Ultralytics 8.4.168 (`utils/loss.py`,
+`utils/tal.py`, `engine/trainer.py`).
+
+**Respuesta corta**: aprendizaje supervisado con transferencia de
+aprendizaje. Se partió de `yolo26s` preentrenado en COCO, se reentrenó en
+SKU-110K con una sola clase («producto») usando el optimizador AdamW, y
+después se hizo un ajuste fino con SGD sobre fotos de otro origen, con
+vistas giradas y ruido de cámara.
+
+### El modelo
+
+`yolo26s`: red convolucional de detección de una sola etapa, con salidas en
+tres escalas (pasos de 8, 16 y 32 px) y 9,9 millones de parámetros (9,5 al
+fusionar capas para inferir; 20,8 GFLOPs). Al pasar de las 80 clases de
+COCO a una sola, el entrenamiento base copió 696 de los 708 tensores de
+`yolo26s.pt`; los demás parten de cero.
+
+### Cómo aprende
+
+En cada lote la red predice cajas, se comparan con las anotadas y se
+ajustan los pesos por retropropagación.
+
+- **Dos cabezas** (detector de extremo a extremo): en el entrenamiento, una
+  asigna varias predicciones a cada producto (`topk` 10, da más señal para
+  aprender) y la otra una sola (`topk` 7 que se reduce a 1). Al inferir se
+  usa la segunda (`nms=False`), por eso no hace falta NMS. La pérdida total
+  pondera ambas: el peso de la primera baja de 0,8 a 0,1 a lo largo de las
+  épocas y el de la segunda sube de 0,2 a 0,9 (*ProgLoss*).
+- **Pérdida de cada cabeza**: 7,5 x CIoU (calce de la caja) + 0,5 x entropía
+  cruzada binaria (si es producto) + 1,5 x L1 de las distancias a los
+  bordes. YOLO26 no usa *Distribution Focal Loss*.
+- **Asignación de etiquetas**: `TaskAlignedAssigner`, que elige las
+  predicciones según clasificación y calce a la vez. Una caja con un lado
+  menor que 16 px se agranda a 16 px solo para elegir candidatas, para que
+  los productos chicos no se queden sin ejemplos (*STAL*).
+- Se guarda como `best.pt` la época con mayor **mAP50-95** en validación,
+  con el promedio móvil exponencial de los pesos.
+
+### Entrenamiento base (SKU-110K)
+
+| Parámetro | Valor |
+| --- | --- |
+| Datos | 8.219 fotos de entrenamiento (Ultralytics descarta 3 corruptas), 588 de validación y 2.936 de prueba (se evalúan 2.935) |
+| Épocas | 50 (la parada temprana, 15 épocas sin mejora, no se activó); mejor época: 40 |
+| Tamaño de entrada | 1280 px |
+| Lote | 1 en las épocas 1 a 3 y 2 desde la 4; gradientes acumulados hasta 64 imágenes |
+| Optimizador | **AdamW**, tasa de aprendizaje 0,002, momentum (beta 1) 0,9 |
+| Decaimiento de pesos | 0,0005 (no se aplica a sesgos ni a normalización) |
+| Tasa de aprendizaje | 3 épocas de calentamiento y descenso lineal hasta el 1 % |
+| Aumentación | mosaico (apagado en las últimas 10 épocas), volteo horizontal 50 %, color HSV (0,015 / 0,7 / 0,4), traslación 0,1, escala 0,5 |
+| Otros | precisión mixta (AMP), semilla 0 |
+| Equipo y tiempo | RTX 5060 8 GB, torch 2.14.0, Ultralytics 8.4.168; ~9,7 h de cómputo según `results.csv`, en varios tramos |
+| Resultado en prueba | P 0,915, R 0,885, mAP50 0,950, mAP50-95 0,610 |
+
+**Por qué AdamW y no MuSGD**, el optimizador que destaca YOLO26: se dejó
+`optimizer=auto`, y Ultralytics elige MuSGD solo sobre 10.000 iteraciones.
+Aquí fueron 6.450 (129 pasos por época x 50), así que eligió AdamW con tasa
+0,002 e ignoró el `lr0: 0.01` que aparece en `args.yaml`.
+
+### Ajuste fino (modelo final, `yolo26s-finetune-ruido-v3`)
+
+| Parámetro | Valor |
+| --- | --- |
+| Punto de partida | `best.pt` del entrenamiento base |
+| Datos | 516 imágenes: 24 fotos de Kaggle CC0 x 3 vistas (frente, 20° y 35°) x 3 (limpia y 2 con ruido) = 216, más 300 de SKU-110K para no olvidar |
+| Épocas | 30, mejor época: 26; lote 2, 1280 px |
+| Optimizador | **SGD**, tasa 0,002, momentum 0,937, decaimiento de pesos 0,0005. Se fija a mano para que se respete la tasa (con `auto` se ignora) |
+| Tasa de aprendizaje | 3 épocas de calentamiento y descenso lineal hasta el 1 % |
+| Aumentación | la del entrenamiento base más giro de ±3° y perspectiva 0,0005 |
+| Tiempo | ~17 minutos |
+| Resultado | mAP50 0,844 en las 36 vistas de las 12 fotos de Kaggle apartadas; en la prueba de SKU-110K, mAP50 0,935 y mAP50-95 0,535 |
+
+### Límites que hay que declarar
+
+- Las 12 fotos de Kaggle no se usaron para ajustar los pesos, pero **sí para
+  elegir** la época (`best.pt`) y la variante final entre v2, v3 y v4. Su
+  0,844 es por eso optimista y no es una prueba independiente. La elección
+  de época pesa poco (0,844 en la 26 contra 0,841 en la última). La medida
+  independiente del modelo final es la de la prueba de SKU-110K.
+- El ajuste fino baja el mAP50-95 en SKU-110K de 0,610 a 0,535: se ganó en
+  fotos de otro origen a cambio de cajas menos ajustadas en SKU-110K.
+- Una sola semilla por corrida: diferencias de centésimas pueden ser azar.
